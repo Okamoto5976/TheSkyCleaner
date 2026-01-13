@@ -58,6 +58,7 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject AddToPool()
     {
         GameObject obj = Instantiate(m_prefab, m_transform);
+        obj.GetComponent<ReturnObjectToPool>().InjectPoolManager(this);
         obj.SetActive(false);
         obj.name += m_objectPool.Count();
         m_objectPool.Add(obj);

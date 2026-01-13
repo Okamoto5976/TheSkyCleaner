@@ -25623,7 +25623,7 @@ MonoBehaviour:
   m_objectPoolManager: {fileID: 1368636904}
   m_isChild: 0
   m_isRelative: 1
-  m_offsetPosition: {x: 0, y: 0, z: 0}
+  m_offsetPosition: {x: 0, y: 0, z: 1.3}
   m_offsetRotation: {x: 0, y: 0, z: 0}
   m_offsetScale: {x: 1, y: 1, z: 1}
 --- !u!114 &762919356

@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     public void ChangeSpeed(float dir)
     {
         m_onChangeSpeed.Invoke(dir);
-        Debug.Log(dir);
     }
 
     public void MainActionTap()

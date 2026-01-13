@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BulletController : MonoBehaviour
+public class ConstantFloatEvent : MonoBehaviour
 {
     [SerializeField] private UnityEvent<float> m_onMove;
     private void Update()
