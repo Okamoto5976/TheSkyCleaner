@@ -26539,7 +26539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
   m_prefab: {fileID: 590811250849658307, guid: 3892b4aa4524b4cecbc70342a8a04a24, type: 3}
-  m_poolCount: 100
+  m_poolCount: 5
   m_forcePoolCount: 1
 --- !u!4 &1534036051 stripped
 Transform:
