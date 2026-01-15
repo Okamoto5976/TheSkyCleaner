@@ -2,16 +2,39 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+public enum SkillType//強化を作用する際、種類特定のため
+{
+    Arm_PowerUP,
+    SpeedUP,
+    NetUP
+}
+
 [CreateAssetMenu(menuName = "Scriptable Objects/SkillSO")]
 public class SkillSO : ScriptableObject
 {
     [SerializeField] private SkillDataSO m_skilldata;
+    [SerializeField] private SkillType m_skilltype;
     [SerializeField] private string m_skillname;
     [SerializeField] private float m_updataValue;
+
+    [SerializeField] private Sprite m_icon;
+    [SerializeField] private int m_cost;
+    [SerializeField] private string m_info;
+    [SerializeField] private SkillSO[] m_needskill;
     [SerializeField] private Material m_material;
+
+    public SkillType SkillType { get => m_skilltype;}
     public string Skillname { get => m_skillname; }
     public float UpdataValue { get => m_updataValue; }//変更値
     //取得例float value = skillDataSO.SkillSO[0].UpdataValue;
+
+    public Sprite Icon { get => m_icon; }
+
+    public int Cost { get => m_cost; }
+
+    public string Info { get => m_info; }
+
+    public SkillSO[] NeedSkill { get => m_needskill; }
 
     public SkillDataSO SkillData { get => m_skilldata; }
 
