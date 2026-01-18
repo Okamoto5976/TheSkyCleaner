@@ -1,73 +1,86 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 public class Arm : MonoBehaviour
 {
-    private enum ArmType
+    public enum State
     {
-        Right,
-        Left
+        Idle,
+        Moving,
+        Returning
     }
 
-    [SerializeField] private Transform PlayerPosition;
-    [SerializeField] private float m_speed = 6.0f;
-    private Vector3 m_dir;
-    private Vector3 m_playerposition;
+    [SerializeField] private Transform m_player;
 
-    private Ray m_ray;
-    private bool m_ismove = false;
-    private int timer;
+
+    private State m_state  = State.Idle;
+
+    private Transform m_targetEnemy;
+    private Transform m_returnPoint;
+
+    [SerializeField] private float m_speed = 6.0f;
+
+    private void Start()
+    {
+        m_returnPoint = m_player;
+    }
 
     private void Update()
     {
-        m_playerposition = PlayerPosition.position;
-
-        m_ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        Vector3 target;
-        if(Physics.Raycast(m_ray, out RaycastHit hit))
+        switch(m_state)
         {
-            target = hit.point;
-        }
-        else
-        {
-            target = m_ray.GetPoint(100f);
-        }
-        m_dir = (target - transform.position).normalized;
-
-        if(Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            Debug.Log("ƒA[ƒ€");
-            m_ismove=true;
+            case State.Moving:
+                Move();
+                break;
+            case State.Returning:
+                Return();
+                break;
         }
 
-        if(m_ismove == true) ArmMove();
-        if(m_ismove == false) ArmReturn();
+        Debug.Log(m_state);
     }
 
-    private void Awake()
+    public void MoveToEnemy(Transform enemy)
     {
-        
+        m_targetEnemy= enemy;
+        transform.SetParent(null);
+        m_state = State.Moving;
     }
 
-    public void ArmMove()
+
+    public void Move()
     {
-        if (timer > 1000)
+        if(m_targetEnemy == null)
         {
-            this.gameObject.transform.parent = null;
-            m_ismove = false;
+            Return();
+            return;
         }
-        timer++;
-        transform.position += m_dir * m_speed * Time.deltaTime;
-    }
 
-    public void ArmReturn()
-    {
-        Debug.Log("return");
-        timer = 0;
-        transform.position = Vector3.MoveTowards
-            (transform.position,
-            m_playerposition,
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            m_targetEnemy.position,
             m_speed * Time.deltaTime);
+
+        if(Vector3.Distance(transform.position, m_targetEnemy.position) < 0.05f)
+        {
+            m_state = State.Returning;
+        }
+    }
+
+    public void Return()
+    {
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            m_returnPoint.position,
+            m_speed * Time.deltaTime);
+        Debug.Log("return");
+
+        if(Vector3.Distance(transform.position, m_returnPoint.position) < 0.05f)
+        {
+            transform.SetParent(m_returnPoint.parent);
+            m_state = State.Idle;
+        }
     }
 }
