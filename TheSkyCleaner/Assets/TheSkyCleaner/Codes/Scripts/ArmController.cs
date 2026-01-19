@@ -17,7 +17,6 @@ public class ArmController : MonoBehaviour
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
 
     [SerializeField] private List<Arm> m_arms;
-    [SerializeField] private List<bool> m_isArmsShot = new List<bool>();
     [SerializeField] private List<Arm> m_activearms = new List<Arm>();
     [SerializeField] private Image m_lockOnMarkerPrefab;
     [SerializeField] private int m_maxCount = 2;
@@ -40,7 +39,6 @@ public class ArmController : MonoBehaviour
             m_lockOnMarkers.Add(marker);
 
             m_arms[i].gameObject.SetActive(true);
-            m_isArmsShot.Add(false);
             //m_lockOnArm.Add(m_arms[i].transform);
         }
     }
@@ -54,16 +52,17 @@ public class ArmController : MonoBehaviour
     {
         for (int i = 0; i < m_LockEnemies.Count; i++)
         {
-            if (m_isArmsShot[i] == false)
-            {
-                int Id = m_LockEnemies[i].enemyId; //“G‚©ƒSƒ~‚©
+            if (m_arms.Count == 0) return;
 
-                m_arms[i].MoveToEnemy(m_LockEnemies[i].transform, m_speed ,i);
-                
+            Arm arm = m_arms[0];
+            m_arms.RemoveAt(0);
+            m_activearms.Add(arm);
 
-                Debug.Log(Id);
-                m_isArmsShot[i] = true;
-            }
+            arm.MoveToEnemy(m_LockEnemies[i].transform, m_speed);
+
+            int Id = m_LockEnemies[i].enemyId; //“G‚©ƒSƒ~‚©
+
+            Debug.Log(Id);
         }
     }
 
@@ -90,7 +89,7 @@ public class ArmController : MonoBehaviour
         );
     }
 
-    void UpdateLockOnCandidates()//”ÍˆÍ“à‚Ì‚·‚×‚Ä‚Ìpool“à‚Ì“G‚ðŽæ“¾
+    private void UpdateLockOnCandidates()//”ÍˆÍ“à‚Ì‚·‚×‚Ä‚Ìpool“à‚Ì“G‚ðŽæ“¾
     {
         m_LockOnCandidates.Clear();
 
@@ -113,18 +112,44 @@ public class ArmController : MonoBehaviour
 
     private void UpdateLockEnemies()//ŒŸ’m‚³‚ê‚½’†‚Å‹ß‚¢‚à‚Ì‚ð“ü‚ê‚é
     {
-        m_LockEnemies.Clear();
-
         Vector3 selfPos = transform.position;
 
-        var sorted = m_LockOnCandidates
+        var sort = m_LockOnCandidates
             .OrderBy(e => (e.transform.position - selfPos).magnitude)
-            .Take(m_lockOnMarkers.Count);
+            .Take(m_maxCount);
 
-        foreach (var enemy in sorted)
+        //for (int i = m_LockEnemies.Count-1;i>=0;i--)
+        //{
+        //    if(!m_LockOnCandidates.Contains(m_LockEnemies[i]))
+        //    {
+        //        m_LockEnemies.RemoveAt(i);
+        //    }
+        //}
+
+        foreach(var enemy in sort)
         {
-            m_LockEnemies.Add(enemy);
+            if(m_LockEnemies.Count < m_maxCount)
+            {
+                m_LockEnemies.Add(enemy);
+            }
+            else
+            {
+                m_LockEnemies.RemoveAt(0);
+                m_LockEnemies.Add(enemy);
+            }
         }
+
+
+        //Vector3 selfPos = transform.position;
+
+        //var sorted = m_LockOnCandidates
+        //    .OrderBy(e => (e.transform.position - selfPos).magnitude)
+        //    .Take(m_lockOnMarkers.Count);
+
+        //foreach (var enemy in sorted)
+        //{
+        //    m_LockEnemies.Add(enemy);
+        //}
     }
 
     private void UpdateLockOnMarkers(List<T_Enemy> lockEnemies)
@@ -148,8 +173,9 @@ public class ArmController : MonoBehaviour
         }
     }
 
-    public void Return(int index,bool isreturn)
+    public void Return(Arm arm)
     {
-        m_isArmsShot[index] = isreturn;
+        m_activearms.Remove(arm);
+        m_arms.Add(arm);
     }
 }
