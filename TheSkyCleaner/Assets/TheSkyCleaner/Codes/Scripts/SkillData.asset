@@ -85,7 +85,7 @@ MonoBehaviour:
   m_info: PowerUP level 1
   m_needskill: []
   m_material:
-    m_material_1: 10
+    m_material_1: 20
     m_material_2: 10
 --- !u!114 &4937409227621946373
 MonoBehaviour:

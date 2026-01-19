@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
 
 public class Arm : MonoBehaviour
 {
@@ -13,21 +10,24 @@ public class Arm : MonoBehaviour
     }
 
     [SerializeField] private Transform m_player;
-
+    [SerializeField] private ArmController m_controller;
+    private int m_index;
 
     private State m_state  = State.Idle;
 
     private Transform m_targetEnemy;
-    private Transform m_returnPoint;
+    private Transform m_transform;
+    private Vector3 m_returnPosition;
 
-    [SerializeField] private float m_speed = 6.0f;
+    private float m_speed;
 
     private void Start()
     {
-        m_returnPoint = m_player;
+        m_transform = transform;
+        m_returnPosition = m_transform.localPosition;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         switch(m_state)
         {
@@ -42,10 +42,12 @@ public class Arm : MonoBehaviour
         Debug.Log(m_state);
     }
 
-    public void MoveToEnemy(Transform enemy)
+    public void MoveToEnemy(Transform enemy,float speed,int index)
     {
+        m_index = index;
+        m_speed = speed;
         m_targetEnemy= enemy;
-        transform.SetParent(null);
+        m_transform.SetParent(null);
         m_state = State.Moving;
     }
 
@@ -58,12 +60,12 @@ public class Arm : MonoBehaviour
             return;
         }
 
-        transform.position = Vector3.MoveTowards(
-            transform.position,
+        m_transform.position = Vector3.MoveTowards(
+            m_transform.position,
             m_targetEnemy.position,
-            m_speed * Time.deltaTime);
+            m_speed);
 
-        if(Vector3.Distance(transform.position, m_targetEnemy.position) < 0.05f)
+        if(Vector3.Distance(m_transform.position, m_targetEnemy.position) < 0.05f)
         {
             m_state = State.Returning;
         }
@@ -71,16 +73,19 @@ public class Arm : MonoBehaviour
 
     public void Return()
     {
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            m_returnPoint.position,
-            m_speed * Time.deltaTime);
+        m_transform.position = Vector3.MoveTowards(
+            m_transform.position,
+            m_player.position + m_returnPosition,
+            m_speed);
         Debug.Log("return");
 
-        if(Vector3.Distance(transform.position, m_returnPoint.position) < 0.05f)
+        if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {
-            transform.SetParent(m_returnPoint.parent);
+            m_transform.SetParent(m_player.parent);
             m_state = State.Idle;
+            m_controller.Return(m_index,false);
+
+            m_transform.localPosition = m_returnPosition;
         }
     }
 }

@@ -5222,6 +5222,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100050511}
   m_CullTransparentMesh: 1
+--- !u!114 &134283624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/SubAction
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
+  m_ActionId: 8f7a0a2a-1828-4e92-afb1-d5fedbb5120c
 --- !u!1 &236725452
 GameObject:
   m_ObjectHideFlags: 0
@@ -14976,7 +14990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &277217048
 Transform:
   m_ObjectHideFlags: 0
@@ -15005,7 +15019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1362814933}
-  m_speed: 6
+  m_controller: {fileID: 0}
 --- !u!65 &277217050
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26232,6 +26246,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_reticle: {fileID: 2008558168}
+  m_onReticleInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1362814934}
+        m_TargetAssemblyTypeName: ArmController, Assembly-CSharp
+        m_MethodName: MoveReticle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_mainAction: {fileID: 2048231832}
   m_onMainActionInputTap:
     m_PersistentCalls:
@@ -26266,6 +26296,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_subAction: {fileID: 134283624}
+  m_onSubActionInputTap:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1362814934}
+        m_TargetAssemblyTypeName: ArmController, Assembly-CSharp
+        m_MethodName: ArmShot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onSubActionInputHold:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onSubActionInputHoldState:
+    m_PersistentCalls:
+      m_Calls: []
   m_axialAction: {fileID: 548410502}
   m_onAxialAction:
     m_PersistentCalls:
@@ -26735,6 +26787,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1148293374}
+  - component: {fileID: 1148293376}
+  - component: {fileID: 1148293375}
   m_Layer: 0
   m_Name: RightArm
   m_TagString: Untagged
@@ -26758,6 +26812,41 @@ Transform:
   - {fileID: 1013052341}
   m_Father: {fileID: 332467643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1148293375
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148293373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1148293376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148293373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7f250b29120d842b31f5cd4ac41977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arm
+  m_player: {fileID: 1362814933}
+  m_controller: {fileID: 1362814934}
 --- !u!1 &1362814932
 GameObject:
   m_ObjectHideFlags: 0
@@ -26788,8 +26877,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1519150854}
   - {fileID: 277217048}
+  - {fileID: 1733557517}
   m_Father: {fileID: 762919352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1362814934
@@ -26804,16 +26893,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea1dc84ab4bbb44adeac6cecfb0f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmController
-  rect: {fileID: 100050512}
-  canvas: {fileID: 1908726483}
-  mainCamera: {fileID: 330585545}
+  m_rect: {fileID: 100050512}
+  m_canvas: {fileID: 1908726483}
+  m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 331325063}
-  m_arm:
-  - {fileID: 1519150855}
-  - {fileID: 277217049}
-  lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
-  maxLockOnCount: 2
-  m_speed: 6
+  m_arms:
+  - {fileID: 1755327139}
+  - {fileID: 1148293376}
+  m_isArmsShot: 
+  m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
+  m_maxCount: 3
+  m_speed: 0.2
+  m_canmove: 1
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -26984,10 +27075,8 @@ GameObject:
   - component: {fileID: 1519150854}
   - component: {fileID: 1519150858}
   - component: {fileID: 1519150857}
-  - component: {fileID: 1519150856}
-  - component: {fileID: 1519150855}
   m_Layer: 0
-  m_Name: L_Arm
+  m_Name: L_Arm_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27002,47 +27091,12 @@ Transform:
   m_GameObject: {fileID: 1519150853}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.151, y: -0.701, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1362814933}
+  m_Father: {fileID: 1733557517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1519150855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519150853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7f250b29120d842b31f5cd4ac41977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Arm
-  m_player: {fileID: 1362814933}
-  m_speed: 6
---- !u!65 &1519150856
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519150853}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1519150857
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -27553,6 +27607,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694747501}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1733557516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1733557517}
+  - component: {fileID: 1733557518}
+  m_Layer: 0
+  m_Name: L_Arm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1733557517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733557516}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.151, y: -0.701, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1519150854}
+  m_Father: {fileID: 1362814933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1733557518
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733557516}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1755327137
 GameObject:
   m_ObjectHideFlags: 0
@@ -27562,6 +27670,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1755327138}
+  - component: {fileID: 1755327139}
+  - component: {fileID: 1755327140}
   m_Layer: 0
   m_Name: LeftArm
   m_TagString: Untagged
@@ -27585,6 +27695,41 @@ Transform:
   - {fileID: 1916106970}
   m_Father: {fileID: 332467643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1755327139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755327137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7f250b29120d842b31f5cd4ac41977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arm
+  m_player: {fileID: 1362814933}
+  m_controller: {fileID: 1362814934}
+--- !u!65 &1755327140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755327137}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0
@@ -28214,7 +28359,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 330585545}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -28336,6 +28481,20 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 580533852}
   m_SourcePrefab: {fileID: 100100000, guid: 95df89c0110704842a039e10e9b3de9b, type: 3}
+--- !u!114 &2008558168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/Reticle
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
+  m_ActionId: 899964c7-a04e-4063-80bd-effa1946adc3
 --- !u!1 &2031329090
 GameObject:
   m_ObjectHideFlags: 0
