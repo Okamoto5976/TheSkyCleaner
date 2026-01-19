@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b86af75db267748825aa4b4e2ae81d, type: 3}
   m_Name: InputContainer
   m_EditorClassIdentifier: Assembly-CSharp::InputContainer
-  m_movementAxis: {fileID: 0}
-  m_mainAction: {fileID: 0}
+  m_movementAxis: {fileID: 11400000, guid: 6093f211fcd6ec748ae758e4e63d7615, type: 2}
+  m_reticleAxis: {fileID: 11400000, guid: 8eb0e75ca7903e54db90b84b9ea1aca2, type: 2}
+  m_mainAction: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
+  m_subAction: {fileID: 11400000, guid: 1a1b2746a7729ab4e8f4322d3a9ca759, type: 2}
+  m_shoulderLeft: {fileID: 11400000, guid: d92cbc4918b57d648989988c9aa16f90, type: 2}
+  m_shoulderRight: {fileID: 11400000, guid: 9a6b9f9c7ecd6e84d9b1ba496e8a12db, type: 2}
+  m_axialAction: {fileID: 11400000, guid: 36d023bb2faeaf643920e3f638d447db, type: 2}

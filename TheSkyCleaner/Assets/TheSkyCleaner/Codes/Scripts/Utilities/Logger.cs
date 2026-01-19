@@ -17,7 +17,7 @@ public class Logger : MonoBehaviour
     {
         if (m_isEnabled)
         {
-            Debug.Log($"<color~{m_hexColor}>{m_prefix}: {message}", context);
+            Debug.Log($"<color={m_hexColor}>{m_prefix}</color>: {message}", context);
         }
     }
 }

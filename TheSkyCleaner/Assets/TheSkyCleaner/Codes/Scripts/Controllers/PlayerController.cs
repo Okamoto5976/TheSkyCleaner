@@ -4,6 +4,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(MovementHandler))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Logger")]
+    [SerializeField] private Logger m_logger;
+
+    [Header("Events")]
+    [SerializeField] private UnityEvent<Vector2> m_onMoveAll;
     [SerializeField] private UnityEvent<float> m_onMoveHorizontal;
     [SerializeField] private UnityEvent<float> m_onMoveVertical;
     [SerializeField] private UnityEvent m_onMainActionTap;
@@ -30,6 +35,14 @@ public class PlayerController : MonoBehaviour
         m_movementHandler.MoveVertical(dir);
     }
 
+    public void MoveAll(Vector2 dir)
+    {
+        m_onMoveAll.Invoke(dir);
+        m_onMoveHorizontal.Invoke(dir.x);
+        m_onMoveVertical.Invoke(dir.y);
+        m_movementHandler.MoveOnZ(dir);
+    }
+
     public void ChangeSpeed(float dir)
     {
         m_onChangeSpeed.Invoke(dir);
@@ -44,12 +57,12 @@ public class PlayerController : MonoBehaviour
     {
         if (state)
         {
-            Debug.Log("Hold Started");
+            m_logger.Log("Hold Started", this);
             m_onMainActionHoldStarted.Invoke();
         }
         else
         {
-            Debug.Log("Hold Cancelled");
+            m_logger.Log("Hold Cancelled", this);
             m_onMainActionHoldCancelled.Invoke();
         }
     }
