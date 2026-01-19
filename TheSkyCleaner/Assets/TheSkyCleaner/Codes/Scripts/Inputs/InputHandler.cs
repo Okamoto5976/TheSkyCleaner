@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 using UnityEngine.Events;
 
 public class InputHandler : MonoBehaviour
 {
+    [SerializeField] private InputContainer m_container;
+
     [SerializeField] private InputActionReference m_horizontal;
     [SerializeField] private UnityEvent<float> m_onHorizontalInput;
     [SerializeField] private InputActionReference m_vertical;
     [SerializeField] private UnityEvent<float> m_onVerticalInput;
-    [SerializeField]private InputActionReference m_mainAction;
+    [SerializeField] private InputActionReference m_mainAction;
     [SerializeField] private UnityEvent m_onMainActionInputTap;
     [SerializeField] private UnityEvent<float> m_onMainActionInputHold;
     [SerializeField] private UnityEvent<bool> m_onMainActionInputHoldState;
@@ -25,23 +26,11 @@ public class InputHandler : MonoBehaviour
         m_mainActionHoldState = false;
     }
 
-    private void OnEnable()
-    {
-        // m_mainAction.action.started += OnMainActionInput;
-        // m_mainAction.action.performed += OnMainActionInput;
-        // m_mainAction.action.canceled += OnMainActionInput;
-
-    }
-
-    private void OnDisable()
-    {
-        // m_mainAction.action.started -= OnMainActionInput;
-        // m_mainAction.action.performed -= OnMainActionInput;
-        // m_mainAction.action.canceled -= OnMainActionInput;
-    }
-
     private void Update()
     {
+        m_container.SetMovementAxis(new Vector2(m_horizontal.action.ReadValue<float>(), m_vertical.action.ReadValue<float>()));
+
+
         m_onHorizontalInput.Invoke(m_horizontal.action.ReadValue<float>());
         m_onVerticalInput.Invoke(m_vertical.action.ReadValue<float>());
         m_onAxialAction.Invoke(m_axialAction.action.ReadValue<float>());

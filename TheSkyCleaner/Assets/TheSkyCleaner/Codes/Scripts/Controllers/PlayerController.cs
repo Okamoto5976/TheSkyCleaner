@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(MovementHandler))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private UnityEvent<float> m_onMoveHorizontal;
@@ -10,14 +11,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent m_onMainActionHoldCancelled;
     [SerializeField] private UnityEvent<float> m_onChangeSpeed;
 
+    private MovementHandler m_movementHandler;
+
+    private void Awake()
+    {
+        m_movementHandler = GetComponent<MovementHandler>();
+    }
+
     public void MoveHorizontal(float dir)
     {
         m_onMoveHorizontal.Invoke(dir);
+        m_movementHandler.MoveHorizontal(dir);
     }
 
     public void MoveVertical(float dir)
     {
         m_onMoveVertical.Invoke(dir);
+        m_movementHandler.MoveVertical(dir);
     }
 
     public void ChangeSpeed(float dir)
