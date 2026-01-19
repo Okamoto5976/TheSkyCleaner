@@ -18,6 +18,7 @@ public class ArmController : MonoBehaviour
 
     [SerializeField] private List<Arm> m_arms;
     [SerializeField] private List<bool> m_isArmsShot = new List<bool>();
+    [SerializeField] private List<Arm> m_activearms = new List<Arm>();
     [SerializeField] private Image m_lockOnMarkerPrefab;
     [SerializeField] private int m_maxCount = 2;
 
