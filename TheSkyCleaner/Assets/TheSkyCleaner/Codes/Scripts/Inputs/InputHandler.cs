@@ -12,13 +12,15 @@ public class InputHandler : MonoBehaviour
 
         [SerializeField] private UnityEvent onTap;
         public readonly UnityEvent OnTapEvent => onTap;
+
         [SerializeField] private UnityEvent<float> whileHoldTime;
         public readonly UnityEvent<float> WhileHoldTimeEvent => whileHoldTime;
+
         [SerializeField] private UnityEvent<bool> onHold;
         public readonly UnityEvent<bool> OnHoldEvent => onHold;
 
         [HideInInspector] public float time;
-        [HideInInspector] public bool state;
+        [HideInInspector] public bool isHoldSuccessful;
     }
 
     [Header("Logger")]
@@ -35,16 +37,19 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] private ButtonAction m_mainAction;
     [SerializeField] private ButtonAction m_subAction;
+    [SerializeField] private ButtonAction m_strongAction;
+    [SerializeField] private ButtonAction m_weakAction;
     [SerializeField] private ButtonAction m_shoulderLeft;
     [SerializeField] private ButtonAction m_shoulderRight;
 
-    [SerializeField] private InputActionReference m_axialAction;
-    [SerializeField] private UnityEvent<float> m_onAxialAction;
-
     private void Awake()
     {
-        m_mainAction.state = false;
-        m_subAction.state = false;
+        m_mainAction.isHoldSuccessful = false;
+        m_subAction.isHoldSuccessful = false;
+        m_strongAction.isHoldSuccessful = false;
+        m_weakAction.isHoldSuccessful = false;
+        m_shoulderLeft.isHoldSuccessful = false;
+        m_shoulderRight.isHoldSuccessful = false;
     }
 
     private void Update()
@@ -61,8 +66,11 @@ public class InputHandler : MonoBehaviour
         m_container.SetSubAction(m_subAction.Action.IsPressed());
         OnButtonAction(ref m_subAction);
 
-        m_container.SetAxialAction(m_axialAction.action.ReadValue<float>());
-        m_onAxialAction.Invoke(m_container.AxialAction);
+        m_container.SetStrongAction(m_strongAction.Action.IsPressed());
+        OnButtonAction(ref m_strongAction);
+
+        m_container.SetWeakAction(m_weakAction.Action.IsPressed());
+        OnButtonAction(ref m_weakAction);
 
         m_container.SetShoulderLeftAction(m_shoulderLeft.Action.IsPressed());
         OnButtonAction(ref m_shoulderLeft);
@@ -78,10 +86,10 @@ public class InputHandler : MonoBehaviour
             if (buttonAction.time > InputSystem.settings.defaultHoldTime)
             {
                 buttonAction.WhileHoldTimeEvent.Invoke(buttonAction.time - InputSystem.settings.defaultHoldTime);
-                if (!buttonAction.state)
+                if (!buttonAction.isHoldSuccessful)
                 {
                     m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
-                    buttonAction.state = true;
+                    buttonAction.isHoldSuccessful = true;
                     buttonAction.OnHoldEvent.Invoke(true);
                 }
             }
@@ -97,7 +105,7 @@ public class InputHandler : MonoBehaviour
             {
                 m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
                 buttonAction.OnHoldEvent.Invoke(false);
-                buttonAction.state = false;
+                buttonAction.isHoldSuccessful = false;
             }
             buttonAction.time = 0;
         }

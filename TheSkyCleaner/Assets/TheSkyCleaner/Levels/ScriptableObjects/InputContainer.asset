@@ -16,6 +16,7 @@ MonoBehaviour:
   m_reticleAxis: {fileID: 11400000, guid: 8eb0e75ca7903e54db90b84b9ea1aca2, type: 2}
   m_mainAction: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
   m_subAction: {fileID: 11400000, guid: 1a1b2746a7729ab4e8f4322d3a9ca759, type: 2}
+  m_strongAction: {fileID: 11400000, guid: 6a994c0339011ab40b28a12c4a9be208, type: 2}
+  m_weakAction: {fileID: 11400000, guid: 33e8a99f40a42a94aae8348253bf3839, type: 2}
   m_shoulderLeft: {fileID: 11400000, guid: d92cbc4918b57d648989988c9aa16f90, type: 2}
   m_shoulderRight: {fileID: 11400000, guid: 9a6b9f9c7ecd6e84d9b1ba496e8a12db, type: 2}
-  m_axialAction: {fileID: 11400000, guid: 36d023bb2faeaf643920e3f638d447db, type: 2}

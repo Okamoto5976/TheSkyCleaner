@@ -8,16 +8,24 @@ public class Logger : MonoBehaviour
 
     private string m_hexColor;
 
+    private static int m_logCount;
+
     private void OnValidate()
     {
         m_hexColor = "#"+ColorUtility.ToHtmlStringRGBA(m_color);
+    }
+
+    private void LateUpdate()
+    {
+        m_logCount = 0;
     }
 
     public void Log(string message, Object context)
     {
         if (m_isEnabled)
         {
-            Debug.Log($"<color={m_hexColor}>{m_prefix}</color>: {message}", context);
+            Debug.Log($"[{m_logCount}] <color={m_hexColor}>{m_prefix}</color>: {context.name} -> {message}", context);
+            m_logCount++;
         }
     }
 }
