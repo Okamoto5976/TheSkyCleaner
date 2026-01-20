@@ -3,12 +3,12 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<float> m_onMoveHorizontal;
-    [SerializeField] private UnityEvent<float> m_onMoveVertical;
-    [SerializeField] private UnityEvent m_onMainActionTap;
-    [SerializeField] private UnityEvent m_onMainActionHoldStarted;
-    [SerializeField] private UnityEvent m_onMainActionHoldCancelled;
-    [SerializeField] private UnityEvent<float> m_onChangeSpeed;
+    [SerializeField] private UnityEvent<float> m_onMoveHorizontal;  //平行移動 float変換
+    [SerializeField] private UnityEvent<float> m_onMoveVertical;    //垂直移動 float変換
+    [SerializeField] private UnityEvent m_onMainActionTap;          //マウスhidari クリック入力
+    [SerializeField] private UnityEvent m_onMainActionHoldStarted;  //マウス右ホールド
+    [SerializeField] private UnityEvent m_onMainActionHoldCancelled;//マウス右ホールドキャンセル
+    [SerializeField] private UnityEvent<float> m_onChangeSpeed;     //プレイヤー速度変化
 
     public void MoveHorizontal(float dir)
     {
@@ -23,15 +23,17 @@ public class PlayerController : MonoBehaviour
     public void ChangeSpeed(float dir)
     {
         m_onChangeSpeed.Invoke(dir);
-        Debug.Log(dir);
     }
 
+    /// <summary>
+    /// 左クリックした時にインスペクターでいじった関数呼び出し
+    /// </summary>
     public void MainActionTap()
     {
         m_onMainActionTap.Invoke();
     }
 
-    public void MainActionHoldSetState(bool state)
+    public void MainActionHoldSetState(bool state) //メイン制御?
     {
         if (state)
         {

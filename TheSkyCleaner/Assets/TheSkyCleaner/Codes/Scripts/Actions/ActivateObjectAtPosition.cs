@@ -41,4 +41,9 @@ public class ActivateObjectAtPosition : MonoBehaviour
 
         t.localScale = m_offsetScale;
     }
+
+    public void SetOffsetPosition(Vector3 pos)
+    {
+        m_offsetPosition = pos;
+    }
 }

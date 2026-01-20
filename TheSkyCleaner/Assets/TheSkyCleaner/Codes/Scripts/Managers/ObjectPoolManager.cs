@@ -14,7 +14,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     private Transform m_transform;
 
-    private void Awake()
+        private void Awake()
     {
         m_objectPool = new();
         m_inUseQue = new();
@@ -58,10 +58,10 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject AddToPool()
     {
         GameObject obj = Instantiate(m_prefab, m_transform);
+        obj.GetComponent<ReturnObjectToPool>().InjectPoolManager(this);
         obj.SetActive(false);
         obj.name += m_objectPool.Count();
         m_objectPool.Add(obj);
         return obj;
     }
-
 }
