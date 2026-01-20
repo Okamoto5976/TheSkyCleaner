@@ -27,8 +27,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent<float> m_onChangeSpeed;
     [SerializeField] private UnityEvent<bool> m_onDodge;
 
-    [SerializeField] private Vector2 m_hogeRange;
-
     private MovementHandler m_movementHandler;
     private float m_strongHoldValue;
     private float m_weakHoldValue;
