@@ -1,10 +1,12 @@
 
 using System.Collections;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnTEManager : MonoBehaviour
 {
+    [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_pool; // Inspector で割り当て
 
 
@@ -14,18 +16,34 @@ public class SpawnTEManager : MonoBehaviour
     [SerializeField] private float m_spawnTrashInterval = 0.3f;
 
     private bool m_isTrash = true;  //ゴミかどうかの判別
+    private WaitForSeconds m_sleepTime;
 
-    private GameObject m_poolObj;
+
+    private void Awake()
+    {
+        m_sleepTime = new(m_spawnTrashInterval);
+        StartCoroutine(SpawnOnTimer());
+    }
+
+    private IEnumerator SpawnOnTimer()
+    {
+        while(true)
+        {
+            yield return m_sleepTime;
+            SpawnOne();
+        }
+    }
 
     public GameObject SpawnOne()
     {
+        m_logger.Log($"Test", this);
         if (m_pool == null)
         {
             Debug.LogWarning("[SpawnTEManager] ObjectPoolManager の参照がありません。Inspectorで設定してください。");
             return null;
         }
 
-        m_poolObj = m_pool.GetFromPool(true); //呼び出し
+        GameObject obj = m_pool.GetFromPool(true); //呼び出し
         int random = UnityEngine.Random.Range(1, 10);
         switch(random)
         {
@@ -37,16 +55,17 @@ public class SpawnTEManager : MonoBehaviour
         if (m_isTrash)
         {
             //ゴミの設定
-            SetTrashInfo();
+            SetTrashInfo(obj);
         }
         else
         {
             //敵の設定
-            SetEnemyInfo();
+            SetEnemyInfo(obj);
         }
 
-        Debug.Log(m_poolObj);
-        return m_poolObj;
+        Debug.Log(obj);
+        
+        return obj;
     }
 
     //public void SetTrashInfo()
@@ -59,21 +78,24 @@ public class SpawnTEManager : MonoBehaviour
     //        //m_pool.ReturnToPool(m_poolObj);
     //}
 
-    public IEnumerator SetTrashInfo()
+    public void SetTrashInfo(GameObject obj)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(m_spawnTrashInterval);
-            // X/Y を指定範囲でランダム、Z は既存の m_spawnPos.z を採用
-            float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
-            float randY = UnityEngine.Random.Range(m_spawnTrashMin.y, m_spawnTrashMax.y);
-            m_poolObj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
-            Debug.Log(m_poolObj.name + ":ゴミです");
-            //m_pool.ReturnToPool(m_poolObj);
-        }
+        // X/Y を指定範囲でランダム、Z は既存の m_spawnPos.z を採用
+        SetRandomPosition(obj);
+        Debug.Log(obj.name + ":ゴミです");
+        //m_pool.ReturnToPool(m_poolObj);
+
     }
-    public void SetEnemyInfo()
+    public void SetEnemyInfo(GameObject obj)
     {
-        Debug.Log(m_poolObj.name + ":敵です");
+        SetRandomPosition(obj);
+        Debug.Log(obj.name + ":敵です");
+    }
+
+    private void SetRandomPosition(GameObject obj)
+    {
+        float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
+        float randY = UnityEngine.Random.Range(m_spawnTrashMin.y, m_spawnTrashMax.y);
+        obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
     }
 }
