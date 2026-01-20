@@ -21,9 +21,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] private UnityEvent<Vector2> m_onMoveAll;
+    [SerializeField] private UnityEvent<Vector2> m_onReticle;
     [SerializeField] private UnityEvent<float> m_onMoveHorizontal;
     [SerializeField] private UnityEvent<float> m_onMoveVertical;
     [SerializeField] private ButtonEvent m_onMainAction;
+    [SerializeField] private ButtonEvent m_onSecondaryAction;
     [SerializeField] private UnityEvent<float> m_onChangeSpeed;
     [SerializeField] private UnityEvent<bool> m_onDodge;
 
@@ -68,6 +70,11 @@ public class PlayerController : MonoBehaviour
         m_movementHandler.MoveOnZ(dir);
     }
 
+    public void ReticleAll(Vector2 dir)
+    {
+        m_onReticle.Invoke(dir);
+    }
+
     public void OnStrongHold(bool state)
     {
         m_strongHoldValue = state ? 1 : 0;
@@ -89,18 +96,33 @@ public class PlayerController : MonoBehaviour
     {
         m_onMainAction.Tap.Invoke();
     }
-
     public void MainActionHoldSetState(bool state)
+    {
+        ActionsHoldState(state, m_onMainAction);
+    }
+
+    public void SecondaryActionTap()
+    {
+        m_onSecondaryAction.Tap.Invoke();
+    }
+
+    public void SecondaryActionHoldSetState(bool state)
+    {
+        ActionsHoldState(state, m_onSecondaryAction);
+    }
+
+
+    private void ActionsHoldState(bool state, ButtonEvent buttonEvent)
     {
         if (state)
         {
             m_logger.Log("Hold Started", this);
-            m_onMainAction.HoldStarted.Invoke();
+            buttonEvent.HoldStarted.Invoke();
         }
         else
         {
             m_logger.Log("Hold Cancelled", this);
-            m_onMainAction.HoldCancelled.Invoke();
+            buttonEvent.HoldCancelled.Invoke();
         }
     }
 }
