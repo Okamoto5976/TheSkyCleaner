@@ -20145,7 +20145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_enemy: {fileID: 4330165079397444621, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 3
+  m_poolCount: 5
   m_forcePoolCount: 1
 --- !u!4 &331325064
 Transform:
@@ -26895,16 +26895,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArmController
   m_rect: {fileID: 100050512}
   m_canvas: {fileID: 1908726483}
+  m_canvasSize: {fileID: 1908726484}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 331325063}
+  m_LockEnemies: []
+  m_SaveEnemies: []
+  m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_arms:
   - {fileID: 1755327139}
   - {fileID: 1148293376}
-  m_isArmsShot: 
-  m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
-  m_maxCount: 3
+  - {fileID: 1148293376}
+  m_activeArms: 
+  m_enemiesId: 
+  m_maxCount: 2
   m_speed: 0.2
-  m_canmove: 1
+  m_reticleSpeed: 20
+  m_plaeyr: {fileID: 762919352}
+  m_playerPos: {x: 0, y: 0}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -27623,7 +27630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1733557517
 Transform:
   m_ObjectHideFlags: 0

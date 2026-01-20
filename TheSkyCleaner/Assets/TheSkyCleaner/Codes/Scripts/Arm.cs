@@ -13,12 +13,14 @@ public class Arm : MonoBehaviour
     [SerializeField] private ArmController m_controller;
 
     private State m_state  = State.Idle;
-
+    
     private Transform m_targetEnemy;
     private Transform m_transform;
     private Vector3 m_returnPosition;
 
+    private int m_index;
     private float m_speed;
+    private int m_id;
 
     private void Start()
     {
@@ -41,9 +43,11 @@ public class Arm : MonoBehaviour
         Debug.Log(m_state);
     }
 
-    public void MoveToEnemy(Transform enemy,float speed)
+    public void MoveToEnemy(Transform enemy,float speed,int ID,int index)
     {
+        m_index = index;
         m_speed = speed;
+        m_id = ID;
         m_targetEnemy= enemy;
         m_transform.SetParent(null);
         m_state = State.Moving;
@@ -81,7 +85,7 @@ public class Arm : MonoBehaviour
         {
             m_transform.SetParent(m_player.parent);
             m_state = State.Idle;
-            m_controller.Return(this);
+            m_controller.Return(m_id,m_index);
 
             m_transform.localPosition = m_returnPosition;
         }
