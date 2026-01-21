@@ -5,7 +5,7 @@ using System.Linq;
 
 public class ArmController : MonoBehaviour
 {
-    [SerializeField] private RectTransform m_rect;
+    [SerializeField] private SpriteRenderer m_rect;
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
     [SerializeField] private Camera m_mainCamera;
@@ -14,8 +14,8 @@ public class ArmController : MonoBehaviour
     private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
     private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
     private List<T_Enemy> m_SaveEnemies = new List<T_Enemy>();
-    private List<Image> m_lockOnMarkers = new List<Image>();
-    [SerializeField] private Image m_lockOnMarkerPrefab;
+    private List<SpriteRenderer> m_lockOnMarkers = new List<SpriteRenderer>();
+    [SerializeField] private SpriteRenderer m_lockOnMarkerPrefab;
 
     [SerializeField] private List<Arm> m_arms;
     private List<bool> m_activeArms = new List<bool>();
@@ -27,7 +27,8 @@ public class ArmController : MonoBehaviour
     [SerializeField] private float m_reticleSpeed;
 
     [SerializeField] private Transform m_plaeyr;
-    [SerializeField] private Vector2 m_playerPos;
+    [SerializeField] private Vector3 m_playerPos;
+    private float m_reticleZ;
 
     private void Awake()
     {
@@ -36,9 +37,11 @@ public class ArmController : MonoBehaviour
 
     private void Start()
     {
+        m_reticleZ = m_rect.transform.position.z;
+
         for (int i = 0; i < m_maxCount; i++)
         {
-            Image marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
+            SpriteRenderer marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
             marker.gameObject.SetActive(false);
             m_lockOnMarkers.Add(marker);
 
@@ -50,29 +53,28 @@ public class ArmController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 current_pos = m_plaeyr.position;
-        Vector2 delta = current_pos - m_playerPos;
+        Vector3 current_pos = m_plaeyr.position;
+        Vector3 delta = current_pos - m_playerPos;
+        Vector3 pos = m_rect.transform.position;
 
-        Vector2 pos = m_rect.position;
         pos += delta * m_reticleSpeed;
 
-        Vector2 canvasSize = m_canvasSize.rect.size;
+        pos.z = m_reticleZ;
 
-        pos.x = Mathf.Clamp(pos.x,
-            0,
-            canvasSize.x);
+        // ワールド → Viewport
+        Vector3 vp = m_mainCamera.WorldToViewportPoint(pos);
 
-        pos.y = Mathf.Clamp(pos.y,
-            0,
-            canvasSize.y);
-
-        m_rect.position = pos;
-
-
-
-        m_playerPos = current_pos;
+        // 画面内に制限
+        vp.x = Mathf.Clamp01(vp.x);
+        vp.y = Mathf.Clamp01(vp.y);
+        vp.z = Mathf.Abs(m_reticleZ - m_mainCamera.transform.position.z);
+        // Viewport → ワールド
+        pos = m_mainCamera.ViewportToWorldPoint(vp);
 
         
+
+        m_rect.transform.position = pos;
+        m_playerPos = current_pos;
     }
 
     public void ArmShot()
@@ -110,32 +112,33 @@ public class ArmController : MonoBehaviour
 
     public void MoveReticle(Vector2 delta)
     {
-        Vector2 pos = m_rect.position;
-        pos += delta;
-        m_rect.position = pos;
+        Vector2 pos = m_rect.transform.position;
+        pos += delta / 200;
+        m_rect.transform.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
         UpdateLockOnMarkers(m_SaveEnemies);
     }
 
-    public Rect GetScreenRect()
+    public Rect GetScreenRect(SpriteRenderer reticle)
     {
-        Vector2 size = m_rect.sizeDelta * m_canvas.scaleFactor;
-        Vector2 pos = m_rect.position;
+        Bounds b = reticle.bounds;
+
+        Vector3 min = m_mainCamera.WorldToScreenPoint(b.min);
+        Vector3 max = m_mainCamera.WorldToScreenPoint(b.max);
 
         return new Rect(
-            pos.x - size.x * 0.5f,
-            pos.y - size.y * 0.5f,
-            size.x,
-            size.y
-        );
+            min.x,
+            min.y,
+            max.x - min.x,
+            max.y - min.y);
     }
 
     private void UpdateLockOnCandidates()//範囲内のすべてのpool内の敵を取得
     {
         m_LockOnCandidates.Clear();
 
-        Rect lockOnRect = GetScreenRect();
+        Rect lockOnRect = GetScreenRect(m_rect);
         var enemies = m_enemypoolmanager.GetActiveEnemies();
 
         foreach (var enemy in enemies)
@@ -204,10 +207,14 @@ public class ArmController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            Vector3 screenPos =
-            m_mainCamera.WorldToScreenPoint(enemy.transform.position);
+            Vector3 offset = Vector3.up * 1.5f;
 
-            marker.rectTransform.position = screenPos;
+            marker.transform.position = enemy.transform.position + offset;
+
+            //Vector3 screenPos =
+            //m_mainCamera.WorldToScreenPoint(enemy.transform.position);
+
+            //marker.rectTransform.position = screenPos;
             marker.gameObject.SetActive(true);
         }
     }
