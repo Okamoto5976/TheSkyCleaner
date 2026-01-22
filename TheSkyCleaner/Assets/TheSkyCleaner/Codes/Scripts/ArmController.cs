@@ -5,7 +5,7 @@ using System.Linq;
 
 public class ArmController : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer m_rect;
+    [SerializeField] private RectTransform m_rect;
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
     [SerializeField] private Camera m_mainCamera;
@@ -14,8 +14,8 @@ public class ArmController : MonoBehaviour
     private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
     private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
     private List<T_Enemy> m_SaveEnemies = new List<T_Enemy>();
-    private List<SpriteRenderer> m_lockOnMarkers = new List<SpriteRenderer>();
-    [SerializeField] private SpriteRenderer m_lockOnMarkerPrefab;
+    private List<Image> m_lockOnMarkers = new List<Image>();
+    [SerializeField] private Image m_lockOnMarkerPrefab;
 
     [SerializeField] private List<Arm> m_arms;
     private List<bool> m_activeArms = new List<bool>();
@@ -28,7 +28,7 @@ public class ArmController : MonoBehaviour
 
     [SerializeField] private Transform m_plaeyr;
     [SerializeField] private Vector3 m_playerPos;
-    private float m_reticleZ;
+    private float m_reticleDistance = 5f;
 
     private void Awake()
     {
@@ -37,11 +37,10 @@ public class ArmController : MonoBehaviour
 
     private void Start()
     {
-        m_reticleZ = m_rect.transform.position.z;
 
         for (int i = 0; i < m_maxCount; i++)
         {
-            SpriteRenderer marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
+            Image marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
             marker.gameObject.SetActive(false);
             m_lockOnMarkers.Add(marker);
 
@@ -59,22 +58,35 @@ public class ArmController : MonoBehaviour
 
         pos += delta * m_reticleSpeed;
 
-        pos.z = m_reticleZ;
+        Vector3 camPos = m_mainCamera.transform.position;
+        float halfH = m_mainCamera.orthographicSize;
+        float halfW = halfH * m_mainCamera.aspect;
 
-        // ワールド → Viewport
-        Vector3 vp = m_mainCamera.WorldToViewportPoint(pos);
+        pos.x = Mathf.Clamp(pos.x,
+            camPos.x - halfW,
+            camPos.x + halfW);
 
-        // 画面内に制限
-        vp.x = Mathf.Clamp01(vp.x);
-        vp.y = Mathf.Clamp01(vp.y);
-        vp.z = Mathf.Abs(m_reticleZ - m_mainCamera.transform.position.z);
+        pos.y = Mathf.Clamp(pos.y,
+            camPos.y - halfH,
+            camPos.y + halfH);
+
+        pos.z = m_reticleDistance;
+        //// ワールド → Viewport
+        //Vector3 vp = m_mainCamera.WorldToViewportPoint(pos);
+
+        //// 画面内に制限
+        //vp.x = Mathf.Clamp(vp.x, camPos, 0.95f);
+        //vp.y = Mathf.Clamp(vp.y, 0.05f, 0.95f);
+
+        //vp.z = m_reticleDistance;
         // Viewport → ワールド
-        pos = m_mainCamera.ViewportToWorldPoint(vp);
+        //pos = m_mainCamera.ViewportToWorldPoint(vp);
 
-        
+
 
         m_rect.transform.position = pos;
         m_playerPos = current_pos;
+
     }
 
     public void ArmShot()
@@ -112,46 +124,103 @@ public class ArmController : MonoBehaviour
 
     public void MoveReticle(Vector2 delta)
     {
-        Vector2 pos = m_rect.transform.position;
-        pos += delta;
-        m_rect.transform.position = pos;
+        Vector2 pos = m_rect.position;
+        pos += delta / 50;
+        m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
         UpdateLockOnMarkers(m_SaveEnemies);
     }
 
-    public Rect GetScreenRect(SpriteRenderer reticle)
+    public Rect GetScreenRect(RectTransform reticle)
     {
-        Bounds b = reticle.bounds;
+        Vector3[] corners = new Vector3[4];
+        reticle.GetWorldCorners(corners);
 
-        Vector3 min = m_mainCamera.WorldToScreenPoint(b.min);
-        Vector3 max = m_mainCamera.WorldToScreenPoint(b.max);
+        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+        Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
-        return new Rect(
-            min.x,
-            min.y,
-            max.x - min.x,
-            max.y - min.y);
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 sp = RectTransformUtility.WorldToScreenPoint(
+                m_mainCamera,
+                corners[i]
+            );
+
+            min = Vector2.Min(min, sp);
+            max = Vector2.Max(max, sp);
+        }
+
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+
+
+        //var corners = new Vector3[4];
+        //reticle.GetWorldCorners(corners);
+
+        //Vector2 min = RectTransformUtility.WorldToScreenPoint(
+        //m_mainCamera, corners[0]); // 左下
+
+        //Vector2 max = RectTransformUtility.WorldToScreenPoint(
+        //    m_mainCamera, corners[2]); // 右上
+
+        //return new Rect(
+        //    min.x,
+        //    min.y,
+        //    max.x,
+        //    max.y);
     }
 
     private void UpdateLockOnCandidates()//範囲内のすべてのpool内の敵を取得
     {
         m_LockOnCandidates.Clear();
 
-        Rect lockOnRect = GetScreenRect(m_rect);
+        Camera cam = m_mainCamera;
+
+        float halfH = cam.orthographicSize;
+        float halfW = halfH * cam.aspect;
+
+        // レティクルのWorld位置(カメラ基準）
+        Vector2 reticleWorldPos = new Vector2(
+            m_rect.position.x - cam.transform.position.x,
+            m_rect.position.y - cam.transform.position.y
+        );
+
+        // レティクルの半径（＝判定範囲）
+        float reticleRadius = Mathf.Max(
+            m_rect.rect.width,
+            m_rect.rect.height
+        ) * 0.5f * m_rect.lossyScale.x;
+        // WorldSpaceUIなのでlossyScale 必須
+        //Rect lockOnRect = GetScreenRect(m_rect);
+
         var enemies = m_enemypoolmanager.GetActiveEnemies();
 
         foreach (var enemy in enemies)
         {
             if (!enemy.gameObject.activeSelf == true) continue;
 
-            Vector3 screenPos =
-                m_mainCamera.WorldToScreenPoint(enemy.transform.position);
+        Vector3 vp = cam.WorldToViewportPoint(enemy.transform.position);
 
-            if (screenPos.z <= 0) continue;// カメラよりも後ろ？
+        if (vp.z <= 0) continue;
 
-            if (lockOnRect.Contains(screenPos))
-                m_LockOnCandidates.Add(enemy);
+        // Viewport → World（比率補正の核心）
+        Vector2 enemyWorldOffset = new Vector2(
+            (vp.x - 0.5f) * 2f * halfW,
+            (vp.y - 0.5f) * 2f * halfH
+        );
+
+        // 距離判定
+        if (Vector2.Distance(enemyWorldOffset, reticleWorldPos) <= reticleRadius)
+        {
+            m_LockOnCandidates.Add(enemy);
+        }
+            //Vector3 sp = m_mainCamera.WorldToScreenPoint(enemy.transform.position);
+            //Vector2 enemyScreenPos = new Vector2(sp.x, sp.y);
+
+            //if (sp.z <= 0) continue;// カメラよりも後ろ？
+
+            //if (lockOnRect.Contains(enemyScreenPos))
+            //    m_LockOnCandidates.Add(enemy);
         }
     }
 
