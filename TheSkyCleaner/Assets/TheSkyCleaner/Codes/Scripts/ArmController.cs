@@ -113,7 +113,7 @@ public class ArmController : MonoBehaviour
     public void MoveReticle(Vector2 delta)
     {
         Vector2 pos = m_rect.transform.position;
-        pos += delta / 200;
+        pos += delta;
         m_rect.transform.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
