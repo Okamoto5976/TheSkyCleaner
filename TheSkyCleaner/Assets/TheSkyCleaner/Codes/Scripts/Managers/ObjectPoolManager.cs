@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-    [SerializeField] private GameObject m_prefab;
+    [SerializeField] public GameObject m_prefab;
     [SerializeField] private int m_poolCount;
     [SerializeField] private bool m_forcePoolCount = true;
 

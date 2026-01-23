@@ -1,4 +1,3 @@
-
 using System.Collections;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
@@ -6,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
-public class SpawnTEManager : MonoBehaviour
+
+public class EnemtManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_pool; // Inspector Ç≈äÑÇËìñÇƒ
@@ -22,20 +22,17 @@ public class SpawnTEManager : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private Vector3 m_enemySpeed;
 
-    private bool m_isTrash = true;  //ÉSÉ~Ç©Ç«Ç§Ç©ÇÃîªï 
     private WaitForSeconds m_sleepTime;
-    private MovementHandler m_moveMentHandler;
 
     private void Awake()
     {
-        m_moveMentHandler = GetComponent<MovementHandler>();
         m_sleepTime = new(m_spawnTrashInterval);
         StartCoroutine(SpawnOnTimer());
     }
 
     private IEnumerator SpawnOnTimer()
     {
-        while(true)
+        while (true)
         {
             yield return m_sleepTime;
             SpawnOne();
@@ -51,35 +48,13 @@ public class SpawnTEManager : MonoBehaviour
         }
 
         GameObject obj = m_pool.GetFromPool(true); //åƒÇ—èoÇµ
-        int random = UnityEngine.Random.Range(1, 6);
-        switch(random)
-        {
-            case 1: case 2: case 3: case 4:
-                m_isTrash=true; break;
-            case 5: default:
-                m_isTrash=false; break;
-        };
-        if (m_isTrash)
-        {
-            //ÉSÉ~ÇÃê›íË
-            SetTrashInfo(obj);
-        }
-        else
-        {
-            //ìGÇÃê›íË
             SetEnemyInfo(obj);
-        }
 
         //Debug.Log(obj);
-        
+
         return;
     }
 
-    public void SetTrashInfo(GameObject obj)
-    {
-        SetRandomPosition(obj);
-        //m_logger.Log(obj.name + ":ÉSÉ~Ç≈Ç∑", this);
-    }
     public void SetEnemyInfo(GameObject obj)
     {
         SetRandomPosition(obj);
@@ -93,7 +68,8 @@ public class SpawnTEManager : MonoBehaviour
             case 1: break;
             case 2: break;
 
-        };
+        }
+        ;
     }
 
     public void EnemyController(GameObject obj)
@@ -147,7 +123,7 @@ public class SpawnTEManager : MonoBehaviour
     }
 
 
-private void SetRandomPosition(GameObject obj)
+    private void SetRandomPosition(GameObject obj)
     {
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
         float randY = UnityEngine.Random.Range(m_spawnTrashMin.y, m_spawnTrashMax.y);

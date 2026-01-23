@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovementHandler : MonoBehaviour
 {
-    [SerializeField] private Vector3 m_speeds;
+    [SerializeField] public Vector3 m_speeds;
     [SerializeField] private float m_speedMod = 1;
 
     private Transform m_transform;
@@ -30,6 +30,12 @@ public class MovementHandler : MonoBehaviour
         m_transform.Translate(vel);
     }
 
+    public void MoveAll(Vector3 dir)
+    {
+        MoveHorizontal(dir.x);
+        MoveVertical(dir.y);
+        MoveDepthical(dir.z);
+    }
     public void SetSpeed(float val) //ˆÚ“®‘¬“x
     {
         m_speedMod = val;

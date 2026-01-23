@@ -20232,6 +20232,74 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &439712861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 439712862}
+  - component: {fileID: 439712863}
+  - component: {fileID: 439712864}
+  m_Layer: 0
+  m_Name: Enemy Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &439712862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439712861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 913461169}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &439712863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439712861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1229f87c04f394efa9aa2137f19de7a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
+  m_prefab: {fileID: 3608526882239130715, guid: 3d49ad4f55127374ba80142b69d1ebc3, type: 3}
+  m_poolCount: 3
+  m_forcePoolCount: 1
+--- !u!114 &439712864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439712861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 678b16a0dbfa90440b54780d8ea031ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemtManager
+  m_logger: {fileID: 1703585248}
+  m_pool: {fileID: 439712863}
+  m_target: {fileID: 762919352}
+  m_spawnPos: {x: 0, y: 0, z: 50}
+  m_spawnTrashMin: {x: -10, y: -10}
+  m_spawnTrashMax: {x: 0, y: 0}
+  m_spawnTrashInterval: 0.9
+  m_enemySpeed: {x: 0, y: 0, z: 10}
 --- !u!1 &452514028
 GameObject:
   m_ObjectHideFlags: 0
@@ -26180,6 +26248,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1120837817}
+  - {fileID: 439712862}
   - {fileID: 1368636903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26393,9 +26462,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1120837817}
   - component: {fileID: 1120837820}
-  - component: {fileID: 1120837821}
+  - component: {fileID: 1120837822}
   m_Layer: 0
-  m_Name: Trash and Enemy
+  m_Name: Trash Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26429,9 +26498,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
   m_prefab: {fileID: 6933232402498349450, guid: 911b295aacda2d5468191c67e41e6c4d, type: 3}
-  m_poolCount: 25
+  m_poolCount: 10
   m_forcePoolCount: 1
---- !u!114 &1120837821
+--- !u!114 &1120837822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26440,9 +26509,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1120837816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec3c6624b919e443b0437247836af17, type: 3}
+  m_Script: {fileID: 11500000, guid: e952c8786cdc2e44390b816e18883462, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
+  m_EditorClassIdentifier: Assembly-CSharp::TrashManager
   m_logger: {fileID: 1703585248}
   m_pool: {fileID: 1120837820}
   m_spawnPos: {x: 0, y: 0, z: 50}
