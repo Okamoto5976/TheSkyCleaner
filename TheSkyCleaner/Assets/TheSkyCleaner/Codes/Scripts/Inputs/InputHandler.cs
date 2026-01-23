@@ -7,7 +7,11 @@ public class InputHandler : MonoBehaviour
     [System.Serializable]
     struct ButtonAction
     {
-        [SerializeField] private InputActionReference inputActionReference; 
+        [SerializeField] private InputActionReference inputActionReference;
+        [SerializeField] private TriggerContainer onTapContainer;
+        public readonly TriggerContainer OnTapContainer => onTapContainer;
+        [SerializeField] private BooleanContainer holdStateContainer;
+        public readonly BooleanContainer HoldStateContainer => holdStateContainer;
         public readonly InputAction Action => inputActionReference.action;
 
         [SerializeField] private UnityEvent onTap;
@@ -26,14 +30,13 @@ public class InputHandler : MonoBehaviour
     [Header("Logger")]
     [SerializeField] private Logger m_logger;
     [Header("Variable Container")]
-    [SerializeField] private InputContainer m_container;
+    //[SerializeField] private InputContainer m_container;
 
     [Header("Control Events")]
+    [SerializeField] private AxisVector2Container m_movementAxisContainer;
+    [SerializeField] private AxisVector2Container m_reticleAxisContainer;
     [SerializeField] private InputActionReference m_movementAxis;
-    [SerializeField] private UnityEvent<Vector2> m_onMovementAxis;
-
     [SerializeField] private InputActionReference m_reticleAxis;
-    [SerializeField] private UnityEvent<Vector2> m_onReticleAxis;
 
     [SerializeField] private ButtonAction m_mainAction;
     [SerializeField] private ButtonAction m_subAction;
@@ -54,28 +57,27 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        m_container.SetMovementAxis(m_movementAxis.action.ReadValue<Vector2>());
-        m_onMovementAxis.Invoke(m_container.MovementAxis);
+        m_movementAxisContainer.Value = m_movementAxis.action.ReadValue<Vector2>();
+        m_reticleAxisContainer.Value = m_reticleAxis.action.ReadValue<Vector2>();
+        //m_container.SetMovementAxis(m_movementAxis.action.ReadValue<Vector2>());
+        //m_container.SetReticleAxis(m_reticleAxis.action.ReadValue<Vector2>());
 
-        m_container.SetReticleAxis(m_reticleAxis.action.ReadValue<Vector2>());
-        m_onReticleAxis.Invoke(m_container.ReticleAxis);
-
-        m_container.SetMainAction(m_mainAction.Action.IsPressed());
+        //m_container.SetMainActionHold(m_mainAction.Action.IsPressed());
         OnButtonAction(ref m_mainAction);
 
-        m_container.SetSubAction(m_subAction.Action.IsPressed());
+        //m_container.SetSubAction(m_subAction.Action.IsPressed());
         OnButtonAction(ref m_subAction);
 
-        m_container.SetStrongAction(m_strongAction.Action.IsPressed());
+        //m_container.SetStrongAction(m_strongAction.Action.IsPressed());
         OnButtonAction(ref m_strongAction);
 
-        m_container.SetWeakAction(m_weakAction.Action.IsPressed());
+        //m_container.SetWeakAction(m_weakAction.Action.IsPressed());
         OnButtonAction(ref m_weakAction);
 
-        m_container.SetShoulderLeftAction(m_shoulderLeft.Action.IsPressed());
+        //m_container.SetShoulderLeftAction(m_shoulderLeft.Action.IsPressed());
         OnButtonAction(ref m_shoulderLeft);
 
-        m_container.SetShoulderRightAction(m_shoulderRight.Action.IsPressed());
+        //m_container.SetShoulderRightAction(m_shoulderRight.Action.IsPressed());
         OnButtonAction(ref m_shoulderRight);
     }
     private void OnButtonAction(ref ButtonAction buttonAction)
@@ -90,7 +92,8 @@ public class InputHandler : MonoBehaviour
                 {
                     m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
                     buttonAction.isHoldSuccessful = true;
-                    buttonAction.OnHoldEvent.Invoke(true);
+                    //buttonAction.OnHoldEvent.Invoke(true);
+                    buttonAction.HoldStateContainer.Value = true;
                 }
             }
         }
@@ -99,13 +102,15 @@ public class InputHandler : MonoBehaviour
             if (buttonAction.time <= InputSystem.settings.defaultTapTime)
             {
                 m_logger.Log($"{buttonAction.Action.name} - Tap", this);
-                buttonAction.OnTapEvent.Invoke();
+                //buttonAction.OnTapEvent.Invoke();
+                buttonAction.OnTapContainer.Trigger();
             }
             else if (buttonAction.time >= InputSystem.settings.defaultHoldTime)
             {
                 m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
-                buttonAction.OnHoldEvent.Invoke(false);
+                //buttonAction.OnHoldEvent.Invoke(false);
                 buttonAction.isHoldSuccessful = false;
+                buttonAction.HoldStateContainer.Value = false;
             }
             buttonAction.time = 0;
         }

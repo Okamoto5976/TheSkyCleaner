@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3822719356811948056}
   - component: {fileID: 4330165079397444621}
   - component: {fileID: 6115759751918828999}
-  - component: {fileID: -4965950034467899298}
   - component: {fileID: -9218455992235991860}
   m_Layer: 0
   m_Name: enemy
@@ -141,35 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: -5}
+  m_axisContainer: {fileID: 11400000, guid: 2f72b2cd6f63f7b4090a4283a5ad0f56, type: 2}
+  m_speeds: {x: 0, y: 0, z: 1}
   m_speedMod: 1
---- !u!114 &-4965950034467899298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505472414512466365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConstantFloatEvent
-  m_onMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6115759751918828999}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: MoveDepthical
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &-9218455992235991860
 MonoBehaviour:
   m_ObjectHideFlags: 0

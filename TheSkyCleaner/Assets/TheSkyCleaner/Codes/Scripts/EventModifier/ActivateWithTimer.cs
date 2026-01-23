@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class ActivateWithTimer : MonoBehaviour
 {
+    [SerializeField] private TriggerContainer m_trigger;
     [SerializeField] private UnityEvent m_events;
     [SerializeField] private float m_delay;
 
@@ -16,8 +17,14 @@ public class ActivateWithTimer : MonoBehaviour
         m_isEnabled = true;
     }
 
+    private void OnEnable()
+    {
+        m_trigger.OnValueChanged += StartTimer;
+    }
+
     private void OnDisable()
     {
+        m_trigger.OnValueChanged -= StartTimer;
         StopAllCoroutines();
     }
 

@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4db3a5c0aafca44a49630bbf04ce21, type: 3}
-  m_Name: Boolean_ShoulderRight
-  m_EditorClassIdentifier: Assembly-CSharp::BooleanContainer
-  value: 0
+  m_Script: {fileID: 11500000, guid: 01603cba8017ae641b3bfd8b941994a2, type: 3}
+  m_Name: Player_Trigger_MainAction_Tap
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerContainer

@@ -25708,10 +25708,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onMainAction:
-    m_tap:
+    inputTriggerContainer: {fileID: 11400000, guid: 32bd8095ce4cc774ca8997463eadc614, type: 2}
+    inputHoldStateContainer: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
+    playerOnTriggerContainer: {fileID: 11400000, guid: 23dc53552d3c799499440c277e87cf5b, type: 2}
+    playerHoldStateContainer: {fileID: 11400000, guid: 19c749603c5673a45ab3903ca5087c3e, type: 2}
+    tap:
       m_PersistentCalls:
         m_Calls: []
-    m_holdStarted:
+    holdStarted:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 762919357}
@@ -25726,7 +25730,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    m_holdCancelled:
+    holdCancelled:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 762919357}
@@ -25742,7 +25746,11 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   m_onSecondaryAction:
-    m_tap:
+    inputTriggerContainer: {fileID: 0}
+    inputHoldStateContainer: {fileID: 0}
+    playerOnTriggerContainer: {fileID: 0}
+    playerHoldStateContainer: {fileID: 0}
+    tap:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1373798138}
@@ -25757,10 +25765,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    m_holdStarted:
+    holdStarted:
       m_PersistentCalls:
         m_Calls: []
-    m_holdCancelled:
+    holdCancelled:
       m_PersistentCalls:
         m_Calls: []
   m_onChangeSpeed:
