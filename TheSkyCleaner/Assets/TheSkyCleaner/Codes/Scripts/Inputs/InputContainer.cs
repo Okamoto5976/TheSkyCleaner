@@ -1,12 +1,12 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InputContainer", menuName = "Scriptable Objects/InputContainer")]
-public class InputContainer : ScriptableObject
+public partial class InputContainer : ScriptableObject
 {
     [SerializeField] private AxisVector2Container m_movementAxis;
     [SerializeField] private AxisVector2Container m_reticleAxis;
-    [SerializeField] private BooleanContainer m_mainAction;
-    [SerializeField] private BooleanContainer m_subAction;
+    [SerializeField] private ButtonInput m_mainAction;
+    [SerializeField] private ButtonInput m_subAction;
     [SerializeField] private BooleanContainer m_strongAction;
     [SerializeField] private BooleanContainer m_weakAction;
     [SerializeField] private BooleanContainer m_shoulderLeft;
@@ -14,8 +14,8 @@ public class InputContainer : ScriptableObject
 
     public Vector2 MovementAxis => m_movementAxis.Value;
     public Vector2 ReticleAxis => m_reticleAxis.Value;
-    public bool MainAction => m_mainAction.Value;
-    public bool SubAction => m_subAction.Value;
+    public ButtonInput MainAction => m_mainAction;
+    public ButtonInput SubAction => m_subAction;
     public bool StrongAction => m_strongAction.Value;
     public bool WeakAction => m_weakAction.Value;
     public bool ShoulderLeftAction => m_shoulderLeft.Value;
@@ -30,13 +30,21 @@ public class InputContainer : ScriptableObject
     {
         m_reticleAxis.Value = vector;
     }
-    public void SetMainAction(bool mainAction)
+    public void OnMainActionTap()
     {
-        m_mainAction.Value = mainAction;
+        m_mainAction.Tap.Trigger();
     }
-    public void SetSubAction(bool subAction)
+    public void SetMainActionHoldState(bool state)
     {
-        m_subAction.Value = subAction;
+        m_mainAction.HoldState.Value = state;
+    }
+    public void OnSubActionTap()
+    {
+        m_subAction.Tap.Trigger();
+    }
+    public void SetSubActionHoldState(bool state)
+    {
+        m_subAction.HoldState.Value = state;
     }
     public void SetStrongAction(bool strongAction)
     {

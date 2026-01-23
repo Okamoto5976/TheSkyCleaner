@@ -5,9 +5,9 @@ using UnityEngine;
 public class ObjectPoolManager : MonoBehaviour
 {
     [SerializeField] protected Logger m_logger;
-    [SerializeField] private GameObject m_prefab;
-    [SerializeField] private int m_poolCount;
-    [SerializeField] private bool m_forcePoolCount = true;
+    [SerializeField] protected GameObject m_prefab;
+    [SerializeField] protected int m_poolCount;
+    [SerializeField] protected bool m_forcePoolCount = true;
 
     protected List<ReturnObjectToPool> m_objectPool;
     protected List<int> m_inUseQue;
@@ -24,7 +24,6 @@ public class ObjectPoolManager : MonoBehaviour
             AddToPool();
         }
     }
-
     public GameObject GetObjectFromPool()
     {
         return GetFromPool(m_objectPool).gameObject;
@@ -37,7 +36,6 @@ public class ObjectPoolManager : MonoBehaviour
         m_inUseQue.Add(index);
         return obj;
     }
-
     protected int GetIndexFromPool()
     {
         var x = m_objectPool
@@ -62,7 +60,6 @@ public class ObjectPoolManager : MonoBehaviour
         }
         return index;
     }
-
     public void ReturnToPool(int index)
     {
         ReturnObjectToPool obj = m_objectPool.ElementAt(index);
@@ -70,7 +67,6 @@ public class ObjectPoolManager : MonoBehaviour
         obj.transform.parent = m_transform;
         obj.gameObject.SetActive(false);
     }
-
     protected virtual int AddToPool()
     {
         GameObject obj = Instantiate(m_prefab, m_transform);

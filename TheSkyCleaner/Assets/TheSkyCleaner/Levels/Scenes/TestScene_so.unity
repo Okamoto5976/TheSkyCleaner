@@ -19964,7 +19964,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 332467643}
-  - component: {fileID: 332467644}
   - component: {fileID: 332467645}
   - component: {fileID: 332467646}
   - component: {fileID: 332467647}
@@ -19983,7 +19982,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332467642}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19993,22 +19992,8 @@ Transform:
   - {fileID: 452514031}
   - {fileID: 1373798137}
   - {fileID: 19225399}
-  m_Father: {fileID: 762919352}
+  m_Father: {fileID: 960096393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &332467644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332467642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd275594e80c4ae3b16bc06d4455a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TiltHandler
-  m_angles: {x: -30, y: 30, z: -30}
-  m_tiltSpeed: 3
 --- !u!95 &332467645
 Animator:
   serializedVersion: 7
@@ -25591,8 +25576,10 @@ GameObject:
   - component: {fileID: 762919352}
   - component: {fileID: 762919353}
   - component: {fileID: 762919354}
-  - component: {fileID: 762919355}
+  - component: {fileID: 762919361}
+  - component: {fileID: 762919360}
   - component: {fileID: 762919356}
+  - component: {fileID: 762919355}
   - component: {fileID: 762919357}
   - component: {fileID: 762919358}
   - component: {fileID: 762919359}
@@ -25616,7 +25603,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 332467643}
+  - {fileID: 960096393}
   - {fileID: 410857944}
   - {fileID: 580533854}
   m_Father: {fileID: 0}
@@ -25634,22 +25621,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   m_logger: {fileID: 713725152}
+  m_playerTiltHandler: {fileID: 960096394}
+  m_armController: {fileID: 1373798138}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 332467644}
-        m_TargetAssemblyTypeName: TiltHandler, Assembly-CSharp
-        m_MethodName: TiltOnYaw
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 330585548}
         m_TargetAssemblyTypeName: TiltHandler, Assembly-CSharp
         m_MethodName: TiltOnYaw
@@ -25688,34 +25665,10 @@ MonoBehaviour:
         m_CallState: 2
   m_onReticle:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1373798138}
-        m_TargetAssemblyTypeName: ArmController, Assembly-CSharp
-        m_MethodName: MoveReticle
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onMoveHorizontal:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 332467644}
-        m_TargetAssemblyTypeName: TiltHandler, Assembly-CSharp
-        m_MethodName: TiltYaw
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 332467646}
         m_TargetAssemblyTypeName: DriveAnimatorFloatValue, Assembly-CSharp
         m_MethodName: Drive
@@ -25734,19 +25687,7 @@ MonoBehaviour:
   m_onMainAction:
     m_tap:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 762919356}
-          m_TargetAssemblyTypeName: ActivateWithTimer, Assembly-CSharp
-          m_MethodName: StartTimer
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     m_holdStarted:
       m_PersistentCalls:
         m_Calls:
@@ -26121,6 +26062,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &762919360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762919351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce33cb4f2cebc34384be621a8781328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShootController
+  m_activator: {fileID: 762919356}
+--- !u!114 &762919361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762919351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a6e913ae396514b9c7059520d3639c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackController
+  m_playerShotHandler: {fileID: 762919360}
+  m_armController: {fileID: 1373798138}
+  m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
 --- !u!1 &764252581
 GameObject:
   m_ObjectHideFlags: 0
@@ -26153,113 +26122,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InputHandler
   m_logger: {fileID: 933229035}
   m_container: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
-  m_movementAxis: {fileID: 1429461270}
-  m_onMovementAxis:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 762919353}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveAll
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_movementAxisAction: {fileID: 1429461270}
   m_reticleAxis: {fileID: 1806138166}
   m_onReticleAxis:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 762919353}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ReticleAll
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_mainAction:
+    variableContainer:
+      tap: {fileID: 11400000, guid: ce32a5309ca8dd9489c3cfc3344a5a75, type: 2}
+      holdState: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
     inputActionReference: {fileID: 961228293}
     onTap:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 762919353}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: MainActionTap
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     whileHoldTime:
       m_PersistentCalls:
         m_Calls: []
     onHold:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 762919353}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: MainActionHoldSetState
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     time: 0
     isHoldSuccessful: 0
   m_subAction:
+    variableContainer:
+      tap: {fileID: 11400000, guid: 92b16ec4d055a8549a36b5bf0e2a2bea, type: 2}
+      holdState: {fileID: 11400000, guid: aac26f11045a18a4b8c52764a17322cc, type: 2}
     inputActionReference: {fileID: 758399574}
     onTap:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 762919353}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: SecondaryActionTap
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     whileHoldTime:
       m_PersistentCalls:
         m_Calls: []
     onHold:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 762919353}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: SecondaryActionHoldSetState
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     time: 0
     isHoldSuccessful: 0
   m_strongAction:
+    variableContainer:
+      tap: {fileID: 0}
+      holdState: {fileID: 0}
     inputActionReference: {fileID: 1641099585}
     onTap:
       m_PersistentCalls:
@@ -26297,6 +26200,9 @@ MonoBehaviour:
     time: 0
     isHoldSuccessful: 0
   m_weakAction:
+    variableContainer:
+      tap: {fileID: 0}
+      holdState: {fileID: 0}
     inputActionReference: {fileID: 111724859}
     onTap:
       m_PersistentCalls:
@@ -26322,6 +26228,9 @@ MonoBehaviour:
     time: 0
     isHoldSuccessful: 0
   m_shoulderLeft:
+    variableContainer:
+      tap: {fileID: 0}
+      holdState: {fileID: 0}
     inputActionReference: {fileID: 2018533307}
     onTap:
       m_PersistentCalls:
@@ -26335,6 +26244,9 @@ MonoBehaviour:
     time: 0
     isHoldSuccessful: 0
   m_shoulderRight:
+    variableContainer:
+      tap: {fileID: 0}
+      holdState: {fileID: 0}
     inputActionReference: {fileID: 431127808}
     onTap:
       m_PersistentCalls:
@@ -26584,6 +26496,7 @@ Transform:
   m_Children:
   - {fileID: 1368636903}
   - {fileID: 1259995853}
+  - {fileID: 1295027948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933229033
@@ -26745,6 +26658,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947612414}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &960096392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 960096393}
+  - component: {fileID: 960096394}
+  m_Layer: 0
+  m_Name: Tilt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &960096393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960096392}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 332467643}
+  m_Father: {fileID: 762919352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960096394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960096392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd275594e80c4ae3b16bc06d4455a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TiltHandler
+  m_angles: {x: -30, y: 30, z: -30}
+  m_tiltSpeed: 3
 --- !u!114 &961228293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26942,8 +26902,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259995853}
-  - component: {fileID: 1259995852}
   - component: {fileID: 1259995854}
+  - component: {fileID: 1259995855}
   m_Layer: 0
   m_Name: EnemyPoolManager
   m_TagString: Untagged
@@ -26951,22 +26911,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1259995852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259995851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d8a0aee050a1e4888dcc2df2749386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
-  m_logger: {fileID: 766334098}
-  m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 10
-  m_forcePoolCount: 1
 --- !u!4 &1259995853
 Transform:
   m_ObjectHideFlags: 0
@@ -26995,11 +26939,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
   m_logger: {fileID: 766334098}
-  m_pool: {fileID: 1259995852}
+  m_pool: {fileID: 1259995855}
   m_spawnPos: {x: 0, y: 0, z: 20}
   m_spawnTrashMin: {x: -10, y: -10}
   m_spawnTrashMax: {x: 10, y: 10}
   m_spawnTrashInterval: 0.3
+--- !u!114 &1259995855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259995851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4eddd3a29aada439b9846eb6bce24a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
+  m_logger: {fileID: 766334098}
+  m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
+  m_poolCount: 10
+  m_forcePoolCount: 1
+--- !u!1 &1295027947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295027948}
+  m_Layer: 0
+  m_Name: TrashPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295027948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295027947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 913461169}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -27210,7 +27201,7 @@ MonoBehaviour:
   m_canvas: {fileID: 479783918}
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
-  m_enemypoolmanager: {fileID: 1259995852}
+  m_enemypoolmanager: {fileID: 1259995855}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_arms:
   - {fileID: 1755327139}

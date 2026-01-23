@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class InputHandler : MonoBehaviour
 {
     [System.Serializable]
     struct ButtonAction
     {
+        [SerializeField] private ButtonInput variableContainer;
+        public readonly ButtonInput Container => variableContainer;
         [SerializeField] private InputActionReference inputActionReference; 
         public readonly InputAction Action => inputActionReference.action;
 
@@ -29,8 +32,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private InputContainer m_container;
 
     [Header("Control Events")]
-    [SerializeField] private InputActionReference m_movementAxis;
-    [SerializeField] private UnityEvent<Vector2> m_onMovementAxis;
+    [SerializeField] private InputActionReference m_movementAxisAction;
 
     [SerializeField] private InputActionReference m_reticleAxis;
     [SerializeField] private UnityEvent<Vector2> m_onReticleAxis;
@@ -41,6 +43,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private ButtonAction m_weakAction;
     [SerializeField] private ButtonAction m_shoulderLeft;
     [SerializeField] private ButtonAction m_shoulderRight;
+
+    private Vector2 m_movementAxis;
 
     private void Awake()
     {
@@ -54,16 +58,12 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        m_container.SetMovementAxis(m_movementAxis.action.ReadValue<Vector2>());
-        m_onMovementAxis.Invoke(m_container.MovementAxis);
+        m_container.SetMovementAxis(m_movementAxisAction.action.ReadValue<Vector2>());
 
         m_container.SetReticleAxis(m_reticleAxis.action.ReadValue<Vector2>());
         m_onReticleAxis.Invoke(m_container.ReticleAxis);
 
-        m_container.SetMainAction(m_mainAction.Action.IsPressed());
         OnButtonAction(ref m_mainAction);
-
-        m_container.SetSubAction(m_subAction.Action.IsPressed());
         OnButtonAction(ref m_subAction);
 
         m_container.SetStrongAction(m_strongAction.Action.IsPressed());
@@ -91,6 +91,7 @@ public class InputHandler : MonoBehaviour
                     m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
                     buttonAction.isHoldSuccessful = true;
                     buttonAction.OnHoldEvent.Invoke(true);
+                    buttonAction.Container.HoldState.Value = true;
                 }
             }
         }
@@ -100,12 +101,14 @@ public class InputHandler : MonoBehaviour
             {
                 m_logger.Log($"{buttonAction.Action.name} - Tap", this);
                 buttonAction.OnTapEvent.Invoke();
+                buttonAction.Container.Tap.Trigger();
             }
             else if (buttonAction.time >= InputSystem.settings.defaultHoldTime)
             {
                 m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
                 buttonAction.OnHoldEvent.Invoke(false);
                 buttonAction.isHoldSuccessful = false;
+                buttonAction.Container.HoldState.Value = false;
             }
             buttonAction.time = 0;
         }

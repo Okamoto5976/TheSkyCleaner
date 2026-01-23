@@ -7,7 +7,7 @@ using UnityEngine;
 public class SpawnTEManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
-    [SerializeField] private EnemyPoolManager m_pool; // Inspector で割り当て
+    [SerializeField] private ComponentPoolHandler<T_Enemy> m_pool; // Inspector で割り当て
 
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
@@ -43,7 +43,7 @@ public class SpawnTEManager : MonoBehaviour
             return;
         }
 
-        var obj = m_pool.GetEnemyFromPool(); //呼び出し
+        var obj = m_pool.GetComponentFromPool(); //呼び出し
         int random = UnityEngine.Random.Range(1, 10);
         switch(random)
         {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class T_Spawn : MonoBehaviour
 {
-    [SerializeField] private EnemyPoolManager enemypool;
+    public ComponentPoolHandler<T_Enemy> enemypool;
     [SerializeField] private Transform _transform;
 
     public void SpawnEnemy()

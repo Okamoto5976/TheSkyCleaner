@@ -9,7 +9,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
     [SerializeField] private Camera m_mainCamera;
-    [SerializeField] private EnemyPoolManager m_enemypoolmanager;
+    [SerializeField] private ComponentPoolHandler<T_Enemy> m_enemypoolmanager;
 
     private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
     private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
@@ -136,7 +136,7 @@ public class ArmController : MonoBehaviour
         m_LockOnCandidates.Clear();
 
         Rect lockOnRect = GetScreenRect();
-        var enemies = m_enemypoolmanager.GetActiveEnemies();
+        var enemies = m_enemypoolmanager.GetActiveComponent();
 
         foreach (var enemy in enemies)
         {

@@ -28,7 +28,6 @@ public class FloatContainerDrawer : PropertyDrawer
                 if (variable != null)
                 {
                     valueLabel.text = $"Value : {variable.Value}";
-                    variable.OnValueChanged += newValue => valueLabel.text = $"Value : {newValue}";
                 }
                 else
                 {
@@ -41,7 +40,6 @@ public class FloatContainerDrawer : PropertyDrawer
         if ( currentVariable != null )
         {
             valueLabel.text = $"Value: {currentVariable.Value}";
-            currentVariable.OnValueChanged += newValue => valueLabel.text = $"Value: {newValue}";
         }
 
         return container;
