@@ -43,7 +43,7 @@ public class SpawnTEManager : MonoBehaviour
             return;
         }
 
-        var obj = m_pool.GetFromPool(Vector3.zero, true); //ŒÄ‚Ño‚µ
+        var obj = m_pool.GetEnemyFromPool(); //ŒÄ‚Ño‚µ
         int random = UnityEngine.Random.Range(1, 10);
         switch(random)
         {
@@ -62,6 +62,7 @@ public class SpawnTEManager : MonoBehaviour
             //“G‚Ìİ’è
             SetEnemyInfo(obj.gameObject);
         }
+        obj.gameObject.SetActive(true);
         return;
     }
 

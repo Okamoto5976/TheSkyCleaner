@@ -84,7 +84,6 @@ public class Arm : MonoBehaviour
             m_transform.position,
             m_player.position + m_returnPosition,
             m_speed);
-        Debug.Log("return");
 
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {

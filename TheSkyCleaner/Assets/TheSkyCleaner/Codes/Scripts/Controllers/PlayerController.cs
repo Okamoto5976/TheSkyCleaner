@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Logger m_logger;
 
     [Header("Events")]
+    [SerializeField] private InputContainer m_inputContainer;
     [SerializeField] private UnityEvent<Vector2> m_onMoveAll;
     [SerializeField] private UnityEvent<Vector2> m_onReticle;
     [SerializeField] private UnityEvent<float> m_onMoveHorizontal;

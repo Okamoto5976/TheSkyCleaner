@@ -25634,6 +25634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   m_logger: {fileID: 713725152}
+  m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
     m_PersistentCalls:
       m_Calls:
@@ -26387,6 +26388,53 @@ MonoBehaviour:
         m_Calls: []
     time: 0
     isHoldSuccessful: 0
+--- !u!1 &766334096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 766334097}
+  - component: {fileID: 766334098}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &766334097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766334096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1823312148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &766334098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766334096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e70a2ab4875ff4aa209597343d31eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Logger
+  m_isEnabled: 0
+  m_prefix: Spawner
+  m_color: {r: 1, g: 0.7078946, b: 0.25943398, a: 1}
 --- !u!1001 &785040457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26915,7 +26963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d8a0aee050a1e4888dcc2df2749386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
-  m_enemy: {fileID: 4330165079397444621, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
+  m_logger: {fileID: 766334098}
+  m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
   m_poolCount: 10
   m_forcePoolCount: 1
 --- !u!4 &1259995853
@@ -26945,7 +26994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec3c6624b919e443b0437247836af17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
-  m_logger: {fileID: 933229035}
+  m_logger: {fileID: 766334098}
   m_pool: {fileID: 1259995852}
   m_spawnPos: {x: 0, y: 0, z: 20}
   m_spawnTrashMin: {x: -10, y: -10}
@@ -27107,6 +27156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1229f87c04f394efa9aa2137f19de7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
+  m_logger: {fileID: 766334098}
   m_prefab: {fileID: 590811250849658307, guid: 3892b4aa4524b4cecbc70342a8a04a24, type: 3}
   m_poolCount: 100
   m_forcePoolCount: 1
@@ -27166,7 +27216,7 @@ MonoBehaviour:
   - {fileID: 1755327139}
   - {fileID: 1148293375}
   m_maxCount: 2
-  m_speed: 0.2
+  m_speed: 0.5
   m_reticleSpeed: 20
   m_plaeyr: {fileID: 762919352}
   m_playerPos: {x: 0, y: 0}
@@ -37653,6 +37703,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 713725151}
+  - {fileID: 766334097}
   - {fileID: 933229034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

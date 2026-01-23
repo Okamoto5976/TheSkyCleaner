@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class T_Spawn : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class T_Spawn : MonoBehaviour
     public void SpawnEnemy()
     {
         Debug.Log("spawn");
-        GameObject obj = enemypool.GetFromPool(_transform.position, true).gameObject;
+        GameObject obj = enemypool.GetObjectFromPool();
 
         Vector3 pos = obj.transform.position;
         pos.x += Random.Range(-3, 3);

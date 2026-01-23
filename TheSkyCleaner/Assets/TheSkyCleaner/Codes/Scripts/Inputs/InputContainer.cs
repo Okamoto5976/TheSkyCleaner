@@ -12,46 +12,46 @@ public class InputContainer : ScriptableObject
     [SerializeField] private BooleanContainer m_shoulderLeft;
     [SerializeField] private BooleanContainer m_shoulderRight;
 
-    public Vector2 MovementAxis => m_movementAxis.value;
-    public Vector2 ReticleAxis => m_reticleAxis.value;
-    public bool MainAction => m_mainAction.value;
-    public bool SubAction => m_subAction.value;
-    public bool StrongAction => m_strongAction.value;
-    public bool WeakAction => m_weakAction.value;
-    public bool ShoulderLeftAction => m_shoulderLeft.value;
-    public bool ShoulderRightAction => m_shoulderRight.value;
+    public Vector2 MovementAxis => m_movementAxis.Value;
+    public Vector2 ReticleAxis => m_reticleAxis.Value;
+    public bool MainAction => m_mainAction.Value;
+    public bool SubAction => m_subAction.Value;
+    public bool StrongAction => m_strongAction.Value;
+    public bool WeakAction => m_weakAction.Value;
+    public bool ShoulderLeftAction => m_shoulderLeft.Value;
+    public bool ShoulderRightAction => m_shoulderRight.Value;
 
 
     public void SetMovementAxis(Vector2 vector)
     {
-        m_movementAxis.value = vector;
+        m_movementAxis.Value = vector;
     }
     public void SetReticleAxis(Vector2 vector)
     {
-        m_reticleAxis.value = vector;
+        m_reticleAxis.Value = vector;
     }
     public void SetMainAction(bool mainAction)
     {
-        m_mainAction.value = mainAction;
+        m_mainAction.Value = mainAction;
     }
     public void SetSubAction(bool subAction)
     {
-        m_subAction.value = subAction;
+        m_subAction.Value = subAction;
     }
     public void SetStrongAction(bool strongAction)
     {
-        m_strongAction.value = strongAction;
+        m_strongAction.Value = strongAction;
     }
     public void SetWeakAction(bool weakAction)
     {
-        m_weakAction.value = weakAction;
+        m_weakAction.Value = weakAction;
     }
     public void SetShoulderLeftAction(bool shoulderLeft)
     {
-        m_shoulderLeft.value = shoulderLeft;
+        m_shoulderLeft.Value = shoulderLeft;
     }
     public void SetShoulderRightAction(bool shoulderRight)
     {
-        m_shoulderRight.value = shoulderRight;
+        m_shoulderRight.Value = shoulderRight;
     }
 }

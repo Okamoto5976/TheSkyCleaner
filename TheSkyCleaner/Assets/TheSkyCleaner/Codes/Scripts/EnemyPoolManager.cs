@@ -1,74 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-public class EnemyPoolManager : MonoBehaviour
+public class EnemyPoolManager : ObjectPoolManager
 {
-    [SerializeField] private T_Enemy m_enemy;
-    [SerializeField] private int m_poolCount;
-    [SerializeField] private bool m_forcePoolCount = true;
+    protected List<T_Enemy> m_objectEnemy;
 
-    private List<T_Enemy> m_objectEnemy;
-    private List<T_Enemy> m_inUseQue;
-
-    private Transform m_transform;
-
-    private void Awake()
+    protected override void Awake()
     {
         m_objectEnemy = new();
-        m_inUseQue = new();
-        m_transform = transform;
-        for (int i = 0; i < m_poolCount; i++)
-        {
-            AddToPool();
-        }
+        base.Awake();
     }
 
-    public T_Enemy GetFromPool(Vector3 spawnPosition,bool setActive = false)
+    public T_Enemy GetEnemyFromPool()
     {
-        T_Enemy obj = m_objectEnemy.FirstOrDefault(x => !m_inUseQue.Contains(x));
-        if (obj == null)
-        {
-            if (m_forcePoolCount)
-            {
-                obj = m_inUseQue.First();
-                m_inUseQue.RemoveAt(0);
-            }
-            else
-            {
-                obj = AddToPool();
-            }
-        }
-
-        m_enemy.transform.position = spawnPosition;
-
-        if (obj.gameObject.activeSelf != setActive)
-        {
-            Debug.Log(setActive);
-            obj.gameObject.SetActive(setActive);
-        }
-        m_inUseQue.Add(obj);
-        return obj;
+        return GetFromPool(m_objectEnemy);
     }
 
-    public void ReturnToPool(T_Enemy obj)
+    protected override int AddToPool()
     {
-        m_inUseQue.Remove(obj);
-        obj.transform.parent = m_transform;
-        obj.gameObject.SetActive(false);
-    }
-
-    private T_Enemy AddToPool()
-    {
-        T_Enemy obj = Instantiate(m_enemy, m_transform);
-        obj.gameObject.SetActive(false);
-        obj.name += m_objectEnemy.Count;
-        m_objectEnemy.Add(obj);
-        return obj;
+        int index = base.AddToPool();
+        m_objectEnemy.Add(m_objectPool.ElementAt(index).GetComponent<T_Enemy>());
+        return index;
     }
 
     public IReadOnlyList<T_Enemy> GetActiveEnemies()
     {
-        return m_inUseQue;
+        IEnumerable<T_Enemy> tmp = m_inUseQue.Select(i => m_objectEnemy.ElementAt(i));
+        return tmp.ToList();
     }
 }
