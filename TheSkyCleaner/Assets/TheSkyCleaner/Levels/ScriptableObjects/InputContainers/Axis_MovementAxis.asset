@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4db3a5c0aafca44a49630bbf04ce21, type: 3}
-  m_Name: Player_Boolean_MainAction_HoldState
-  m_EditorClassIdentifier: Assembly-CSharp::BooleanContainer
-  m_initialValue: 0
-  m_value: 0
+  m_Script: {fileID: 11500000, guid: d71bf222ee87ad3458fb04baba285334, type: 3}
+  m_Name: Axis_MovementAxis
+  m_EditorClassIdentifier: Assembly-CSharp::AxisVector2Container
+  value: {x: 0, y: 0}

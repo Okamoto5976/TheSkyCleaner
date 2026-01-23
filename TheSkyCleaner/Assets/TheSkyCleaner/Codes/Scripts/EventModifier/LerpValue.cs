@@ -3,7 +3,6 @@ using UnityEngine.Events;
 
 public class LerpValue : MonoBehaviour
 {
-    [SerializeField] private BooleanContainer m_toggle;
     [SerializeField] private Vector2 m_range;
     [SerializeField] private float m_lerpDuration;
     [SerializeField] private UnityEvent m_eventStart;
@@ -21,11 +20,6 @@ public class LerpValue : MonoBehaviour
         m_state = 0;
     }
 
-    private void OnEnable()
-    {
-        m_toggle.OnValueChanged += SetState;
-    }
-
     private void Update()
     {
         float val;
@@ -41,18 +35,6 @@ public class LerpValue : MonoBehaviour
             m_state = 0;
         }
         m_eventHoldDuration.Invoke(val);
-    }
-
-    public void SetState(bool state)
-    {
-        if (state)
-        {
-            StartLerp();
-        }
-        else
-        {
-            ReleaseLerp();
-        }
     }
 
     public void StartLerp()

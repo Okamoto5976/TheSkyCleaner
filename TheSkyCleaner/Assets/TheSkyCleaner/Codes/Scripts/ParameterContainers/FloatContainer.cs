@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "FloatContainer", menuName = "Scriptable Objects/Parameter Containers/FloatContainer")]
-public class FloatContainer : RuntimeScriptableObject
+public class FloatContainer : ScriptableObject
 {
     [SerializeField] private float m_initialValue;
     [SerializeField] private float m_value;
@@ -18,10 +18,5 @@ public class FloatContainer : RuntimeScriptableObject
             m_value = value;
             OnValueChanged.Invoke(value);
         }
-    }
-
-    protected override void OnReset()
-    {
-        OnValueChanged.Invoke(m_value = m_initialValue);
     }
 }

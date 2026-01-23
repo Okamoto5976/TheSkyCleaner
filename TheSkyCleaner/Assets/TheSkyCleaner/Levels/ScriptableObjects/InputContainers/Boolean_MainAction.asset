@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c4db3a5c0aafca44a49630bbf04ce21, type: 3}
-  m_Name: Input_Boolean_MainAction_HoldState
+  m_Name: Boolean_MainAction
   m_EditorClassIdentifier: Assembly-CSharp::BooleanContainer
   value: 0

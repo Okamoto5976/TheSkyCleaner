@@ -2,35 +2,15 @@ using UnityEngine;
 
 public class MovementHandler : MonoBehaviour
 {
-    [SerializeField] private AxisVector3Container m_axisContainer;
     [SerializeField] private Vector3 m_speeds;
     [SerializeField] private float m_speedMod = 1;
 
     private Transform m_transform;
-    private Vector3 m_axis;
 
     private void Awake()
     {
         m_transform = gameObject.transform;
     }
-
-    private void OnEnable()
-    {
-        m_axisContainer.OnValueChanged += SetAxis;
-        m_axis = m_axisContainer.Value;
-    }
-
-    private void OnDisable()
-    {
-        m_axisContainer.OnValueChanged -= SetAxis;
-    }
-
-    private void Update()
-    {
-        MoveAll(m_axis);
-    }
-
-    private void SetAxis(Vector3 value) => m_axis = value;
 
     public void MoveHorizontal(float dir)
     {

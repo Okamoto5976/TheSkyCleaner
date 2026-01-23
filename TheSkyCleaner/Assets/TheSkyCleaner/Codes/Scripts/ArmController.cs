@@ -11,8 +11,6 @@ public class ArmController : MonoBehaviour
     [SerializeField] private Camera m_mainCamera;
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
 
-    [SerializeField] private AxisVector2Container m_reticleAxisContainer;
-
     private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
     private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
     private List<T_Enemy> m_SaveEnemies = new List<T_Enemy>();
@@ -30,8 +28,6 @@ public class ArmController : MonoBehaviour
 
     [SerializeField] private Transform m_plaeyr;
     [SerializeField] private Vector2 m_playerPos;
-
-    private Vector2 m_reticleDelta;
 
     private void Awake()
     {
@@ -51,18 +47,6 @@ public class ArmController : MonoBehaviour
             //m_lockOnArm.Add(m_arms[i].transform);
         }
     }
-
-    private void OnEnable()
-    {
-        m_reticleAxisContainer.OnValueChanged += SetReticleDelta;
-    }
-
-    private void OnDisable()
-    {
-        m_reticleAxisContainer.OnValueChanged -= SetReticleDelta;
-    }
-
-    public void SetReticleDelta(Vector2 reticleAxis) => m_reticleDelta = reticleAxis;
 
     private void Update()
     {
@@ -88,7 +72,7 @@ public class ArmController : MonoBehaviour
 
         m_playerPos = current_pos;
 
-        MoveReticle(m_reticleDelta);
+        
     }
 
     public void ArmShot()

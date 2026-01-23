@@ -20293,7 +20293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413177021}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
   m_Name: 
@@ -20325,8 +20325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_axisContainer: {fileID: 11400000, guid: 2f72b2cd6f63f7b4090a4283a5ad0f56, type: 2}
-  m_speeds: {x: 0, y: 0, z: 1}
+  m_speeds: {x: 0, y: 0, z: -1}
   m_speedMod: 1
 --- !u!114 &413177025
 MonoBehaviour:
@@ -25635,9 +25634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   m_logger: {fileID: 713725152}
-  m_inputMovementAxisContainer: {fileID: 11400000, guid: 6093f211fcd6ec748ae758e4e63d7615, type: 2}
-  m_inputReticleAxisContainer: {fileID: 11400000, guid: 8eb0e75ca7903e54db90b84b9ea1aca2, type: 2}
-  m_playerActionContainer: {fileID: 11400000, guid: f74c14d8821900040acaeec0634ef69c, type: 2}
+  m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
     m_PersistentCalls:
       m_Calls:
@@ -25665,9 +25662,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2031329091}
+        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
+        m_MethodName: MoveOnZ
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 254959538}
         m_TargetAssemblyTypeName: TiltHandler, Assembly-CSharp
         m_MethodName: TiltOnRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onReticle:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1373798138}
+        m_TargetAssemblyTypeName: ArmController, Assembly-CSharp
+        m_MethodName: MoveReticle
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25710,7 +25734,19 @@ MonoBehaviour:
   m_onMainAction:
     m_tap:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 762919356}
+          m_TargetAssemblyTypeName: ActivateWithTimer, Assembly-CSharp
+          m_MethodName: StartTimer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_holdStarted:
       m_PersistentCalls:
         m_Calls:
@@ -25817,7 +25853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
-  m_axisContainer: {fileID: 11400000, guid: 884fd8bf4b3e3644b9e8b526e94d66b6, type: 2}
   m_speeds: {x: 5, y: 5, z: 0}
   m_speedMod: 1
 --- !u!114 &762919355
@@ -25850,7 +25885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9b284e638d94e12a7736e7ecf4a101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActivateWithTimer
-  m_trigger: {fileID: 11400000, guid: 23dc53552d3c799499440c277e87cf5b, type: 2}
   m_events:
     m_PersistentCalls:
       m_Calls:
@@ -26118,14 +26152,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputHandler
   m_logger: {fileID: 933229035}
-  m_movementAxisContainer: {fileID: 11400000, guid: 6093f211fcd6ec748ae758e4e63d7615, type: 2}
-  m_reticleAxisContainer: {fileID: 11400000, guid: 8eb0e75ca7903e54db90b84b9ea1aca2, type: 2}
+  m_container: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_movementAxis: {fileID: 1429461270}
+  m_onMovementAxis:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 762919353}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: MoveAll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_reticleAxis: {fileID: 1806138166}
+  m_onReticleAxis:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 762919353}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ReticleAll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_mainAction:
     inputActionReference: {fileID: 961228293}
-    onTapContainer: {fileID: 11400000, guid: 32bd8095ce4cc774ca8997463eadc614, type: 2}
-    holdStateContainer: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
     onTap:
       m_PersistentCalls:
         m_Calls:
@@ -26163,8 +26224,6 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_subAction:
     inputActionReference: {fileID: 758399574}
-    onTapContainer: {fileID: 0}
-    holdStateContainer: {fileID: 0}
     onTap:
       m_PersistentCalls:
         m_Calls:
@@ -26202,8 +26261,6 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_strongAction:
     inputActionReference: {fileID: 1641099585}
-    onTapContainer: {fileID: 0}
-    holdStateContainer: {fileID: 0}
     onTap:
       m_PersistentCalls:
         m_Calls:
@@ -26241,8 +26298,6 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_weakAction:
     inputActionReference: {fileID: 111724859}
-    onTapContainer: {fileID: 0}
-    holdStateContainer: {fileID: 0}
     onTap:
       m_PersistentCalls:
         m_Calls: []
@@ -26268,8 +26323,6 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_shoulderLeft:
     inputActionReference: {fileID: 2018533307}
-    onTapContainer: {fileID: 0}
-    holdStateContainer: {fileID: 0}
     onTap:
       m_PersistentCalls:
         m_Calls: []
@@ -26283,8 +26336,6 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_shoulderRight:
     inputActionReference: {fileID: 431127808}
-    onTapContainer: {fileID: 0}
-    holdStateContainer: {fileID: 0}
     onTap:
       m_PersistentCalls:
         m_Calls: []
@@ -27160,7 +27211,6 @@ MonoBehaviour:
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 1259995852}
-  m_reticleAxisContainer: {fileID: 11400000, guid: 670acb44c2e54f84aba0db923def3629, type: 2}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_arms:
   - {fileID: 1755327139}
@@ -38136,7 +38186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_axisContainer: {fileID: 11400000, guid: 884fd8bf4b3e3644b9e8b526e94d66b6, type: 2}
   m_speeds: {x: 3, y: 3, z: 3}
   m_speedMod: 1
 --- !u!4 &2031329092
