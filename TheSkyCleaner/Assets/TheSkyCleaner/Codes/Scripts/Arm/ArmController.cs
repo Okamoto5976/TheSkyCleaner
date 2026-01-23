@@ -91,7 +91,7 @@ public class ArmController : MonoBehaviour
 
     public void ArmShot()
     {
-        foreach(var enemies in m_SaveEnemies)
+        foreach (var enemies in m_SaveEnemies)
         {
             int id = enemies.GetInstanceID();
 
@@ -134,40 +134,33 @@ public class ArmController : MonoBehaviour
 
     public Rect GetScreenRect(RectTransform reticle)
     {
-        Vector3[] corners = new Vector3[4];
+        Camera cam = m_mainCamera;
+
+        var corners = new Vector3[4];
         reticle.GetWorldCorners(corners);
 
-        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
-        Vector2 max = new Vector2(float.MinValue, float.MinValue);
+        corners[0].z = m_reticleDistance;
+        Vector3 min = cam.WorldToScreenPoint(corners[0]);
 
-        for (int i = 0; i < 4; i++)
-        {
-            Vector2 sp = RectTransformUtility.WorldToScreenPoint(
-                m_mainCamera,
-                corners[i]
-            );
+        corners[2].z = m_reticleDistance;
+        Vector3 max = cam.WorldToScreenPoint(corners[2]);
 
-            min = Vector2.Min(min, sp);
-            max = Vector2.Max(max, sp);
-        }
+        //Vector3 worldCenter = reticle.TransformPoint(reticle.rect.center);
+        //worldCenter.z = m_reticleDistance;
 
-        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        //Vector3 vp = cam.WorldToViewportPoint(worldCenter);
 
 
-        //var corners = new Vector3[4];
-        //reticle.GetWorldCorners(corners);
+        //Debug.Log($"reticle{vp} | wc{worldCenter} | rc{reticle.rect.center} | lp{reticle.transform.localPosition}");
+        Debug.Log($"reticle{min}{max}");
+        return Rect.MinMaxRect(
+            min.x,
+            min.y,
+            max.x,
+            max.y);
 
-        //Vector2 min = RectTransformUtility.WorldToScreenPoint(
-        //m_mainCamera, corners[0]); // 左下
 
-        //Vector2 max = RectTransformUtility.WorldToScreenPoint(
-        //    m_mainCamera, corners[2]); // 右上
 
-        //return new Rect(
-        //    min.x,
-        //    min.y,
-        //    max.x,
-        //    max.y);
     }
 
     private void UpdateLockOnCandidates()//範囲内のすべてのpool内の敵を取得
@@ -176,22 +169,7 @@ public class ArmController : MonoBehaviour
 
         Camera cam = m_mainCamera;
 
-        float halfH = cam.orthographicSize;
-        float halfW = halfH * cam.aspect;
-
-        // レティクルのWorld位置(カメラ基準）
-        Vector2 reticleWorldPos = new Vector2(
-            m_rect.position.x - cam.transform.position.x,
-            m_rect.position.y - cam.transform.position.y
-        );
-
-        // レティクルの半径（＝判定範囲）
-        float reticleRadius = Mathf.Max(
-            m_rect.rect.width,
-            m_rect.rect.height
-        ) * 0.5f * m_rect.lossyScale.x;
-        // WorldSpaceUIなのでlossyScale 必須
-        //Rect lockOnRect = GetScreenRect(m_rect);
+        Rect lockOnRect = GetScreenRect(m_rect);
 
         var enemies = m_enemypoolmanager.GetActiveEnemies();
 
@@ -199,28 +177,21 @@ public class ArmController : MonoBehaviour
         {
             if (!enemy.gameObject.activeSelf == true) continue;
 
-        Vector3 vp = cam.WorldToViewportPoint(enemy.transform.position);
+            Vector3 vp = cam.WorldToScreenPoint(enemy.transform.position);
 
-        if (vp.z <= 0) continue;
+            float reticleDistance = Vector3.Distance(cam.transform.position, m_rect.position);
 
-        // Viewport → World（比率補正の核心）
-        Vector2 enemyWorldOffset = new Vector2(
-            (vp.x - 0.5f) * 2f * halfW,
-            (vp.y - 0.5f) * 2f * halfH
-        );
 
-        // 距離判定
-        if (Vector2.Distance(enemyWorldOffset, reticleWorldPos) <= reticleRadius)
-        {
-            m_LockOnCandidates.Add(enemy);
-        }
-            //Vector3 sp = m_mainCamera.WorldToScreenPoint(enemy.transform.position);
-            //Vector2 enemyScreenPos = new Vector2(sp.x, sp.y);
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(enemy.transform.position);
+            Vector2 enemyScreenPos = new Vector2(sp.x, sp.y);
 
-            //if (sp.z <= 0) continue;// カメラよりも後ろ？
+            Debug.Log($"スクリーン{enemyScreenPos}");
 
-            //if (lockOnRect.Contains(enemyScreenPos))
-            //    m_LockOnCandidates.Add(enemy);
+
+            if (sp.z < reticleDistance) continue;// カメラよりも後ろ？
+
+            if (lockOnRect.Contains(enemyScreenPos))
+                m_LockOnCandidates.Add(enemy);
         }
     }
 
@@ -276,9 +247,7 @@ public class ArmController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            Vector3 offset = Vector3.up * 1.5f;
-
-            marker.transform.position = enemy.transform.position + offset;
+            marker.transform.position = enemy.transform.position;
 
             //Vector3 screenPos =
             //m_mainCamera.WorldToScreenPoint(enemy.transform.position);

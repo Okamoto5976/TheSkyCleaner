@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/AudioSource")]
 public class AudioSourceSO : ScriptableObject
 {
-    //public List<AudioSourceMusic> audioSourceList = new List<AudioSourceMusic>();
-    //private Dictionary<string, AudioSourceMusic> _audioDictionary;
     public List<AudioSourceMusic> BGMList;
     public List<AudioSourceMusic> SEList;
     [System.Serializable]
@@ -23,24 +21,4 @@ public class AudioSourceSO : ScriptableObject
         public bool Loop { get => loop; }
 
     }
-    //private void OnEnable()
-    //{
-    //    Initialize();
-    //}
-
-    //public void Initialize()
-    //{
-    //    _audioDictionary = new Dictionary<string, AudioSourceMusic>();
-    //    foreach (var data in audioSourceList)
-    //    {
-    //        _audioDictionary[data.Audiosource] = data;
-    //    }
-    //}
-
-    //public AudioSourceMusic GetAudio(string name)
-    //{
-    //    if (_audioDictionary.TryGetValue(name, out var data))
-    //        return data;
-    //    return null;
-    //}
 }
