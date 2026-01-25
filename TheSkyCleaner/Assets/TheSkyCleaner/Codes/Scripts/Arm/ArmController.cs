@@ -10,6 +10,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private RectTransform m_canvasSize;
     [SerializeField] private Camera m_mainCamera;
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
+    [SerializeField] private TrashPoolManagers m_trashpoolmanager;
 
     private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
     private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
@@ -172,6 +173,7 @@ public class ArmController : MonoBehaviour
         Rect lockOnRect = GetScreenRect(m_rect);
 
         var enemies = m_enemypoolmanager.GetActiveEnemies();
+        var trashes = m_trashpoolmanager.GetActiveEnemies();
 
         foreach (var enemy in enemies)
         {
