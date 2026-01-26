@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ae22f01df33f34688e4622fefed46a, type: 3}
-  m_Name: Player_DodgeAnimationName
-  m_EditorClassIdentifier: Assembly-CSharp::StringContainer
-  m_initialValue: Dodge
-  m_value: 
+  m_Script: {fileID: 11500000, guid: be15e9860293b9945a1929330430e591, type: 3}
+  m_Name: EnemyMoveState
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMoveState

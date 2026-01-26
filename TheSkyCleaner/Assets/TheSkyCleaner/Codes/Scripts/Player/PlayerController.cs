@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ArmController m_armController;
     [SerializeField] private AnimatorVariableDriver m_animatorVariableDriver;
 
+    [SerializeField] private StringContainer m_dodgeAnimationToggleBoolName;
+
+    [Header("Global Variable Containers")]
+    [SerializeField] private AxisVector3Container m_playerPositionContainer;
+
     [Header("Events")]
     [SerializeField] private InputContainer m_inputContainer;
     [SerializeField] private UnityEvent<Vector2> m_onMoveAll;
@@ -42,8 +47,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 m_movementAxis;
     private Vector2 m_reticleAxis;
 
+    private Transform m_transform;
+
     private void Awake()
     {
+        m_transform = transform;
         m_movementHandler = GetComponent<MovementHandler>();
         m_playerAttackController = GetComponent<PlayerAttackController>();
         m_strongHoldValue = 0;
@@ -77,13 +85,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerDodge()
     {
-        //m_animatorVariableDriver.Drive(m_dodgeBoolVariable);
+        m_animatorVariableDriver.TriggerBool(m_dodgeAnimationToggleBoolName.Value);
     }
 
     public void MovePlayer(ref Vector2 axis)
     {
         axis = m_inputContainer.MovementAxis;
         m_movementHandler.MoveOnZ(axis);
+        m_playerPositionContainer.SetValue(m_transform.position);
     }
 
 

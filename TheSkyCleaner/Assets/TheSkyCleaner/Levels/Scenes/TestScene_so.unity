@@ -25683,7 +25683,9 @@ MonoBehaviour:
   m_logger: {fileID: 713725152}
   m_playerTiltHandler: {fileID: 960096394}
   m_armController: {fileID: 1373798138}
-  m_animatorVariableDriver: {fileID: 0}
+  m_animatorVariableDriver: {fileID: 332467648}
+  m_dodgeAnimationToggleBoolName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
+  m_playerPositionContainer: {fileID: 11400000, guid: 50ab2309a9be6854f8379e9957f31139, type: 2}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
     m_PersistentCalls:
