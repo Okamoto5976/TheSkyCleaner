@@ -19967,6 +19967,7 @@ GameObject:
   - component: {fileID: 332467645}
   - component: {fileID: 332467646}
   - component: {fileID: 332467647}
+  - component: {fileID: 332467648}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -20044,6 +20045,18 @@ MonoBehaviour:
   m_name: Dodge
   m_resetDelay: 0
   m_isTimed: 0
+--- !u!114 &332467648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332467642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b63cb77069d46848b0be3d2e3aef9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatorVariableDriver
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -25623,6 +25636,7 @@ MonoBehaviour:
   m_logger: {fileID: 713725152}
   m_playerTiltHandler: {fileID: 960096394}
   m_armController: {fileID: 1373798138}
+  m_animatorVariableDriver: {fileID: 0}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
     m_PersistentCalls:
@@ -25769,19 +25783,7 @@ MonoBehaviour:
         m_CallState: 2
   m_onDodge:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 332467647}
-        m_TargetAssemblyTypeName: DriveAnimatorBoolTrigger, Assembly-CSharp
-        m_MethodName: Drive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Dodge
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &762919354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26124,9 +26126,6 @@ MonoBehaviour:
   m_container: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_movementAxisAction: {fileID: 1429461270}
   m_reticleAxis: {fileID: 1806138166}
-  m_onReticleAxis:
-    m_PersistentCalls:
-      m_Calls: []
   m_mainAction:
     variableContainer:
       tap: {fileID: 11400000, guid: ce32a5309ca8dd9489c3cfc3344a5a75, type: 2}
@@ -26161,8 +26160,8 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_strongAction:
     variableContainer:
-      tap: {fileID: 0}
-      holdState: {fileID: 0}
+      tap: {fileID: 11400000, guid: b68fd8042fea64d4989b46d3c3344b7f, type: 2}
+      holdState: {fileID: 11400000, guid: 22428e85231e65340b2f68c07f093f62, type: 2}
     inputActionReference: {fileID: 1641099585}
     onTap:
       m_PersistentCalls:
@@ -26201,8 +26200,8 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_weakAction:
     variableContainer:
-      tap: {fileID: 0}
-      holdState: {fileID: 0}
+      tap: {fileID: 11400000, guid: 835e7cdb3b19d5743ba160782ae019dd, type: 2}
+      holdState: {fileID: 11400000, guid: d1ad50f7a56aec74e9698e6e4018755e, type: 2}
     inputActionReference: {fileID: 111724859}
     onTap:
       m_PersistentCalls:
@@ -26229,8 +26228,8 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_shoulderLeft:
     variableContainer:
-      tap: {fileID: 0}
-      holdState: {fileID: 0}
+      tap: {fileID: 11400000, guid: 36467c92f916d104cada37109eaf343c, type: 2}
+      holdState: {fileID: 11400000, guid: ac953edc7ae90074aa0eff10841a4e36, type: 2}
     inputActionReference: {fileID: 2018533307}
     onTap:
       m_PersistentCalls:
@@ -26245,8 +26244,8 @@ MonoBehaviour:
     isHoldSuccessful: 0
   m_shoulderRight:
     variableContainer:
-      tap: {fileID: 0}
-      holdState: {fileID: 0}
+      tap: {fileID: 11400000, guid: e83d1ba37967a3a4cb61f0471f354277, type: 2}
+      holdState: {fileID: 11400000, guid: 42f1f9740c7705a4783085adb483f282, type: 2}
     inputActionReference: {fileID: 431127808}
     onTap:
       m_PersistentCalls:
