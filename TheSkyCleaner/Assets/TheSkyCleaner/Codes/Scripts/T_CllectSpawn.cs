@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class T_TrashSpawn : MonoBehaviour
+public class T_CllectSpawn : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

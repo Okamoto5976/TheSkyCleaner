@@ -2,21 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
-public class TrashPoolManagers : MonoBehaviour
+public class CollectPoolManager : MonoBehaviour
 {
-    [SerializeField] private T_Trash m_trash;
+    [SerializeField] private T_Collect m_collect;
     [SerializeField] private int m_poolCount;
     [SerializeField] private bool m_forcePoolCount = true;
 
-    private List<T_Trash> m_objectTrash;
-    private List<T_Trash> m_inUseQue;
+    private List<T_Collect> m_objectCollect;
+    private List<T_Collect> m_inUseQue;
 
     private Transform m_transform;
 
     private void Awake()
     {
-        m_objectTrash = new();
+        m_objectCollect = new();
         m_inUseQue = new();
         m_transform = transform;
         for (int i = 0; i < m_poolCount; i++)
@@ -25,9 +24,9 @@ public class TrashPoolManagers : MonoBehaviour
         }
     }
 
-    public T_Trash GetFromPool(Vector3 spawnPosition, bool setActive = false)
+    public T_Collect GetFromPool(Vector3 spawnPosition, bool setActive = false)
     {
-        T_Trash obj = m_objectTrash.FirstOrDefault(x => !m_inUseQue.Contains(x));
+        T_Collect obj = m_objectCollect.FirstOrDefault(x => !m_inUseQue.Contains(x));
         if (obj == null)
         {
             if (m_forcePoolCount)
@@ -41,7 +40,7 @@ public class TrashPoolManagers : MonoBehaviour
             }
         }
 
-        m_trash.transform.position = spawnPosition;
+        m_collect.transform.position = spawnPosition;
 
         if (obj.gameObject.activeSelf != setActive)
         {
@@ -52,23 +51,23 @@ public class TrashPoolManagers : MonoBehaviour
         return obj;
     }
 
-    public void ReturnToPool(T_Trash obj)
+    public void ReturnToPool(T_Collect obj)
     {
         m_inUseQue.Remove(obj);
         obj.transform.parent = m_transform;
         obj.gameObject.SetActive(false);
     }
 
-    private T_Trash AddToPool()
+    private T_Collect AddToPool()
     {
-        T_Trash obj = Instantiate(m_trash, m_transform);
+        T_Collect obj = Instantiate(m_collect, m_transform);
         obj.gameObject.SetActive(false);
-        obj.name += m_objectTrash.Count;
-        m_objectTrash.Add(obj);
+        obj.name += m_objectCollect.Count;
+        m_objectCollect.Add(obj);
         return obj;
     }
 
-    public IReadOnlyList<T_Trash> GetActiveEnemies()
+    public IReadOnlyList<T_Collect> GetActiveEnemies()
     {
         return m_inUseQue;
     }

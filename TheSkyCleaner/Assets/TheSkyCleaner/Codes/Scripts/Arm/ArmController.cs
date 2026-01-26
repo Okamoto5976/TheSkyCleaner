@@ -10,11 +10,11 @@ public class ArmController : MonoBehaviour
     [SerializeField] private RectTransform m_canvasSize;
     [SerializeField] private Camera m_mainCamera;
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
-    [SerializeField] private TrashPoolManagers m_trashpoolmanager;
+    [SerializeField] private CollectPoolManager m_collectpoolmanager;
 
-    private List<T_Enemy> m_LockOnCandidates = new List<T_Enemy>();
-    private List<T_Enemy> m_LockEnemies = new List<T_Enemy>();
-    private List<T_Enemy> m_SaveEnemies = new List<T_Enemy>();
+    private List<ILockOnTarget> m_LockOnCandidates = new List<ILockOnTarget>();
+    private List<ILockOnTarget> m_LockEnemies = new List<ILockOnTarget>();
+    private List<ILockOnTarget> m_SaveEnemies = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
     [SerializeField] private Image m_lockOnMarkerPrefab;
 
@@ -94,7 +94,7 @@ public class ArmController : MonoBehaviour
     {
         foreach (var enemies in m_SaveEnemies)
         {
-            int id = enemies.GetInstanceID();
+            int id = enemies.GameObject.GetInstanceID();
 
             if (m_enemiesId.Contains(id)) continue;
 
@@ -109,7 +109,7 @@ public class ArmController : MonoBehaviour
 
             m_enemiesId.Add(id);
 
-            arm.MoveToEnemy(enemies.transform, m_speed, id, index);
+            arm.MoveToEnemy(enemies.Transform, m_speed, id, index);
         }
     }
 
@@ -173,7 +173,6 @@ public class ArmController : MonoBehaviour
         Rect lockOnRect = GetScreenRect(m_rect);
 
         var enemies = m_enemypoolmanager.GetActiveEnemies();
-        var trashes = m_trashpoolmanager.GetActiveEnemies();
 
         foreach (var enemy in enemies)
         {
@@ -204,7 +203,7 @@ public class ArmController : MonoBehaviour
         Vector3 selfPos = transform.position;
 
         var sort = m_LockOnCandidates
-            .OrderBy(e => (e.transform.position - selfPos).magnitude)
+            .OrderBy(e => (e.Transform.position - selfPos).magnitude)
             .Take(m_maxCount);
 
         foreach (var enemy in sort)
@@ -236,7 +235,7 @@ public class ArmController : MonoBehaviour
         }
     }
 
-    private void UpdateLockOnMarkers(List<T_Enemy> saveEnemies)
+    private void UpdateLockOnMarkers(List<ILockOnTarget> saveEnemies)
     {
         for (int i = 0; i < m_lockOnMarkers.Count; i++)
         {
@@ -249,7 +248,7 @@ public class ArmController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            marker.transform.position = enemy.transform.position;
+            marker.transform.position = enemy.Transform.position;
 
             //Vector3 screenPos =
             //m_mainCamera.WorldToScreenPoint(enemy.transform.position);

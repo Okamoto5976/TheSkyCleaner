@@ -26897,6 +26897,7 @@ MonoBehaviour:
   m_canvasSize: {fileID: 1908726484}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 331325063}
+  m_collectpoolmanager: {fileID: 0}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_arms:
   - {fileID: 1755327139}
