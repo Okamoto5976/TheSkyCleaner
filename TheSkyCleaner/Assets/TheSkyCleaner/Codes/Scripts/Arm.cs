@@ -9,7 +9,6 @@ public class Arm : MonoBehaviour
         Returning
     }
 
-    [SerializeField] private Logger m_logger;
     [SerializeField] private Transform m_player;
     [SerializeField] private ArmController m_controller;
 
@@ -31,7 +30,6 @@ public class Arm : MonoBehaviour
 
     private void FixedUpdate()
     {
-        State state = m_state;
         switch(m_state)
         {
             case State.Moving:
@@ -42,10 +40,7 @@ public class Arm : MonoBehaviour
                 break;
         }
 
-        if (state != m_state)
-        {
-            m_logger.Log($"{m_state}", this);
-        }
+        //Debug.Log(m_state);
     }
 
     public void MoveToEnemy(Transform enemy,float speed,int ID,int index)
@@ -84,6 +79,7 @@ public class Arm : MonoBehaviour
             m_transform.position,
             m_player.position + m_returnPosition,
             m_speed);
+        Debug.Log("return");
 
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {
