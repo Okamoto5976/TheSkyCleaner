@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class T_Spawn : MonoBehaviour
 {
-    [SerializeField] private EnemyPoolManager enemypool;
+    [SerializeField] private CollectPoolManager collectpool;
     [SerializeField] private Transform _transform;
 
     private void Update()
@@ -11,7 +11,7 @@ public class T_Spawn : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             Debug.Log("spawn");
-            GameObject obj = enemypool.GetObjectFromPool().gameObject;
+            GameObject obj = collectpool.GetObjectFromPool().gameObject;
             obj.SetActive(true);//ƒZƒbƒg
 
             Vector3 pos = obj.transform.position;
