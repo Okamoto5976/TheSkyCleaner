@@ -40,6 +40,5 @@ public class ActivateObjectAtPosition : MonoBehaviour
         }
 
         t.localScale = m_offsetScale;
-        obj.SetActive(true);
     }
 }

@@ -1,105 +1,119 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class InputHandler : MonoBehaviour
 {
-    [System.Serializable]
-    struct ButtonAction
-    {
-        [SerializeField] private ButtonInput variableContainer;
-        public readonly ButtonInput Container => variableContainer;
-        [SerializeField] private InputActionReference inputActionReference; 
-        public readonly InputAction Action => inputActionReference.action;
+    [SerializeField] private InputActionReference m_horizontal;
+    [SerializeField] private UnityEvent<float> m_onHorizontalInput;
 
-        [SerializeField] private UnityEvent onTap;
-        public readonly UnityEvent OnTapEvent => onTap;
+    [SerializeField] private InputActionReference m_vertical;
+    [SerializeField] private UnityEvent<float> m_onVerticalInput;
 
-        [SerializeField] private UnityEvent<float> whileHoldTime;
-        public readonly UnityEvent<float> WhileHoldTimeEvent => whileHoldTime;
+    [SerializeField] private InputActionReference m_reticle;
+    [SerializeField] private UnityEvent<Vector2> m_onReticleInput;
 
-        [SerializeField] private UnityEvent<bool> onHold;
-        public readonly UnityEvent<bool> OnHoldEvent => onHold;
+    [SerializeField]private InputActionReference m_mainAction;
+    [SerializeField] private UnityEvent m_onMainActionInputTap;
+    [SerializeField] private UnityEvent<float> m_onMainActionInputHold;
+    [SerializeField] private UnityEvent<bool> m_onMainActionInputHoldState;
 
-        [HideInInspector] public float time;
-        [HideInInspector] public bool isHoldSuccessful;
-    }
+    [SerializeField] private InputActionReference m_subAction;
+    [SerializeField] private UnityEvent m_onSubActionInputTap;
+    [SerializeField] private UnityEvent<float> m_onSubActionInputHold;
+    [SerializeField] private UnityEvent<bool> m_onSubActionInputHoldState;
 
-    [Header("Logger")]
-    [SerializeField] private Logger m_logger;
-    [Header("Variable Container")]
-    [SerializeField] private InputContainer m_container;
+    [SerializeField] private InputActionReference m_axialAction;
+    [SerializeField] private UnityEvent<float> m_onAxialAction;
 
-    [Header("Control Events")]
-    [SerializeField] private InputActionReference m_movementAxisAction;
+    private float m_mainActionTime;
+    private bool m_mainActionHoldState;
 
-    [SerializeField] private InputActionReference m_reticleAxis;
-
-    [SerializeField] private ButtonAction m_mainAction;
-    [SerializeField] private ButtonAction m_subAction;
-    [SerializeField] private ButtonAction m_strongAction;
-    [SerializeField] private ButtonAction m_weakAction;
-    [SerializeField] private ButtonAction m_shoulderLeft;
-    [SerializeField] private ButtonAction m_shoulderRight;
-
-    private Vector2 m_movementAxis;
+    private float m_subActionTime;
+    private bool m_subActionHoldState;
 
     private void Awake()
     {
-        m_mainAction.isHoldSuccessful = false;
-        m_subAction.isHoldSuccessful = false;
-        m_strongAction.isHoldSuccessful = false;
-        m_weakAction.isHoldSuccessful = false;
-        m_shoulderLeft.isHoldSuccessful = false;
-        m_shoulderRight.isHoldSuccessful = false;
+        m_mainActionHoldState = false;
+        m_subActionHoldState = false;
+    }
+
+    private void OnEnable()
+    {
+        // m_mainAction.action.started += OnMainActionInput;
+        // m_mainAction.action.performed += OnMainActionInput;
+        // m_mainAction.action.canceled += OnMainActionInput;
+
+    }
+
+    private void OnDisable()
+    {
+        // m_mainAction.action.started -= OnMainActionInput;
+        // m_mainAction.action.performed -= OnMainActionInput;
+        // m_mainAction.action.canceled -= OnMainActionInput;
     }
 
     private void Update()
     {
-        
-        m_container.SetMovementAxis(m_movementAxisAction.action.ReadValue<Vector2>());
-        m_container.SetReticleAxis(m_reticleAxis.action.ReadValue<Vector2>());
-        OnButtonAction(ref m_mainAction);
-        OnButtonAction(ref m_subAction);
-        OnButtonAction(ref m_strongAction);
-        OnButtonAction(ref m_weakAction);
-        OnButtonAction(ref m_shoulderLeft);
-        OnButtonAction(ref m_shoulderRight);
+        m_onHorizontalInput.Invoke(m_horizontal.action.ReadValue<float>());
+        m_onVerticalInput.Invoke(m_vertical.action.ReadValue<float>());
+        m_onAxialAction.Invoke(m_axialAction.action.ReadValue<float>());
+        m_onReticleInput.Invoke(m_reticle.action.ReadValue<Vector2>());
+        OnButtonAction(m_mainAction, m_onMainActionInputTap, m_onMainActionInputHold, m_onSubActionInputHoldState, ref m_mainActionTime, ref m_mainActionHoldState);
+        OnButtonAction(m_subAction, m_onSubActionInputTap, m_onSubActionInputHold, m_onSubActionInputHoldState, ref m_subActionTime, ref m_subActionHoldState);
     }
-    private void OnButtonAction(ref ButtonAction buttonAction)
+
+    private void OnButtonAction(InputActionReference inputActionReference, UnityEvent tapEvent, UnityEvent<float> holdTimeEvent, UnityEvent<bool> holdStateEvent, ref float time, ref bool holdState)
     {
-        if (buttonAction.Action.IsPressed())
+        if (inputActionReference.action.IsPressed())
         {
-            buttonAction.time += Time.deltaTime;
-            if (buttonAction.time > InputSystem.settings.defaultHoldTime)
+            time += Time.deltaTime;
+            if (time > InputSystem.settings.defaultHoldTime)
             {
-                buttonAction.WhileHoldTimeEvent.Invoke(buttonAction.time - InputSystem.settings.defaultHoldTime);
-                if (!buttonAction.isHoldSuccessful)
+                holdTimeEvent.Invoke(time - InputSystem.settings.defaultHoldTime);
+                if (!holdState)
                 {
-                    m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
-                    buttonAction.isHoldSuccessful = true;
-                    buttonAction.OnHoldEvent.Invoke(true);
-                    buttonAction.Container.HoldState.SetValue(true);
+                    Debug.Log("Hold Started");
+                    holdState = true;
+                    holdStateEvent.Invoke(true);
                 }
             }
         }
-        else if (buttonAction.time > 0)
+        else if (time > 0)
         {
-            if (buttonAction.time <= InputSystem.settings.defaultTapTime)
+            if (time <= InputSystem.settings.defaultTapTime)
             {
-                m_logger.Log($"{buttonAction.Action.name} - Tap", this);
-                buttonAction.OnTapEvent.Invoke();
-                buttonAction.Container.Tap.Trigger();
+                Debug.Log("Tap");
+                tapEvent.Invoke();
             }
-            else if (buttonAction.time >= InputSystem.settings.defaultHoldTime)
+            else if (time >= InputSystem.settings.defaultHoldTime)
             {
-                m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
-                buttonAction.OnHoldEvent.Invoke(false);
-                buttonAction.isHoldSuccessful = false;
-                buttonAction.Container.HoldState.SetValue(false);
+                Debug.Log("Hold Released");
+                holdStateEvent.Invoke(false);
+                holdState = false;
             }
-            buttonAction.time = 0;
+            time = 0;
         }
     }
+
+    // private void OnMainActionInput(InputAction.CallbackContext callbackContext)
+    // {
+    //     if (callbackContext.duration > InputSystem.settings.defaultHoldTime)
+    //     {
+    //         if (callbackContext.started)
+    //     }
+    //     if (callbackContext.canceled)
+    //     {
+    //         if (callbackContext.duration < InputSystem.settings.defaultTapTime)
+    //         {
+    //             m_onMainActionInputTap.Invoke();
+    //         }
+    //         else if (callbackContext.duration > InputSystem.settings.defaultHoldTime)
+    //         {
+    //             m_onMainActionInputHoldRelease.Invoke();
+    //         }
+    //     }
+    //     if (callbackContext.started && )
+    // }
 }

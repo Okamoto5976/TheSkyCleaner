@@ -30,35 +30,6 @@ public class MovementHandler : MonoBehaviour
         m_transform.Translate(vel);
     }
 
-    public void MoveAll(Vector3 dir)
-    {
-        dir = dir.normalized * dir.magnitude;
-        MoveHorizontal(dir.x);
-        MoveVertical(dir.y);
-        MoveDepthical(dir.z);
-    }
-
-    public void MoveOnZ(Vector2 dir)
-    {
-        dir = dir.normalized * dir.magnitude;
-        MoveHorizontal(dir.x);
-        MoveVertical(dir.y);
-    }
-
-    public void MoveOnY(Vector2 dir)
-    {
-        dir = dir.normalized * dir.magnitude;
-        MoveHorizontal(dir.x);
-        MoveDepthical(dir.y);
-    }
-
-    public void MoveOnX(Vector2 dir)
-    {
-        dir = dir.normalized * dir.magnitude;
-        MoveVertical(dir.y);
-        MoveDepthical(dir.x);
-    }
-
     public void SetSpeed(float val)
     {
         m_speedMod = val;
