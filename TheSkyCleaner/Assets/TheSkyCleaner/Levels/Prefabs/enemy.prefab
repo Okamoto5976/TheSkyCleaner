@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 7895202839131037618}
   - component: {fileID: 3822719356811948056}
   - component: {fileID: 4330165079397444621}
+  - component: {fileID: 6115759751918828999}
+  - component: {fileID: -4965950034467899298}
+  - component: {fileID: -9218455992235991860}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -29,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1505472414512466365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.69646, y: -0.26, z: 5.31}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68,7 +71,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 94908e608bd69f743910b023cc7f0802, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,4 +128,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3ebaf435b0b2146bd245ecd18e691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::T_Enemy
-  objectId: 0
+  enemyId: 53
+--- !u!114 &6115759751918828999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505472414512466365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
+  m_speeds: {x: 0, y: 0, z: -5}
+  m_speedMod: 1
+--- !u!114 &-4965950034467899298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505472414512466365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConstantFloatEvent
+  m_onMove:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6115759751918828999}
+        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
+        m_MethodName: MoveDepthical
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-9218455992235991860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505472414512466365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1949203fa3d88d747beed78ed63870dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReturnObjectToPool

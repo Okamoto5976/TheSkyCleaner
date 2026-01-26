@@ -24,7 +24,7 @@ public class ComponentPoolHandler<T> : ObjectPoolManager
         return index;
     }
 
-    public IReadOnlyList<T> GetActiveComponents()
+    public IReadOnlyList<T> GetActiveComponent()
     {
         IEnumerable<T> tmp = m_inUseQue.Select(i => m_objectComponent.ElementAt(i));
         return tmp.ToList();
