@@ -1,20 +1,20 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-    [SerializeField] private GameObject m_prefab;
-    [SerializeField] private int m_poolCount;
-    [SerializeField] private bool m_forcePoolCount = true;
+    [SerializeField] protected Logger m_logger;
+    [SerializeField] protected GameObject m_prefab;
+    [SerializeField] protected int m_poolCount;
+    [SerializeField] protected bool m_forcePoolCount = true;
 
-    private List<GameObject> m_objectPool;
-    private List<GameObject> m_inUseQue;
+    protected List<ReturnObjectToPool> m_objectPool;
+    protected List<int> m_inUseQue;
 
     private Transform m_transform;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         m_objectPool = new();
         m_inUseQue = new();
@@ -24,44 +24,61 @@ public class ObjectPoolManager : MonoBehaviour
             AddToPool();
         }
     }
-
-    public GameObject GetFromPool(bool setActive = false)
+    public GameObject GetObjectFromPool()
     {
-        GameObject obj = m_objectPool.FirstOrDefault(x => !m_inUseQue.Contains(x));
-        if (obj == null)
+        return GetFromPool(m_objectPool).gameObject;
+    }
+
+    protected T GetFromPool<T>(List<T> list)
+    {
+        int index = GetIndexFromPool();
+        T obj = list.ElementAt(index);
+        m_inUseQue.Add(index);
+        return obj;
+    }
+    protected int GetIndexFromPool()
+    {
+        var x = m_objectPool
+            .Select((obj, index) => new { obj, index })
+            .FirstOrDefault(x => !m_inUseQue.Contains(x.index));
+        int index;
+        if (x == null)
         {
             if (m_forcePoolCount)
             {
-                obj = m_inUseQue.First();
+                index = m_inUseQue.First();
                 m_inUseQue.RemoveAt(0);
             }
             else
             {
-                obj = AddToPool();
+                index = AddToPool();
             }
         }
-        if (obj.activeSelf != setActive)
+        else
         {
-            obj.SetActive(setActive);
+            index = x.index;
         }
-        m_inUseQue.Add(obj);
-        return obj;
+        return index;
     }
-
-    public void ReturnToPool(GameObject obj)
+    public void ReturnToPool(int index)
     {
-        m_inUseQue.Remove(obj);
+        ReturnObjectToPool obj = m_objectPool.ElementAt(index);
+        m_inUseQue.Remove(index);
         obj.transform.parent = m_transform;
-        obj.SetActive(false);
+        obj.gameObject.SetActive(false);
     }
-
-    private GameObject AddToPool()
+    protected virtual int AddToPool()
     {
         GameObject obj = Instantiate(m_prefab, m_transform);
         obj.SetActive(false);
-        obj.name += m_objectPool.Count();
-        m_objectPool.Add(obj);
-        return obj;
+        
+        int index = m_objectPool.Count();
+        obj.name += index;
+
+        ReturnObjectToPool rotp = obj.GetComponent<ReturnObjectToPool>();
+        rotp.InjectPoolManager(this, index);
+        m_objectPool.Add(rotp);
+        return index;
     }
 
 }
