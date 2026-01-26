@@ -153,7 +153,7 @@ public class ArmController : MonoBehaviour
 
 
         //Debug.Log($"reticle{vp} | wc{worldCenter} | rc{reticle.rect.center} | lp{reticle.transform.localPosition}");
-        Debug.Log($"reticle{min}{max}");
+        //Debug.Log($"reticle{min}{max}");
         return Rect.MinMaxRect(
             min.x,
             min.y,
@@ -186,7 +186,7 @@ public class ArmController : MonoBehaviour
             Vector3 sp = m_mainCamera.WorldToScreenPoint(enemy.transform.position);
             Vector2 enemyScreenPos = new Vector2(sp.x, sp.y);
 
-            Debug.Log($"スクリーン{enemyScreenPos}");
+            //Debug.Log($"スクリーン{enemyScreenPos}");
 
 
             if (sp.z < reticleDistance) continue;// カメラよりも後ろ？

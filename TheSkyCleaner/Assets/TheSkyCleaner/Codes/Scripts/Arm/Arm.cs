@@ -40,7 +40,7 @@ public class Arm : MonoBehaviour
                 break;
         }
 
-        Debug.Log(m_state);
+        //Debug.Log(m_state);
     }
 
     public void MoveToEnemy(Transform enemy,float speed,int ID,int index)
