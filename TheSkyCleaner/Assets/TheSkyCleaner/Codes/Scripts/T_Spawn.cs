@@ -11,7 +11,8 @@ public class T_Spawn : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             Debug.Log("spawn");
-            GameObject obj = enemypool.GetFromPool(_transform.position, true).gameObject;
+            GameObject obj = enemypool.GetObjectFromPool().gameObject;
+            obj.SetActive(true);//ƒZƒbƒg
 
             Vector3 pos = obj.transform.position;
             pos.x += Random.Range(-3, 3);

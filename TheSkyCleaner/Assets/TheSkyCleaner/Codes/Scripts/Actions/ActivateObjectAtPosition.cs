@@ -18,7 +18,7 @@ public class ActivateObjectAtPosition : MonoBehaviour
 
     public void Activate()
     {
-        GameObject obj = m_objectPoolManager.GetFromPool(true);
+        GameObject obj = m_objectPoolManager.GetObjectFromPool();
         Transform t = obj.transform;
         Vector3 pos = m_offsetPosition;
         Vector3 rot = m_offsetRotation;

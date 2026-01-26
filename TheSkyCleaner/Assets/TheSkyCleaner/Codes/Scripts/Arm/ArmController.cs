@@ -172,7 +172,7 @@ public class ArmController : MonoBehaviour
 
         Rect lockOnRect = GetScreenRect(m_rect);
 
-        var enemies = m_enemypoolmanager.GetActiveEnemies();
+        var enemies = m_enemypoolmanager.GetActiveComponents();
 
         foreach (var enemy in enemies)
         {
