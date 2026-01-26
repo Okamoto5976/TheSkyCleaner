@@ -9,14 +9,12 @@ public class AxisVector2Container : ScriptableObject
 
     public event UnityAction<Vector2> OnValueChanged = delegate { };
 
-    public Vector2 Value
+    public Vector2 Value => m_value;
+
+    public void SetValue(Vector2 value)
     {
-        get => m_value;
-        set
-        {
-            if (m_value == value) return;
-            m_value = value;
-            OnValueChanged.Invoke(value);
-        }
+        if (m_value == value) return;
+        m_value = value;
+        OnValueChanged.Invoke(value);
     }
 }

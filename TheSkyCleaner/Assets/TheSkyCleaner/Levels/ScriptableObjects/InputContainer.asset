@@ -20,7 +20,15 @@ MonoBehaviour:
   m_subAction:
     tap: {fileID: 11400000, guid: 92b16ec4d055a8549a36b5bf0e2a2bea, type: 2}
     holdState: {fileID: 11400000, guid: aac26f11045a18a4b8c52764a17322cc, type: 2}
-  m_strongAction: {fileID: 11400000, guid: 6a994c0339011ab40b28a12c4a9be208, type: 2}
-  m_weakAction: {fileID: 11400000, guid: 33e8a99f40a42a94aae8348253bf3839, type: 2}
-  m_shoulderLeft: {fileID: 11400000, guid: d92cbc4918b57d648989988c9aa16f90, type: 2}
-  m_shoulderRight: {fileID: 11400000, guid: 9a6b9f9c7ecd6e84d9b1ba496e8a12db, type: 2}
+  m_strongAction:
+    tap: {fileID: 11400000, guid: b68fd8042fea64d4989b46d3c3344b7f, type: 2}
+    holdState: {fileID: 11400000, guid: 22428e85231e65340b2f68c07f093f62, type: 2}
+  m_weakAction:
+    tap: {fileID: 11400000, guid: 835e7cdb3b19d5743ba160782ae019dd, type: 2}
+    holdState: {fileID: 11400000, guid: d1ad50f7a56aec74e9698e6e4018755e, type: 2}
+  m_shoulderLeft:
+    tap: {fileID: 11400000, guid: 36467c92f916d104cada37109eaf343c, type: 2}
+    holdState: {fileID: 11400000, guid: ac953edc7ae90074aa0eff10841a4e36, type: 2}
+  m_shoulderRight:
+    tap: {fileID: 11400000, guid: e83d1ba37967a3a4cb61f0471f354277, type: 2}
+    holdState: {fileID: 11400000, guid: 42f1f9740c7705a4783085adb483f282, type: 2}

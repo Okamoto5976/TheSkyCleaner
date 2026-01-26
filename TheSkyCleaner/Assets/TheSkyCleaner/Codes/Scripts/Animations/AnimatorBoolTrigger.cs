@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DriveAnimatorBoolTrigger : MonoBehaviour
+public class AnimatorBoolTrigger : MonoBehaviour
 {
     [SerializeField] private string m_name;
 
@@ -22,12 +22,17 @@ public class DriveAnimatorBoolTrigger : MonoBehaviour
 
     public void Drive()
     {
-        m_coroutine ??= StartCoroutine(Trigger());
+        Drive(m_name);
     }
 
-    private IEnumerator Trigger()
+    public void Drive(string name)
     {
-        m_animator.SetBool(m_name, true);
+        m_coroutine ??= StartCoroutine(Trigger(name));
+    }
+
+    private IEnumerator Trigger(string name)
+    {
+        m_animator.SetBool(name, true);
         if (m_isTimed)
         {
             yield return m_delay;
@@ -36,7 +41,7 @@ public class DriveAnimatorBoolTrigger : MonoBehaviour
         {
             yield return m_endOfFrame;
         }
-        m_animator.SetBool(m_name, false);
+        m_animator.SetBool(name, false);
         m_coroutine = null;
     }
 }

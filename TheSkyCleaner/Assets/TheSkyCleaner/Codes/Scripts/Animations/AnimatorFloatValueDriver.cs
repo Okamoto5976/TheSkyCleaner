@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DriveAnimatorBoolValue : MonoBehaviour
+public class AnimatorFloatValueDriver : MonoBehaviour
 {
     [SerializeField] private string m_name;
 
@@ -11,8 +11,8 @@ public class DriveAnimatorBoolValue : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void Drive(bool value)
+    public void Drive(float value)
     {
-        m_animator.SetBool(m_name, value);
+        m_animator.SetFloat(m_name, value);
     }
 }

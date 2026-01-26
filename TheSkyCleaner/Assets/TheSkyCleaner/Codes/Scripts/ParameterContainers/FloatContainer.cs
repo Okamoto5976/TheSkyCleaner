@@ -7,9 +7,10 @@ public class FloatContainer : ScriptableObject
     [SerializeField] private float m_initialValue;
     [SerializeField] private float m_value;
 
-    public float Value
+    public float Value => m_value;
+
+    public void SetValue(float value)
     {
-        get => m_value;
-        set => m_value = value;
+        m_value = value;
     }
 }

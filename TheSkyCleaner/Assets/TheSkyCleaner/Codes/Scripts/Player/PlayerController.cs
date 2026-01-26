@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private TiltHandler m_playerTiltHandler;
     [SerializeField] private ArmController m_armController;
+    [SerializeField] private AnimatorVariableDriver m_animatorVariableDriver;
 
     [Header("Events")]
     [SerializeField] private InputContainer m_inputContainer;
@@ -50,13 +51,22 @@ public class PlayerController : MonoBehaviour
         m_movementAxis = Vector2.zero;
     }
 
+    private void OnEnable()
+    {
+        m_inputContainer.StrongAction.Tap.OnTrigger += OnPlayerDodge;
+    }
+
+    private void OnDisable()
+    {
+        m_inputContainer.StrongAction.Tap.OnTrigger -= OnPlayerDodge;
+    }
+
     private void Update()
     {
-        m_movementAxis = m_inputContainer.MovementAxis;
-        m_movementHandler.MoveOnZ(m_movementAxis);
+        MovePlayer(ref m_movementAxis);
+        m_onMoveAll.Invoke(m_movementAxis);
         m_playerTiltHandler.TiltOnYaw(m_movementAxis);
         m_playerTiltHandler.TiltYaw(m_movementAxis.x);
-        m_onMoveAll.Invoke(m_movementAxis);
         m_onMoveHorizontal.Invoke(m_movementAxis.x);
         m_onMoveVertical.Invoke(m_movementAxis.y);
         ChangeSpeed(m_strongHoldValue + m_weakHoldValue);
@@ -64,6 +74,18 @@ public class PlayerController : MonoBehaviour
         m_reticleAxis = m_inputContainer.ReticleAxis;
         m_armController.MoveReticle(m_reticleAxis);
     }
+
+    public void OnPlayerDodge()
+    {
+        //m_animatorVariableDriver.Drive(m_dodgeBoolVariable);
+    }
+
+    public void MovePlayer(ref Vector2 axis)
+    {
+        axis = m_inputContainer.MovementAxis;
+        m_movementHandler.MoveOnZ(axis);
+    }
+
 
     public void MoveAll(Vector2 dir)
     {

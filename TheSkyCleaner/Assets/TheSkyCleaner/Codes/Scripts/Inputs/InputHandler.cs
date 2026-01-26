@@ -35,7 +35,6 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private InputActionReference m_movementAxisAction;
 
     [SerializeField] private InputActionReference m_reticleAxis;
-    [SerializeField] private UnityEvent<Vector2> m_onReticleAxis;
 
     [SerializeField] private ButtonAction m_mainAction;
     [SerializeField] private ButtonAction m_subAction;
@@ -58,24 +57,14 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
+        
         m_container.SetMovementAxis(m_movementAxisAction.action.ReadValue<Vector2>());
-
         m_container.SetReticleAxis(m_reticleAxis.action.ReadValue<Vector2>());
-        m_onReticleAxis.Invoke(m_container.ReticleAxis);
-
         OnButtonAction(ref m_mainAction);
         OnButtonAction(ref m_subAction);
-
-        m_container.SetStrongAction(m_strongAction.Action.IsPressed());
         OnButtonAction(ref m_strongAction);
-
-        m_container.SetWeakAction(m_weakAction.Action.IsPressed());
         OnButtonAction(ref m_weakAction);
-
-        m_container.SetShoulderLeftAction(m_shoulderLeft.Action.IsPressed());
         OnButtonAction(ref m_shoulderLeft);
-
-        m_container.SetShoulderRightAction(m_shoulderRight.Action.IsPressed());
         OnButtonAction(ref m_shoulderRight);
     }
     private void OnButtonAction(ref ButtonAction buttonAction)
@@ -91,7 +80,7 @@ public class InputHandler : MonoBehaviour
                     m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
                     buttonAction.isHoldSuccessful = true;
                     buttonAction.OnHoldEvent.Invoke(true);
-                    buttonAction.Container.HoldState.Value = true;
+                    buttonAction.Container.HoldState.SetValue(true);
                 }
             }
         }
@@ -108,7 +97,7 @@ public class InputHandler : MonoBehaviour
                 m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
                 buttonAction.OnHoldEvent.Invoke(false);
                 buttonAction.isHoldSuccessful = false;
-                buttonAction.Container.HoldState.Value = false;
+                buttonAction.Container.HoldState.SetValue(false);
             }
             buttonAction.time = 0;
         }

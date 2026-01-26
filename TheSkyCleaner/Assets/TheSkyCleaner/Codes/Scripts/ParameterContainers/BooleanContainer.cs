@@ -9,14 +9,12 @@ public class BooleanContainer : ScriptableObject
 
     public event UnityAction<bool> OnValueChanged = delegate { };
 
-    public bool Value
+    public bool Value => m_value;
+
+    public void SetValue(bool value)
     {
-        get => m_value;
-        set
-        {
-            if (m_value == value) return;
-            m_value = value;
-            OnValueChanged.Invoke(value);
-        }
+        if (m_value == value) return;
+        m_value = value;
+        OnValueChanged.Invoke(value);
     }
 }
