@@ -15,9 +15,9 @@ public class T_Spawn : MonoBehaviour
             obj.SetActive(true);//ƒZƒbƒg
 
             Vector3 pos = obj.transform.position;
-            pos.x += Random.Range(-3, 3);
-            pos.y += Random.Range(-3, 3);
-            pos.z += Random.Range(-3, 3);
+            pos.x += Random.Range(0, 3);
+            pos.y += Random.Range(0, 3);
+            pos.z += Random.Range(0, 3);
             obj.transform.position = pos;
         }
     }

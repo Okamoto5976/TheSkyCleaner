@@ -1,29 +1,30 @@
 using UnityEditor;
 using UnityEngine;
 
-public enum EnemyType
+public enum CollectType
 {
     a,
     b,
     c
 }
 
-[CreateAssetMenu(menuName = "Scriptable Objects/EnemySO")]
-public class EnemySO : ScriptableObject
-{
-    [SerializeField] private EnemyDataSO m_enemydata;
 
-    [SerializeField] private EnemyType m_enemytype;//必要か不明
-    [SerializeField] private string m_enemyname;
+[CreateAssetMenu(menuName = "Scriptable Objects/CollectSO")]
+public class CollectSO : ScriptableObject
+{
+    [SerializeField] private CollectDataSO m_collectdata;
+
+    [SerializeField] private CollectType m_collecttype;//必要か不明
+    [SerializeField] private string m_collectname;
     [SerializeField] private int m_attack;
 
     [SerializeField] private Material m_material;
 
-    public EnemyType EnemyType { get => m_enemytype; }
-    public string Enemyname { get => m_enemyname; }
+    public CollectType CollectType { get => m_collecttype; }
+    public string Collectname { get => m_collectname; }
     public int Attack { get => m_attack; }
 
-    public EnemyDataSO EnemyData { get => m_enemydata; }
+    public CollectDataSO CollectData { get => m_collectdata; }
 
     [System.Serializable]
     public class Material
@@ -40,9 +41,9 @@ public class EnemySO : ScriptableObject
     }
 
 #if UNITY_EDITOR
-    public void Initialise(EnemyDataSO enemydata)
+    public void Initialise(CollectDataSO collectdata)
     {
-        m_enemydata = enemydata;
+        m_collectdata = collectdata;
     }
 #endif
 
@@ -50,7 +51,7 @@ public class EnemySO : ScriptableObject
     [ContextMenu("Rename to name")]
     private void Rename()
     {
-        this.name = m_enemyname;
+        this.name = m_collectname;
         AssetDatabase.SaveAssets();
         EditorUtility.SetDirty(this);
     }
@@ -60,7 +61,7 @@ public class EnemySO : ScriptableObject
     [ContextMenu("Delete this")]
     private void DeleteThis()
     {
-        m_enemydata.EnemySO.Remove(this);
+        m_collectdata.CollectSO.Remove(this);
         Undo.DestroyObjectImmediate(this);
         AssetDatabase.SaveAssets();
     }

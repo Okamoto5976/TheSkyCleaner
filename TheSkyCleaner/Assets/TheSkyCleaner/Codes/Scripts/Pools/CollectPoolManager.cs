@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CollectPoolManager : ComponentPoolHandler<T_Enemy>
+public class CollectPoolManager : ComponentPoolHandler<T_Collect>
 {
 
 }

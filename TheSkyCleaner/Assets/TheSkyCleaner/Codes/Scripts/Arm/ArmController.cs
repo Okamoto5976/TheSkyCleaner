@@ -31,6 +31,13 @@ public class ArmController : MonoBehaviour
     [SerializeField] private Vector3 m_playerPos;
     private float m_reticleDistance = 5f;
 
+
+
+
+    //整理しよう！！
+
+
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -109,7 +116,7 @@ public class ArmController : MonoBehaviour
 
             m_enemiesId.Add(id);
 
-            arm.MoveToEnemy(enemies.Transform, m_speed, id, index);
+            arm.MoveToEnemy(enemies.GameObject, enemies.Transform, m_speed, id, index);
         }
     }
 
@@ -173,6 +180,7 @@ public class ArmController : MonoBehaviour
         Rect lockOnRect = GetScreenRect(m_rect);
 
         var enemies = m_enemypoolmanager.GetActiveComponents();
+        var collects = m_collectpoolmanager.GetActiveComponents();
 
         foreach (var enemy in enemies)
         {
@@ -193,6 +201,27 @@ public class ArmController : MonoBehaviour
 
             if (lockOnRect.Contains(enemyScreenPos))
                 m_LockOnCandidates.Add(enemy);
+        }
+
+        foreach (var collect in collects)
+        {
+            if (!collect.gameObject.activeSelf == true) continue;
+
+            Vector3 vp = cam.WorldToScreenPoint(collect.transform.position);
+
+            float reticleDistance = Vector3.Distance(cam.transform.position, m_rect.position);
+
+
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(collect.transform.position);
+            Vector2 collectScreenPos = new Vector2(sp.x, sp.y);
+
+            //Debug.Log($"スクリーン{enemyScreenPos}");
+
+
+            if (sp.z < reticleDistance) continue;// カメラよりも後ろ？
+
+            if (lockOnRect.Contains(collectScreenPos))
+                m_LockOnCandidates.Add(collect);
         }
     }
 

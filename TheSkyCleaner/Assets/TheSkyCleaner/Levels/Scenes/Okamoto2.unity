@@ -25328,7 +25328,7 @@ Transform:
   m_GameObject: {fileID: 513427037}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.54, z: 4.38}
+  m_LocalPosition: {x: 0, y: -0.54, z: 18.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26969,6 +26969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
+  m_camera: {fileID: 330585545}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -27034,7 +27035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 10
+  m_poolCount: 20
   m_forcePoolCount: 1
 --- !u!1 &1295027947
 GameObject:
@@ -27045,10 +27046,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295027948}
-  - component: {fileID: 1295027950}
   - component: {fileID: 1295027949}
+  - component: {fileID: 1295027950}
   m_Layer: 0
-  m_Name: TrashPoolManager
+  m_Name: CollectPoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27094,15 +27095,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1295027947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec3c6624b919e443b0437247836af17, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ee372a930dce64f8c5e8f9d3f150b5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
-  m_logger: {fileID: 766334098}
-  m_pool: {fileID: 1295027949}
-  m_spawnPos: {x: 0, y: 0, z: 20}
-  m_spawnTrashMin: {x: -10, y: -10}
-  m_spawnTrashMax: {x: 10, y: 10}
-  m_spawnTrashInterval: 0.3
+  m_EditorClassIdentifier: Assembly-CSharp::T_Spawn
+  collectpool: {fileID: 1295027949}
+  _transform: {fileID: 513427038}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -27314,7 +27311,7 @@ MonoBehaviour:
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 1259995855}
-  m_collectpoolmanager: {fileID: 0}
+  m_collectpoolmanager: {fileID: 1295027949}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_arms:
   - {fileID: 1755327139}
@@ -37682,6 +37679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
+  m_camera: {fileID: 330585545}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0

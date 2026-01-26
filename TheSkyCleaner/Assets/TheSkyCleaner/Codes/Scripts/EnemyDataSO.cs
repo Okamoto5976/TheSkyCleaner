@@ -5,9 +5,9 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Scriptable Objects/EnemyDataSO")]
 public class EnemyDataSO : ScriptableObject
 {
-    [SerializeField] private List<EnemySO> _enemySO = new List<EnemySO>();
+    [SerializeField] private List<EnemySO> m_enemySO = new List<EnemySO>();
 
-    public List<EnemySO> EnemySO { get => _enemySO; set => _enemySO = value; }
+    public List<EnemySO> EnemySO { get => m_enemySO; set => m_enemySO = value; }
 
 #if UNITY_EDITOR
     [ContextMenu("Make New")]
@@ -17,7 +17,7 @@ public class EnemyDataSO : ScriptableObject
         enemySO.name = "New Skill Type";
         enemySO.Initialise(this);
 
-        _enemySO.Add(enemySO);
+        m_enemySO.Add(enemySO);
 
         AssetDatabase.AddObjectToAsset(enemySO, this);
         AssetDatabase.SaveAssets();
