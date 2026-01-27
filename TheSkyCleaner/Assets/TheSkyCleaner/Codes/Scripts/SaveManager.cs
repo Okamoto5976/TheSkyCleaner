@@ -30,8 +30,6 @@ public class AudioDataList
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager Instance;
-
     private string fileName = "gamedata.json";
     private string fullPath;
 

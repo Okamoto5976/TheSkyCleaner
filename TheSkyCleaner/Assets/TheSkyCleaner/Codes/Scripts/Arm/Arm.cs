@@ -25,7 +25,7 @@ public class Arm : MonoBehaviour
     private int m_index;
     private float m_speed;
     private int m_attack;
-    private int m_objectID;
+    private Transform m_playerposition;
     private int m_id;
 
     private void Start()
@@ -63,7 +63,7 @@ public class Arm : MonoBehaviour
 
         //   ---  zé≤ÇOÇÊÇËå„ÇÎÇ≈false  ---
         Vector3 sp = m_camera.WorldToScreenPoint(m_targetTransform.position);
-        if (sp.z < 0) return false;
+        if (sp.z < m_playerposition.position.z) return false;
 
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
@@ -78,8 +78,10 @@ public class Arm : MonoBehaviour
             var drop = m_enemies.GetDropData();
             if(drop != null)
             {
-                var material = drop.Material1;
-                Debug.Log(material);
+                //for(int i = 1; i <= )
+
+                //var material = drop.Material1;
+                //Debug.Log(material);
             }
 
             return false;
@@ -88,7 +90,7 @@ public class Arm : MonoBehaviour
         return true;
     }
 
-    public void MoveToEnemy(ILockOnTarget enemies,
+    public void MoveToEnemy(ILockOnTarget enemies,Transform player,
         float speed,int attack,int ID,int index)
     {
         //ï‘Ç∑ÇΩÇﬂÇÃíl
@@ -97,6 +99,9 @@ public class Arm : MonoBehaviour
 
         m_speed = speed;
         m_attack = attack;
+        m_playerposition = player;
+
+
         m_enemies = enemies;
         m_targetEnemy = enemies.GameObject;
         m_targetTransform = enemies.Transform;

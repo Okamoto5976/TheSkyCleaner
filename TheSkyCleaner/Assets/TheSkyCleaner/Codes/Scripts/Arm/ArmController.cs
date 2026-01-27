@@ -5,39 +5,34 @@ using System.Linq;
 
 public class ArmController : MonoBehaviour
 {
-    [SerializeField] private RectTransform m_rect;
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
+
     [SerializeField] private Camera m_mainCamera;
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
     [SerializeField] private CollectPoolManager m_collectpoolmanager;
+
+   
+    [SerializeField] private Image m_lockOnMarkerPrefab;
+
+    [SerializeField] private RectTransform m_rect;
+    [SerializeField] private float m_reticleSpeed;
+    [SerializeField] private float m_reticleDistance;
+
+    [SerializeField] private List<Arm> m_arms;
+    [SerializeField] private float m_speed;
+    [SerializeField] private int m_attack;
+    [SerializeField] private int m_maxCount;
+
+    [SerializeField] private Transform m_player;
+    private Vector3 m_playerPos;
 
     private List<ILockOnTarget> m_LockOnCandidates = new List<ILockOnTarget>();
     private List<ILockOnTarget> m_LockEnemies = new List<ILockOnTarget>();
     private List<ILockOnTarget> m_SaveEnemies = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
-    [SerializeField] private Image m_lockOnMarkerPrefab;
-
-    [SerializeField] private List<Arm> m_arms;
     private List<bool> m_activeArms = new List<bool>();
     private List<int> m_enemiesId = new List<int>();
-
-    [SerializeField] private int m_maxCount = 2;
-
-    [SerializeField] private float m_speed;
-    [SerializeField] private int m_attack;
-    [SerializeField] private float m_reticleSpeed;
-
-    [SerializeField] private Transform m_plaeyr;
-    [SerializeField] private Vector3 m_playerPos;
-    private float m_reticleDistance = 5f;
-
-
-
-
-    //整理しよう！！
-
-
 
     private void Awake()
     {
@@ -55,13 +50,12 @@ public class ArmController : MonoBehaviour
 
             m_arms[i].gameObject.SetActive(true);
             m_activeArms.Add(true);
-            //m_lockOnArm.Add(m_arms[i].transform);
         }
     }
 
     private void Update()
     {
-        Vector3 current_pos = m_plaeyr.position;
+        Vector3 current_pos = m_player.position;
         Vector3 delta = current_pos - m_playerPos;
         Vector3 pos = m_rect.transform.position;
 
@@ -80,22 +74,11 @@ public class ArmController : MonoBehaviour
             camPos.y + halfH);
 
         pos.z = m_reticleDistance;
-        //// ワールド → Viewport
-        //Vector3 vp = m_mainCamera.WorldToViewportPoint(pos);
-
-        //// 画面内に制限
-        //vp.x = Mathf.Clamp(vp.x, camPos, 0.95f);
-        //vp.y = Mathf.Clamp(vp.y, 0.05f, 0.95f);
-
-        //vp.z = m_reticleDistance;
-        // Viewport → ワールド
-        //pos = m_mainCamera.ViewportToWorldPoint(vp);
-
-
 
         m_rect.transform.position = pos;
         m_playerPos = current_pos;
 
+        RemoveSaveEnemies();
     }
 
     public void ArmShot()
@@ -125,7 +108,7 @@ public class ArmController : MonoBehaviour
             }
 
 
-            arm.MoveToEnemy(enemies,
+            arm.MoveToEnemy(enemies,m_player,
                 m_speed,m_attack, id, index);
         }
     }
@@ -168,9 +151,6 @@ public class ArmController : MonoBehaviour
             min.y,
             max.x,
             max.y);
-
-
-
     }
 
     private void UpdateLockOnCandidates()//範囲内のすべてのpool内の敵を取得
@@ -281,11 +261,23 @@ public class ArmController : MonoBehaviour
 
             marker.transform.position = enemy.Transform.position;
 
-            //Vector3 screenPos =
-            //m_mainCamera.WorldToScreenPoint(enemy.transform.position);
-
-            //marker.rectTransform.position = screenPos;
             marker.gameObject.SetActive(true);
+        }
+    }
+
+    private void RemoveSaveEnemies()
+    {
+        for(int i = m_SaveEnemies.Count - 1; i>= 0; i--)
+        {
+            var enemy = m_SaveEnemies[i];
+            float reticleDistance = Vector3.Distance(m_mainCamera.transform.position, m_rect.position);
+
+            Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
+
+            if (pos.z < reticleDistance)
+            {
+                m_SaveEnemies.RemoveAt(i);
+            }
         }
     }
 

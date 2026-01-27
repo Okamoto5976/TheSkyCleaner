@@ -8,26 +8,18 @@ public class AudioSO : ScriptableObject
     [SerializeField] private AudioDataSO m_audiodata;
 
     [SerializeField] private string m_audioname;
-    public List<AudioSourceMusic> AudioList;
+    [SerializeField] string audiosource;
+    [SerializeField] AudioClip clip;
+    [SerializeField] float volum;
+    [SerializeField] bool loop;
 
-
+    public string Audiosource { get => audiosource; }
+    public AudioClip Clip { get => clip; }
+    public float Volum { get => volum; }
+    public bool Loop { get => loop; }
     public string Audioname { get => m_audioname; }
     public AudioDataSO AudioData { get => m_audiodata; }
 
-    [System.Serializable]
-    public class AudioSourceMusic
-    {
-        [SerializeField] string audiosource;
-        [SerializeField] AudioClip clip;
-        [SerializeField] float volum;
-        [SerializeField] bool loop;
-
-        public string Audiosource { get => audiosource; }
-        public AudioClip Clip { get => clip; }
-        public float Volum { get => volum; }
-        public bool Loop { get => loop; }
-
-    }
 
 #if UNITY_EDITOR
     public void Initialise(AudioDataSO audiodata)

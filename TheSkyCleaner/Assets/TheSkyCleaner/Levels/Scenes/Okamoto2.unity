@@ -27036,7 +27036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 10
+  m_poolCount: 20
   m_forcePoolCount: 1
 --- !u!1 &1295027947
 GameObject:
@@ -27307,22 +27307,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea1dc84ab4bbb44adeac6cecfb0f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmController
-  m_rect: {fileID: 675199751}
   m_canvas: {fileID: 479783918}
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 1259995855}
   m_collectpoolmanager: {fileID: 1295027949}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
+  m_rect: {fileID: 675199751}
+  m_reticleSpeed: 0.2
+  m_reticleDistance: 5
   m_arms:
   - {fileID: 1755327139}
   - {fileID: 1148293375}
-  m_maxCount: 2
   m_speed: 0.2
   m_attack: 2
-  m_reticleSpeed: 0.2
-  m_plaeyr: {fileID: 762919352}
-  m_playerPos: {x: 0, y: 0, z: 0}
+  m_maxCount: 2
+  m_player: {fileID: 762919352}
 --- !u!114 &1429461270
 MonoBehaviour:
   m_ObjectHideFlags: 0
