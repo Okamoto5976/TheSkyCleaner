@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Arm : MonoBehaviour
 {
@@ -13,9 +12,11 @@ public class Arm : MonoBehaviour
     [SerializeField] private Transform m_player;
     [SerializeField] private ArmController m_controller;
     [SerializeField] private Camera m_camera;
+    [SerializeField] private Inventory m_inventory;
 
     private State m_state  = State.Idle;
-    
+
+    private ILockOnTarget m_enemies;
     private GameObject m_targetEnemy;
     private Transform m_targetTransform;
     private Transform m_transform;
@@ -23,6 +24,8 @@ public class Arm : MonoBehaviour
 
     private int m_index;
     private float m_speed;
+    private int m_attack;
+    private int m_objectID;
     private int m_id;
 
     private void Start()
@@ -65,24 +68,38 @@ public class Arm : MonoBehaviour
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
             //もしゴミなら素材回収。　敵ならダメージを　インターフェースで
+            if (m_enemies is IDamage iDamage)
+            {
+                iDamage.Damage(m_attack);
+            }
 
             //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
             //配列で入れられるね！
+            var drop = m_enemies.GetDropData();
+            if(drop != null)
+            {
+                var material = drop.Material1;
+                Debug.Log(material);
+            }
+
             return false;
         }
 
         return true;
     }
 
-    public void MoveToEnemy(GameObject enemy,Transform enemypositionm, float speed,int ID,int index)
+    public void MoveToEnemy(ILockOnTarget enemies,
+        float speed,int attack,int ID,int index)
     {
         //返すための値
         m_index = index;
         m_id = ID;
 
         m_speed = speed;
-        m_targetEnemy = enemy;
-        m_targetTransform = enemypositionm;
+        m_attack = attack;
+        m_enemies = enemies;
+        m_targetEnemy = enemies.GameObject;
+        m_targetTransform = enemies.Transform;
         m_transform.SetParent(null);
         m_state = State.Moving;
     }
@@ -108,7 +125,7 @@ public class Arm : MonoBehaviour
             m_transform.position,
             m_player.position + m_returnPosition,
             m_speed);
-        Debug.Log("return");
+        //Debug.Log("return");
 
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {

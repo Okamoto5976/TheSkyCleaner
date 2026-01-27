@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d4f47ead40ca941a784bf98f115aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::T_Collect
-  objectId: 0
+  m_collectSO: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
 --- !u!114 &-9034896561115506292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private int m_maxCount = 2;
 
     [SerializeField] private float m_speed;
+    [SerializeField] private int m_attack;
     [SerializeField] private float m_reticleSpeed;
 
     [SerializeField] private Transform m_plaeyr;
@@ -108,15 +109,24 @@ public class ArmController : MonoBehaviour
             int index = Getbool();
             if (index == -1) break; //Žg‚¦‚é‚à‚Ì‚ª‚È‚¢
 
-            //Arm arm = m_arms.FirstOrDefault(a => a.m_canmove);//m_arms‚©‚ç’T‚µ‚Ä‚È‚¢‚È‚çnull
-            //if (arm == null) break;
             m_activeArms[index] = false;
 
             Arm arm = m_arms[index];
 
             m_enemiesId.Add(id);
 
-            arm.MoveToEnemy(enemies.GameObject, enemies.Transform, m_speed, id, index);
+            if (enemies is IDamage)
+            {
+                Debug.Log("Enemy!");
+            }
+            else
+            {
+                Debug.Log("Trash!");
+            }
+
+
+            arm.MoveToEnemy(enemies,
+                m_speed,m_attack, id, index);
         }
     }
 
@@ -153,14 +163,6 @@ public class ArmController : MonoBehaviour
         corners[2].z = m_reticleDistance;
         Vector3 max = cam.WorldToScreenPoint(corners[2]);
 
-        //Vector3 worldCenter = reticle.TransformPoint(reticle.rect.center);
-        //worldCenter.z = m_reticleDistance;
-
-        //Vector3 vp = cam.WorldToViewportPoint(worldCenter);
-
-
-        //Debug.Log($"reticle{vp} | wc{worldCenter} | rc{reticle.rect.center} | lp{reticle.transform.localPosition}");
-        //Debug.Log($"reticle{min}{max}");
         return Rect.MinMaxRect(
             min.x,
             min.y,

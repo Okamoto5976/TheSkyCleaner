@@ -1,15 +1,22 @@
 using UnityEngine;
 
-public class T_Enemy : MonoBehaviour, ILockOnTarget
+public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 {
-    public int objectId;
-    
-    public int ObjectID => objectId;
+    [SerializeField] private EnemySO m_enemySO;
     public Transform Transform => transform;
     public GameObject GameObject => gameObject;
+    public DropSO GetDropData() => m_enemySO.Drop;
+
+    public int m_hp = 10;
 
     private void OnEnable()
     {
 
+    }
+
+    public void Damage(int damage)
+    {
+        m_hp -= damage;
+        //Debug.Log(m_hp);
     }
 }

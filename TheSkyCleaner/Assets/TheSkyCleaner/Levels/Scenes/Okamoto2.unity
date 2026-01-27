@@ -26970,6 +26970,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
+  m_inventory: {fileID: 0}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -27035,7 +27036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 20
+  m_poolCount: 10
   m_forcePoolCount: 1
 --- !u!1 &1295027947
 GameObject:
@@ -27318,6 +27319,7 @@ MonoBehaviour:
   - {fileID: 1148293375}
   m_maxCount: 2
   m_speed: 0.2
+  m_attack: 2
   m_reticleSpeed: 0.2
   m_plaeyr: {fileID: 762919352}
   m_playerPos: {x: 0, y: 0, z: 0}
@@ -37680,6 +37682,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
+  m_inventory: {fileID: 0}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0
