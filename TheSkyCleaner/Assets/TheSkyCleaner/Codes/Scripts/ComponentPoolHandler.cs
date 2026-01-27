@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ComponentPoolHandler<T> : ObjectPoolManager
+public class ComponentPoolHandler<T> : ObjectPoolManager where T : Component
 {
     protected List<T> m_objectComponent;
 

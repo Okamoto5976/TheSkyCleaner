@@ -39,8 +39,6 @@ public class Arm : MonoBehaviour
                 Return();
                 break;
         }
-
-        //Debug.Log(m_state);
     }
 
     public void MoveToEnemy(Transform enemy,float speed,int ID,int index)
@@ -79,7 +77,6 @@ public class Arm : MonoBehaviour
             m_transform.position,
             m_player.position + m_returnPosition,
             m_speed);
-        Debug.Log("return");
 
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {

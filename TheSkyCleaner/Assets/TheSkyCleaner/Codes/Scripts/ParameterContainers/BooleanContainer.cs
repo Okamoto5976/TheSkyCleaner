@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "BooleanContainer", menuName = "Scriptable Objects/Parameter Containers/BooleanContainer")]
-public class BooleanContainer : ScriptableObject
+public class BooleanContainer : RuntimeScriptableObject
 {
     [SerializeField] private bool m_initialValue;
     [SerializeField] private bool m_value;
@@ -17,4 +17,6 @@ public class BooleanContainer : ScriptableObject
         m_value = value;
         OnValueChanged.Invoke(value);
     }
+
+    protected override void OnReset() => m_value = m_initialValue;
 }

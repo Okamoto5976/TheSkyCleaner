@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "AxisVector3Container", menuName = "Scriptable Objects/Parameter Containers/AxisVector3Container")]
-public class AxisVector3Container : ScriptableObject
+[CreateAssetMenu(fileName = "AxisVector3Container", menuName = "Scriptable Objects/Parameter Containers/AxisVector3Container", order = 1)]
+public class AxisVector3Container : RuntimeScriptableObject
 {
     [SerializeField] private Vector3 m_initialValue;
     [SerializeField] private Vector3 m_value;
@@ -17,4 +17,6 @@ public class AxisVector3Container : ScriptableObject
         m_value = value;
         OnValueChanged.Invoke(value);
     }
+
+    protected override void OnReset() => m_value = m_initialValue;
 }

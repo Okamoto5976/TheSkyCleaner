@@ -7,15 +7,15 @@ public class BoolContainerDrawer : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
-        var container = new VisualElement();
+        VisualElement container = new();
 
-        var objectField = new ObjectField(property.displayName)
+        ObjectField objectField = new(property.displayName)
         {
             objectType = typeof(BooleanContainer)
         };
         objectField.BindProperty(property);
 
-        var valueLabel = new Label();
+        Label valueLabel = new();
         valueLabel.style.paddingLeft = 20;
 
         container.Add(objectField);
