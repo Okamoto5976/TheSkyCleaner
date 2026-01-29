@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropSO
   m_dropdata: {fileID: 11400000}
   m_dropname: enemy_a
-  m_material_1: 5
-  m_material_2: 5
-  m_material_3: 0
+  m_materials:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 2
+  - type: 2
+    amount: 3
 --- !u!114 &-3647694940158141256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,9 +35,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropSO
   m_dropdata: {fileID: 11400000}
   m_dropname: collect_a
-  m_material_1: 10
-  m_material_2: 10
-  m_material_3: 0
+  m_materials: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

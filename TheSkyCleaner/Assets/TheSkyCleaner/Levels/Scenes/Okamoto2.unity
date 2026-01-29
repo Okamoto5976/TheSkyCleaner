@@ -26576,6 +26576,69 @@ Transform:
   - {fileID: 1295027948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &917744554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917744557}
+  - component: {fileID: 917744556}
+  - component: {fileID: 917744555}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &917744555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917744554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be18e0db29507fe4b918d36b818b5776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
+--- !u!114 &917744556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917744554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5122888482cde141960578b3c5a6919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test_Okamoto_001
+  skilldata: {fileID: 0}
+  onPlaySE:
+    m_PersistentCalls:
+      m_Calls: []
+  SE: {fileID: 0}
+  m_inventory: {fileID: 917744555}
+--- !u!4 &917744557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917744554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.25681, y: 23.28753, z: 7.13286}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933229033
 GameObject:
   m_ObjectHideFlags: 0
@@ -26970,7 +27033,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 0}
+  m_inventory: {fileID: 917744555}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -37682,7 +37745,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 0}
+  m_inventory: {fileID: 917744555}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0
@@ -38486,3 +38549,4 @@ SceneRoots:
   - {fileID: 1562667956}
   - {fileID: 1823312148}
   - {fileID: 513427038}
+  - {fileID: 917744557}

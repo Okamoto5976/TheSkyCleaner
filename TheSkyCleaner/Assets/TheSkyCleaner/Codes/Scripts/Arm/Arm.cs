@@ -76,14 +76,12 @@ public class Arm : MonoBehaviour
             //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
             //配列で入れられるね！
             var drop = m_enemies.GetDropData();
-            if(drop != null)
+            foreach(var mat in drop.Materials)
             {
-                //for(int i = 1; i <= )
+                if(mat.amount <= 0) continue;
 
-                //var material = drop.Material1;
-                //Debug.Log(material);
+                m_inventory.Add(mat.type,mat.amount);
             }
-
             return false;
         }
 

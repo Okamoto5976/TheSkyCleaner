@@ -1,5 +1,22 @@
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+
+public enum MaterialType
+{
+    Thread,
+    Cloth,
+    Wood
+}
+
+[Serializable]
+public class DropMaterial
+{
+    public MaterialType type;
+    public int amount;
+}
+
 
 [CreateAssetMenu(menuName = "Scriptable Objects/DropSO")]
 public class DropSO : ScriptableObject
@@ -8,18 +25,11 @@ public class DropSO : ScriptableObject
 
     [SerializeField] private string m_dropname;
 
+    [SerializeField] private List<DropMaterial> m_materials;
+
     public string Dropname { get => m_dropname; }
     public DropDataSO DropData { get => m_dropdata; }
-
-    [Header("Ž…"), SerializeField] private int m_material_1;
-    [Header("•z"), SerializeField] private int m_material_2;
-    [Header("”Â"), SerializeField] private int m_material_3;
-
-
-    public int Material1 { get => m_material_1; }
-    public int Material2 { get => m_material_2; }
-    public int Material3 { get => m_material_3; }
-
+    public IReadOnlyList<DropMaterial> Materials => m_materials;
 
 #if UNITY_EDITOR
     public void Initialise(DropDataSO dropdata)

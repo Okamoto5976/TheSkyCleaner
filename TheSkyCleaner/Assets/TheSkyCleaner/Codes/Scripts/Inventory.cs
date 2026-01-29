@@ -1,16 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private int m_material1 = 0;
-    private int m_material2 = 0;
-    private int m_material3 = 0;
+    private Dictionary<MaterialType, int> m_materials 
+        = new Dictionary<MaterialType, int>();
 
+    public void Add(MaterialType type , int amount)
+    {
+        if(m_materials.ContainsKey(type))
+        {
+            m_materials[type] += amount;
+        }
+        else
+        {
+            m_materials.Add(type, amount);
+        }
+    }
 
+    public int Get(MaterialType type)
+    {
+        return m_materials.TryGetValue(type, out var value) ? value : 0;
+    }
 
-    public int Material1 { get => m_material1; set { m_material1 = value; } }
-    public int Material2 { get => m_material2; set { m_material2 = value; } }
-    public int Material3 { get => m_material3; set { m_material3 = value; } }
-
-
+    public IReadOnlyDictionary<MaterialType, int> GetAll()
+    {
+        return m_materials;
+    }
 }
