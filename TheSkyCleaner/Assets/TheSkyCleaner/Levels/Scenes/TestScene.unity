@@ -20242,7 +20242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 439712862}
   - component: {fileID: 439712863}
-  - component: {fileID: 439712864}
+  - component: {fileID: 439712865}
   m_Layer: 0
   m_Name: Enemy Pool
   m_TagString: Untagged
@@ -20278,9 +20278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
   m_prefab: {fileID: 3608526882239130715, guid: 3d49ad4f55127374ba80142b69d1ebc3, type: 3}
-  m_poolCount: 3
+  m_poolCount: 25
   m_forcePoolCount: 1
---- !u!114 &439712864
+--- !u!114 &439712865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20289,17 +20289,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 439712861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678b16a0dbfa90440b54780d8ea031ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 16de9dcf7f9f5f1458e57aab8a40f2e9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemtManager
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   m_logger: {fileID: 1703585248}
   m_pool: {fileID: 439712863}
-  m_target: {fileID: 762919352}
+  m_target: {fileID: 0}
   m_spawnPos: {x: 0, y: 0, z: 50}
-  m_spawnTrashMin: {x: -10, y: -10}
-  m_spawnTrashMax: {x: 0, y: 0}
-  m_spawnTrashInterval: 0.9
-  m_enemySpeed: {x: 0, y: 0, z: 10}
+  m_spawnMin: {x: -10, y: -10}
+  m_spawnMax: {x: 10, y: 10}
+  m_spawnInterval: 1
+  m_enemyTypes:
+  - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
+  - {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
+  - {fileID: 11400000, guid: 91f54ddbd576c264ead363a40259ba5f, type: 2}
+  m_loopSequence: 1
 --- !u!1 &452514028
 GameObject:
   m_ObjectHideFlags: 0
@@ -26498,7 +26502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
   m_prefab: {fileID: 6933232402498349450, guid: 911b295aacda2d5468191c67e41e6c4d, type: 3}
-  m_poolCount: 10
+  m_poolCount: 0
   m_forcePoolCount: 1
 --- !u!114 &1120837822
 MonoBehaviour:

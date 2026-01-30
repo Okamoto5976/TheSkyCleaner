@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3755dd8f05523242ae938f8e29af317, type: 3}
+  m_Name: EnemySequence3
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySequence
+  m_states:
+  - m_state: {fileID: 11400000, guid: e32961f1ccf2dbf4fa92e1656273fc3c, type: 2}
+    m_time: 5

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1037052756813047738}
   - component: {fileID: 5549787584670256522}
   - component: {fileID: 2125155083024366067}
+  - component: {fileID: 2379199442433316462}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -147,7 +148,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1037052756813047738}
         m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
         m_MethodName: MoveDepthical
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -168,3 +169,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1949203fa3d88d747beed78ed63870dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReturnObjectToPool
+--- !u!114 &2379199442433316462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608526882239130715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4f8a36f5d65a447b73afa5bdcb422a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  m_target: {fileID: 8913662982339049744}
+  m_pool: {fileID: 0}
+  m_logger: {fileID: 0}
+  m_moveSpeed: 5
+  m_moveAllTakesDirection: 0
+  m_sequence: {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
+  m_loopSequence: 0
