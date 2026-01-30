@@ -25713,7 +25713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   m_logger: {fileID: 713725152}
   m_playerTiltHandler: {fileID: 960096394}
-  m_armController: {fileID: 1373798138}
+  m_reticleController: {fileID: 1373798139}
   m_animatorVariableDriver: {fileID: 0}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onMoveAll:
@@ -25892,7 +25892,7 @@ MonoBehaviour:
   m_isChild: 0
   m_isRelative: 1
   m_offsetPosition: {x: 0, y: 0, z: 1.3}
-  m_offsetRotation: {x: 0, y: 0, z: 0}
+  m_offsetRotation: {x: -30, y: 30, z: 0}
   m_offsetScale: {x: 1, y: 1, z: 1}
 --- !u!114 &762919356
 MonoBehaviour:
@@ -26586,26 +26586,13 @@ GameObject:
   m_Component:
   - component: {fileID: 917744557}
   - component: {fileID: 917744556}
-  - component: {fileID: 917744555}
   m_Layer: 0
-  m_Name: Test
+  m_Name: InventoryTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &917744555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917744554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be18e0db29507fe4b918d36b818b5776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inventory
 --- !u!114 &917744556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26623,7 +26610,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   SE: {fileID: 0}
-  m_inventory: {fileID: 917744555}
+  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
 --- !u!4 &917744557
 Transform:
   m_ObjectHideFlags: 0
@@ -27033,7 +27020,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 917744555}
+  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -27334,6 +27321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1373798137}
   - component: {fileID: 1373798138}
+  - component: {fileID: 1373798139}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -27370,6 +27358,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea1dc84ab4bbb44adeac6cecfb0f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmController
+  m_reticleController: {fileID: 1373798139}
+  m_arms:
+  - {fileID: 1755327139}
+  - {fileID: 1148293375}
+  m_speed: 0.6
+  m_attack: 2
+  m_maxCount: 2
+  m_player: {fileID: 762919352}
+--- !u!114 &1373798139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373798136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738bfdc66fdf5a04cb461215719643f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReticleController
   m_canvas: {fileID: 479783918}
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
@@ -27379,11 +27387,6 @@ MonoBehaviour:
   m_rect: {fileID: 675199751}
   m_reticleSpeed: 0.2
   m_reticleDistance: 5
-  m_arms:
-  - {fileID: 1755327139}
-  - {fileID: 1148293375}
-  m_speed: 0.2
-  m_attack: 2
   m_maxCount: 2
   m_player: {fileID: 762919352}
 --- !u!114 &1429461270
@@ -37234,6 +37237,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1837476305805550378, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6727430696894917344, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
       propertyPath: m_Camera
       value: 
@@ -37745,7 +37752,7 @@ MonoBehaviour:
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
   m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 917744555}
+  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0

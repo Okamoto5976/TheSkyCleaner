@@ -6,7 +6,7 @@ public class ActivateObjectAtPosition : MonoBehaviour
     [SerializeField] private bool m_isChild;
     [SerializeField] private bool m_isRelative;
     [SerializeField] private Vector3 m_offsetPosition;
-    [SerializeField] private Vector3 m_offsetRotation;
+    [SerializeField] public Vector3 m_offsetRotation;
     [SerializeField] private Vector3 m_offsetScale = Vector3.one;
 
     private Transform m_transform;

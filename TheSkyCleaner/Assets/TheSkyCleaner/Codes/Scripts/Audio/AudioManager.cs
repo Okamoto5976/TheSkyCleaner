@@ -11,20 +11,20 @@ public class AudioManager : MonoBehaviour
     //private const float SE_VOLUME_DEFULT = 1.0f;
 
     //BGMがフェードするのにかかる時間
-    public const float BGM_FADE_SPEED_RATE_HIGH = 0.9f;
-    public const float BGM_FADE_SPEED_RATE_LOW = 0.3f;
-    private float _bgmFadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH;
+    public const float m_bgmFadeSpeedHigh = 0.9f;
+    public const float m_bgmFadeSpeedLow = 0.3f;
+    private float m_bgmFadeSpeedRate = m_bgmFadeSpeedHigh;
 
     //次流すBGM名、SE名
     //private string _nextBGMName;
     //private string _nextSEName;
-    private AudioSO _nextBGM;
+    private AudioSO m_nextBGM;
 
     //BGMをフェードアウト中か
-    private bool _isFadeOut = false;
+    private bool m_isFadeOut = false;
 
     //BGM用、SE用に分けてオーディオソースを持つ
-    public AudioSource AttachBGMSource, AttachSESource;
+    public AudioSource m_attachBGMSource, m_attachSESource;
 
     //全Audioを保持
     //private Dictionary<string, AudioClip> _bgmDic, _seDic;
@@ -56,8 +56,8 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         var loadAudio = m_save.AudioLoad();
-        AttachBGMSource.volume = loadAudio.data.BGMVolume;
-        AttachSESource.volume = loadAudio.data.BGMVolume;
+        m_attachBGMSource.volume = loadAudio.data.BGMVolume;
+        m_attachSESource.volume = loadAudio.data.BGMVolume;
     }
 
     //=================================================================================
@@ -86,7 +86,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySE(AudioSO SE)
     {
-        AttachSESource.PlayOneShot(SE.Clip);
+        m_attachSESource.PlayOneShot(SE.Clip);
     }
 
     //=================================================================================
@@ -121,58 +121,58 @@ public class AudioManager : MonoBehaviour
 
     //}
 
-    public void PlayBGM(AudioSO BGM,float fadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH)
+    public void PlayBGM(AudioSO BGM,float fadeSpeedRate = m_bgmFadeSpeedHigh)
     {
-        if (AttachBGMSource.isPlaying && AttachBGMSource.clip == BGM.Clip)
+        if (m_attachBGMSource.isPlaying && m_attachBGMSource.clip == BGM.Clip)
             return;
 
-        if(!AttachBGMSource.isPlaying)
+        if(!m_attachBGMSource.isPlaying)
         {
             ApplyBGM(BGM);
         }
-        else if(AttachBGMSource.clip != BGM.Clip)
+        else if(m_attachBGMSource.clip != BGM.Clip)
         {
-            _nextBGM = BGM;
+            m_nextBGM = BGM;
             FadeOutBGM(fadeSpeedRate);
         }
     }
 
     private void ApplyBGM(AudioSO BGM)
     {
-        AttachBGMSource.clip = BGM.Clip;
-        AttachBGMSource.volume = BGM.Volum;
-        AttachBGMSource.loop = BGM.Loop;
-        AttachBGMSource.Play();
+        m_attachBGMSource.clip = BGM.Clip;
+        m_attachBGMSource.volume = BGM.Volum;
+        m_attachBGMSource.loop = BGM.Loop;
+        m_attachBGMSource.Play();
     }
     /// <summary>
     /// 現在流れている曲をフェードアウトさせる
     /// fadeSpeedRateに指定した割合でフェードアウトするスピードが変わる
     /// </summary>
-    public void FadeOutBGM(float fadeSpeedRate = BGM_FADE_SPEED_RATE_LOW)
+    public void FadeOutBGM(float fadeSpeedRate = m_bgmFadeSpeedLow)
     {
-        _bgmFadeSpeedRate = fadeSpeedRate;
-        _isFadeOut = true;
+        m_bgmFadeSpeedRate = fadeSpeedRate;
+        m_isFadeOut = true;
     }
 
     private void Update()
     {
-        if (!_isFadeOut) return;
+        if (!m_isFadeOut) return;
 
 
         //徐々にボリュームを下げていき、ボリュームが0になったらボリュームを戻し次の曲を流す
-        AttachBGMSource.volume -= Time.deltaTime * _bgmFadeSpeedRate;
-        if (AttachBGMSource.volume <= 0)
+        m_attachBGMSource.volume -= Time.deltaTime * m_bgmFadeSpeedRate;
+        if (m_attachBGMSource.volume <= 0)
         {
-            AttachBGMSource.Stop();
+            m_attachBGMSource.Stop();
             var loadAudio = m_save.AudioLoad();
-            AttachBGMSource.volume = loadAudio.data.BGMVolume;
-            AttachSESource.volume = loadAudio.data.BGMVolume;
-            _isFadeOut = false;
+            m_attachBGMSource.volume = loadAudio.data.BGMVolume;
+            m_attachSESource.volume = loadAudio.data.BGMVolume;
+            m_isFadeOut = false;
 
-            if (_nextBGM != null)
+            if (m_nextBGM != null)
             {
-                ApplyBGM(_nextBGM);
-                _nextBGM = null;
+                ApplyBGM(m_nextBGM);
+                m_nextBGM = null;
             }
         }
 
@@ -187,8 +187,8 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void ChangeVolume(float BGMVolume, float SEVolume)
     {
-        AttachBGMSource.volume = BGMVolume;
-        AttachSESource.volume = SEVolume;
+        m_attachBGMSource.volume = BGMVolume;
+        m_attachSESource.volume = SEVolume;
 
         // JSONに保存
         m_save.AudioSave(BGMVolume, SEVolume);

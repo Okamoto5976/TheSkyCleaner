@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
-using UnityEditor.Searcher;
 using UnityEngine;
 
 public class Skillget : MonoBehaviour
@@ -11,13 +11,31 @@ public class Skillget : MonoBehaviour
     private int m_arm_powerup;
     private int m_speedup;
 
-
+    [SerializeField] private InventorySO m_inventorySO;
 
     private int m_mycost = 20;//何らかの形で取得 仮置き
 
+    private void Start()//初期化
+    {
+        
+    }
+
     private void Update()
     {
-        m_cost.text = string.Format("NowPoint:{0}", m_mycost);
+        m_cost.text = BuildText();
+        //m_cost.text = string.Format("NowPoint:{0}", m_mycost);
+    }
+    private string BuildText()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("MY Material\n");
+
+        foreach (var mat in m_inventorySO.GetAll())
+        {
+            sb.Append($"{mat.Key} × {mat.Value}\n");
+        }
+
+        return sb.ToString();
     }
 
     private bool CanUnlock(SkillSO skillData)
@@ -36,14 +54,38 @@ public class Skillget : MonoBehaviour
                 return false;
             }
         }
-        if (skillData.Cost > m_mycost)
+
+        if (!HasMaterials(skillData))
         {
             Debug.Log("ポイントが足りません");
             return false;//後々糸や布や
         }
-        m_mycost -= skillData.Cost;
+        //m_mycost -= skillData.Cost;
+        RemoveInventory(skillData);
+
         Debug.Log("取得");
         return true;
+    }
+
+    private bool HasMaterials(SkillSO skillData)
+    {
+        foreach(var need in skillData.Materials)
+        {
+            int have = m_inventorySO.Get(need.type);
+            if(have < need.amount)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void RemoveInventory(SkillSO skillData)
+    {
+        foreach (var need in skillData.Materials)
+        {
+            m_inventorySO.Remove(need.type, need.amount);
+        }
     }
 
     public void Unlock(SkillSO skillData)//ボタンで呼ぶ

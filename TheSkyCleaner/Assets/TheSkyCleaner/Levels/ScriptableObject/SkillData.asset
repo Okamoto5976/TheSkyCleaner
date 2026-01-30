@@ -20,9 +20,7 @@ MonoBehaviour:
   m_cost: 30
   m_info: Net PowerUP level 1
   m_needskill: []
-  m_material:
-    m_material_1: 0
-    m_material_2: 0
+  m_materials: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,12 +33,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb40bc0c0286f3d40b3b23ae122b2deb, type: 3}
   m_Name: SkillData
   m_EditorClassIdentifier: Assembly-CSharp::SkillDataSO
-  _skillSO:
-  - {fileID: 4295520397004823568}
-  - {fileID: 4937409227621946373}
-  - {fileID: 6144614974659436517}
-  - {fileID: 2481242304235695874}
-  - {fileID: -2414418492808004609}
+  m_skillSO: []
 --- !u!114 &2481242304235695874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,9 +54,7 @@ MonoBehaviour:
   m_cost: 5
   m_info: SpeedUP level 1
   m_needskill: []
-  m_material:
-    m_material_1: 0
-    m_material_2: 0
+  m_materials: []
 --- !u!114 &4295520397004823568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,9 +75,11 @@ MonoBehaviour:
   m_cost: 5
   m_info: PowerUP level 1
   m_needskill: []
-  m_material:
-    m_material_1: 20
-    m_material_2: 10
+  m_materials:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 3
 --- !u!114 &4937409227621946373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,9 +101,11 @@ MonoBehaviour:
   m_info: PowerUP level 2
   m_needskill:
   - {fileID: 4295520397004823568}
-  m_material:
-    m_material_1: 0
-    m_material_2: 0
+  m_materials:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 3
 --- !u!114 &6144614974659436517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +128,4 @@ MonoBehaviour:
   m_needskill:
   - {fileID: 4937409227621946373}
   - {fileID: 2481242304235695874}
-  m_material:
-    m_material_1: 0
-    m_material_2: 0
+  m_materials: []

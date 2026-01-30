@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private TiltHandler m_playerTiltHandler;
-    [SerializeField] private ArmController m_armController;
+    [SerializeField] private ReticleController m_reticleController;
     [SerializeField] private AnimatorVariableDriver m_animatorVariableDriver;
 
     [Header("Events")]
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         ChangeSpeed(m_strongHoldValue + m_weakHoldValue);
 
         m_reticleAxis = m_inputContainer.ReticleAxis;
-        m_armController.MoveReticle(m_reticleAxis);
+        m_reticleController.MoveReticle(m_reticleAxis);
     }
 
     public void OnPlayerDodge()

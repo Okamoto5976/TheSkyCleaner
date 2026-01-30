@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ public class SkillSO : ScriptableObject
     [SerializeField] private int m_cost;
     [SerializeField] private string m_info;
     [SerializeField] private SkillSO[] m_needskill;
-    [SerializeField] private Material m_material;
+
+    [SerializeField] private List<DropMaterial> m_materials;//DropSO‚Ì’†
 
     public SkillType SkillType { get => m_skilltype;}
     public string Skillname { get => m_skillname; }
@@ -36,13 +38,7 @@ public class SkillSO : ScriptableObject
     public SkillSO[] NeedSkill { get => m_needskill; }
 
     public SkillDataSO SkillData { get => m_skilldata; }
-
-    [System.Serializable]
-    public class Material
-    {
-        [Header("Ž…"), SerializeField] private int m_material_1;
-        [Header("•z"), SerializeField] private int m_material_2;
-    }
+    public IReadOnlyList<DropMaterial> Materials => m_materials;
 
 #if UNITY_EDITOR
     public void Initialise(SkillDataSO skilldata)

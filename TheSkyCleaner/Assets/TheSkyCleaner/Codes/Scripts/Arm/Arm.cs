@@ -12,7 +12,7 @@ public class Arm : MonoBehaviour
     [SerializeField] private Transform m_player;
     [SerializeField] private ArmController m_controller;
     [SerializeField] private Camera m_camera;
-    [SerializeField] private Inventory m_inventory;
+    [SerializeField] private InventorySO m_inventory;
 
     private State m_state  = State.Idle;
 
