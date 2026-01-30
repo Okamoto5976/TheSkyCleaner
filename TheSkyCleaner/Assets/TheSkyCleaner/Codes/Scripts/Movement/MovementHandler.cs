@@ -30,12 +30,42 @@ public class MovementHandler : MonoBehaviour
         m_transform.Translate(vel);
     }
 
+    public void MoveAlongX(float dir)
+    {
+        Vector3 vel = dir * m_speeds.x * m_speedMod * Time.deltaTime * Vector3.right;
+        m_transform.Translate(vel);
+    }
+
+    public void MoveAlongY(float dir)
+    {
+        Vector3 vel = dir * m_speeds.y * m_speedMod * Time.deltaTime * Vector3.up;
+        m_transform.Translate(vel);
+    }
+
+    public void MoveAlongZ(float dir)
+    {
+        Vector3 vel = dir * m_speeds.z * m_speedMod * Time.deltaTime * Vector3.forward;
+        m_transform.Translate(vel);
+    }
+
     public void MoveAll(Vector3 dir)
     {
         dir = dir.normalized * dir.magnitude;
         MoveHorizontal(dir.x);
         MoveVertical(dir.y);
         MoveDepthical(dir.z);
+    }
+
+    public void MoveAllGlobal(Vector3 dir)
+    {
+        dir = dir.normalized;
+        Vector3 vel = new()
+        {
+            x = dir.x * m_speeds.x,
+            y = dir.y * m_speeds.y,
+            z = dir.z * m_speeds.z,
+        };
+        m_transform.position += m_speedMod * Time.deltaTime * vel;
     }
 
     public void MoveOnZ(Vector2 dir)

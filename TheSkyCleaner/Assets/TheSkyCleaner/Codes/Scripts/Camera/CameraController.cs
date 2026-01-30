@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera(Vector3 dir)
     {
-        m_movementHandler.MoveAll(dir);
+        m_movementHandler.MoveAllGlobal(dir);
     }
 
     public void TiltCamera(Vector3 rot)

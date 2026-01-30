@@ -25579,8 +25579,6 @@ GameObject:
   - component: {fileID: 762919354}
   - component: {fileID: 762919361}
   - component: {fileID: 762919360}
-  - component: {fileID: 762919356}
-  - component: {fileID: 762919355}
   - component: {fileID: 762919362}
   - component: {fileID: 762919358}
   - component: {fileID: 762919359}
@@ -25670,52 +25668,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
   m_speeds: {x: 5, y: 5, z: 0}
   m_speedMod: 1
---- !u!114 &762919355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762919351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f06f63338c817494baf53dc03c20276d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateObjectAtPosition
-  m_objectPoolManager: {fileID: 1368636904}
-  m_isChild: 0
-  m_isRelative: 1
-  m_offsetPosition: {x: 0, y: 0, z: 1.3}
-  m_offsetRotation: {x: 0, y: 0, z: 0}
-  m_offsetScale: {x: 1, y: 1, z: 1}
---- !u!114 &762919356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762919351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be9b284e638d94e12a7736e7ecf4a101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateWithTimer
-  m_events:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 762919355}
-        m_TargetAssemblyTypeName: ActivateObjectAtPosition, Assembly-CSharp
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_delay: 0.01
 --- !u!114 &762919358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25820,7 +25772,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce33cb4f2cebc34384be621a8781328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShootController
-  m_activator: {fileID: 762919356}
+  m_bulletPool: {fileID: 1368636904}
+  m_playerShootDelay: {fileID: 11400000, guid: a9068ca31ee75874389dccd3f868cd5f, type: 2}
+  m_target: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
+  m_shotVelocity: {fileID: 11400000, guid: d6532fac03bcbe0419f38b56c8201260, type: 2}
+  m_shotPositions:
+  - {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
+  - {fileID: 11400000, guid: 365fb7def28b5824e87c466d26a46395, type: 2}
 --- !u!114 &762919361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26815,9 +26773,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1368636902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1229f87c04f394efa9aa2137f19de7a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 892db158f8b23ff4db118bc316248fbe, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 590811250849658307, guid: 3892b4aa4524b4cecbc70342a8a04a24, type: 3}
   m_poolCount: 100
@@ -37881,7 +37839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 3, y: 3, z: 3}
+  m_speeds: {x: 5, y: 5, z: 5}
   m_speedMod: 1
 --- !u!4 &2031329092
 Transform:
