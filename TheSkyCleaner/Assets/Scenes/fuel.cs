@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 
 public class fuel : MonoBehaviour
 {
+    [Header("燃料確認用")]
+    [SerializeField] private float m_kakuninnyouFuel;
+
+    [Header("SO")]
+    [SerializeField] private FloatContainer m_fuelContainer;//今の燃料てかいろいろ全部
+
     [Header("燃料設定")]
-    [SerializeField] private float m_maxFuel = 100f;//満タン
-    [SerializeField] private float m_currentFuel;//今の燃料
     [SerializeField] private float m_consumptionRate = 1f;//継続消費
     [SerializeField] private float m_boostFuelCost = 10f;//ブーストとかの奴(一回)
 
@@ -20,23 +24,27 @@ public class fuel : MonoBehaviour
     [SerializeField] private Slider m_fuelSliber;
 
     private bool m_Boosting = false;
+    private float m_CurrentFuel => m_fuelContainer.Value;
     void Start()
     {
-        m_currentFuel = m_maxFuel;
+        //soからもってきたぞぉ
+        m_fuelContainer.SetValue(m_fuelContainer.InitialValue);
+
         if (m_fuelSliber != null)
         {
-            m_fuelSliber.maxValue = m_maxFuel;
-            m_fuelSliber.value = m_currentFuel;
+            //スライダーももってきたぞぉ
+            m_fuelSliber.maxValue = m_fuelContainer.InitialValue;
+            m_fuelSliber.value = m_CurrentFuel;
         }
     }
 
     void Update()
     {
         //燃料残ってる
-        if (m_currentFuel > 0)
+        if (m_CurrentFuel > 0)
         {
             //時間経過で減る
-            m_currentFuel -= m_consumptionRate * Time.deltaTime;
+            UseFuel(m_consumptionRate * Time.deltaTime);
 
             // if (Keyboard.current.spaceKey.wasPressedThisFrame)
             // {
@@ -44,20 +52,19 @@ public class fuel : MonoBehaviour
             // }
 
             //ブースト
-            if (Keyboard.current.spaceKey.wasPressedThisFrame && m_currentFuel >= m_boostFuelCost && !m_Boosting)
+            if (Keyboard.current.spaceKey.wasPressedThisFrame && m_CurrentFuel >= m_boostFuelCost && !m_Boosting)
             {
                 StartCoroutine(ActivateBoost());
             }
 
         }
-        else if (m_currentFuel <=0)
+        else //if (m_CurrentFuel <=0)
         {
-            m_currentFuel = 0;
-            m_Boosting = false;//おっと燃料無いやん考えて消費しろよ
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                Debug.Log("燃料無いぞ　残り燃料" + m_currentFuel + "%です　　ほらもうブーストに回せる燃料無いんや");
+                Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentFuel-10) + "%です　　ほらもうブーストに回せる燃料無いんや");
             }
+            m_Boosting = false;
             StopAllCoroutines();//止まっちゃうよー
         }
         //移動
@@ -66,45 +73,47 @@ public class fuel : MonoBehaviour
         //UI更新
         if (m_fuelSliber != null)
         {
-            m_fuelSliber.value = m_currentFuel;
+            m_fuelSliber.value = m_CurrentFuel;
         }
+        m_kakuninnyouFuel = m_CurrentFuel;
     }
     private void Move()
     {
         //燃料無いよー動けないよー
-        if (m_currentFuel <= 0) return;
+        if (m_CurrentFuel <= 0) return;
         float currentSpeed = m_Boosting ? m_moveSpeed * m_boostMultiplier : m_moveSpeed;
         transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
     }
 
     public void UseFuel(float amount)
     {
-        m_currentFuel -= amount;
-        m_currentFuel=Mathf.Clamp(m_currentFuel,0,m_maxFuel);
-        if(m_currentFuel <= 0)
+        if (m_fuelContainer == null) return;
+        float newValue = Mathf.Clamp(m_CurrentFuel - amount, 0, m_fuelContainer.InitialValue);
+        m_fuelContainer.SetValue(newValue);
+
+        if (newValue <= 0)
         {
             m_Boosting = false;
         }
-   
     }
-   
+
     IEnumerator ActivateBoost()
     {
         m_Boosting = true;//起動
-        Debug.Log("ブーーーーストー! 　残り燃料" + (m_currentFuel-10) + "%です");
-        float timer=0f;//燃料消費
-        float fueltime=m_boostFuelCost/m_boostTimer;
+        float predictedFuel = m_CurrentFuel - m_boostFuelCost;
+        Debug.Log("ブーーーーストー! 　残り燃料" + Mathf.Max(0,predictedFuel) + "%です");
+
+        float timer = 0f;//燃料消費
+        float fueltime = m_boostFuelCost / m_boostTimer;
         while (timer < m_boostTimer)
-        { 
-            if (m_currentFuel <= 0) break;
-       
+        {
+            if (m_CurrentFuel <= 0) break;
+
             UseFuel(fueltime * Time.deltaTime);
-       
+
             timer += Time.deltaTime;
             yield return null; // 1フレーム待機
         }
-       
-        yield return new WaitForSeconds(m_boostTimer);//ブースト中
 
         m_Boosting = false;//おわた
         Debug.Log("ブースト終わり");

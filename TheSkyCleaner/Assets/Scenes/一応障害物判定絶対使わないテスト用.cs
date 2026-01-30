@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class 一応障害物判定絶対使わないテスト用 : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+//public class 一応障害物判定絶対使わないテスト用いらない子 : MonoBehaviour
+//{
+//    [SerializeField] private float testobject=20f;//ダメージ
+//    private void collided(Collision collision)
+//    {
+//        HPいらない子 targetPlayer = collision.gameObject.GetComponent<HPいらない子>();
+//
+//        if (targetPlayer)
+//        {
+//            
+//        }
+//    }
+//}

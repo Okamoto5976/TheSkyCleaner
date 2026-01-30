@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HP : MonoBehaviour
+public class HP‚¢‚ç‚È‚¢q : MonoBehaviour
 {
     [Header("HPİ’è")]
     [SerializeField]private float m_maxHP = 100f;//ƒtƒ‹
