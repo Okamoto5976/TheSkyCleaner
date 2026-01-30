@@ -1,7 +1,5 @@
 
 using System.Collections;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnTEManager : MonoBehaviour
