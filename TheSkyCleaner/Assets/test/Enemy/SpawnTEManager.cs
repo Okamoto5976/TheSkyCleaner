@@ -50,7 +50,7 @@ public class SpawnTEManager : MonoBehaviour
             return;
         }
 
-        GameObject obj = m_pool.GetFromPool(true); //呼び出し
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         int random = UnityEngine.Random.Range(1, 6);
         switch(random)
         {
@@ -139,7 +139,7 @@ public class SpawnTEManager : MonoBehaviour
             // 任意：到達後にプールへ返却（ReturnObjectToPoolは無効化しているためここで返す）
             if (obj != null && obj.activeInHierarchy && m_pool != null)
             {
-                m_pool.ReturnToPool(obj);
+                m_pool.GetObjectFromPool();
             }
         }
 

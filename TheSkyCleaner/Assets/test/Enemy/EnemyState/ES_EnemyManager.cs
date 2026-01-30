@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +9,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
-    [SerializeField] private ObjectPoolManager m_pool;
+    [SerializeField] private EnemyPoolManager m_pool;
 
     [SerializeField] private Transform m_target;
 
@@ -55,34 +57,46 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        GameObject obj = m_pool.GetFromPool(true);
+        T_Enemy obj = m_pool.GetComponentFromPool();
         SetEnemyInfo(obj);
     }
 
-    private void SetEnemyInfo(GameObject obj)
+    private void SetEnemyInfo(T_Enemy obj)
     {
-        SetRandomPosition(obj);
+        SetRandomPosition(obj.gameObject);
+        var machine = obj.EnemyStateMachine;
 
         // 敵1/2/3 をランダム選択
         int idx = Random.Range(0, m_enemyTypes.Length);
         var seq = m_enemyTypes[idx];
+        List<EnemyStateMachine.StateMachineInstance> seqInstance = new();
+        foreach (var s in seq.States)
+        {
+            EnemyStateMachine.StateMachineInstance newState = new()
+            {
+                state = Instantiate(s.state),
+                time = s.time,
+                isActive = false,
+            };
 
-        // ステートマシンを取得（プールのプレハブに付けておく）
-        var machine = obj.GetComponent<EnemyStateMachine>();
+            newState.state.InjectVariables(machine);
+
+            seqInstance.Add(newState);
+        }
+
+
 
         // 参照注入
         machine.SetTarget(m_target);
         machine.SetPool(m_pool);
         machine.SetLogger(m_logger);
+       
 
 
         // シーケンスを割り当てて開始
-        machine.SetSequence(seq, m_loopSequence);
+        machine.SetSequence(seqInstance, m_loopSequence);
 
-        if (obj != null && obj.activeInHierarchy && m_pool != null)
-        {
-            m_pool.ReturnToPool(obj);
-        }
+        machine.Initialize();
     }
 
     private void SetRandomPosition(GameObject obj)

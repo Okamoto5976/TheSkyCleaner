@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74f34cd8c364f441a32eb9815c09bd0, type: 3}
   m_Name: ES_GiveDirection
   m_EditorClassIdentifier: Assembly-CSharp::ES_GiveDirection
-  m_direction: {x: 0, y: 0, z: -5}
+  m_direction: {x: 0, y: 0, z: -1}
+  m_moveSpeed: 5

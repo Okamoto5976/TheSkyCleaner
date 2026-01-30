@@ -7,11 +7,8 @@ public class EnemySequence : ScriptableObject
     [System.Serializable]
     public struct StateMachineState
     {
-        [SerializeField] private EnemyState m_state;
-        [SerializeField] public float m_time;
-
-        public readonly EnemyState State => m_state;
-        public readonly float Time => m_time;
+        [SerializeField] public EnemyState state;
+        [SerializeField] public Vector2 time;
     };
     
     [SerializeField] private List<StateMachineState> m_states;

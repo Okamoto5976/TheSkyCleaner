@@ -15,7 +15,7 @@ public class SmoothedLerp : MonoBehaviour
 
     public void Lerp(float dir)
     {
-        m_value = Mathf.Lerp(m_value, dir, Time.deltaTime * m_lerpTime); //ŒÄ‚Ño‚³‚ê‚½ŠÖ”‚²‚Æ‚Ì’l‚Ædir‚ÌŠÔ‚ÅdeltaTime * lerpTime ‚É‚æ‚éüŒ`•âŠÔ
+        m_value = Mathf.Lerp(m_value, dir, Time.deltaTime * m_lerpTime);
         m_event.Invoke(m_value);
     }
 }

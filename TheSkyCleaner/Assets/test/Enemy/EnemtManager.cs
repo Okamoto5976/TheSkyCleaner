@@ -47,7 +47,7 @@ public class EnemtManager : MonoBehaviour
             return;
         }
 
-        GameObject obj = m_pool.GetFromPool(true); //呼び出し
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
             SetEnemyInfo(obj);
 
         //Debug.Log(obj);
@@ -115,7 +115,7 @@ public class EnemtManager : MonoBehaviour
             // 任意：到達後にプールへ返却（ReturnObjectToPoolは無効化しているためここで返す）
             if (obj != null && obj.activeInHierarchy && m_pool != null)
             {
-                m_pool.ReturnToPool(obj);
+                m_pool.GetObjectFromPool();
             }
         }
 

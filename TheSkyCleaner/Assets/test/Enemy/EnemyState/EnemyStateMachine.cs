@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -8,38 +9,53 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyStateMachine : MonoBehaviour
 {
+    [System.Serializable]
+    public class StateMachineInstance
+    {
+        public EnemyState state;
+        public Vector2 time;
+        public bool isActive;
+    };
+
     [Header("References")]
-    [SerializeField] private Transform m_target;
-    [SerializeField] private ObjectPoolManager m_pool; // プール（投擲ゴミなどで使用）
-    [SerializeField] private Logger m_logger;
+    private Transform m_target;
+    private EnemyPoolManager m_pool; // プール（投擲ゴミなどで使用）
+    private Logger m_logger;
+    [SerializeField]private MovementHandler m_movementHandler;
+    [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 5f;
     [Tooltip("MovementHandler の MoveAll(Vector3) に渡す値が『方向』なら true。『速度(=方向×速度)』を受け取る設計なら false にするなど、適宜調整。")]
-    [SerializeField] private bool m_moveAllTakesDirection = true;
+    //[SerializeField] private bool m_moveAllTakesDirection = true;
 
-    [Header("Sequence")]
-    [SerializeField] private EnemySequence m_sequence;
-    [SerializeField] private bool m_loopSequence = false;
 
-    private int m_index = 0;
-    private EnemyState m_current;
-    private MovementHandler m_movementHandler; 
-    private bool m_running;
+    //[("Sequence")]
+    private List<StateMachineInstance> m_sequence;
+    private bool m_loopSequence = false;
+
+    private float m_runningTime;
 
     public Transform Target => m_target;
-    public ObjectPoolManager Pool => m_pool;
+    public EnemyPoolManager Pool => m_pool;
     public Logger Log => m_logger;
+
+    public MovementHandler MovementHandler => m_movementHandler;
     public float MoveSpeed
     {
         get => m_moveSpeed;
         set => m_moveSpeed = value;
     }
 
-    public void MoveDirection(Vector3 worldDirection)
+    public void SetMoveSpeed(float moveSpeed)
+    {
+        m_movementHandler.SetSpeed((float)moveSpeed);
+    }
+    public void SetMoveDirection(Vector3 worldDirection)
     {
         m_movementHandler.MoveAll(worldDirection);
     }
+
 
     //private void OnEnable()
     //{
@@ -57,69 +73,76 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void Update()
     {
-        var status = m_current.OnUpdate(this, Time.deltaTime);
-        if (status == StateStatus.Success || status == StateStatus.Failure)
+        m_runningTime += Time.deltaTime;
+
+        bool hasSequence = m_sequence
+            .Select(x => x.time.y > m_runningTime)
+            .Any();
+        if (!hasSequence)
         {
-            // 終了処理
-            m_current.OnExit(this);
-
-            // 次へ
-            m_index++;
-
-            // ループ処理
-            if (m_sequence == null || m_sequence.States.Count == 0)
-            {
-                m_running = false;
-                return;
-            }
-
-            if (m_index >= m_sequence.States.Count)
-            {
-                if (m_loopSequence)
-                {
-                    m_index = 0;
-                }
-                else
-                {
-                    m_running = false;
-                    return;
-                }
-            }
-
-            // 次のステートへ
-            m_current = m_sequence.States[m_index].State;
-            m_current.OnEnter(this);
+            //全ての state が終わった時
+            //ru-pusurunara reset
+            //ru-pushinainara return
+            return;
         }
+
+        for (int i = 0; i < m_sequence.Count; i++)
+        {
+            if (m_runningTime > m_sequence[i].time.x && !m_sequence[i].isActive)
+            {
+                m_sequence[i].isActive = true;
+                // stateが始まるときに呼ぶ関数
+            }
+            if (m_runningTime > m_sequence[i].time.y && m_sequence[i].isActive)
+            {
+                m_sequence[i].isActive = false;
+                // stateが終わる時に呼ぶ関数
+            }
+        }
+
+
+        var sequence = m_sequence
+            .Where(x => x.isActive)
+            .Select(x => x.state);
+        foreach (var state in sequence)
+        {
+            state.OnUpdate(Time.deltaTime);
+        }
+
     }
 
     // ====== 公開操作 ======
 
     public void SetTarget(Transform t) => m_target = t;
-    public void SetPool(ObjectPoolManager p) => m_pool = p;
+    public void SetPool(EnemyPoolManager p) => m_pool = p;
     public void SetLogger(Logger logger) => m_logger = logger;
 
-    public void SetSequence(EnemySequence sequence, bool loop = false)
+    public void SetSequence(List<StateMachineInstance> sequence, bool loop = false)
     {
         m_sequence = sequence;
         m_loopSequence = loop;
+    }
+
+    public void Initialize()
+    {
         ResetMachine();
-        if (isActiveAndEnabled) StartMachine();
+        StartMachine();
+        gameObject.SetActive(true);
     }
 
     public void StartMachine()
     {
-        if (m_sequence == null || m_sequence.States.Count == 0) return;
-        m_index = 0;
-        m_current = m_sequence.States[m_index].State;
-        m_current.OnEnter(this);
-        m_running = true;
+        if (m_sequence == null || m_sequence.Count == 0) return;
     }
 
     public void ResetMachine()
     {
         StopAllCoroutines();
-        m_index = 0;
-        m_current = null;
-        m_running = false;
+        m_runningTime = 0;
+    }
+
+    public void ReturnToPool()
+    {
+        m_returnObjectToPool.ReturnToPool();
     }
 }

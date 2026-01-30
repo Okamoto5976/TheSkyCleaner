@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069b3877727b97746bd50ec90c9d69f3, type: 3}
   m_Name: ES_SeekTarget
   m_EditorClassIdentifier: Assembly-CSharp::ES_SeekTarget
-  ignoreY: 0
+  m_playerPosition: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}

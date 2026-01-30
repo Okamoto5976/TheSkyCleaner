@@ -37,11 +37,11 @@ public class TrashManager : MonoBehaviour
     {
         if (m_pool == null)
         {
-            Debug.LogWarning("[SpawnTEManager] ObjectPoolManager の参照がありません。Inspectorで設定してください。");
+            Debug.LogWarning("[TrashManager] ObjectPoolManager の参照がありません。Inspectorで設定してください。");
             return;
         }
 
-        GameObject obj = m_pool.GetFromPool(true); //呼び出し
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
             //ゴミの設定
             SetTrashInfo(obj);
 
@@ -53,7 +53,6 @@ public class TrashManager : MonoBehaviour
     public void SetTrashInfo(GameObject obj)
     {
         SetRandomPosition(obj);
-        //m_logger.Log(obj.name + ":ゴミです", this);
     }
  
     private void SetRandomPosition(GameObject obj)
@@ -61,5 +60,6 @@ public class TrashManager : MonoBehaviour
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
         float randY = UnityEngine.Random.Range(m_spawnTrashMin.y, m_spawnTrashMax.y);
         obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
+        
     }
 }
