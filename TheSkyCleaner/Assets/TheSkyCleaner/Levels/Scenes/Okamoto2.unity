@@ -25892,7 +25892,7 @@ MonoBehaviour:
   m_isChild: 0
   m_isRelative: 1
   m_offsetPosition: {x: 0, y: 0, z: 1.3}
-  m_offsetRotation: {x: -30, y: 30, z: 0}
+  m_offsetRotation: {x: 0, y: 45, z: 0}
   m_offsetScale: {x: 1, y: 1, z: 1}
 --- !u!114 &762919356
 MonoBehaviour:
@@ -27378,6 +27378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738bfdc66fdf5a04cb461215719643f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReticleController
+  m_activateOb: {fileID: 762919355}
   m_canvas: {fileID: 479783918}
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}

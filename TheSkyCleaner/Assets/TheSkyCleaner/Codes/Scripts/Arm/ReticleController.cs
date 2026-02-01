@@ -1,10 +1,13 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class ReticleController : MonoBehaviour
 {
+    [SerializeField] private ActivateObjectAtPosition m_activateOb;
+
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
 
@@ -75,6 +78,21 @@ public class ReticleController : MonoBehaviour
         m_playerPos = current_pos;
 
         RemoveSaveEnemies();
+
+
+        //Vector3 reticleWorldPos = m_rect.position;
+        //Debug.Log(reticleWorldPos);
+        //Vector3 firePos = new Vector3 (0,0,0);
+
+        //Vector3 baseDir = (reticleWorldPos - firePos).normalized;
+
+        //float aimDistance = 500f;
+        //Vector3 aimPoint = firePos + baseDir * aimDistance;
+
+        //Vector3 finalDir = (aimPoint - firePos).normalized;
+        //Quaternion rot = Quaternion.LookRotation(finalDir);
+
+        //m_activateOb.m_offsetRotation = rot.eulerAngles;
     }
 
     public void MoveReticle(Vector2 delta)

@@ -13,8 +13,6 @@ public class Skillget : MonoBehaviour
 
     [SerializeField] private InventorySO m_inventorySO;
 
-    private int m_mycost = 20;//‰½‚ç‚©‚ÌŒ`‚Åæ“¾ ‰¼’u‚«
-
     private void Start()//‰Šú‰»
     {
         
