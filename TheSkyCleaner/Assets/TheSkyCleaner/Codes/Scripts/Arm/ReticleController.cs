@@ -80,19 +80,17 @@ public class ReticleController : MonoBehaviour
         RemoveSaveEnemies();
 
 
-        //Vector3 reticleWorldPos = m_rect.position;
-        //Debug.Log(reticleWorldPos);
-        //Vector3 firePos = new Vector3 (0,0,0);
+        Vector3 reticlePos = m_rect.position;
+        Vector3 m_Pos = new Vector3(0, 0, 0);
 
-        //Vector3 baseDir = (reticleWorldPos - firePos).normalized;
+        Vector3 dir = (reticlePos - m_Pos).normalized;
 
-        //float aimDistance = 500f;
-        //Vector3 aimPoint = firePos + baseDir * aimDistance;
+        Quaternion rot = Quaternion.LookRotation(dir); 
 
-        //Vector3 finalDir = (aimPoint - firePos).normalized;
-        //Quaternion rot = Quaternion.LookRotation(finalDir);
+        m_activateOb.m_offsetRotation = rot.eulerAngles;
 
-        //m_activateOb.m_offsetRotation = rot.eulerAngles;
+        Debug.DrawRay(m_Pos, dir * 5f, Color.red);
+
     }
 
     public void MoveReticle(Vector2 delta)
