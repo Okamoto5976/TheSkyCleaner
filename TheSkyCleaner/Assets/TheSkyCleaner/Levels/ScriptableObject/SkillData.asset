@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2414418492808004609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: NetUP_1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 2
+  m_skillname: NetUP_1
+  m_updataValue: 5
+  m_icon: {fileID: 0}
+  m_cost: 30
+  m_info: Net PowerUP level 1
+  m_needskill: []
+  m_materials: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb40bc0c0286f3d40b3b23ae122b2deb, type: 3}
+  m_Name: SkillData
+  m_EditorClassIdentifier: Assembly-CSharp::SkillDataSO
+  m_skillSO: []
+--- !u!114 &2481242304235695874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: SpeedUP_1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 1
+  m_skillname: SpeedUP_1
+  m_updataValue: 10
+  m_icon: {fileID: 0}
+  m_cost: 5
+  m_info: SpeedUP level 1
+  m_needskill: []
+  m_materials: []
+--- !u!114 &4295520397004823568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: Arm_PowerUP_1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 0
+  m_skillname: Arm_PowerUP_1
+  m_updataValue: 5
+  m_icon: {fileID: 0}
+  m_cost: 5
+  m_info: a
+  m_needskill: []
+  m_materials:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 3
+--- !u!114 &4937409227621946373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: Arm_PowerUp_2
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 0
+  m_skillname: Arm_PowerUp_2
+  m_updataValue: 10
+  m_icon: {fileID: 0}
+  m_cost: 5
+  m_info: PowerUP level 2
+  m_needskill:
+  - {fileID: 4295520397004823568}
+  m_materials:
+  - type: 0
+    amount: 2
+  - type: 1
+    amount: 3
+--- !u!114 &6144614974659436517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: SpeedUP_2
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 1
+  m_skillname: SpeedUP_2
+  m_updataValue: 5
+  m_icon: {fileID: 0}
+  m_cost: 5
+  m_info: SpeedUP level 2
+  m_needskill:
+  - {fileID: 4937409227621946373}
+  - {fileID: 2481242304235695874}
+  m_materials: []

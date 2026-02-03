@@ -5,9 +5,9 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Scriptable Objects/SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
-    [SerializeField] private List<SkillSO> _skillSO = new List<SkillSO>();
+    [SerializeField] private List<SkillSO> m_skillSO = new List<SkillSO>();
 
-    public List<SkillSO> SkillSO { get => _skillSO; set => _skillSO = value; }
+    public List<SkillSO> SkillSO { get => m_skillSO; set => m_skillSO = value; }
 
 #if UNITY_EDITOR
     [ContextMenu("Make New")]
@@ -17,7 +17,7 @@ public class SkillDataSO : ScriptableObject
         skillSO.name = "New Skill Type";
         skillSO.Initialise(this);
 
-        _skillSO.Add(skillSO);
+        m_skillSO.Add(skillSO);
 
         AssetDatabase.AddObjectToAsset(skillSO, this);
         AssetDatabase.SaveAssets();

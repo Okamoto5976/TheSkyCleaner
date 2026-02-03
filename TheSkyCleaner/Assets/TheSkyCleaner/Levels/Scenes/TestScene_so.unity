@@ -25622,6 +25622,7 @@ MonoBehaviour:
   m_logger: {fileID: 713725152}
   m_playerTiltHandler: {fileID: 960096394}
   m_armController: {fileID: 1373798138}
+  m_reticleController: {fileID: 1373798139}
   m_animatorVariableDriver: {fileID: 332467648}
   m_dodgeAnimationToggleBoolName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
   m_dodgeAnimationHorizontalFloatName: {fileID: 11400000, guid: e766f5fee90352243bea31488c5d196f, type: 2}
@@ -26522,6 +26523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
+  m_camera: {fileID: 0}
+  m_inventory: {fileID: 0}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -26598,6 +26601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295027948}
+  - component: {fileID: 1295027949}
   m_Layer: 0
   m_Name: TrashPoolManager
   m_TagString: Untagged
@@ -26620,6 +26624,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 913461169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1295027949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c3f5da706910f41b1a124133c7929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectPoolManager
+  m_logger: {fileID: 766334098}
+  m_prefab: {fileID: 3802696222938316940, guid: 82331b75904cb3b489f69478634da366, type: 3}
+  m_poolCount: 0
+  m_forcePoolCount: 1
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -26790,6 +26810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1373798137}
   - component: {fileID: 1373798138}
+  - component: {fileID: 1373798139}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -26826,21 +26847,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea1dc84ab4bbb44adeac6cecfb0f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmController
-  m_rect: {fileID: 675199751}
+  m_reticleController: {fileID: 1373798139}
+  m_arms:
+  - {fileID: 1755327139}
+  - {fileID: 1148293375}
+  m_speed: 0.6
+  m_attack: 0
+  m_maxCount: 2
+  m_player: {fileID: 762919352}
+--- !u!114 &1373798139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373798136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738bfdc66fdf5a04cb461215719643f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReticleController
   m_canvas: {fileID: 479783918}
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 1259995855}
-  m_collectpoolmanager: {fileID: 0}
+  m_collectpoolmanager: {fileID: 1295027949}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
-  m_arms:
-  - {fileID: 1755327139}
-  - {fileID: 1148293375}
-  m_maxCount: 2
-  m_speed: 0.2
+  m_rect: {fileID: 675199751}
+  m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_reticleSpeed: 0.2
-  m_plaeyr: {fileID: 762919352}
-  m_playerPos: {x: 0, y: 0, z: 0}
+  m_reticleDistance: 5
+  m_maxCount: 2
+  m_player: {fileID: 762919352}
 --- !u!114 &1429461270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37199,6 +37237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
+  m_camera: {fileID: 0}
+  m_inventory: {fileID: 0}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0
