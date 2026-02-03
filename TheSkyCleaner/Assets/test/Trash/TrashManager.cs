@@ -60,6 +60,6 @@ public class TrashManager : MonoBehaviour
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
         float randY = UnityEngine.Random.Range(m_spawnTrashMin.y, m_spawnTrashMax.y);
         obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
-        
+        obj.SetActive(true);
     }
 }

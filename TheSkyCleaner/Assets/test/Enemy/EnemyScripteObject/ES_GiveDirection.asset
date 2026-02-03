@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ES_GiveDirection
   m_EditorClassIdentifier: Assembly-CSharp::ES_GiveDirection
   m_direction: {x: 0, y: 0, z: -1}
-  m_moveSpeed: 5
+  m_moveSpeed: 8

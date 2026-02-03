@@ -19,15 +19,14 @@ public class EnemyStateMachine : MonoBehaviour
 
     [Header("References")]
     private Transform m_target;
-    private EnemyPoolManager m_pool; // プール（投擲ゴミなどで使用）
+    private EnemyPoolManager m_pool;
+    private ObjectPoolManager m_poolObj;
     private Logger m_logger;
     [SerializeField]private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 5f;
-    [Tooltip("MovementHandler の MoveAll(Vector3) に渡す値が『方向』なら true。『速度(=方向×速度)』を受け取る設計なら false にするなど、適宜調整。")]
-    //[SerializeField] private bool m_moveAllTakesDirection = true;
 
 
     //[("Sequence")]
@@ -38,6 +37,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     public Transform Target => m_target;
     public EnemyPoolManager Pool => m_pool;
+    public ObjectPoolManager PoolObj => m_poolObj;
     public Logger Log => m_logger;
 
     public MovementHandler MovementHandler => m_movementHandler;
@@ -115,6 +115,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void SetTarget(Transform t) => m_target = t;
     public void SetPool(EnemyPoolManager p) => m_pool = p;
+    public void SetPoolObj(ObjectPoolManager o) => m_poolObj = o;   
     public void SetLogger(Logger logger) => m_logger = logger;
 
     public void SetSequence(List<StateMachineInstance> sequence, bool loop = false)

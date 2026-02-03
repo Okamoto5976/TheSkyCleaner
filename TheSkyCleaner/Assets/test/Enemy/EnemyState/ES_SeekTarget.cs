@@ -1,16 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ES_SetMoveDirFromTarget", menuName = "Enemy/States/Set Move Direction From Target")]
+[CreateAssetMenu(fileName = "ES_SeekTarget", menuName = "Enemy/States/Seek Target")]
 public class ES_SeekTarget : EnemyState
 {
-    [SerializeField] private AxisVector3Container m_playerPosition;
+    [SerializeField] public AxisVector3Container m_playerPosition;
 
-    private float _timer;
-
-    public override void OnEnter()
-    {
-        _timer = 0f;
-    }
+    public AxisVector3Container PlayerPosition => m_playerPosition;
 
     public override void OnUpdate(float deltaTime)
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class ComponentPoolHandler<T> : ObjectPoolManager where T : Component
 {
@@ -24,9 +25,10 @@ public class ComponentPoolHandler<T> : ObjectPoolManager where T : Component
         return index;
     }
 
-    public IReadOnlyList<T> GetActiveComponents()
+    public IEnumerable<T> GetActiveComponents()
     {
+        if (m_objectComponent == null) return Enumerable.Empty<T>();
         IEnumerable<T> tmp = m_inUseQue.Select(i => m_objectComponent.ElementAt(i));
-        return tmp.ToList();
+        return tmp;
     }
 }

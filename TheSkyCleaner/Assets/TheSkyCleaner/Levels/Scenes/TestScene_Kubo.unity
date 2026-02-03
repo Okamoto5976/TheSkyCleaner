@@ -26640,7 +26640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   m_logger: {fileID: 760484166}
-  m_pool: {fileID: 1259995855}
+  m_poolEne: {fileID: 1259995855}
+  m_poolObj: {fileID: 1295027950}
   m_target: {fileID: 762919352}
   m_spawnPos: {x: 0, y: 0, z: 25}
   m_spawnMin: {x: -10, y: -10}

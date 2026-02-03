@@ -38,6 +38,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     protected int GetIndexFromPool()
     {
+
         var x = m_objectPool
             .Select((obj, index) => new { obj, index })
             .FirstOrDefault(x => !m_inUseQue.Contains(x.index));
