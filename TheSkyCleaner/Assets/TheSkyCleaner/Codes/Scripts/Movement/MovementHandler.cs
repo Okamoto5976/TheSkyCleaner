@@ -26,9 +26,8 @@ public class MovementHandler : MonoBehaviour
 
     public void MoveDepthical(float dir)
     {
-        //Vector3 vel = dir * m_speeds.z * m_speedMod * Time.deltaTime * m_transform.forward;
-        //m_transform.Translate(vel);
-        m_transform.position += transform.forward * m_speeds.z * Time.deltaTime;
+        Vector3 vel = dir * m_speeds.z * m_speedMod * Time.deltaTime * m_transform.forward;
+        m_transform.Translate(vel);
     }
 
     public void MoveAll(Vector3 dir)

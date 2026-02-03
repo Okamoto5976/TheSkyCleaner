@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ReticleController : MonoBehaviour
 {
-    [SerializeField] private ActivateObjectAtPosition m_activateOb;
+    //[SerializeField] private ActivateObjectAtPosition m_activateOb;
 
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private RectTransform m_canvasSize;
@@ -81,13 +81,13 @@ public class ReticleController : MonoBehaviour
 
 
         Vector3 reticlePos = m_rect.position;
-        Vector3 m_Pos = new Vector3(0, 0, 0);
+        Vector3 m_Pos = m_playerPos;
 
         Vector3 dir = (reticlePos - m_Pos).normalized;
 
         Quaternion rot = Quaternion.LookRotation(dir); 
 
-        m_activateOb.m_offsetRotation = rot.eulerAngles;
+        //m_activateOb.m_offsetRotation = rot.eulerAngles;
 
         Debug.DrawRay(m_Pos, dir * 5f, Color.red);
 

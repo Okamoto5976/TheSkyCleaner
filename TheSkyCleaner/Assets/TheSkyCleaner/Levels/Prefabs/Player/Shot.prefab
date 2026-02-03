@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: 20}
+  m_speeds: {x: 1, y: 1, z: 1}
   m_speedMod: 1
 --- !u!114 &7592045417652931420
 MonoBehaviour:
