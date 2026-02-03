@@ -9,7 +9,7 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] protected int m_poolCount;
     [SerializeField] protected bool m_forcePoolCount = true;
 
-    protected List<ReturnObjectToPool> m_objectPool;
+    protected List<GameObject> m_objectPool;
     protected List<int> m_inUseQue;
 
     private Transform m_transform;
@@ -26,7 +26,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     public GameObject GetObjectFromPool()
     {
-        return GetFromPool(m_objectPool).gameObject;
+        return GetFromPool(m_objectPool);
     }
 
     protected T GetFromPool<T>(List<T> list)
@@ -62,7 +62,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     public void ReturnToPool(int index)
     {
-        ReturnObjectToPool obj = m_objectPool.ElementAt(index);
+        GameObject obj = m_objectPool.ElementAt(index);
         m_inUseQue.Remove(index);
         obj.transform.parent = m_transform;
         obj.gameObject.SetActive(false);
@@ -77,8 +77,19 @@ public class ObjectPoolManager : MonoBehaviour
 
         ReturnObjectToPool rotp = obj.GetComponent<ReturnObjectToPool>();
         rotp.InjectPoolManager(this, index);
-        m_objectPool.Add(rotp);
+        m_objectPool.Add(rotp.gameObject);
         return index;
+    }
+
+    public IEnumerable<GameObject> GetActiveObjects()
+    {
+        if (m_inUseQue == null)
+        {
+            return Enumerable.Empty<GameObject>();
+        }
+        
+        IEnumerable<GameObject> tmp = m_inUseQue.Select(i => m_objectPool.ElementAt(i));
+        return tmp;
     }
 
 }

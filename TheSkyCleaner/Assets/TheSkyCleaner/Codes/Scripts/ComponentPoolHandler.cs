@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ComponentPoolHandler<T> : ObjectPoolManager
+public class ComponentPoolHandler<T> : ObjectPoolManager where T : Component
 {
     protected List<T> m_objectComponent;
 
@@ -24,9 +24,14 @@ public class ComponentPoolHandler<T> : ObjectPoolManager
         return index;
     }
 
-    public IReadOnlyList<T> GetActiveComponents()
+    public IEnumerable<T> GetActiveComponents()
     {
+        if (m_inUseQue == null)
+        {
+            return Enumerable.Empty<T>();
+        }
+
         IEnumerable<T> tmp = m_inUseQue.Select(i => m_objectComponent.ElementAt(i));
-        return tmp.ToList();
+        return tmp;
     }
 }
