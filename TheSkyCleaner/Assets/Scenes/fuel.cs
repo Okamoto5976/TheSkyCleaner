@@ -51,17 +51,17 @@ public class fuel : MonoBehaviour
             //ブースト
             if (Keyboard.current.spaceKey.wasPressedThisFrame && m_CurrentFuel >= m_boostFuelCost && !m_Boosting)
             {
-                StartCoroutine(ActivateBoost());
+                OnActivateBoost();
             }
 
         }
         else //if (m_CurrentFuel <=0)
         {
+            m_Boosting = false;
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentFuel-10) + "%です　　ほらもうブーストに回せる燃料無いんや");
+                OnNoBoost();
             }
-            m_Boosting = false;
             StopAllCoroutines();//止まっちゃうよー
         }
         //移動
@@ -92,6 +92,16 @@ public class fuel : MonoBehaviour
         {
             m_Boosting = false;
         }
+    }
+
+    public void OnNoBoost()
+    {
+        Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentFuel - 10) + "%です　　ほらもうブーストに回せる燃料無いんや");
+    }
+
+    public void OnActivateBoost()
+    {
+        StartCoroutine(ActivateBoost());
     }
 
     IEnumerator ActivateBoost()
