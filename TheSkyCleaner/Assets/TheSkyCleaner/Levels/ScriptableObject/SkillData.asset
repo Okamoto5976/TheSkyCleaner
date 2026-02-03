@@ -73,7 +73,7 @@ MonoBehaviour:
   m_updataValue: 5
   m_icon: {fileID: 0}
   m_cost: 5
-  m_info: PowerUP level 1
+  m_info: a
   m_needskill: []
   m_materials:
   - type: 0

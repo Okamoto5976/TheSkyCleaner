@@ -33,7 +33,7 @@ public class AnimatorVariableDriver : MonoBehaviour
 
     public void TriggerBool (string name, float time = 0)
     {
-        if (!m_triggerStates[name])
+        if (!m_triggerStates.ContainsKey(name) || !m_triggerStates[name])
         {
             StartCoroutine(Trigger(name, time));
         }

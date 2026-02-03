@@ -19,6 +19,7 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private Image m_lockOnMarkerPrefab;
 
     [SerializeField] private RectTransform m_rect;
+    [SerializeField] private AxisVector3Container m_targetAxis;
     [SerializeField] private float m_reticleSpeed;
     [SerializeField] private float m_reticleDistance;
 
@@ -80,16 +81,14 @@ public class ReticleController : MonoBehaviour
         RemoveSaveEnemies();
 
 
-        Vector3 reticlePos = m_rect.position;
-        Vector3 m_Pos = m_playerPos;
-
-        Vector3 dir = (reticlePos - m_Pos).normalized;
-
-        Quaternion rot = Quaternion.LookRotation(dir); 
-
+        //Vector3 reticlePos = m_rect.position;
+        //Vector3 m_Pos = m_playerPos;
+        //Vector3 dir = (reticlePos - m_Pos).normalized;
+        //Quaternion rot = Quaternion.LookRotation(dir); 
         //m_activateOb.m_offsetRotation = rot.eulerAngles;
+        //Debug.DrawRay(m_Pos, dir * 5f, Color.red);
 
-        Debug.DrawRay(m_Pos, dir * 5f, Color.red);
+        m_targetAxis.SetValue(m_rect.position);
 
     }
 

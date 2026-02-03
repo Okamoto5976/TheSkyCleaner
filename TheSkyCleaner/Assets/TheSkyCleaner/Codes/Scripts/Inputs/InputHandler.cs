@@ -8,22 +8,15 @@ public class InputHandler : MonoBehaviour
     [System.Serializable]
     struct ButtonAction
     {
-        [SerializeField] private ButtonInput variableContainer;
-        public readonly ButtonInput Container => variableContainer;
         [SerializeField] private InputActionReference inputActionReference; 
+        [SerializeField] private ButtonInput variableContainer;
+
         public readonly InputAction Action => inputActionReference.action;
-
-        [SerializeField] private UnityEvent onTap;
-        public readonly UnityEvent OnTapEvent => onTap;
-
-        [SerializeField] private UnityEvent<float> whileHoldTime;
-        public readonly UnityEvent<float> WhileHoldTimeEvent => whileHoldTime;
-
-        [SerializeField] private UnityEvent<bool> onHold;
-        public readonly UnityEvent<bool> OnHoldEvent => onHold;
+        public readonly ButtonInput Container => variableContainer;
 
         [HideInInspector] public float time;
         [HideInInspector] public bool isHoldSuccessful;
+
     }
 
     [Header("Logger")]
@@ -33,7 +26,6 @@ public class InputHandler : MonoBehaviour
 
     [Header("Control Events")]
     [SerializeField] private InputActionReference m_movementAxisAction;
-
     [SerializeField] private InputActionReference m_reticleAxis;
 
     [SerializeField] private ButtonAction m_mainAction;
@@ -74,12 +66,10 @@ public class InputHandler : MonoBehaviour
             buttonAction.time += Time.deltaTime;
             if (buttonAction.time > InputSystem.settings.defaultHoldTime)
             {
-                buttonAction.WhileHoldTimeEvent.Invoke(buttonAction.time - InputSystem.settings.defaultHoldTime);
                 if (!buttonAction.isHoldSuccessful)
                 {
                     m_logger.Log($"{buttonAction.Action.name} - Hold Started", this);
                     buttonAction.isHoldSuccessful = true;
-                    buttonAction.OnHoldEvent.Invoke(true);
                     buttonAction.Container.HoldState.SetValue(true);
                 }
             }
@@ -89,13 +79,11 @@ public class InputHandler : MonoBehaviour
             if (buttonAction.time <= InputSystem.settings.defaultTapTime)
             {
                 m_logger.Log($"{buttonAction.Action.name} - Tap", this);
-                buttonAction.OnTapEvent.Invoke();
                 buttonAction.Container.Tap.Trigger();
             }
             else if (buttonAction.time >= InputSystem.settings.defaultHoldTime)
             {
                 m_logger.Log($"{buttonAction.Action.name} - Hold Released", this);
-                buttonAction.OnHoldEvent.Invoke(false);
                 buttonAction.isHoldSuccessful = false;
                 buttonAction.Container.HoldState.SetValue(false);
             }
