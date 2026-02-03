@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 00cee6d37471df44b96d643321e7f378
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_fuelContainer: {instanceID: 0}
+  - m_fuelSliber: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
