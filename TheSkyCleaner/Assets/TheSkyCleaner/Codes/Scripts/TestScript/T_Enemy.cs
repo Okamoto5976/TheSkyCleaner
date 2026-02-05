@@ -7,11 +7,14 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public GameObject GameObject => gameObject;
     public DropSO GetDropData() => m_enemySO.Drop;
 
-    public int m_hp = 10;
+
+    private int m_attack;
+    private int m_hp;
 
     private void OnEnable()
     {
-
+        m_attack = m_enemySO.Attack;
+        m_hp = m_enemySO.HP;
     }
 
     public void Damage(int damage)
@@ -19,4 +22,6 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         m_hp -= damage;
         //Debug.Log(m_hp);
     }
+
+
 }

@@ -19787,7 +19787,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585551}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -19927,34 +19926,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TiltHandler
   m_angles: {x: -30, y: -30, z: -30}
   m_tiltSpeed: 3
---- !u!114 &330585551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6019f710519ff401dbf627d872128fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TransformValue
-  m_transformingValues: {x: 50, y: 90, z: 130}
-  m_events:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 330585545}
-        m_TargetAssemblyTypeName: UnityEngine.Camera, UnityEngine
-        m_MethodName: set_fieldOfView
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &332467642
 GameObject:
   m_ObjectHideFlags: 0
@@ -19965,8 +19936,6 @@ GameObject:
   m_Component:
   - component: {fileID: 332467643}
   - component: {fileID: 332467645}
-  - component: {fileID: 332467646}
-  - component: {fileID: 332467647}
   - component: {fileID: 332467648}
   m_Layer: 0
   m_Name: Body
@@ -20017,34 +19986,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &332467646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332467642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c140157dbf37ca64ab5273598e627678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DriveAnimatorFloatValue
-  m_name: Horizontal
---- !u!114 &332467647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332467642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e62e3f8c56c7745869a61923ca1030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DriveAnimatorBoolTrigger
-  m_name: Dodge
-  m_resetDelay: 0
-  m_isTimed: 0
 --- !u!114 &332467648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25303,37 +25244,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6758957325799803893, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
   m_PrefabInstance: {fileID: 1562667956}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &513427037
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 513427038}
-  m_Layer: 0
-  m_Name: TrashSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &513427038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513427037}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.54, z: 18.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &580533850 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 95df89c0110704842a039e10e9b3de9b, type: 3}
@@ -25669,9 +25579,7 @@ GameObject:
   - component: {fileID: 762919354}
   - component: {fileID: 762919361}
   - component: {fileID: 762919360}
-  - component: {fileID: 762919356}
-  - component: {fileID: 762919355}
-  - component: {fileID: 762919357}
+  - component: {fileID: 762919362}
   - component: {fileID: 762919358}
   - component: {fileID: 762919359}
   m_Layer: 0
@@ -25713,12 +25621,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   m_logger: {fileID: 713725152}
   m_playerTiltHandler: {fileID: 960096394}
-  m_armController: {fileID: 0}
+  m_armController: {fileID: 1373798138}
   m_reticleController: {fileID: 1373798139}
-  m_animatorVariableDriver: {fileID: 0}
-  m_dodgeAnimationToggleBoolName: {fileID: 0}
-  m_dodgeAnimationHorizontalFloatName: {fileID: 0}
-  m_playerStatus: {fileID: 0}
+  m_animatorVariableDriver: {fileID: 332467648}
+  m_dodgeAnimationToggleBoolName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
+  m_dodgeAnimationHorizontalFloatName: {fileID: 11400000, guid: e766f5fee90352243bea31488c5d196f, type: 2}
+  m_playerStatus: {fileID: 11400000, guid: 6ec6983e4916ac24ba70c34a78541c32, type: 2}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_onChangeSpeed:
     m_PersistentCalls:
@@ -25761,180 +25669,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
   m_speeds: {x: 5, y: 5, z: 0}
   m_speedMod: 1
---- !u!114 &762919355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762919351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f06f63338c817494baf53dc03c20276d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateObjectAtPosition
-  m_objectPoolManager: {fileID: 1368636904}
-  m_isChild: 0
-  m_isRelative: 1
-  m_offsetPosition: {x: 0, y: 0, z: 1.3}
-  m_offsetRotation: {x: 0, y: 0, z: 0}
-  m_offsetScale: {x: 1, y: 1, z: 1}
---- !u!114 &762919356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762919351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be9b284e638d94e12a7736e7ecf4a101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateWithTimer
-  m_events:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 762919355}
-        m_TargetAssemblyTypeName: ActivateObjectAtPosition, Assembly-CSharp
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_delay: 0.01
---- !u!114 &762919357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762919351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f39e2681c06545d09e347f196e9634b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LerpValue
-  m_range: {x: 0, y: 0.5}
-  m_lerpDuration: 1
-  m_eventStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 44682107}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_eventHoldDuration:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 580533852}
-        m_TargetAssemblyTypeName: ChangeTextureOffset, Assembly-CSharp
-        m_MethodName: SetXOffset
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_eventHoldSucceeded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 44682107}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 236725455}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_eventEndSuccess:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 452514029}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 236725455}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_eventEndCancelled:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 44682107}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_eventEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 580533852}
-        m_TargetAssemblyTypeName: ChangeTextureOffset, Assembly-CSharp
-        m_MethodName: SetXOffset
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &762919358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25963,9 +25697,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585551}
-        m_TargetAssemblyTypeName: TransformValue, Assembly-CSharp
-        m_MethodName: Transform
+      - m_Target: {fileID: 2031329093}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: LerpFOV
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26039,11 +25773,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce33cb4f2cebc34384be621a8781328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShootController
-  m_bulletPool: {fileID: 0}
-  m_playerShootDelay: {fileID: 0}
-  m_target: {fileID: 0}
-  m_shotVelocity: {fileID: 0}
-  m_shotPositions: []
+  m_bulletPool: {fileID: 1368636904}
+  m_playerShootDelay: {fileID: 11400000, guid: a9068ca31ee75874389dccd3f868cd5f, type: 2}
+  m_target: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
+  m_shotVelocity: {fileID: 11400000, guid: d6532fac03bcbe0419f38b56c8201260, type: 2}
+  m_shotPositions:
+  - {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
+  - {fileID: 11400000, guid: 365fb7def28b5824e87c466d26a46395, type: 2}
 --- !u!114 &762919361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26059,7 +25795,25 @@ MonoBehaviour:
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_playerShotHandler: {fileID: 762919360}
   m_armController: {fileID: 1373798138}
-  m_chargeAttackHandler: {fileID: 0}
+  m_chargeAttackHandler: {fileID: 762919362}
+--- !u!114 &762919362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762919351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf996d42c9bd0e4eb769b7c197e4efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerChargeAttackHandler
+  m_range: {x: 0, y: 0.5}
+  m_lerpDuration: 1
+  m_chargingParticle: {fileID: 44682107}
+  m_chargedParticle: {fileID: 236725455}
+  m_burstParticle: {fileID: 452514029}
+  m_discTextureOffset: {fileID: 580533852}
 --- !u!1 &764252581
 GameObject:
   m_ObjectHideFlags: 0
@@ -26376,56 +26130,6 @@ Transform:
   - {fileID: 1295027948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &917744554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 917744557}
-  - component: {fileID: 917744556}
-  m_Layer: 0
-  m_Name: InventoryTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &917744556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917744554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5122888482cde141960578b3c5a6919, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Test_Okamoto_001
-  skilldata: {fileID: 0}
-  onPlaySE:
-    m_PersistentCalls:
-      m_Calls: []
-  SE: {fileID: 0}
-  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
---- !u!4 &917744557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917744554}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.25681, y: 23.28753, z: 7.13286}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933229033
 GameObject:
   m_ObjectHideFlags: 0
@@ -26470,7 +26174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e70a2ab4875ff4aa209597343d31eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Logger
-  m_isEnabled: 0
+  m_isEnabled: 1
   m_prefix: Utilities
   m_color: {r: 0.72616816, g: 0.7028302, b: 1, a: 1}
 --- !u!1 &947612414
@@ -26819,8 +26523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
-  m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
+  m_camera: {fileID: 0}
+  m_inventory: {fileID: 0}
 --- !u!1 &1259995851
 GameObject:
   m_ObjectHideFlags: 0
@@ -26886,7 +26590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 20
+  m_poolCount: 10
   m_forcePoolCount: 1
 --- !u!1 &1295027947
 GameObject:
@@ -26898,9 +26602,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1295027948}
   - component: {fileID: 1295027949}
-  - component: {fileID: 1295027950}
   m_Layer: 0
-  m_Name: CollectPoolManager
+  m_Name: TrashPoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26935,22 +26638,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollectPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 3802696222938316940, guid: 82331b75904cb3b489f69478634da366, type: 3}
-  m_poolCount: 3
+  m_poolCount: 0
   m_forcePoolCount: 1
---- !u!114 &1295027950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295027947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ee372a930dce64f8c5e8f9d3f150b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::T_Spawn
-  collectpool: {fileID: 1295027949}
-  _transform: {fileID: 513427038}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -27104,9 +26793,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1368636902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1229f87c04f394efa9aa2137f19de7a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 892db158f8b23ff4db118bc316248fbe, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 590811250849658307, guid: 3892b4aa4524b4cecbc70342a8a04a24, type: 3}
   m_poolCount: 100
@@ -27120,9 +26809,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1373798137}
-  - component: {fileID: 1373798139}
   - component: {fileID: 1373798138}
   - component: {fileID: 1373798140}
+  - component: {fileID: 1373798139}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -27164,9 +26853,8 @@ MonoBehaviour:
   - {fileID: 1755327139}
   - {fileID: 1148293375}
   m_speed: 0.6
-  m_attack: 2
+  m_attack: 0
   m_maxCount: 2
-  m_player: {fileID: 762919352}
 --- !u!114 &1373798139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27189,7 +26877,7 @@ MonoBehaviour:
   m_reticleSpeed: 0.2
   m_reticleDistance: 5
   m_maxCount: 2
-  m_player: {fileID: 762919352}
+  m_playerAxis: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
 --- !u!114 &1373798140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27203,7 +26891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotController
   m_reticleController: {fileID: 1373798139}
-  m_targetAxis: {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
+  m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
 --- !u!114 &1429461270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37052,10 +36740,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1837476305805550378, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6727430696894917344, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
       propertyPath: m_Camera
       value: 
@@ -37566,8 +37250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
-  m_camera: {fileID: 330585545}
-  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
+  m_camera: {fileID: 0}
+  m_inventory: {fileID: 0}
 --- !u!1 &1758144827
 GameObject:
   m_ObjectHideFlags: 0
@@ -38208,7 +37892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 3, y: 3, z: 3}
+  m_speeds: {x: 5, y: 5, z: 5}
   m_speedMod: 1
 --- !u!4 &2031329092
 Transform:
@@ -38236,13 +37920,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031329090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29aabe58259914e2fbac477878a8d7b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b9e595b9f7c24b1e9367ecc8ed0837c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmoothedLerp
-  m_lerpTime: 0
-  m_event:
-    m_PersistentCalls:
-      m_Calls: []
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  m_camera: {fileID: 330585545}
+  m_fov: {x: 50, y: 90, z: 130}
+  m_movementHandler: {fileID: 2031329091}
+  m_tiltHandler: {fileID: 330585548}
+  m_particleTiltHandler: {fileID: 254959538}
+  m_playerMainInputAxis: {fileID: 11400000, guid: 4d4841c33efb6144eb88d684ec265f07, type: 2}
 --- !u!1 &2033685487
 GameObject:
   m_ObjectHideFlags: 0
@@ -38370,5 +38056,3 @@ SceneRoots:
   - {fileID: 413177022}
   - {fileID: 1562667956}
   - {fileID: 1823312148}
-  - {fileID: 513427038}
-  - {fileID: 917744557}

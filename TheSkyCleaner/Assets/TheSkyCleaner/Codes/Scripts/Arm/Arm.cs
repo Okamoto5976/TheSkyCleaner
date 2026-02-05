@@ -25,7 +25,7 @@ public class Arm : MonoBehaviour
     private int m_index;
     private float m_speed;
     private int m_attack;
-    private Transform m_playerposition;
+    private Vector3 m_playerPos;
     private int m_id;
 
     private void Start()
@@ -63,7 +63,7 @@ public class Arm : MonoBehaviour
 
         //   ---  zé≤ÇOÇÊÇËå„ÇÎÇ≈false  ---
         Vector3 sp = m_camera.WorldToScreenPoint(m_targetTransform.position);
-        if (sp.z < m_playerposition.position.z) return false;
+        if (sp.z < m_playerPos.z) return false;
 
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
@@ -88,7 +88,7 @@ public class Arm : MonoBehaviour
         return true;
     }
 
-    public void MoveToEnemy(ILockOnTarget enemies,Transform player,
+    public void MoveToEnemy(ILockOnTarget enemies,Vector3 player,
         float speed,int attack,int ID,int index)
     {
         //ï‘Ç∑ÇΩÇﬂÇÃíl
@@ -97,7 +97,7 @@ public class Arm : MonoBehaviour
 
         m_speed = speed;
         m_attack = attack;
-        m_playerposition = player;
+        m_playerPos = player;
 
 
         m_enemies = enemies;

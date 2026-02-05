@@ -10,7 +10,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private int m_attack;
     [SerializeField] private int m_maxCount;
 
-    [SerializeField] private Transform m_player;
+    private Vector3 m_playerPos;
 
     private List<bool> m_activeArms = new List<bool>();
     private List<int> m_enemiesId = new List<int>();
@@ -28,7 +28,7 @@ public class ArmController : MonoBehaviour
 
     private void Update()
     {
-        
+        m_playerPos = m_reticleController.PlayerPos;
     }
 
     public void ArmShot()
@@ -60,7 +60,7 @@ public class ArmController : MonoBehaviour
             }
 
 
-            arm.MoveToEnemy(enemies,m_player,
+            arm.MoveToEnemy(enemies,m_playerPos,
                 m_speed,m_attack, id, index);
         }
     }
