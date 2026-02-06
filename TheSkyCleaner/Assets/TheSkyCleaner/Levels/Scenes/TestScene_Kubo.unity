@@ -26625,7 +26625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 5
+  m_poolCount: 3
   m_forcePoolCount: 1
 --- !u!114 &1259995856
 MonoBehaviour:
@@ -26646,7 +26646,7 @@ MonoBehaviour:
   m_spawnPos: {x: 0, y: 0, z: 25}
   m_spawnMin: {x: -10, y: -10}
   m_spawnMax: {x: 10, y: 10}
-  m_spawnInterval: 1
+  m_spawnInterval: 5
   m_enemyTypes:
   - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
   m_loopSequence: 0

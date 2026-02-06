@@ -1,142 +1,69 @@
-//using UnityEngine;
-
-//[CreateAssetMenu(fileName = "ES_TrashSpawnAtEnemy", menuName = "Enemy/States/Trash Spawn At Enemy")]
-//public class ES_TrashSpawnAtEnemy : EnemyState
-//{
-//    [SerializeField] private Transform m_enemyObj;
-
-//    [Header("Movement Settings")]
-//    [SerializeField, Min(0.01f)] private float m_trashSpeed = 5f;   // ゴミの移動速度
-//    [SerializeField, Min(0.1f)] private float m_lifeTime = 5f;   // プールに戻すまでの寿命(秒)
-
-
-//    public override void OnEnter()
-//    {
-//        if (est.PoolObj == null)
-//        {
-//            Debug.LogWarning("[ES_TrashSpawnAtEnemy] ObjectPoolManager の参照がありません。Inspectorで設定して下さい。");
-//            return;
-//        }
-//    }
-//    public override void OnUpdate(float deltaTime)
-//    {
-
-//        GameObject trash = est.PoolObj.GetObjectFromPool();
-
-//        // 初期位置
-//        SetTrashPosition(trash);
-
-//        Vector3 targetPos = DirToTarget(est.Target.position, trash.transform.position);
-
-
-//        //移動する向き
-//        est.SetMoveDirection(targetPos);
-
-//        trash.SetActive(true);
-
-//    }
-
-
-
-//    private void SetTrashPosition(GameObject obj)
-//    {
-//        obj.transform.position = m_enemyObj.position;
-//    }
-
-
-//}
-
+using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "ES_TrashSpawnAtEnemy", menuName = "Enemy/States/Trash Spawn At Enemy")]
 public class ES_TrashSpawnAtEnemy : EnemyState
 {
-    [SerializeField] private Transform m_enemyObj;           
-
-    [Header("Movement Settings")]
-    [SerializeField, Min(0.01f)] private float m_trashSpeed = 5f;
-    [SerializeField, Min(0.1f)] private float m_lifeTime = 5f;   
-
-    private bool _spawnedThisFrame = false; 
+    [SerializeField] public AxisVector3Container m_targetPos;
+    [SerializeField] private float m_trashSpeed = 20f;
+  
+    
+    private GameObject m_trash; //ゴミ本体
+    private bool m_isSpawnTrash = true;
 
     public override void OnEnter()
     {
-        if (est == null || est.PoolObj == null)
-        {
-            Debug.LogWarning("[ES_TrashSpawnAtEnemy] ObjectPoolManager の参照がありません。EnemyStateMachine の PoolObj を設定してください。");
-            return;
-        }
-        _spawnedThisFrame = false;
+        //OnEnterがちゃんと呼べようにしたい。
+        //理由は、敵の行動が次のstateに移行したときに、
+        Debug.Log("OnEnter");
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("OnEnter");
+        m_isSpawnTrash = true;
     }
 
     public override void OnUpdate(float deltaTime)
     {
+        var pool = est.PoolObj as ObjectPoolManager;
 
-        if (_spawnedThisFrame) return;
-        _spawnedThisFrame = true;
-
-        // プールから1つ取り出す
-        GameObject trash = est.PoolObj.GetObjectFromPool();
-        if (trash == null)
+        // 一定間隔で取得して初期化
+        if(m_isSpawnTrash)
         {
-            Debug.LogWarning("[ES_TrashSpawnAtEnemy] プールからオブジェクトを取得できませんでした。");
-            return;
+            m_isSpawnTrash=false;
+
+            //取得
+            m_trash = pool.GetObjectFromPool();
+            m_trash.GetComponent<MovementHandler>().enabled = false;
+            m_trash.GetComponent<ConstantFloatEvent>().enabled = false;
+
+            //生成位置 
+            m_trash.transform.position = _transform.position;
+
+            m_trash.SetActive(true);
         }
+        if (m_trash == null) return;
 
-        // スポーン位置（m_enemyObj が未設定ならこの敵自身の Transform）
-        Transform spawnTf = (m_enemyObj != null) ? m_enemyObj : _transform;
-        
+        //target取得
+        Vector3 dir = DirToTarget(m_targetPos.Value, m_trash.transform.position);
+        //m_trash.GetComponent<MovementHandler>().SetSpeed(m_trashSpeed);
+        //m_trash.GetComponent<MovementHandler>().MoveAll(dir);
+       // m_trash.GetComponent<ConstantFloatEvent>().m_onMove
 
-        // ターゲットのスナップショット（この瞬間だけ使用）
-        Transform targetTf = GetTarget();
-        Vector3 targetPos = (targetTf != null) ? targetTf.position : (spawnTf.position + _transform.forward);
-
-        // 初期位置・向き
-        trash.transform.position = spawnTf.position;
-
-        Vector3 dir = targetPos - spawnTf.position;
-        if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
-        else dir = _transform.forward;
+        m_trash.transform.position += dir * m_trashSpeed * deltaTime;
 
 
-        // 有効化
-        trash.SetActive(true);
-
-        var mover = trash.GetComponent<TrashStraightMover>();
-        if (mover == null) mover = trash.AddComponent<TrashStraightMover>();
-        mover.Launch(dir, m_trashSpeed, m_lifeTime);
-    }
-
-    private sealed class TrashStraightMover : MonoBehaviour
-    {
-        private Vector3 _dir = Vector3.forward;
-        private float _speed = 5f;
-        private float _life = 5f;
-        private float _t;
-        private ReturnObjectToPool _returner;
-
-        public void Launch(Vector3 dir, float speed, float life)
+        // Z が重なったらpoolに戻す
+        if (Mathf.Abs(m_trash.transform.position.z - m_targetPos.Value.z) < 0.01f)
         {
-            _dir = dir.sqrMagnitude > 0f ? dir.normalized : Vector3.forward;
-            _speed = Mathf.Max(0f, speed);
-            _life = Mathf.Max(0.01f, life);
-            _t = 0f;
+            m_trash.GetComponent<ReturnObjectToPool>().ReturnToPool();
+            m_trash.GetComponent<MovementHandler>().enabled =    true;
+            m_trash.GetComponent<ConstantFloatEvent>().enabled = true;
 
-            if (_returner == null) _returner = GetComponent<ReturnObjectToPool>();
-            enabled = true;
-        }
-
-        private void Update()
-        {
-            float dt = Time.deltaTime;
-            transform.position += _dir * _speed * dt;
-            _t += dt;
-
-            if (_t >= _life)
-            {
-                if (_returner != null) _returner.ReturnToPool();
-                else gameObject.SetActive(false);
-            }
+            m_trash = null;
         }
     }
+
 }

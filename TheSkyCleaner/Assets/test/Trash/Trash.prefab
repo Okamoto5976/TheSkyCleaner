@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: -10}
-  m_speedMod: 1
+  m_speeds: {x: 0, y: 0, z: -1}
+  m_speedMod: 10
 --- !u!114 &6936687045802111126
 MonoBehaviour:
   m_ObjectHideFlags: 0

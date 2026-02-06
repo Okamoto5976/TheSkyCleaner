@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private EnemyPoolManager m_poolEne;
     [SerializeField] private ObjectPoolManager m_poolObj;
 
-    [SerializeField] private Transform m_target;
+    [SerializeField] public Transform m_target;
 
     [Header("Spawn Area (X,Y random / Z fixed)")]
     [SerializeField] private Vector3 m_spawnPos;      // z ‚Ì‚ÝŽg—p‘z’è
@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool m_loopSequence = false;
 
     private WaitForSeconds m_wait;
+
 
     private void Awake()
     {
