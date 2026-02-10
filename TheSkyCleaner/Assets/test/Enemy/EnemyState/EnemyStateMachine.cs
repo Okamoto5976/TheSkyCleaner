@@ -88,15 +88,18 @@ public class EnemyStateMachine : MonoBehaviour
 
         for (int i = 0; i < m_sequence.Count; i++)
         {
-            if (m_runningTime > m_sequence[i].time.x && !m_sequence[i].isActive)
+            if (m_runningTime > m_sequence[i].time.x && m_runningTime < m_sequence[i].time.y && !m_sequence[i].isActive)
             {
                 m_sequence[i].isActive = true;
                 // state‚ªn‚Ü‚é‚Æ‚«‚ÉŒÄ‚ÔŠÖ”
+                m_sequence[i].state.OnEnter();
+                //Debug.Log($"{i} has entered");
             }
             if (m_runningTime > m_sequence[i].time.y && m_sequence[i].isActive)
             {
                 m_sequence[i].isActive = false;
                 // state‚ªI‚í‚é‚ÉŒÄ‚ÔŠÖ”
+                m_sequence[i].state.OnExit();
             }
         }
 

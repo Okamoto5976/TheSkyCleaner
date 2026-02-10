@@ -1,9 +1,5 @@
 using System.Collections;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class TrashManager : MonoBehaviour
@@ -18,9 +14,16 @@ public class TrashManager : MonoBehaviour
 
     private WaitForSeconds m_sleepTime;
 
+    [Header("Movement")]
+    [SerializeField] private TrashController m_trashController;
+    [SerializeField] private float m_moveSpeed = 10f;
+    [SerializeField] private Vector3 m_direction;
+
+
     private void Awake()
     {
         m_sleepTime = new(m_spawnTrashInterval);
+
         StartCoroutine(SpawnOnTimer());
     }
 
@@ -42,8 +45,14 @@ public class TrashManager : MonoBehaviour
         }
 
         GameObject obj = m_pool.GetObjectFromPool(); //åƒÇ—èoÇµ
-            //ÉSÉ~ÇÃê›íË
-            SetTrashInfo(obj);
+        var Obj = obj.GetComponent<TrashController>();
+        Obj.SetMoveDirection(m_direction);
+        Obj.SetMoveSpeed(m_moveSpeed);
+        Obj.Initialized(m_direction);
+        //Debug.Log($"{m_moveSpeed}");
+        //Debug.Log($"{m_direction}");
+        //ÉSÉ~ÇÃê›íË
+        SetTrashInfo(obj);
 
         //Debug.Log(obj);
 

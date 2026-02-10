@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ES_SeekTarget", menuName = "Enemy/States/Seek Target")]
-public class ES_SeekTarget : EnemyState
+public class ES_SeekTarget : ES_GiveDirection
 {
     [SerializeField] public AxisVector3Container m_playerPosition;
 
@@ -9,7 +9,7 @@ public class ES_SeekTarget : EnemyState
 
     public override void OnUpdate(float deltaTime)
     {
-        Vector3 dir = DirToTarget(m_playerPosition.Value, _transform.position);
-        est.SetMoveDirection(dir);
+        m_direction = DirToTarget(m_playerPosition.Value, _transform.position);
+        base.OnUpdate(deltaTime);
     }
 }
