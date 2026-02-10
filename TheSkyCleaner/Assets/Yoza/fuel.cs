@@ -65,7 +65,7 @@ public class fuel : MonoBehaviour
             StopAllCoroutines();//~‚Ü‚Á‚¿‚á‚¤‚æ[
         }
         //ˆÚ“®
-        Move();
+        //Move();
 
         //UIXV
         if (m_fuelSliber != null)
