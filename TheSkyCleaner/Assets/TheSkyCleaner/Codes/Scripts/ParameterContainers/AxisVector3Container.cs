@@ -10,7 +10,6 @@ public class AxisVector3Container : RuntimeScriptableObject
     public event UnityAction<Vector3> OnValueChanged = delegate { };
 
     public Vector3 Value => m_value;
-    public Vector2 InitialValue => m_initialValue;
 
     public void SetValue(Vector3 value)
     {
