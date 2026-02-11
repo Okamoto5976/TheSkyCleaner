@@ -2,20 +2,20 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-[CustomPropertyDrawer(typeof(BooleanContainer))]
-public class BoolContainerDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(StringContainer))]
+public class StringContainerDrawer : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
-        VisualElement container = new();
+        var container = new VisualElement();
 
-        ObjectField objectField = new(property.displayName)
+        var objectField = new ObjectField(property.displayName)
         {
-            objectType = typeof(BooleanContainer)
+            objectType = typeof(StringContainer)
         };
         objectField.BindProperty(property);
 
-        Label valueLabel = new();
+        var valueLabel = new Label();
         valueLabel.style.paddingLeft = 20;
 
         container.Add(objectField);
@@ -24,11 +24,10 @@ public class BoolContainerDrawer : PropertyDrawer
         objectField.RegisterValueChangedCallback(
             evt =>
             {
-                var variable = evt.newValue as BooleanContainer;
+                var variable = evt.newValue as StringContainer;
                 if (variable != null)
                 {
                     valueLabel.text = $"Value : {variable.Value}";
-                    variable.OnValueChanged += newValue => valueLabel.text = $"Value : {newValue}";
                 }
                 else
                 {
@@ -37,11 +36,10 @@ public class BoolContainerDrawer : PropertyDrawer
             }
         );
 
-        var currentVariable = property.objectReferenceValue as BooleanContainer;
+        var currentVariable = property.objectReferenceValue as StringContainer;
         if ( currentVariable != null )
         {
             valueLabel.text = $"Value: {currentVariable.Value}";
-            currentVariable.OnValueChanged += newValue => valueLabel.text = $"Value: {newValue}";
         }
 
         return container;

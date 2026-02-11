@@ -2,20 +2,20 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-[CustomPropertyDrawer(typeof(BooleanContainer))]
-public class BoolContainerDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(AxisVector3Container))]
+public class AxisVector3ContainerDrawer : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
-        VisualElement container = new();
+        var container = new VisualElement();
 
-        ObjectField objectField = new(property.displayName)
+        var objectField = new ObjectField(property.displayName)
         {
-            objectType = typeof(BooleanContainer)
+            objectType = typeof(AxisVector3Container)
         };
         objectField.BindProperty(property);
 
-        Label valueLabel = new();
+        var valueLabel = new Label();
         valueLabel.style.paddingLeft = 20;
 
         container.Add(objectField);
@@ -24,7 +24,7 @@ public class BoolContainerDrawer : PropertyDrawer
         objectField.RegisterValueChangedCallback(
             evt =>
             {
-                var variable = evt.newValue as BooleanContainer;
+                var variable = evt.newValue as AxisVector3Container;
                 if (variable != null)
                 {
                     valueLabel.text = $"Value : {variable.Value}";
@@ -37,7 +37,7 @@ public class BoolContainerDrawer : PropertyDrawer
             }
         );
 
-        var currentVariable = property.objectReferenceValue as BooleanContainer;
+        var currentVariable = property.objectReferenceValue as AxisVector3Container;
         if ( currentVariable != null )
         {
             valueLabel.text = $"Value: {currentVariable.Value}";
