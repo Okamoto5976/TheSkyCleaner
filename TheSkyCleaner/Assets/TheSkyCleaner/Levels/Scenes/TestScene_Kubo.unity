@@ -26633,7 +26633,9 @@ MonoBehaviour:
   m_spawnMax: {x: 10, y: 10}
   m_spawnInterval: 3
   m_enemyTypes:
+  - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
   - {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
+  - {fileID: 11400000, guid: 91f54ddbd576c264ead363a40259ba5f, type: 2}
   m_loopSequence: 0
 --- !u!1 &1295027947
 GameObject:
@@ -31778,7 +31780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1457452964
 Transform:
   m_ObjectHideFlags: 0

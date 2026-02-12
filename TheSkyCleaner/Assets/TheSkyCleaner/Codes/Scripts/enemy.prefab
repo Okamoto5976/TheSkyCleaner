@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::T_Enemy
   m_enemyStateMachine: {fileID: 6649456880405196421}
+  m_enemySO: {fileID: 0}
   objectId: 0
 --- !u!114 &6115759751918828999
 MonoBehaviour:

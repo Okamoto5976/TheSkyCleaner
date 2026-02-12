@@ -8,31 +8,23 @@ public enum EnemyType
     c
 }
 
-[CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/EnemySO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/EnemySO")]
 public class EnemySO : ScriptableObject
 {
     [SerializeField] private EnemyDataSO m_enemydata;
-    [SerializeField] private EnemyType m_enemytype;
+    [SerializeField] private DropSO m_dropSO;
 
+    [SerializeField] private EnemyType m_enemytype;//必要か不明
     [SerializeField] private string m_enemyname;
-    [SerializeField] private Material m_material;
+    [SerializeField] private int m_attack;
+    [SerializeField] private int m_hp;
 
-    public string Enemyname { get => m_enemyname; }
     public EnemyDataSO EnemyData { get => m_enemydata; }
-
-    [System.Serializable]
-    public class Material
-    {
-        [Header("糸"), SerializeField] private int m_material_1;
-        [Header("布"), SerializeField] private int m_material_2;
-        [Header("板"), SerializeField] private int m_material_3;
-
-
-        public int Mterial1 { get => m_material_1; }
-        public int Mterial2 { get => m_material_2; }
-        public int Mterial3 { get => m_material_3; }
-
-    }
+    public DropSO Drop { get => m_dropSO; }
+    public EnemyType EnemyType { get => m_enemytype; }
+    public string Enemyname { get => m_enemyname; }
+    public int Attack { get => m_attack; }
+    public int HP { get => m_hp; }
 
 #if UNITY_EDITOR
     public void Initialise(EnemyDataSO enemydata)
