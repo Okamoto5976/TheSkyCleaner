@@ -1,11 +1,10 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
+[RequireComponent (typeof(MovementHandler))]
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Camera m_camera;
     [SerializeField] private Vector3 m_fov;
-    [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private TiltHandler m_tiltHandler;
     [SerializeField] private TiltHandler m_particleTiltHandler;
     [SerializeField] private PlayerStatus m_playerStatus;
@@ -20,11 +19,13 @@ public class CameraController : MonoBehaviour
     private float m_cameraSpeed;
 
     [SerializeField] private bool m_overrideCameraSpeed = false;
+    private MovementHandler m_movementHandler;
 
     private void Awake()
     {
         m_cameraSpeed = 0;
         m_transform = gameObject.transform;
+        m_movementHandler = GetComponent<MovementHandler>();
     }
 
     private void OnEnable()
@@ -100,7 +101,7 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera(Vector3 dir)
     {
-        m_movementHandler.SetSpeed(m_overrideCameraSpeed ? m_cameraSpeed : m_playerStatus.Speed);
+        //m_movementHandler.SetSpeed(m_overrideCameraSpeed ? m_cameraSpeed : m_playerStatus.Speed);
         m_movementHandler.MoveAllGlobal(dir);
     }
 
