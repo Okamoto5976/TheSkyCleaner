@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca0f62d48fa1d54ab7c35786c5486eb, type: 3}
   m_Name: CameraMoveBounds
   m_EditorClassIdentifier: Assembly-CSharp::AxisVector3Container
-  m_initialValue: {x: 6.4, y: 3.6, z: 1}
-  m_value: {x: 6.4, y: 3.6, z: 1}
+  m_initialValue: {x: 1.6, y: 0.9, z: 1}
+  m_value: {x: 1.6, y: 0.9, z: 1}

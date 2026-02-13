@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a41aa4e0288b914ab5f02ffe249fc45, type: 3}
   m_Name: PlayerShotVelocity
   m_EditorClassIdentifier: Assembly-CSharp::FloatContainer
-  m_initialValue: 15
-  m_value: 15
+  m_initialValue: 30
+  m_value: 30
