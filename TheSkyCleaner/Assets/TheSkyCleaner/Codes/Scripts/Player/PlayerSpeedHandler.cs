@@ -6,15 +6,11 @@ public class PlayerSpeedHandler : MonoBehaviour
     [SerializeField] private InputContainer m_inputContainer;
 
     [SerializeField] private PlayerStatus m_playerStatus;
-    [SerializeField] private TransformValue m_environmentTransformValue;
 
-    private float m_value;
+    [SerializeField] private FloatContainer m_playerSpeedLerp;
     [SerializeField] private float m_lerpTime;
 
-    [SerializeField] private Vector3 m_transformingValues;
-    [SerializeField] private MovementHandler m_playerMoveHandler;
-
-
+    private float m_value;
     private int m_strongHoldValue;
     private int m_weakHoldValue;
 
@@ -45,28 +41,7 @@ public class PlayerSpeedHandler : MonoBehaviour
     public void LerpSpeedDir(int dir)
     {
         m_value = Mathf.Lerp(m_value, dir, Time.deltaTime * m_lerpTime);
-
-        Transform(m_value);
-        m_environmentTransformValue.Transform(m_value);
-    }
-
-    private void Transform(float val)
-    {
-        float newVal;
-        if (val > 0)
-        {
-            newVal = (float)(val * (m_transformingValues.z - m_transformingValues.y) + m_transformingValues.y);
-        }
-        else if (val < 0)
-        {
-            newVal = (float)(val * (m_transformingValues.y - m_transformingValues.x) + m_transformingValues.y);
-        }
-        else
-        {
-            newVal = m_transformingValues.y;
-        }
-        m_playerStatus.UpdateSpeed(newVal);
-        m_playerMoveHandler.SetSpeed(newVal);
+        m_playerSpeedLerp.SetValue(m_value);
     }
 
     public void OnStrongHold(bool state)

@@ -53,11 +53,14 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         m_playerStatus.UpdateMovementInput(m_inputContainer.MovementAxis);
+        PassReticle();
         MovePlayer(ref m_movementAxis);
         m_playerTiltHandler.TiltOnYaw(m_movementAxis);
         m_playerTiltHandler.TiltYaw(m_movementAxis.x);
+    }
 
-        PassReticle();
+    private void FixedUpdate()
+    {
     }
 
     private void PassReticle()
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public void MovePlayer(ref Vector2 axis)
     {
         axis = m_inputContainer.MovementAxis;
+        m_movementHandler.SetSpeed(m_playerStatus.Speed);
         m_movementHandler.MoveOnZ(axis);
         m_playerStatus.UpdateGlobalPosition(m_transform.position);
         m_animatorVariableDriver.Drive(m_dodgeAnimationHorizontalFloatName.Value, axis.x);

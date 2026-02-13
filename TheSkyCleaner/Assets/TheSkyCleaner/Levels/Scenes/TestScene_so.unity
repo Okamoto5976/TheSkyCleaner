@@ -20222,7 +20222,6 @@ GameObject:
   m_Component:
   - component: {fileID: 413177022}
   - component: {fileID: 413177024}
-  - component: {fileID: 413177023}
   - component: {fileID: 413177025}
   m_Layer: 0
   m_Name: Environment
@@ -20259,33 +20258,6 @@ Transform:
   - {fileID: 1367804595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &413177023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413177021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  m_onMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413177024}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: MoveDepthical
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &413177024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20298,7 +20270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: -1}
+  m_speeds: {x: 1, y: 1, z: 1}
   m_speedMod: 1
 --- !u!114 &413177025
 MonoBehaviour:
@@ -20309,25 +20281,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 413177021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6019f710519ff401dbf627d872128fc5, type: 3}
+  m_Script: {fileID: 11500000, guid: f742891120e07e044b2ccbe712408723, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TransformValue
-  m_transformingValues: {x: 0.1, y: 1, z: 4}
-  m_events:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413177024}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: SetSpeed
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentController
+  m_direction: {x: 0, y: 0, z: -1}
+  m_speedContainer: {fileID: 11400000, guid: 3afbe5459580fae4faf6dc67593eaf36, type: 2}
+  m_movementHandler: {fileID: 413177024}
 --- !u!114 &431127808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25672,7 +25631,6 @@ MonoBehaviour:
   m_logger: {fileID: 713725152}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_playerTiltHandler: {fileID: 960096394}
-  m_armController: {fileID: 1373798138}
   m_reticleController: {fileID: 1373798139}
   m_animatorVariableDriver: {fileID: 332467648}
   m_dodgeAnimationToggleBoolName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
@@ -25759,7 +25717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpeedHandler
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_playerStatus: {fileID: 11400000, guid: 6ec6983e4916ac24ba70c34a78541c32, type: 2}
-  m_environmentTransformValue: {fileID: 413177025}
+  m_playerSpeedLerp: {fileID: 11400000, guid: 6a6f7a0acd718154182b8036c89966a2, type: 2}
   m_lerpTime: 3
   m_transformingValues: {x: 0.5, y: 1, z: 2}
   m_playerMoveHandler: {fileID: 762919354}
@@ -26620,7 +26578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
-  m_camera: {fileID: 0}
+  m_camera: {fileID: 330585545}
   m_inventory: {fileID: 0}
 --- !u!1 &1259995851
 GameObject:
@@ -37447,7 +37405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arm
   m_player: {fileID: 1373798137}
   m_controller: {fileID: 1373798138}
-  m_camera: {fileID: 0}
+  m_camera: {fileID: 330585545}
   m_inventory: {fileID: 0}
 --- !u!1 &1758144827
 GameObject:

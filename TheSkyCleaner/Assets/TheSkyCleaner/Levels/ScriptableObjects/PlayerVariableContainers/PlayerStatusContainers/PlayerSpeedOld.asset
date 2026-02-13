@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a277efae12988349bae4b2b67f346e9, type: 3}
-  m_Name: PlayerSpeed
-  m_EditorClassIdentifier: Assembly-CSharp::TransformingFloatContainer
+  m_Script: {fileID: 11500000, guid: 3a41aa4e0288b914ab5f02ffe249fc45, type: 3}
+  m_Name: PlayerSpeedOld
+  m_EditorClassIdentifier: Assembly-CSharp::FloatContainer
   m_initialValue: 0
   m_value: 0
-  m_floatContainer: {fileID: 0}
-  m_transformingValues: {x: 0, y: 0, z: 0}
