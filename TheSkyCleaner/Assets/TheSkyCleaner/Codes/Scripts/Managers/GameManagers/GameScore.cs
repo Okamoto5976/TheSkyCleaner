@@ -1,23 +1,36 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/ScoreSO")]
-public class ScoreSO : ScriptableObject
+public class GameScore : MonoBehaviour
 {
-    public int Score { get; private set; }
+    [SerializeField] private IntegerContainer m_score;
+
+    //public int Score { get; private set; }
 
     public event Action<int> OnScoreChange;//スコア表示などに使う
 
     public void ResetScore()
     {
-        Score = 0;
-        OnScoreChange?.Invoke(Score);
+        m_score.SetValue(0);
+        OnScoreChange?.Invoke(m_score.Value);
     }
 
     public void Add(int value)
     {
-        Score += value;
-        OnScoreChange?.Invoke(Score);
+        var score = Mathf.Max(m_score.Value + value, 0);
+
+        m_score.SetValue(score);
+        OnScoreChange?.Invoke(m_score.Value);
+    }
+
+    public void Sub(int value)
+    {
+        Add(-value);
+    }
+
+    public void Set(int value)
+    {
+        m_score.SetValue(value);
     }
 }
 //[SerializeField] ScoreSO score;
