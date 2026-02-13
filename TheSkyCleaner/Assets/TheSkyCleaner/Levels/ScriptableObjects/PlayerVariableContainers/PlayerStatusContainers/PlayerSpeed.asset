@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerSpeed
   m_EditorClassIdentifier: Assembly-CSharp::TransformingFloatContainer
   m_initialValue: 0
-  m_value: 1.0155125
-  m_floatContainer: {fileID: 11400000, guid: 6a6f7a0acd718154182b8036c89966a2, type: 2}
-  m_transformingValues: {x: 0.5, y: 1, z: 2}
+  m_value: 0
+  m_floatContainer: {fileID: 0}
+  m_transformingValues: {x: 0, y: 0, z: 0}

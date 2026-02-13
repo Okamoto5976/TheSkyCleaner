@@ -9,10 +9,9 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
-    [SerializeField] private EnemyPoolManager m_poolEne;
-    [SerializeField] private ObjectPoolManager m_poolTrash;
+    [SerializeField] private EnemyPoolManager m_pool;
 
-    [SerializeField] public AxisVector3Container m_target;
+    [SerializeField] private Transform m_target;
 
     [Header("Spawn Area (X,Y random / Z fixed)")]
     [SerializeField] private Vector3 m_spawnPos;      // z のみ使用想定
@@ -21,13 +20,13 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float m_spawnInterval = 0.3f;
 
     [Header("Enemy Types (Sequences)")]
+    [Tooltip("敵1 / 敵2 / 敵3 用のシーケンスを設定。必要なら数を増やしてOK。")]
     [SerializeField] private EnemySequence[] m_enemyTypes;
 
     [Header("Default Movement")]
     [SerializeField] private bool m_loopSequence = false;
 
     private WaitForSeconds m_wait;
-
 
     private void Awake()
     {
@@ -46,7 +45,7 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnOne()
     {
-        if (m_poolEne == null)
+        if (m_pool == null)
         {
             Debug.LogWarning("[EnemyManager] ObjectPoolManager の参照がありません。Inspector で設定してください。");
             return;
@@ -58,7 +57,7 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        T_Enemy obj = m_poolEne.GetComponentFromPool();
+        T_Enemy obj = m_pool.GetComponentFromPool();
         SetEnemyInfo(obj);
     }
 
@@ -89,8 +88,7 @@ public class EnemyManager : MonoBehaviour
 
         // 参照注入
         machine.SetTarget(m_target);
-        machine.SetPool(m_poolEne);
-        machine.SetPoolObj(m_poolTrash);
+        machine.SetPool(m_pool);
         machine.SetLogger(m_logger);
        
 

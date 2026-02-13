@@ -18,15 +18,16 @@ public class EnemyStateMachine : MonoBehaviour
     };
 
     [Header("References")]
-    private AxisVector3Container m_target;
-    private EnemyPoolManager m_pool;
-    private ObjectPoolManager m_poolObj;
+    private Transform m_target;
+    private EnemyPoolManager m_pool; // プール（投擲ゴミなどで使用）
     private Logger m_logger;
     [SerializeField]private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 5f;
+    [Tooltip("MovementHandler の MoveAll(Vector3) に渡す値が『方向』なら true。『速度(=方向×速度)』を受け取る設計なら false にするなど、適宜調整。")]
+    //[SerializeField] private bool m_moveAllTakesDirection = true;
 
 
     //[("Sequence")]
@@ -35,9 +36,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     private float m_runningTime;
 
-    public Vector3 Target => m_target.Value;
+    public Transform Target => m_target;
     public EnemyPoolManager Pool => m_pool;
-    public ObjectPoolManager PoolObj => m_poolObj;
     public Logger Log => m_logger;
 
     public MovementHandler MovementHandler => m_movementHandler;
@@ -88,18 +88,15 @@ public class EnemyStateMachine : MonoBehaviour
 
         for (int i = 0; i < m_sequence.Count; i++)
         {
-            if (m_runningTime > m_sequence[i].time.x && m_runningTime < m_sequence[i].time.y && !m_sequence[i].isActive)
+            if (m_runningTime > m_sequence[i].time.x && !m_sequence[i].isActive)
             {
                 m_sequence[i].isActive = true;
                 // stateが始まるときに呼ぶ関数
-                m_sequence[i].state.OnEnter();
-                //Debug.Log($"{i} has entered");
             }
             if (m_runningTime > m_sequence[i].time.y && m_sequence[i].isActive)
             {
                 m_sequence[i].isActive = false;
                 // stateが終わる時に呼ぶ関数
-                m_sequence[i].state.OnExit();
             }
         }
 
@@ -116,9 +113,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     // ====== 公開操作 ======
 
-    public void SetTarget(AxisVector3Container t) => m_target = t;
+    public void SetTarget(Transform t) => m_target = t;
     public void SetPool(EnemyPoolManager p) => m_pool = p;
-    public void SetPoolObj(ObjectPoolManager o) => m_poolObj = o;   
     public void SetLogger(Logger logger) => m_logger = logger;
 
     public void SetSequence(List<StateMachineInstance> sequence, bool loop = false)

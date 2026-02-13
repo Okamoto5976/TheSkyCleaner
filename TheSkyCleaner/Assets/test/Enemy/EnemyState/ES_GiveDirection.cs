@@ -11,7 +11,7 @@ public class ES_GiveDirection : EnemyState
     public Vector3 Direction => m_direction;
     public override void OnUpdate(float deltaTime)
     {
-        //Debug.Log(m_direction);
+        Debug.Log(m_direction);
         est.SetMoveSpeed(m_moveSpeed);
         est.SetMoveDirection(m_direction);
     }
