@@ -18,7 +18,7 @@ public class EnemyStateMachine : MonoBehaviour
     };
 
     [Header("References")]
-    private Transform m_target;
+    private AxisVector3Container m_target;
     private EnemyPoolManager m_pool; // プール（投擲ゴミなどで使用）
     private Logger m_logger;
     [SerializeField]private MovementHandler m_movementHandler;
@@ -36,7 +36,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private float m_runningTime;
 
-    public Transform Target => m_target;
+    public AxisVector3Container Target => m_target;
     public EnemyPoolManager Pool => m_pool;
     public Logger Log => m_logger;
 
@@ -113,7 +113,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     // ====== 公開操作 ======
 
-    public void SetTarget(Transform t) => m_target = t;
+    public void SetTarget(AxisVector3Container t) => m_target = t;
     public void SetPool(EnemyPoolManager p) => m_pool = p;
     public void SetLogger(Logger logger) => m_logger = logger;
 

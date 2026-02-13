@@ -25719,8 +25719,6 @@ MonoBehaviour:
   m_playerStatus: {fileID: 11400000, guid: 6ec6983e4916ac24ba70c34a78541c32, type: 2}
   m_playerSpeedLerp: {fileID: 11400000, guid: 6a6f7a0acd718154182b8036c89966a2, type: 2}
   m_lerpTime: 3
-  m_transformingValues: {x: 0.5, y: 1, z: 2}
-  m_playerMoveHandler: {fileID: 762919354}
 --- !u!114 &762919364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26589,8 +26587,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259995853}
-  - component: {fileID: 1259995854}
   - component: {fileID: 1259995855}
+  - component: {fileID: 1259995856}
   m_Layer: 0
   m_Name: EnemyPoolManager
   m_TagString: Untagged
@@ -26613,24 +26611,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 913461169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1259995854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259995851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec3c6624b919e443b0437247836af17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
-  m_logger: {fileID: 766334098}
-  m_pool: {fileID: 1259995855}
-  m_spawnPos: {x: 0, y: 0, z: 20}
-  m_spawnTrashMin: {x: -10, y: -10}
-  m_spawnTrashMax: {x: 10, y: 10}
-  m_spawnTrashInterval: 0.3
 --- !u!114 &1259995855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26647,6 +26627,30 @@ MonoBehaviour:
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
   m_poolCount: 10
   m_forcePoolCount: 1
+--- !u!114 &1259995856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259995851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16de9dcf7f9f5f1458e57aab8a40f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  m_logger: {fileID: 766334098}
+  m_pool: {fileID: 1259995855}
+  m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_spawnPos: {x: 0, y: 0, z: -50}
+  m_spawnMin: {x: -10, y: -10}
+  m_spawnMax: {x: 10, y: 10}
+  m_spawnInterval: 0.3
+  m_enemyTypes:
+  - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
+  - {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
+  - {fileID: 11400000, guid: 91f54ddbd576c264ead363a40259ba5f, type: 2}
+  m_loopSequence: 1
 --- !u!1 &1295027947
 GameObject:
   m_ObjectHideFlags: 0

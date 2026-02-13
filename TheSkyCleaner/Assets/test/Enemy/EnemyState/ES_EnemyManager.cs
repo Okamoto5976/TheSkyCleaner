@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Logger m_logger;
     [SerializeField] private EnemyPoolManager m_pool;
 
-    [SerializeField] private Transform m_target;
+    [SerializeField] private AxisVector3Container m_target;
 
     [Header("Spawn Area (X,Y random / Z fixed)")]
     [SerializeField] private Vector3 m_spawnPos;      // z ‚Ì‚ÝŽg—p‘z’è

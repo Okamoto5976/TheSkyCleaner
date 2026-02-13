@@ -29,7 +29,7 @@ public abstract class EnemyState : ScriptableObject
     //protected void Move(EnemyStateMachine est, Vector3 worldDirection)
     //    => est.MoveDirection(worldDirection);
 
-    protected Transform GetTarget()
+    protected AxisVector3Container GetTarget()
         => est.Target;
 
     protected Vector3 DirToTarget(Vector3 targetPosition, Vector3 myPosition)
