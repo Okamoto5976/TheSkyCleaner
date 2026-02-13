@@ -13,7 +13,7 @@ public class ReticleController : MonoBehaviour
 
     [SerializeField] private Camera m_mainCamera;
     [SerializeField] private EnemyPoolManager m_enemypoolmanager;
-    [SerializeField] private CollectPoolManager m_collectpoolmanager;
+    [SerializeField] private TrashPoolManager m_collectpoolmanager;
 
 
     [SerializeField] private Image m_lockOnMarkerPrefab;

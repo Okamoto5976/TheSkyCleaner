@@ -26625,7 +26625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 10
+  m_poolCount: 100
   m_forcePoolCount: 1
 --- !u!114 &1259995856
 MonoBehaviour:
@@ -26640,12 +26640,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   m_logger: {fileID: 766334098}
-  m_pool: {fileID: 1259995855}
+  m_poolEnemy: {fileID: 1259995855}
+  m_poolTrash: {fileID: 1295027949}
   m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_spawnPos: {x: 0, y: 0, z: -50}
+  m_spawnPos: {x: 0, y: 0, z: 50}
   m_spawnMin: {x: -10, y: -10}
   m_spawnMax: {x: 10, y: 10}
-  m_spawnInterval: 0.3
+  m_spawnInterval: 10
   m_enemyTypes:
   - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
   - {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
@@ -26661,6 +26662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295027948}
   - component: {fileID: 1295027949}
+  - component: {fileID: 1295027950}
   m_Layer: 0
   m_Name: TrashPoolManager
   m_TagString: Untagged
@@ -26696,9 +26698,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectPoolManager
   m_logger: {fileID: 766334098}
-  m_prefab: {fileID: 3802696222938316940, guid: 82331b75904cb3b489f69478634da366, type: 3}
-  m_poolCount: 0
+  m_prefab: {fileID: 6933232402498349450, guid: 911b295aacda2d5468191c67e41e6c4d, type: 3}
+  m_poolCount: 100
   m_forcePoolCount: 1
+--- !u!114 &1295027950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e952c8786cdc2e44390b816e18883462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashManager
+  m_logger: {fileID: 766334098}
+  m_pool: {fileID: 1295027949}
+  m_spawnPos: {x: 0, y: 0, z: 50}
+  m_spawnTrashMin: {x: -10, y: -10}
+  m_spawnTrashMax: {x: 10, y: 10}
+  m_spawnTrashInterval: 0.3
+  m_moveSpeed: 4
+  m_direction: {x: 0, y: 0, z: -1}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
