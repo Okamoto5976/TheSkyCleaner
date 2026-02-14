@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class T_Spawn : MonoBehaviour
 {
-    [SerializeField] private CollectPoolManager collectpool;
+    [SerializeField] private TrashPoolManager collectpool;
     [SerializeField] private Transform _transform;
 
     private void Update()

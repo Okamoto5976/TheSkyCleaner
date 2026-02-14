@@ -20188,7 +20188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 413177022}
   - component: {fileID: 413177024}
-  - component: {fileID: 413177023}
   - component: {fileID: 413177025}
   m_Layer: 0
   m_Name: Environment
@@ -20225,33 +20224,6 @@ Transform:
   - {fileID: 1367804595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &413177023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413177021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  m_onMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413177024}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: MoveDepthical
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &413177024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20264,7 +20236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: -1}
+  m_speeds: {x: 1, y: 1, z: 1}
   m_speedMod: 1
 --- !u!114 &413177025
 MonoBehaviour:
@@ -20275,25 +20247,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 413177021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6019f710519ff401dbf627d872128fc5, type: 3}
+  m_Script: {fileID: 11500000, guid: f742891120e07e044b2ccbe712408723, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TransformValue
-  m_transformingValues: {x: 0.1, y: 1, z: 4}
-  m_events:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413177024}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: SetSpeed
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentController
+  m_direction: {x: 0, y: 0, z: -1}
+  m_speedContainer: {fileID: 11400000, guid: 3afbe5459580fae4faf6dc67593eaf36, type: 2}
+  m_movementHandler: {fileID: 413177024}
 --- !u!114 &431127808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25709,7 +25668,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 413177025}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TransformValue, Assembly-CSharp
         m_MethodName: Transform
         m_Mode: 0
@@ -26595,6 +26554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259995853}
   - component: {fileID: 1259995855}
+  - component: {fileID: 1259995856}
   m_Layer: 0
   m_Name: EnemyPoolManager
   m_TagString: Untagged
@@ -26631,8 +26591,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   m_logger: {fileID: 766334098}
   m_prefab: {fileID: 1505472414512466365, guid: 1796b821b3a5f7f42afd2118a96f3231, type: 3}
-  m_poolCount: 10
+  m_poolCount: 100
   m_forcePoolCount: 1
+--- !u!114 &1259995856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259995851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16de9dcf7f9f5f1458e57aab8a40f2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  m_logger: {fileID: 0}
+  m_poolEnemy: {fileID: 1259995855}
+  m_poolTrash: {fileID: 0}
+  m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_spawnPos: {x: 0, y: 0, z: 50}
+  m_spawnMin: {x: -10, y: -10}
+  m_spawnMax: {x: 10, y: 10}
+  m_spawnInterval: 10
+  m_enemyTypes:
+  - {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
+  - {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
+  - {fileID: 11400000, guid: 91f54ddbd576c264ead363a40259ba5f, type: 2}
+  m_loopSequence: 1
 --- !u!1 &1295027947
 GameObject:
   m_ObjectHideFlags: 0
@@ -26642,6 +26627,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295027948}
+  - component: {fileID: 1295027950}
+  - component: {fileID: 1295027949}
   m_Layer: 0
   m_Name: TrashPoolManager
   m_TagString: Untagged
@@ -26664,6 +26651,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 913461169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1295027949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e952c8786cdc2e44390b816e18883462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashManager
+  m_logger: {fileID: 0}
+  m_pool: {fileID: 1295027950}
+  m_spawnPos: {x: 0, y: 0, z: 50}
+  m_spawnTrashMin: {x: -10, y: -10}
+  m_spawnTrashMax: {x: 10, y: 10}
+  m_spawnTrashInterval: 0.3
+  m_moveSpeed: 4
+  m_direction: {x: 0, y: 0, z: -1}
+--- !u!114 &1295027950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c3f5da706910f41b1a124133c7929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashPoolManager
+  m_logger: {fileID: 0}
+  m_prefab: {fileID: 6933232402498349450, guid: 911b295aacda2d5468191c67e41e6c4d, type: 3}
+  m_poolCount: 0
+  m_forcePoolCount: 1
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
