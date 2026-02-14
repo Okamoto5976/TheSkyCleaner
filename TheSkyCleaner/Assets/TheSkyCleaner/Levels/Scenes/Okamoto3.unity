@@ -26594,7 +26594,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259995853}
-  - component: {fileID: 1259995854}
   - component: {fileID: 1259995855}
   m_Layer: 0
   m_Name: EnemyPoolManager
@@ -26618,24 +26617,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 913461169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1259995854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259995851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec3c6624b919e443b0437247836af17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnTEManager
-  m_logger: {fileID: 766334098}
-  m_pool: {fileID: 1259995855}
-  m_spawnPos: {x: 0, y: 0, z: 20}
-  m_spawnTrashMin: {x: -10, y: -10}
-  m_spawnTrashMax: {x: 10, y: 10}
-  m_spawnTrashInterval: 0.3
 --- !u!114 &1259995855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26661,7 +26642,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295027948}
-  - component: {fileID: 1295027949}
   m_Layer: 0
   m_Name: TrashPoolManager
   m_TagString: Untagged
@@ -26684,22 +26664,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 913461169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1295027949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295027947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3f5da706910f41b1a124133c7929c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectPoolManager
-  m_logger: {fileID: 766334098}
-  m_prefab: {fileID: 3802696222938316940, guid: 82331b75904cb3b489f69478634da366, type: 3}
-  m_poolCount: 0
-  m_forcePoolCount: 1
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -26931,7 +26895,7 @@ MonoBehaviour:
   m_canvasSize: {fileID: 479783919}
   m_mainCamera: {fileID: 330585545}
   m_enemypoolmanager: {fileID: 1259995855}
-  m_collectpoolmanager: {fileID: 1295027949}
+  m_collectpoolmanager: {fileID: 0}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
   m_rect: {fileID: 675199751}
   m_reticleSpeed: 0.2
