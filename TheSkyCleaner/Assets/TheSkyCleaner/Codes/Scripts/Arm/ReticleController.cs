@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class ReticleController : MonoBehaviour
@@ -19,21 +18,27 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private Image m_lockOnMarkerPrefab;
 
     [SerializeField] private RectTransform m_rect;
-    [SerializeField] private AxisVector3Container m_targetAxis;
     [SerializeField] private float m_reticleSpeed;
     [SerializeField] private float m_reticleDistance;
 
     [SerializeField] private int m_maxCount;
 
+
+    public Vector3 RectPos { get => m_rect.position; }
     public int MaxCount { get => m_maxCount; }
 
-    [SerializeField] private Transform m_player;
+    [SerializeField] private AxisVector3Container m_playerAxis;
     private Vector3 m_playerPos;
+    private Vector3 m_currentPos;
+
+    public Vector3 PlayerPos { get => m_playerPos; }
 
     private List<ILockOnTarget> m_LockOnCandidates = new List<ILockOnTarget>();
     private List<ILockOnTarget> m_LockEnemies = new List<ILockOnTarget>();
     private List<ILockOnTarget> m_SaveEnemies = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
+
+    public List<ILockOnTarget> LockEnemies { get => m_LockEnemies; }
 
     public List<ILockOnTarget> SaveEnemies { get => m_SaveEnemies; }
 
@@ -55,8 +60,10 @@ public class ReticleController : MonoBehaviour
 
     private void Update()
     {
-        Vector3 current_pos = m_player.position;
-        Vector3 delta = current_pos - m_playerPos;
+        m_playerPos = m_playerAxis.Value;
+
+        Vector3 current_pos = m_playerPos;
+        Vector3 delta = current_pos - m_currentPos;
         Vector3 pos = m_rect.transform.position;
 
         pos += delta * m_reticleSpeed;
@@ -76,20 +83,9 @@ public class ReticleController : MonoBehaviour
         pos.z = m_reticleDistance;
 
         m_rect.transform.position = pos;
-        m_playerPos = current_pos;
+        m_currentPos = current_pos;
 
         RemoveSaveEnemies();
-
-
-        //Vector3 reticlePos = m_rect.position;
-        //Vector3 m_Pos = m_playerPos;
-        //Vector3 dir = (reticlePos - m_Pos).normalized;
-        //Quaternion rot = Quaternion.LookRotation(dir); 
-        //m_activateOb.m_offsetRotation = rot.eulerAngles;
-        //Debug.DrawRay(m_Pos, dir * 5f, Color.red);
-
-        m_targetAxis.SetValue(m_rect.position);
-
     }
 
     public void MoveReticle(Vector2 delta)
@@ -149,7 +145,7 @@ public class ReticleController : MonoBehaviour
             //Debug.Log($"ÉXÉNÉäÅ[Éì{enemyScreenPos}");
 
 
-            if (sp.z < m_player.position.z) continue;
+            if (sp.z < m_playerPos.z) continue;
 
             if (lockOnRect.Contains(enemyScreenPos))
                 m_LockOnCandidates.Add(enemy);
