@@ -1,26 +1,27 @@
 using UnityEngine;
 
-public class T_Enemy : MonoBehaviour, ILockOnTarget
+public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 {
-    [SerializeField] private EnemyStateMachine m_enemyStateMachine;
-
-    public int objectId;
-
-    public EnemyStateMachine EnemyStateMachine => m_enemyStateMachine;
-
-    public int ObjectID => objectId;
-
-
+    [SerializeField] private EnemySO m_enemySO;
     public Transform Transform => transform;
     public GameObject GameObject => gameObject;
+    public DropSO GetDropData() => m_enemySO.Drop;
+
+
+    private int m_attack;
+    private int m_hp;
 
     private void OnEnable()
     {
-
+        m_attack = m_enemySO.Attack;
+        m_hp = m_enemySO.HP;
     }
 
-    public DropSO GetDropData()
+    public void Damage(int damage)
     {
-        throw new System.NotImplementedException();
+        m_hp -= damage;
+        //Debug.Log(m_hp);
     }
+
+
 }

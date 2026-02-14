@@ -14,7 +14,6 @@ public class PlayerStatus : ScriptableObject
     [Header("Controls")]
     [SerializeField] private AxisVector2Container m_movementAxis;
     [SerializeField] private AxisVector2Container m_rotationAxis;
-    [SerializeField] private IntegerEventContainer m_speedAxis;
 
     public Vector3 GlobalPosition => m_globalPosition.Value;
     public Vector3 Rotation => m_rotation.Value;
@@ -25,7 +24,6 @@ public class PlayerStatus : ScriptableObject
 
     public Vector2 MovementAxis => m_movementAxis.Value;
     public Vector2 RotationAxis => m_rotationAxis.Value;
-    public int SpeedAxis => m_speedAxis.Value;
 
     public void UpdateGlobalPosition(Vector3 position) => m_globalPosition.SetValue(position);
     public void UpdateRotation(Vector3 rotation) => m_rotation.SetValue(rotation);
@@ -35,5 +33,4 @@ public class PlayerStatus : ScriptableObject
     public void UpdateInvulnerabilityState(bool isInvulnerable) => m_isInvulnerable.SetValue(isInvulnerable);
     public void UpdateMovementInput(Vector2 input) => m_movementAxis.SetValue(input);
     public void UpdateRotationInput(Vector2 input) => m_rotationAxis.SetValue(input);
-    public void UpdateSpeedAxis(int dir) => m_speedAxis.SetValue(dir);
 }
