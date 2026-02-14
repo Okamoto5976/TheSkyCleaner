@@ -9,7 +9,7 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] protected int m_poolCount;
     [SerializeField] protected bool m_forcePoolCount = true;
 
-    protected List<GameObject> m_objectPool;
+    protected List<ReturnObjectToPool> m_objectPool;
     protected List<int> m_inUseQue;
 
     private Transform m_transform;
@@ -26,7 +26,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     public GameObject GetObjectFromPool()
     {
-        return GetFromPool(m_objectPool);
+        return GetFromPool(m_objectPool).gameObject;
     }
 
     protected T GetFromPool<T>(List<T> list)
@@ -38,6 +38,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     protected int GetIndexFromPool()
     {
+
         var x = m_objectPool
             .Select((obj, index) => new { obj, index })
             .FirstOrDefault(x => !m_inUseQue.Contains(x.index));
@@ -62,7 +63,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
     public void ReturnToPool(int index)
     {
-        GameObject obj = m_objectPool.ElementAt(index);
+        ReturnObjectToPool obj = m_objectPool.ElementAt(index);
         m_inUseQue.Remove(index);
         obj.transform.parent = m_transform;
         obj.gameObject.SetActive(false);
@@ -77,19 +78,8 @@ public class ObjectPoolManager : MonoBehaviour
 
         ReturnObjectToPool rotp = obj.GetComponent<ReturnObjectToPool>();
         rotp.InjectPoolManager(this, index);
-        m_objectPool.Add(rotp.gameObject);
+        m_objectPool.Add(rotp);
         return index;
-    }
-
-    public IEnumerable<GameObject> GetActiveObjects()
-    {
-        if (m_inUseQue == null)
-        {
-            return Enumerable.Empty<GameObject>();
-        }
-        
-        IEnumerable<GameObject> tmp = m_inUseQue.Select(i => m_objectPool.ElementAt(i));
-        return tmp;
     }
 
 }
