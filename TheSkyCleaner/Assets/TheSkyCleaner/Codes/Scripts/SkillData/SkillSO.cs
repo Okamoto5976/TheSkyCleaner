@@ -9,7 +9,7 @@ public enum SkillType//‹­‰»‚ğì—p‚·‚éÛAí—Ş“Á’è‚Ì‚½‚ß
     NetUP
 }
 
-[CreateAssetMenu(menuName = "Scriptable Objects/SkillSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/SkillSO")]
 public class SkillSO : ScriptableObject
 {
     [SerializeField] private SkillDataSO m_skilldata;

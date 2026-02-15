@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Phase/TrashPhase")]
-public class TrashPhase : GamePhase
+[CreateAssetMenu(menuName = "Scriptable Objects/Phase/EnemyPhase")]
+public class EnemyPhase : GamePhase
 {
     [SerializeField] private PhaseType m_phase;
 
@@ -13,11 +13,11 @@ public class TrashPhase : GamePhase
                 break;
 
             case PhaseType.StartPool:
-                m_gm.StartTrashPool();
+                m_gm.StartEnemyPool();
                 break;
 
             case PhaseType.StopPool:
-                m_gm.StopTrashPool();
+                m_gm.StopEnemyPool();
                 break;
         }
     }
@@ -29,6 +29,6 @@ public class TrashPhase : GamePhase
 
     public override void OnExit()
     {
-
+        
     }
 }

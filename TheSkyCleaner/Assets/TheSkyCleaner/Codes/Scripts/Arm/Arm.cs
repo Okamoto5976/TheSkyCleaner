@@ -76,6 +76,12 @@ public class Arm : MonoBehaviour
             //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
             //配列で入れられるね！
             var drop = m_enemies.GetDropData();
+
+            if(drop.Fuel > 0)
+            {
+
+            }
+
             foreach(var mat in drop.Materials)
             {
                 if(mat.amount <= 0) continue;
@@ -88,7 +94,7 @@ public class Arm : MonoBehaviour
         return true;
     }
 
-    public void MoveToEnemy(ILockOnTarget enemies,Vector3 player,
+    public void MoveToEnemy(ILockOnTarget target,Vector3 player,
         float speed,int attack,int ID,int index)
     {
         //返すための値
@@ -100,9 +106,9 @@ public class Arm : MonoBehaviour
         m_playerPos = player;
 
 
-        m_enemies = enemies;
-        m_targetEnemy = enemies.GameObject;
-        m_targetTransform = enemies.Transform;
+        m_enemies = target;
+        m_targetEnemy = target.GameObject;
+        m_targetTransform = target.Transform;
         m_transform.SetParent(null);
         m_state = State.Moving;
     }

@@ -33,11 +33,11 @@ public class ArmController : MonoBehaviour
 
     public void ArmShot()
     {
-        var m_SaveEnemies = m_reticleController.SaveEnemies;
+        var m_SaveTargets = m_reticleController.SaveTargets;
 
-        foreach (var enemies in m_SaveEnemies)
+        foreach (var targets in m_SaveTargets)
         {
-            int id = enemies.GameObject.GetInstanceID();
+            int id = targets.GameObject.GetInstanceID();
 
             if (m_enemiesId.Contains(id)) continue;
 
@@ -50,7 +50,7 @@ public class ArmController : MonoBehaviour
 
             m_enemiesId.Add(id);
 
-            if (enemies is IDamage)
+            if (targets is IDamage)
             {
                 Debug.Log("Enemy!");
             }
@@ -60,7 +60,7 @@ public class ArmController : MonoBehaviour
             }
 
 
-            arm.MoveToEnemy(enemies,m_playerPos,
+            arm.MoveToEnemy(targets, m_playerPos,
                 m_speed,m_attack, id, index);
         }
     }

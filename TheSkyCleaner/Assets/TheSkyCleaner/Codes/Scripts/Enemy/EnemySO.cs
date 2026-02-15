@@ -8,7 +8,7 @@ public enum EnemyType
     c
 }
 
-[CreateAssetMenu(menuName = "Scriptable Objects/EnemySO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/EnemySO")]
 public class EnemySO : ScriptableObject
 {
     [SerializeField] private EnemyDataSO m_enemydata;

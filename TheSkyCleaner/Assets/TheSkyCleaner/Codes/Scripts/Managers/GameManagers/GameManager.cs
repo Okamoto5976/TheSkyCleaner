@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     private int m_currentIndex;
     private GamePhase m_currentPhase;
 
+    [SerializeField] private EnemyManager m_EM;
+    [SerializeField] private TrashManager m_TM;
+    [SerializeField] private LargeTrashManager m_LTM;
+
     private void Start()
     {
         foreach(var phase in m_sequence.m_phase)
@@ -43,4 +47,12 @@ public class GameManager : MonoBehaviour
         m_currentIndex++;
         m_currentPhase.OnEnter();
     }
+
+    public void StartEnemyPool() { m_EM.StartSpawn(); }
+    public void StartTrashPool() { m_TM.StartSpawn(); }
+    public void StartLargeTrashPool() { m_LTM.StartSpawn(); }
+    public void StopEnemyPool() { m_EM.StopSpawn(); }
+    public void StopTrashPool() { m_TM.StopSpawn(); }
+    public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
+
 }

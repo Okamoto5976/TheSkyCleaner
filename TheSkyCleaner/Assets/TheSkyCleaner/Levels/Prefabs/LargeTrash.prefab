@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1224479607077599748}
   - component: {fileID: 2307661862063640295}
   - component: {fileID: 5717224143768202021}
-  - component: {fileID: 6751743965856750650}
+  - component: {fileID: 935690861824525944}
   - component: {fileID: -9034896561115506292}
-  - component: {fileID: -308912393829871946}
   - component: {fileID: -4996261014548498112}
+  - component: {fileID: 6000285517578968718}
   m_Layer: 0
-  m_Name: Trash
+  m_Name: LargeTrash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,23 +112,31 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6751743965856750650
-MonoBehaviour:
+--- !u!135 &935690861824525944
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3802696222938316940}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78d4f47ead40ca941a784bf98f115aec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::T_Collect
-  m_collectSO: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-9034896561115506292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,35 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
-  m_speeds: {x: 0, y: 0, z: -5}
+  m_speeds: {x: 1, y: 1, z: 1}
   m_speedMod: 1
---- !u!114 &-308912393829871946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802696222938316940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55a75ee3989f845319480ad267ab2030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConstantFloatEvent
-  m_onMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -9034896561115506292}
-        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
-        m_MethodName: MoveDepthical
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &-4996261014548498112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +163,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1949203fa3d88d747beed78ed63870dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReturnObjectToPool
+--- !u!114 &6000285517578968718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802696222938316940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6c7d9d76bd00a428df44a4d63443dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LargeTrashController
+  m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_collectSO: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  m_dropSO: {fileID: -8817795706234740082, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
+  m_movementHandler: {fileID: -9034896561115506292}
+  m_returnObjectToPool: {fileID: -4996261014548498112}

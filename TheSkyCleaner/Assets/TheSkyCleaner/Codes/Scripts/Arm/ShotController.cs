@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ShotController : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class ShotController : MonoBehaviour
 
     [SerializeField] private AxisVector3Container m_targetAxis;
 
+    [SerializeField] private ObjectPoolManager m_bulletpool;
 
     private Vector3 m_rect;
 
@@ -21,13 +23,13 @@ public class ShotController : MonoBehaviour
 
     private Vector3 Sorted(Vector3 defaultPos)
     {
-        var sortEnemies = m_reticleController.LockEnemies;
+        var sortEnemies = m_reticleController.LockOnCandidates;
 
         foreach (var enemy in sortEnemies)
         {
             if (enemy is IDamage)
             {
-                return enemy.Transform.position;
+                return enemy.Transform.position;　//m_targetAxisにポジションを入れる
             }
         }
 

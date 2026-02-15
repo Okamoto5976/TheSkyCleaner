@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Phase/TrashPhase")]
-public class TrashPhase : GamePhase
+[CreateAssetMenu(menuName = "Scriptable Objects/Phase/LargeTrashPhase")]
+public class LargeTrashPhase : GamePhase
 {
     [SerializeField] private PhaseType m_phase;
 
@@ -13,11 +13,11 @@ public class TrashPhase : GamePhase
                 break;
 
             case PhaseType.StartPool:
-                m_gm.StartTrashPool();
+                m_gm.StartLargeTrashPool();
                 break;
 
             case PhaseType.StopPool:
-                m_gm.StopTrashPool();
+                m_gm.StopLargeTrashPool();
                 break;
         }
     }

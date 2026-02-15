@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-
-public class TrashManager : MonoBehaviour
+public class LargeTrashManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
-    [SerializeField] private ObjectPoolManager m_pool; // Inspector で割り当て
+    [SerializeField] private ObjectPoolManager m_poollargetrash; // Inspector で割り当て
+    [SerializeField] private TrashPoolManager m_pooltrash;
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMin;       // 最小生成範囲　ゴミのみ
@@ -37,14 +37,14 @@ public class TrashManager : MonoBehaviour
 
     public void SpawnOne()
     {
-        if (m_pool == null)
+        if (m_poollargetrash == null)
         {
             Debug.LogWarning("[TrashManager] ObjectPoolManager の参照がありません。Inspectorで設定してください。");
             return;
         }
 
-        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
-        var Obj = obj.GetComponent<TrashController>();
+        GameObject obj = m_poollargetrash.GetObjectFromPool(); //呼び出し
+        var Obj = obj.GetComponent<LargeTrashController>();
         Obj.SetMoveDirection(m_direction);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
@@ -55,6 +55,9 @@ public class TrashManager : MonoBehaviour
 
         //Debug.Log(obj);
 
+        Obj.SetPoolObj(m_pooltrash);//LargeTrashControllerにtrashを呼べるよう渡す
+
+
         return;
     }
 
@@ -62,7 +65,7 @@ public class TrashManager : MonoBehaviour
     {
         SetRandomPosition(obj);
     }
- 
+
     private void SetRandomPosition(GameObject obj)
     {
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);

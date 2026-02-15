@@ -1,16 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
 
-public class TrashController : MonoBehaviour, ILockOnTarget
+[RequireComponent(typeof(SphereCollider))]
+public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 {
     [SerializeField] private AxisVector3Container m_target;
     [SerializeField] private CollectSO m_collectSO;
     [SerializeField] private DropSO m_dropSO;
 
+    //[SerializeField] private ObjectPoolManager m_trashpool; // Inspector ‚ÅŠ„‚è“–‚Ä
+
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
+    private TrashPoolManager m_poolTrash;
 
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
@@ -22,16 +25,21 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private Transform m_transform;
     private int m_attack;
+    private int m_hp;
+
+    public TrashPoolManager PoolTrash => m_poolTrash;
+
     public Transform Transform => m_transform;
 
     public GameObject GameObject => gameObject;
 
-    public DropSO GetDropData()=> m_dropSO;
+    public DropSO GetDropData() => m_dropSO;
 
     private void Awake()
     {
         m_transform = transform;
         m_attack = m_collectSO.Attack;
+        m_hp = m_collectSO.HP;
     }
 
     public void SetMoveSpeed(float moveSpeed)
@@ -56,12 +64,26 @@ public class TrashController : MonoBehaviour, ILockOnTarget
         //“–‚½‚è”»’è
         float dis = Vector3.Distance(gameObject.transform.position, m_target.Value);
 
-        if(dis < trash.radius || gameObject.transform.position.z <= m_target.Value.z - 5)
+        if (dis < trash.radius || gameObject.transform.position.z <= m_target.Value.z - 5)
         {
             m_returnObjectToPool.ReturnToPool();
             m_movementHandler.MoveAll(m_initDir);
         }
     }
+
+    public void SetPoolObj(TrashPoolManager t) => m_poolTrash = t;
+
+
+    public void Damage(int damage)
+    {
+        Debug.Log("largetrash damage");
+        m_hp -= damage;
+        
+        if(m_hp <= 0)
+        {
+            m_returnObjectToPool.ReturnToPool();
+            //¬‚³‚¢ƒSƒ~¶¬
+            m_poolTrash.GetObjectFromPool();
+        }
+    }
 }
-
-

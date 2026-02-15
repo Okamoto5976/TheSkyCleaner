@@ -2,6 +2,15 @@ using UnityEngine;
 
 public abstract class GamePhase : ScriptableObject
 {
+    public enum PhaseType
+    {
+        None,
+        StartPool,
+        StopPool,
+        Move
+    }
+
+
     protected GameManager m_gm;
 
     public void Inject(GameManager gm)

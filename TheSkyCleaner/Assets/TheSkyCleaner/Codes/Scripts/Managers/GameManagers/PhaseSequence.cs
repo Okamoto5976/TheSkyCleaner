@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-[CreateAssetMenu(menuName = "Scriptable Objects/PhaseSequence")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Phase/PhaseSequence")]
 public class PhaseSequence : ScriptableObject
 {
 

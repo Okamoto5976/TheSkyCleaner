@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/DropDataSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/DropDataSO")]
 public class DropDataSO : ScriptableObject
 {
     [SerializeField] private List<DropSO> m_dropSO = new List<DropSO>();

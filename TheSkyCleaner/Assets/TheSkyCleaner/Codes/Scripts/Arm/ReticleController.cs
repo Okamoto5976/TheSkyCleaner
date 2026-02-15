@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +12,16 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private RectTransform m_canvasSize;
 
     [SerializeField] private Camera m_mainCamera;
-    [SerializeField] private EnemyPoolManager m_enemypoolmanager;
-    [SerializeField] private TrashPoolManager m_collectpoolmanager;
+    [SerializeField] private EnemyPoolManager m_enemypool;
+    [SerializeField] private TrashPoolManager m_trashpool;
+    [SerializeField] private LargeTrashPoolManager m_largeTrashpool;
 
 
     [SerializeField] private Image m_lockOnMarkerPrefab;
 
     [SerializeField] private RectTransform m_rect;
     [SerializeField] private float m_reticleSpeed;
-    [SerializeField] private float m_reticleDistance;
+    private float m_reticleDistance;
 
     [SerializeField] private int m_maxCount;
 
@@ -34,17 +36,20 @@ public class ReticleController : MonoBehaviour
     public Vector3 PlayerPos { get => m_playerPos; }
 
     private List<ILockOnTarget> m_LockOnCandidates = new List<ILockOnTarget>();
-    private List<ILockOnTarget> m_LockEnemies = new List<ILockOnTarget>();
-    private List<ILockOnTarget> m_SaveEnemies = new List<ILockOnTarget>();
+    private List<ILockOnTarget> m_LockTargets = new List<ILockOnTarget>();
+    private List<ILockOnTarget> m_SaveTargets = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
 
-    public List<ILockOnTarget> LockEnemies { get => m_LockEnemies; }
 
-    public List<ILockOnTarget> SaveEnemies { get => m_SaveEnemies; }
+    public List<ILockOnTarget> LockOnCandidates{ get => m_LockOnCandidates; }
+    public List<ILockOnTarget> LockTargets { get => m_LockTargets; }
+    public List<ILockOnTarget> SaveTargets{ get => m_SaveTargets; }
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
+
+        m_reticleDistance = m_rect.transform.position.z;//元のレティクルのzを入れる
     }
 
     private void Start()
@@ -68,19 +73,21 @@ public class ReticleController : MonoBehaviour
 
         pos += delta * m_reticleSpeed;
 
-        Vector3 camPos = m_mainCamera.transform.position;
-        float halfH = m_mainCamera.orthographicSize;
-        float halfW = halfH * m_mainCamera.aspect;
+        Vector3 screenPos = m_mainCamera.WorldToScreenPoint(pos);
 
-        pos.x = Mathf.Clamp(pos.x,
-            camPos.x - halfW,
-            camPos.x + halfW);
+        float distance = screenPos.z; // ← 元の距離を使う
 
-        pos.y = Mathf.Clamp(pos.y,
-            camPos.y - halfH,
-            camPos.y + halfH);
+        screenPos.x = Mathf.Clamp(screenPos.x,
+            0,
+            Screen.width);
 
-        pos.z = m_reticleDistance;
+        screenPos.y = Mathf.Clamp(screenPos.y,
+            0,
+            Screen.height);
+
+        screenPos.z = distance;
+
+        pos = m_mainCamera.ScreenToWorldPoint(screenPos);
 
         m_rect.transform.position = pos;
         m_currentPos = current_pos;
@@ -96,7 +103,7 @@ public class ReticleController : MonoBehaviour
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
-        UpdateLockOnMarkers(m_SaveEnemies);
+        UpdateLockOnMarkers(m_SaveTargets);
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -123,59 +130,35 @@ public class ReticleController : MonoBehaviour
     {
         m_LockOnCandidates.Clear();
 
-        Camera cam = m_mainCamera;
+        var enemies = m_enemypool.GetActiveComponents();
+        var trashes = m_trashpool.GetActiveComponents();
+        var largeTrashes = m_largeTrashpool.GetActiveComponents();
 
+        LockOnTargets(enemies);
+        LockOnTargets(trashes);
+        LockOnTargets(largeTrashes);
+    }
+
+    private void LockOnTargets(IEnumerable<ILockOnTarget> targets)
+    {
         Rect lockOnRect = GetScreenRect(m_rect);
 
-        var enemies = m_enemypoolmanager.GetActiveComponents();
-        var collects = m_collectpoolmanager.GetActiveComponents();
-
-        foreach (var enemy in enemies)
+        foreach (var target in targets)
         {
-            if (!enemy.gameObject.activeSelf == true) continue;
+            if(!target.GameObject.activeSelf) continue;
 
-            Vector3 vp = cam.WorldToScreenPoint(enemy.transform.position);
-
-            float reticleDistance = Vector3.Distance(cam.transform.position, m_rect.position);
-
-
-            Vector3 sp = m_mainCamera.WorldToScreenPoint(enemy.transform.position);
-            Vector2 enemyScreenPos = new Vector2(sp.x, sp.y);
-
-            //Debug.Log($"スクリーン{enemyScreenPos}");
-
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(target.Transform.position);
 
             if (sp.z < m_playerPos.z) continue;
 
-            if (lockOnRect.Contains(enemyScreenPos))
-                m_LockOnCandidates.Add(enemy);
-        }
-
-        foreach (var collect in collects)
-        {
-            if (!collect.gameObject.activeSelf == true) continue;
-
-            Vector3 vp = cam.WorldToScreenPoint(collect.transform.position);
-
-            float reticleDistance = Vector3.Distance(cam.transform.position, m_rect.position);
-
-
-            Vector3 sp = m_mainCamera.WorldToScreenPoint(collect.transform.position);
-            Vector2 collectScreenPos = new Vector2(sp.x, sp.y);
-
-            //Debug.Log($"スクリーン{enemyScreenPos}");
-
-
-            if (sp.z < reticleDistance) continue;// カメラよりも後ろ？
-
-            if (lockOnRect.Contains(collectScreenPos))
-                m_LockOnCandidates.Add(collect);
+            if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
+            m_LockOnCandidates.Add(target);
         }
     }
 
     private void UpdateLockEnemies()//検知された中で近いものを入れる
     {
-        m_LockEnemies.Clear();
+        m_LockTargets.Clear();
 
         Vector3 selfPos = transform.position;
 
@@ -185,29 +168,29 @@ public class ReticleController : MonoBehaviour
 
         foreach (var enemy in sort)
         {
-            m_LockEnemies.Add(enemy);
+            m_LockTargets.Add(enemy);
         }
 
-        for (int i = 0; i < m_LockEnemies.Count; i++)
+        for (int i = 0; i < m_LockTargets.Count; i++)
         {
-            if (m_LockEnemies[i] == null) continue;
-            var enemy = m_LockEnemies[i];
+            if (m_LockTargets[i] == null) continue;
+            var enemy = m_LockTargets[i];
 
-            if (m_SaveEnemies.Contains(enemy))
+            if (m_SaveTargets.Contains(enemy))
             {
-                m_SaveEnemies.Remove(enemy);
-                m_SaveEnemies.Add(enemy);
+                m_SaveTargets.Remove(enemy);
+                m_SaveTargets.Add(enemy);
                 continue;
             }
 
-            if (m_SaveEnemies.Count < m_maxCount)
+            if (m_SaveTargets.Count < m_maxCount)
             {
-                m_SaveEnemies.Add(enemy);
+                m_SaveTargets.Add(enemy);
             }
             else
             {
-                m_SaveEnemies.RemoveAt(0);
-                m_SaveEnemies.Add(enemy);
+                m_SaveTargets.RemoveAt(0);
+                m_SaveTargets.Add(enemy);
             }
         }
     }
@@ -233,16 +216,16 @@ public class ReticleController : MonoBehaviour
 
     private void RemoveSaveEnemies()
     {
-        for (int i = m_SaveEnemies.Count - 1; i >= 0; i--)
+        for (int i = m_SaveTargets.Count - 1; i >= 0; i--)
         {
-            var enemy = m_SaveEnemies[i];
+            var enemy = m_SaveTargets[i];
             float reticleDistance = Vector3.Distance(m_mainCamera.transform.position, m_rect.position);
 
             Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
 
             if (pos.z < reticleDistance)
             {
-                m_SaveEnemies.RemoveAt(i);
+                m_SaveTargets.RemoveAt(i);
             }
         }
     }

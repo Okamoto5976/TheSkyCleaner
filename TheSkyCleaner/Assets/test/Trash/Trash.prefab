@@ -176,5 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashController
   m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_collectSO: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  m_dropSO: {fileID: -8817795706234740082, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_movementHandler: {fileID: 1042201519715464378}
   m_returnObjectToPool: {fileID: 8612771754068582680}
