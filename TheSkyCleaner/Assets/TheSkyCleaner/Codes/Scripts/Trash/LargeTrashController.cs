@@ -13,7 +13,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
-    private TrashPoolManager m_poolTrash;
+    private ObjectPoolManager m_poolTrash;
 
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
@@ -27,7 +27,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     private int m_attack;
     private int m_hp;
 
-    public TrashPoolManager PoolTrash => m_poolTrash;
+    public ObjectPoolManager PoolTrash => m_poolTrash;
 
     public Transform Transform => m_transform;
 
@@ -71,7 +71,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         }
     }
 
-    public void SetPoolObj(TrashPoolManager t) => m_poolTrash = t;
+    public void SetPoolObj(ObjectPoolManager t) => m_poolTrash = t;
 
 
     public void Damage(int damage)
@@ -83,7 +83,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         {
             m_returnObjectToPool.ReturnToPool();
             //è¨Ç≥Ç¢ÉSÉ~ê∂ê¨
-            m_poolTrash.GetObjectFromPool();
+            m_poolTrash.GetObjectFromPool();//à íuéwíËÇµÇƒÇ»Ç¢
         }
     }
 }

@@ -26969,7 +26969,7 @@ MonoBehaviour:
   - {fileID: 1755327139}
   - {fileID: 1148293375}
   m_speed: 0.6
-  m_attack: 0
+  m_attack: 2
   m_maxCount: 2
 --- !u!114 &1373798139
 MonoBehaviour:
