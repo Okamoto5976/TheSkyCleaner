@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public float ClearTime = float.MaxValue;
-    public int ClearStage;
+    public int m_score;
 }
 
 [System.Serializable]

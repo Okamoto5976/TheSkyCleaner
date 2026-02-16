@@ -9,6 +9,8 @@ public class BulletController : MonoBehaviour
     private float m_velocity;
     private ILockOnTarget m_target;
 
+    private int m_attack;
+
     public void InjectDirection(Vector3 direction) => m_direction = direction;
     public void InjectVelocity(float velocity) => m_velocity = velocity;
 
@@ -51,4 +53,14 @@ public class BulletController : MonoBehaviour
     }
 
     public void SetTarget(ILockOnTarget target) { m_target = target; }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<IDamage>(out var damage))
+        {
+            damage.Damage(2);
+
+            m_ReturnObjectToPool.ReturnToPool();
+        }
+    }
 }

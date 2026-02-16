@@ -27007,8 +27007,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotController
   m_reticleController: {fileID: 1373798139}
+  m_mainCamera: {fileID: 330585545}
   m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_bulletpool: {fileID: 1368636904}
+  m_rectzPos: 30
 --- !u!114 &1429461270
 MonoBehaviour:
   m_ObjectHideFlags: 0

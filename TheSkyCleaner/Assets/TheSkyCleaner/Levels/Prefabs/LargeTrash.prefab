@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8366355903481426362}
   - component: {fileID: 1224479607077599748}
   - component: {fileID: 2307661862063640295}
-  - component: {fileID: 5717224143768202021}
   - component: {fileID: 935690861824525944}
   - component: {fileID: -9034896561115506292}
   - component: {fileID: -4996261014548498112}
@@ -95,27 +94,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5717224143768202021
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802696222938316940}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &935690861824525944
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -175,8 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6c7d9d76bd00a428df44a4d63443dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargeTrashController
-  m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
   m_collectSO: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   m_dropSO: {fileID: -8817795706234740082, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
+  m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
   m_movementHandler: {fileID: -9034896561115506292}
   m_returnObjectToPool: {fileID: -4996261014548498112}
+  m_trashSpeed: 12

@@ -5,7 +5,7 @@ public class LargeTrashManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_poollargetrash; // Inspector で割り当て
-    [SerializeField] private ObjectPoolManager m_pooltrash;
+    [SerializeField] private TrashPoolManager m_pooltrash;
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMin;       // 最小生成範囲　ゴミのみ

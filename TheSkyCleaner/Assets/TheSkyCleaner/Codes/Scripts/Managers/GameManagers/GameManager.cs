@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
+
+    [SerializeField] private GameObject m_boss;
+    [SerializeField] private FloatControl m_fuel;
 
     private void Start()
     {
@@ -34,6 +38,8 @@ public class GameManager : MonoBehaviour
             m_currentPhase.OnExit();
             NextPhase();
         }
+
+        GameOver();
     }
 
     private void NextPhase()
@@ -55,4 +61,13 @@ public class GameManager : MonoBehaviour
     public void StopTrashPool() { m_TM.StopSpawn(); }
     public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
 
+    //bossのhp < 0　のとき　リザルト表示etc...
+    //
+
+    private void GameOver()
+    {
+        if (m_fuel.value > 0) return;
+        //inventory save;
+        //gameSceen = powerSceen;
+    }
 }

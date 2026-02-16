@@ -4,16 +4,21 @@ using System.Collections.Generic;
 public class ShotController : MonoBehaviour
 {
     [SerializeField] private ReticleController m_reticleController;
+    [SerializeField] private Camera m_mainCamera;
 
     [SerializeField] private AxisVector3Container m_targetAxis;
 
     [SerializeField] private ObjectPoolManager m_bulletpool;
 
+    [SerializeField] private float m_rectzPos;
     private Vector3 m_rect;
 
     private void Update()
     {
-        m_rect = m_reticleController.RectPos;
+        Vector3 screenPos = 
+            m_mainCamera.WorldToScreenPoint(m_reticleController.RectPos);
+        screenPos.z = m_rectzPos;
+        m_rect = m_mainCamera.ScreenToWorldPoint(screenPos);
 
         var enemypos = Sorted(m_rect);
 

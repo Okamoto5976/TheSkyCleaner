@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TrashController : MonoBehaviour, ILockOnTarget
 {
-    [SerializeField] private AxisVector3Container m_target;
     [SerializeField] private CollectSO m_collectSO;
     [SerializeField] private DropSO m_dropSO;
+
+    [SerializeField] private AxisVector3Container m_playerPos;
+    [SerializeField] private FloatContainer m_fuel;
 
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
@@ -15,6 +17,8 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
     [System.NonSerialized] public Vector3 m_direction;
+
+    private SphereCollider m_collider;
 
     private Vector3 m_initDir;
 
@@ -30,7 +34,12 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private void Awake()
     {
+        m_collider = gameObject.GetComponent<SphereCollider>();
         m_transform = transform;
+    }
+
+    private void OnEnable()
+    {
         m_attack = m_collectSO.Attack;
     }
 
@@ -50,13 +59,18 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     {
         m_movementHandler.MoveAll(m_direction);
 
-        //‹¤’Ê•”•ª
-        var trash = gameObject.GetComponent<SphereCollider>();
-
         //“–‚½‚è”»’è
-        float dis = Vector3.Distance(gameObject.transform.position, m_target.Value);
+        float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
-        if(dis < trash.radius || gameObject.transform.position.z <= m_target.Value.z - 5)
+        if(dis < m_collider.radius)
+        {
+            var fuel = Mathf.Max(0f, m_fuel.Value - m_attack);//ƒ_ƒ[ƒW
+            m_fuel.SetValue(fuel);
+            m_returnObjectToPool.ReturnToPool();
+            m_movementHandler.MoveAll(m_initDir);
+        }
+
+        if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
             m_returnObjectToPool.ReturnToPool();
             m_movementHandler.MoveAll(m_initDir);
