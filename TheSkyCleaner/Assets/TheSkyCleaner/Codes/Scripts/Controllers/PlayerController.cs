@@ -41,11 +41,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         m_inputContainer.StrongAction.Tap.OnTrigger += OnPlayerDodge;
+
     }
 
     private void OnDisable()
     {
         m_inputContainer.StrongAction.Tap.OnTrigger -= OnPlayerDodge;
+
     }
 
     private void Update()

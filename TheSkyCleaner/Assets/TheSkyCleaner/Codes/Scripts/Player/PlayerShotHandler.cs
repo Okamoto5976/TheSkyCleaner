@@ -9,7 +9,6 @@ public class PlayerShotHandler : MonoBehaviour
     [SerializeField] private AxisVector3Container m_target;
     [SerializeField] private FloatContainer m_shotVelocity;
     [SerializeField] private ReticleController m_reticleController;
-    [SerializeField] private float m_shotDepthOffset;
 
     [SerializeField] private List<AxisVector3Container> m_shotPositions;
 
@@ -47,17 +46,13 @@ public class PlayerShotHandler : MonoBehaviour
 
     public void ShootBullet()
     {
-        IDamage target = m_reticleController.GetPrimaryTarget();
-        Debug.Log(target);
         foreach (var offset in m_shotPositions)
         {
             BulletController bulletController = m_bulletPool.GetComponentFromPool();
             Vector3 pos = m_transform.position + offset.Value;
-            Vector3 reticlePos = m_target.Value;
-            reticlePos.z += m_shotDepthOffset;
-            Vector3 dir = (reticlePos - pos).normalized;
+            Vector3 dir = (m_target.Value - pos).normalized;
 
-            bulletController.InjectTarget(target);
+            bulletController.InjectTarget(m_reticleController.GetPrimaryTarget());
             bulletController.InjectDirection(dir);
             bulletController.InjectVelocity(m_shotVelocity.Value);
             bulletController.Initialize(pos);

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditorInternal.ReorderableList;
 
 public class ReticleController : MonoBehaviour
 {
@@ -18,7 +17,6 @@ public class ReticleController : MonoBehaviour
 
 
     [SerializeField] private Image m_lockOnMarkerPrefab;
-    [SerializeField] private Image m_shotMarkerPrefab;
 
     [SerializeField] private RectTransform m_rect;
     [SerializeField] private AxisVector3Container m_targetAxis;
@@ -41,19 +39,8 @@ public class ReticleController : MonoBehaviour
     private List<ILockOnTarget> m_SaveTargets = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
 
-    private Image m_shotMarker;
-
-    /// <summary>
-    /// All targets of ILockOnTarget
-    /// </summary>
     public List<ILockOnTarget> LockOnCandidates { get => m_LockOnCandidates; }
-    /// <summary>
-    /// List of Lockable targets in reticle range
-    /// </summary>
     public List<ILockOnTarget> LockTargets { get => m_LockTargets; }
-    /// <summary>
-    /// Locked on targets
-    /// </summary>
     public List<ILockOnTarget> SaveTargets { get => m_SaveTargets; }
 
     private void Awake()
@@ -65,15 +52,13 @@ public class ReticleController : MonoBehaviour
 
     private void Start()
     {
+
         for (int i = 0; i < m_maxCount; i++)
         {
             Image marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
             marker.gameObject.SetActive(false);
             m_lockOnMarkers.Add(marker);
         }
-
-        m_shotMarker = Instantiate(m_shotMarkerPrefab,m_canvas.transform);
-        m_shotMarker.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -118,7 +103,6 @@ public class ReticleController : MonoBehaviour
         UpdateLockOnCandidates();
         UpdateLockEnemies();
         UpdateLockOnMarkers(m_SaveTargets);
-        UpdateShotReticle();
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -245,25 +229,22 @@ public class ReticleController : MonoBehaviour
         }
     }
 
-    private void UpdateShotReticle()
+    public ILockOnTarget GetPrimaryTarget()
     {
-        IDamage enemy = GetPrimaryTarget();
-        if (enemy == null)
+        if (m_SaveTargets.Count == 0) return null;
+        float dist = float.MaxValue;
+        Vector3 reticleScreenPos = m_mainCamera.WorldToScreenPoint(m_rect.position);
+        ILockOnTarget target = null;
+        foreach (var enemy in m_SaveTargets)
         {
-            if (m_shotMarker.gameObject.activeSelf) m_shotMarker.gameObject.SetActive(false);
+            Vector3 enemyScreenPos = m_mainCamera.WorldToScreenPoint(enemy.Transform.position);
+            float newDist = (enemyScreenPos - reticleScreenPos).magnitude;
+            if (newDist < dist)
+            {
+                dist = newDist;
+                target = enemy;
+            }
         }
-        else
-        {
-            if (!m_shotMarker.gameObject.activeSelf) m_shotMarker.gameObject.SetActive(true);
-
-            m_shotMarker.transform.position = enemy.Transform.position;
-        }
-    }
-
-    public IDamage GetPrimaryTarget()
-    {
-        if (m_LockTargets
-            .FirstOrDefault(x => x is IDamage) is not IDamage sortEnemies) return null;
-        return sortEnemies;
+        return target;
     }
 }

@@ -6,7 +6,7 @@ public class PlayerStatus : ScriptableObject
     [Header("States")]
     [SerializeField] private AxisVector3Container m_globalPosition;
     [SerializeField] private AxisVector3Container m_rotation;
-    [SerializeField] private HealthContainer m_health;
+    [SerializeField] private IntegerContainer m_health;
     [SerializeField] private FloatContainer m_speed;
     [SerializeField] private BooleanContainer m_isAlive;
     [SerializeField] private BooleanContainer m_isInvulnerable;
@@ -18,7 +18,7 @@ public class PlayerStatus : ScriptableObject
 
     public Vector3 GlobalPosition => m_globalPosition.Value;
     public Vector3 Rotation => m_rotation.Value;
-    public HealthContainer Health => m_health;
+    public int Health => m_health.Value;
     public float Speed => m_speed.Value;
     public bool IsAlive => m_isAlive.Value;
     public bool IsVulnerable => m_isInvulnerable.Value;
