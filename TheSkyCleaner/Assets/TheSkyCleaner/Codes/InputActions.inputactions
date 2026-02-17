@@ -136,7 +136,7 @@
                 {
                     "name": "",
                     "id": "fd4dc1df-3007-4ea3-9d0f-b48f15e916ce",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";GamePad",

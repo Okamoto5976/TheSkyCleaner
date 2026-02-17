@@ -11,7 +11,7 @@ public class BulletController : MonoBehaviour
     
 
     private Vector3 m_direction;
-    private ILockOnTarget m_targetEnemy;
+    private IDamage m_targetEnemy;
     private float m_velocity;
     private Vector3 m_origin;
     private bool m_isTargetAlive;
@@ -19,7 +19,7 @@ public class BulletController : MonoBehaviour
     private Transform m_transform;
 
     public void InjectDirection(Vector3 direction) => m_direction = direction;
-    public void InjectTarget(ILockOnTarget target)
+    public void InjectTarget(IDamage target)
     {
         if (target == null)
         {
@@ -73,10 +73,7 @@ public class BulletController : MonoBehaviour
     {
         if (IsColliding())
         {
-            if (m_targetEnemy is IDamage iDamage)
-            {
-                iDamage.Damage(m_shotDamage.Value);
-            }
+            m_targetEnemy.Damage(m_shotDamage.Value);
             m_returnObjectToPool.ReturnToPool();
         }
     }

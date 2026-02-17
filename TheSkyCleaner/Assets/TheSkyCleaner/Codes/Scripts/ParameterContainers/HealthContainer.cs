@@ -23,7 +23,6 @@ public class HealthContainer : ScriptableObject
 
     public void Damage(int value)
     {
-        Debug.Log($"{value}, {m_isInvulnerable}");
         if (m_isInvulnerable.Value) return;
         m_fuel.SetValue(Mathf.Max(m_fuel.Value - value, 0));
         OnDamage.Invoke();
