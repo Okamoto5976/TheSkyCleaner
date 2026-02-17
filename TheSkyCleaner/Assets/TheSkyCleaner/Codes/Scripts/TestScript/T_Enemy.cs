@@ -7,7 +7,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     [SerializeField] private DropSO m_dropSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
-    [SerializeField] private FloatContainer m_fuel;
+    [SerializeField] private HealthContainer m_playerHealth;
 
     public int objectId;
     private SphereCollider m_collider;
@@ -40,8 +40,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 
         if (dis < m_collider.radius)
         {
-            var fuel = Mathf.Max(0f,m_fuel.Value - m_attack);//ƒ_ƒ[ƒW
-            m_fuel.SetValue(fuel);
+            m_playerHealth.Damage(m_attack);
             m_enemyStateMachine.ReturnToPool();
         }
 

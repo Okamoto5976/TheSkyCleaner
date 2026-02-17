@@ -5,20 +5,21 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField] private FloatContainer m_shotCollisionDistance;
     [SerializeField] private FloatContainer m_shotMaximumDistance;
+    [SerializeField] private IntegerContainer m_shotDamage;
     private MovementHandler m_movementHandler;
     private ReturnObjectToPool m_returnObjectToPool;
     
 
     private Vector3 m_direction;
-    private ILockOnTarget m_targetEnemy;
+    private IDamage m_targetEnemy;
     private float m_velocity;
-
     private Vector3 m_origin;
+    private bool m_isTargetAlive;
 
     private Transform m_transform;
 
     public void InjectDirection(Vector3 direction) => m_direction = direction;
-    public void InjectTarget(ILockOnTarget target)
+    public void InjectTarget(IDamage target)
     {
         if (target == null)
         {
@@ -27,6 +28,7 @@ public class BulletController : MonoBehaviour
         else
         {
             m_targetEnemy = target;
+            m_isTargetAlive = true;
         }
     }
 
@@ -55,8 +57,8 @@ public class BulletController : MonoBehaviour
 
     private void UpdateDirection()
     {
-        if (m_targetEnemy == null) return;
-        if (!m_targetEnemy.IsActive) return;
+        if (!IsTargetAlive()) return;
+
         m_direction = (m_targetEnemy.Transform.position - m_transform.position).normalized;
     }
 
@@ -71,18 +73,30 @@ public class BulletController : MonoBehaviour
     {
         if (IsColliding())
         {
+            m_targetEnemy.Damage(m_shotDamage.Value);
             m_returnObjectToPool.ReturnToPool();
         }
     }
 
     private bool IsColliding()
     {
-        if (m_targetEnemy == null) return false;
-        if (!m_targetEnemy.IsActive) return false;
+        if (!IsTargetAlive()) return false;
 
         float dist = (m_targetEnemy.Transform.position - m_transform.position).magnitude;
         if (dist < m_shotCollisionDistance.Value) return true;
         return false;
+    }
+
+    private bool IsTargetAlive()
+    {
+        if (m_targetEnemy == null) return false;
+        if (!m_isTargetAlive) return false;
+        if (!m_targetEnemy.IsActive)
+        {
+            m_isTargetAlive = false;
+            return false;
+        }
+        return true;
     }
 
     private void CheckDistance()

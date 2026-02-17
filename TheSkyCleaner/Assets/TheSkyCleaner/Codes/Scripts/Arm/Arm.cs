@@ -88,6 +88,7 @@ public class Arm : MonoBehaviour
 
                 m_inventory.Add(mat.type,mat.amount);
             }
+
             return false;
         }
 

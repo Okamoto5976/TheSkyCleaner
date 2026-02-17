@@ -75,8 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b2b6e6da56adb468a6894af4209dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  m_shotCollisionDistance: {fileID: 0}
-  m_shotMaximumDistance: {fileID: 0}
+  m_shotCollisionDistance: {fileID: 11400000, guid: ce3f8ebda986add449e9bb0d75a641b2, type: 2}
+  m_shotMaximumDistance: {fileID: 11400000, guid: 4a699a0890515154c906ee9fe50cde45, type: 2}
+  m_shotDamage: {fileID: 11400000, guid: bd2df5e45a1179946b62024154542d9e, type: 2}
 --- !u!1 &3663184284977778019
 GameObject:
   m_ObjectHideFlags: 0

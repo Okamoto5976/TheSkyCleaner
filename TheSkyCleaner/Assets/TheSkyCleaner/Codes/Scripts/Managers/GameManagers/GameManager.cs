@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PhaseSequence m_sequence;
 
-    public List<GamePhase> m_phases = new();
+    private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
 
