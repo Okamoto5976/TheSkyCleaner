@@ -10023,7 +10023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargeTrashPoolManager
   m_logger: {fileID: 0}
-  m_prefab: {fileID: 3802696222938316940, guid: 82331b75904cb3b489f69478634da366, type: 3}
+  m_prefab: {fileID: 3802696222938316940, guid: ddf5688b0d0495d44ab239bb5da80de1, type: 3}
   m_poolCount: 50
   m_forcePoolCount: 1
 --- !u!1 &254959533
@@ -25279,7 +25279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   m_sequence: {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
-  m_phases: []
   m_EM: {fileID: 1259995856}
   m_TM: {fileID: 1295027950}
   m_LTM: {fileID: 251186272}
@@ -25673,6 +25672,7 @@ MonoBehaviour:
   m_target: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_shotVelocity: {fileID: 11400000, guid: d6532fac03bcbe0419f38b56c8201260, type: 2}
   m_reticleController: {fileID: 1373798139}
+  m_shotDepthOffset: 0
   m_shotPositions:
   - {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
   - {fileID: 11400000, guid: 365fb7def28b5824e87c466d26a46395, type: 2}
@@ -25739,7 +25739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::fuel
   m_kakuninnyouFuel: 0
-  m_fuelContainer: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
+  m_health: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
   m_consumptionRate: 1
   m_boostFuelCost: 10
   m_moveSpeed: 5
@@ -26993,6 +26993,7 @@ MonoBehaviour:
   m_trashpool: {fileID: 1295027949}
   m_largeTrashpool: {fileID: 251186273}
   m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
+  m_shotMarkerPrefab: {fileID: 449600766203531695, guid: 8a6ed9fe47b84194dab6de32b2042eb0, type: 3}
   m_rect: {fileID: 675199751}
   m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_reticleSpeed: 0.2
