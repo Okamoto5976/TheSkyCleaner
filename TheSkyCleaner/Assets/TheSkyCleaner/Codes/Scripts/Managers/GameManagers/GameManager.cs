@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LargeTrashManager m_LTM;
 
     [SerializeField] private GameObject m_boss;
-    [SerializeField] private FloatControl m_fuel;
+    [SerializeField] private FloatContainer m_fuel;
 
     private void Start()
     {
@@ -66,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        if (m_fuel.value > 0) return;
+        if (m_fuel.Value > 0) return;
         //inventory save;
         //gameSceen = powerSceen;
     }

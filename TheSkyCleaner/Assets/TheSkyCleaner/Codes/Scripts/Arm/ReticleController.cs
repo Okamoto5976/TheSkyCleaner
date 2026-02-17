@@ -19,11 +19,11 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private Image m_lockOnMarkerPrefab;
 
     [SerializeField] private RectTransform m_rect;
+    [SerializeField] private AxisVector3Container m_targetAxis;
     [SerializeField] private float m_reticleSpeed;
     private float m_reticleDistance;
 
     [SerializeField] private int m_maxCount;
-
 
     public Vector3 RectPos { get => m_rect.position; }
     public int MaxCount { get => m_maxCount; }
@@ -39,16 +39,15 @@ public class ReticleController : MonoBehaviour
     private List<ILockOnTarget> m_SaveTargets = new List<ILockOnTarget>();
     private List<Image> m_lockOnMarkers = new List<Image>();
 
-
-    public List<ILockOnTarget> LockOnCandidates{ get => m_LockOnCandidates; }
+    public List<ILockOnTarget> LockOnCandidates { get => m_LockOnCandidates; }
     public List<ILockOnTarget> LockTargets { get => m_LockTargets; }
-    public List<ILockOnTarget> SaveTargets{ get => m_SaveTargets; }
+    public List<ILockOnTarget> SaveTargets { get => m_SaveTargets; }
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
 
-        m_reticleDistance = m_rect.transform.position.z;//元のレティクルのzを入れる
+        m_reticleDistance = m_rect.transform.position.z;
     }
 
     private void Start()
@@ -73,8 +72,7 @@ public class ReticleController : MonoBehaviour
         pos += delta * m_reticleSpeed;
 
         Vector3 screenPos = m_mainCamera.WorldToScreenPoint(pos);
-
-        float distance = screenPos.z; // ← 元の距離を使う
+        float distance = screenPos.z;
 
         screenPos.x = Mathf.Clamp(screenPos.x,
             0,
@@ -92,6 +90,8 @@ public class ReticleController : MonoBehaviour
         m_currentPos = current_pos;
 
         RemoveSaveEnemies();
+
+        m_targetAxis.SetValue(m_rect.position);
     }
 
     public void MoveReticle(Vector2 delta)
@@ -144,17 +144,17 @@ public class ReticleController : MonoBehaviour
 
         foreach (var target in targets)
         {
-            if(!target.GameObject.activeSelf) continue;
+            if (!target.GameObject.activeSelf) continue;
 
             Vector3 sp = m_mainCamera.WorldToScreenPoint(target.Transform.position);
 
             if (sp.z < m_playerPos.z) continue;
 
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
-            m_LockOnCandidates.Add(target);
+                m_LockOnCandidates.Add(target);
         }
-    }
 
+    }
     private void UpdateLockEnemies()//検知された中で近いものを入れる
     {
         m_LockTargets.Clear();
@@ -227,5 +227,24 @@ public class ReticleController : MonoBehaviour
                 m_SaveTargets.RemoveAt(i);
             }
         }
+    }
+
+    public ILockOnTarget GetPrimaryTarget()
+    {
+        if (m_SaveTargets.Count == 0) return null;
+        float dist = float.MaxValue;
+        Vector3 reticleScreenPos = m_mainCamera.WorldToScreenPoint(m_rect.position);
+        ILockOnTarget target = null;
+        foreach (var enemy in m_SaveTargets)
+        {
+            Vector3 enemyScreenPos = m_mainCamera.WorldToScreenPoint(enemy.Transform.position);
+            float newDist = (enemyScreenPos - reticleScreenPos).magnitude;
+            if (newDist < dist)
+            {
+                dist = newDist;
+                target = enemy;
+            }
+        }
+        return target;
     }
 }
