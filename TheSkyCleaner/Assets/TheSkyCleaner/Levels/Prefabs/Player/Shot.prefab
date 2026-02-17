@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b2b6e6da56adb468a6894af4209dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  m_MovementHandler: {fileID: 2929444974458361859}
-  m_ReturnObjectToPool: {fileID: 124810037850690652}
+  m_shotCollisionDistance: {fileID: 0}
+  m_shotMaximumDistance: {fileID: 0}
 --- !u!1 &3663184284977778019
 GameObject:
   m_ObjectHideFlags: 0

@@ -2892,7 +2892,6 @@ MonoBehaviour:
   m_buttonPositions: []
   m_buttonSizes: []
   m_cursorPos: {x: 0, y: 0}
-  transitionG: {fileID: 679845292}
 --- !u!4 &1491825292
 Transform:
   m_ObjectHideFlags: 0

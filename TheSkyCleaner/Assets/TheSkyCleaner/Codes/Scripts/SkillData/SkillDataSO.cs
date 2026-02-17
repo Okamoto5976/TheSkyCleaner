@@ -15,7 +15,7 @@ public class SkillDataSO : ScriptableObject
     {
         SkillSO skillSO = ScriptableObject.CreateInstance<SkillSO>();
         skillSO.name = "New Skill Type";
-        skillSO.Initialise(this);
+        skillSO.Initialize(this);
 
         m_skillSO.Add(skillSO);
 

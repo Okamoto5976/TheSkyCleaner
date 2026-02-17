@@ -41,7 +41,7 @@ public class SkillSO : ScriptableObject
     public IReadOnlyList<DropMaterial> Materials => m_materials;
 
 #if UNITY_EDITOR
-    public void Initialise(SkillDataSO skilldata)
+    public void Initialize(SkillDataSO skilldata)
     {
         m_skilldata = skilldata;
     }

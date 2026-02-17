@@ -34,6 +34,7 @@ public class SkillButton : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("ButtonPress");
         m_skillget.Unlock(m_skill);
     }
 }
