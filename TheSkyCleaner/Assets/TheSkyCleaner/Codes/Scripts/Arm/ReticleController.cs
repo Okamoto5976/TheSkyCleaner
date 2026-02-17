@@ -89,7 +89,6 @@ public class ReticleController : MonoBehaviour
         //Debug.DrawRay(m_Pos, dir * 5f, Color.red);
 
         m_targetAxis.SetValue(m_rect.position);
-
     }
 
     public void MoveReticle(Vector2 delta)
@@ -249,5 +248,24 @@ public class ReticleController : MonoBehaviour
                 m_SaveEnemies.RemoveAt(i);
             }
         }
+    }
+
+    public ILockOnTarget GetPrimaryTarget()
+    {
+        if (m_SaveEnemies.Count == 0) return null;
+        float dist = float.MaxValue;
+        Vector3 reticleScreenPos = m_mainCamera.WorldToScreenPoint(m_rect.position);
+        ILockOnTarget target = null;
+        foreach (var enemy in m_SaveEnemies)
+        {
+            Vector3 enemyScreenPos = m_mainCamera.WorldToScreenPoint(enemy.Transform.position);
+            float newDist = (enemyScreenPos - reticleScreenPos).magnitude;
+            if (newDist < dist)
+            {
+                dist = newDist;
+                target = enemy;
+            }
+        }
+        return target;
     }
 }

@@ -25536,6 +25536,7 @@ MonoBehaviour:
   m_playerShootDelay: {fileID: 11400000, guid: a9068ca31ee75874389dccd3f868cd5f, type: 2}
   m_target: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_shotVelocity: {fileID: 11400000, guid: d6532fac03bcbe0419f38b56c8201260, type: 2}
+  m_reticleController: {fileID: 1373798139}
   m_shotPositions:
   - {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
   - {fileID: 11400000, guid: 365fb7def28b5824e87c466d26a46395, type: 2}

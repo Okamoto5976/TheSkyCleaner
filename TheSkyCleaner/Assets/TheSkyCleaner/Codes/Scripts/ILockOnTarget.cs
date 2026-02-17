@@ -6,5 +6,7 @@ public interface ILockOnTarget
 
     GameObject GameObject { get; }
 
+    bool IsActive => GameObject.activeSelf;
+
     DropSO GetDropData();
 }

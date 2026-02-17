@@ -8,6 +8,7 @@ public class PlayerShotHandler : MonoBehaviour
     [SerializeField] private FloatContainer m_playerShootDelay;
     [SerializeField] private AxisVector3Container m_target;
     [SerializeField] private FloatContainer m_shotVelocity;
+    [SerializeField] private ReticleController m_reticleController;
 
     [SerializeField] private List<AxisVector3Container> m_shotPositions;
 
@@ -49,12 +50,12 @@ public class PlayerShotHandler : MonoBehaviour
         {
             BulletController bulletController = m_bulletPool.GetComponentFromPool();
             Vector3 pos = m_transform.position + offset.Value;
-            bulletController.transform.position = pos;
             Vector3 dir = (m_target.Value - pos).normalized;
 
+            bulletController.InjectTarget(m_reticleController.GetPrimaryTarget());
             bulletController.InjectDirection(dir);
             bulletController.InjectVelocity(m_shotVelocity.Value);
-            bulletController.Initialize();
+            bulletController.Initialize(pos);
             bulletController.gameObject.SetActive(true);
         }
     }
