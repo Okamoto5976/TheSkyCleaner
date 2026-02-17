@@ -8,7 +8,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     [SerializeField] private DropSO m_dropSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
-    [SerializeField] private FloatContainer m_fuel;
+    [SerializeField] private HealthContainer m_playerHealth;
 
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
@@ -64,8 +64,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
         if(dis < m_collider.radius)
         {
-            var fuel = Mathf.Max(0f, m_fuel.Value - m_attack);//ƒ_ƒ[ƒW
-            m_fuel.SetValue(fuel);
+            m_playerHealth.Damage(m_attack);
             m_returnObjectToPool.ReturnToPool();
             m_movementHandler.MoveAll(m_initDir);
         }

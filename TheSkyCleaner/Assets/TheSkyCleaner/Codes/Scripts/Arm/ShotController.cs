@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ShotController : MonoBehaviour
 {
@@ -28,16 +29,19 @@ public class ShotController : MonoBehaviour
 
     private Vector3 Sorted(Vector3 defaultPos)
     {
-        var sortEnemies = m_reticleController.LockOnCandidates;
+        ILockOnTarget sortEnemies = m_reticleController.LockOnCandidates
+            .FirstOrDefault(x => x is IDamage);
 
-        foreach (var enemy in sortEnemies)
-        {
-            if (enemy is IDamage)
-            {
-                return enemy.Transform.position;　//m_targetAxisにポジションを入れる
-            }
-        }
+        if (sortEnemies == null) return defaultPos;
+        return ((IDamage)sortEnemies).Transform.position;
+        //foreach (var enemy in sortEnemies)
+        //{
+        //    if (enemy is IDamage)
+        //    {
+        //        return enemy.Transform.position;　//m_targetAxisにポジションを入れる
+        //    }
+        //}
 
-        return defaultPos;
+        //return defaultPos;
     }
 }
