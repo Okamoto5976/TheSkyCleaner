@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5509967017714668642}
   - component: {fileID: 1138660109115626163}
   - component: {fileID: 7895202839131037618}
-  - component: {fileID: 3822719356811948056}
-  - component: {fileID: 4330165079397444621}
+  - component: {fileID: -3179033720169950512}
   - component: {fileID: 6115759751918828999}
   - component: {fileID: -9218455992235991860}
+  - component: {fileID: 4330165079397444621}
   - component: {fileID: 6649456880405196421}
   m_Layer: 0
   m_Name: enemy
@@ -95,8 +95,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3822719356811948056
-BoxCollider:
+--- !u!135 &-3179033720169950512
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -114,23 +114,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4330165079397444621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505472414512466365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e3ebaf435b0b2146bd245ecd18e691f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::T_Enemy
-  m_enemyStateMachine: {fileID: 6649456880405196421}
-  m_enemySO: {fileID: 0}
-  objectId: 0
 --- !u!114 &6115759751918828999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +142,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1949203fa3d88d747beed78ed63870dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReturnObjectToPool
+--- !u!114 &4330165079397444621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505472414512466365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3ebaf435b0b2146bd245ecd18e691f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::T_Enemy
+  m_enemyStateMachine: {fileID: 6649456880405196421}
+  m_enemySO: {fileID: 6845999691896175325, guid: 8259fdf528471ff4eb1171f56e3e52d1, type: 2}
+  m_dropSO: {fileID: -8817795706234740082, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
+  m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_playerHealth: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+  objectId: 0
 --- !u!114 &6649456880405196421
 MonoBehaviour:
   m_ObjectHideFlags: 0

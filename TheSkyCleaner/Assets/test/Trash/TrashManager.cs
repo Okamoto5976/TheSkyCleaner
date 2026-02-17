@@ -23,7 +23,7 @@ public class TrashManager : MonoBehaviour
     {
         m_sleepTime = new(m_spawnTrashInterval);
 
-        StartCoroutine(SpawnOnTimer());
+        //StartCoroutine(SpawnOnTimer());
     }
 
     private IEnumerator SpawnOnTimer()
@@ -70,4 +70,7 @@ public class TrashManager : MonoBehaviour
         obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
         obj.SetActive(true);
     }
+
+    public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
+    public void StopSpawn() { StopCoroutine(SpawnOnTimer()); }
 }

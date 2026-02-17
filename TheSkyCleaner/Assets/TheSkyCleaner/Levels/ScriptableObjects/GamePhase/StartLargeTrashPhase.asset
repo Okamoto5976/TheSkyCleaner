@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a41aa4e0288b914ab5f02ffe249fc45, type: 3}
-  m_Name: FloatContainer
-  m_EditorClassIdentifier: Assembly-CSharp::FloatContainer
-  m_initialValue: 100
-  m_value: 15.884874
+  m_Script: {fileID: 11500000, guid: 30908ea189eae5c4199699bcc378c7ed, type: 3}
+  m_Name: StartLargeTrashPhase
+  m_EditorClassIdentifier: Assembly-CSharp::LargeTrashPhase
+  m_phase: 1

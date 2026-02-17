@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         m_wait = new WaitForSeconds(m_spawnInterval);
-        StartCoroutine(SpawnLoop());
+        //StartCoroutine(SpawnLoop());
     }
 
     private IEnumerator SpawnLoop()
@@ -108,4 +108,7 @@ public class EnemyManager : MonoBehaviour
         float randY = Random.Range(m_spawnMin.y, m_spawnMax.y);
         obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
     }
+
+    public void StartSpawn() { StartCoroutine(SpawnLoop()); }
+    public void StopSpawn() { StopCoroutine(SpawnLoop()); }
 }

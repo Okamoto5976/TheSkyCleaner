@@ -10,7 +10,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private int m_attack;
     [SerializeField] private int m_maxCount;
 
-    [SerializeField] private Transform m_player;
+    private Vector3 m_playerPos;
 
     private List<bool> m_activeArms = new List<bool>();
     private List<int> m_enemiesId = new List<int>();
@@ -28,16 +28,16 @@ public class ArmController : MonoBehaviour
 
     private void Update()
     {
-        
+        m_playerPos = m_reticleController.PlayerPos;
     }
 
     public void ArmShot()
     {
-        var m_SaveEnemies = m_reticleController.SaveEnemies;
+        var m_SaveTargets = m_reticleController.SaveTargets;
 
-        foreach (var enemies in m_SaveEnemies)
+        foreach (var targets in m_SaveTargets)
         {
-            int id = enemies.GameObject.GetInstanceID();
+            int id = targets.GameObject.GetInstanceID();
 
             if (m_enemiesId.Contains(id)) continue;
 
@@ -50,7 +50,7 @@ public class ArmController : MonoBehaviour
 
             m_enemiesId.Add(id);
 
-            if (enemies is IDamage)
+            if (targets is IDamage)
             {
                 Debug.Log("Enemy!");
             }
@@ -60,7 +60,7 @@ public class ArmController : MonoBehaviour
             }
 
 
-            arm.MoveToEnemy(enemies,m_player,
+            arm.MoveToEnemy(targets, m_playerPos,
                 m_speed,m_attack, id, index);
         }
     }

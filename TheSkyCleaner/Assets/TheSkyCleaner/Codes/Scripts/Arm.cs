@@ -25,7 +25,7 @@ public class Arm : MonoBehaviour
     private int m_index;
     private float m_speed;
     private int m_attack;
-    private Transform m_playerposition;
+    private Vector3 m_playerPos;
     private int m_id;
 
     private void Start()
@@ -63,7 +63,7 @@ public class Arm : MonoBehaviour
 
         //   ---  z軸０より後ろでfalse  ---
         Vector3 sp = m_camera.WorldToScreenPoint(m_targetTransform.position);
-        if (sp.z < m_playerposition.position.z) return false;
+        if (sp.z < m_playerPos.z) return false;
 
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
@@ -76,19 +76,26 @@ public class Arm : MonoBehaviour
             //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
             //配列で入れられるね！
             var drop = m_enemies.GetDropData();
+
+            if(drop.Fuel > 0)
+            {
+
+            }
+
             foreach(var mat in drop.Materials)
             {
                 if(mat.amount <= 0) continue;
 
                 m_inventory.Add(mat.type,mat.amount);
             }
+
             return false;
         }
 
         return true;
     }
 
-    public void MoveToEnemy(ILockOnTarget enemies,Transform player,
+    public void MoveToEnemy(ILockOnTarget target,Vector3 player,
         float speed,int attack,int ID,int index)
     {
         //返すための値
@@ -97,12 +104,12 @@ public class Arm : MonoBehaviour
 
         m_speed = speed;
         m_attack = attack;
-        m_playerposition = player;
+        m_playerPos = player;
 
 
-        m_enemies = enemies;
-        m_targetEnemy = enemies.GameObject;
-        m_targetTransform = enemies.Transform;
+        m_enemies = target;
+        m_targetEnemy = target.GameObject;
+        m_targetTransform = target.Transform;
         m_transform.SetParent(null);
         m_state = State.Moving;
     }

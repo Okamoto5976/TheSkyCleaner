@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IDamage
+public interface IDamage : ILockOnTarget
 {
     void Damage(int damage);
 }

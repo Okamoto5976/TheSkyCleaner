@@ -30,3 +30,5 @@ MonoBehaviour:
   m_dropSO: {fileID: -3647694940158141256, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collecttype: 0
   m_collectname: a
+  m_attack: 30
+  m_hp: 2

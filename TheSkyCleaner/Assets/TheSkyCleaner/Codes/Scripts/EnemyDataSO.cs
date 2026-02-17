@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/EnemyDataSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/EnemyDataSO")]
 public class EnemyDataSO : ScriptableObject
 {
     [SerializeField] private List<EnemySO> m_enemySO = new List<EnemySO>();

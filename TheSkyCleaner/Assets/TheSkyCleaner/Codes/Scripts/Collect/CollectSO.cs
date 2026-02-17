@@ -9,7 +9,7 @@ public enum CollectType
 }
 
 
-[CreateAssetMenu(menuName = "Scriptable Objects/CollectSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/CollectSO")]
 public class CollectSO : ScriptableObject
 {
     [SerializeField] private CollectDataSO m_collectdata;
@@ -18,10 +18,14 @@ public class CollectSO : ScriptableObject
     [SerializeField] private CollectType m_collecttype;//•K—v‚©•s–¾
     [SerializeField] private string m_collectname;
 
+    [SerializeField] private int m_attack;
+    [SerializeField] private int m_hp;
+
     public CollectType CollectType { get => m_collecttype; }
     public string Collectname { get => m_collectname; }
     public DropSO Drop { get => m_dropSO; }
-
+    public int Attack { get => m_attack; }
+    public int HP { get => m_hp; }
 
     public CollectDataSO CollectData { get => m_collectdata; }
 
