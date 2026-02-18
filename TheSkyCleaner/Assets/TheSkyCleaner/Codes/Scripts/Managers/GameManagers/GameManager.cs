@@ -4,17 +4,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PhaseSequence m_sequence;
+    [SerializeField] private FloatContainer m_fuel;
+    [SerializeField] private InventorySO m_inventorySO;
 
     private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
 
+    [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
 
     [SerializeField] private GameObject m_boss;
-    [SerializeField] private FloatContainer m_fuel;
+   
 
     private void Start()
     {
@@ -67,6 +70,8 @@ public class GameManager : MonoBehaviour
     {
         if (m_fuel.Value > 0) return;
         //inventory save;
+        m_saveManager.InventorySave(m_inventorySO.Material);
+
         //gameSceen = powerSceen;
     }
 }

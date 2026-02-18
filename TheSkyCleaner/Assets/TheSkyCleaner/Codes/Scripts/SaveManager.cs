@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -29,15 +30,22 @@ public class AudioDataList
 }
 
 [System.Serializable]
+public class Inventory
+{
+    public MaterialType type;
+    public int amount;
+}
+
+[System.Serializable]
 public class InventoryList
 {
-    public Dictionary<MaterialType, int> m_materials;
+    public List<Inventory> m_material = new List<Inventory>();
 }
 
 [System.Serializable]
 public class EnhanceList
 {
-    public List<SkillSO> m_unlockSkills;
+    public List<SkillType> m_unlockSkills = new List<SkillType>();
 }
 
 public class SaveManager : MonoBehaviour
@@ -67,6 +75,8 @@ public class SaveManager : MonoBehaviour
         //}
         fullPath = Path.Combine(Application.persistentDataPath, fileName);
         audioFullPath = Path.Combine(Application.persistentDataPath, audioFileName);
+        m_inventoryFullPath = Path.Combine(Application.persistentDataPath, m_inventoryFileName);
+        m_enhanceFullPath = Path.Combine(Application.persistentDataPath, m_enhanceFileName);
     }
 
     public void Save(GameData newdata)
@@ -98,23 +108,21 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(audioFullPath, json);
     }
 
-    public void InventorySave(MaterialType type, int amount)
+    public void InventorySave(Dictionary<MaterialType,int> materials)
     {
         InventoryList inventory = new InventoryList();
-        if (inventory.m_materials.ContainsKey(type))
+
+        foreach(var item in materials)
         {
-            inventory.m_materials[type] += amount;
-        }
-        else
-        {
-            inventory.m_materials.Add(type, amount);
+            inventory.m_material.Add(new Inventory
+            { type = item.Key,amount = item.Value });
         }
 
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(m_inventoryFullPath, json);
     }
 
-    public void EnhanceSave(List<SkillSO> unlockSkills)
+    public void EnhanceSave(List<SkillType> unlockSkills)
     {
         EnhanceList enhance = new EnhanceList();
         enhance.m_unlockSkills = unlockSkills;
@@ -149,16 +157,26 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public InventoryList InventoryLoad()
+    public Dictionary<MaterialType,int> InventoryLoad()
     {
         if(File.Exists(m_inventoryFullPath))
         {
             string json = File.ReadAllText(m_inventoryFullPath);
-            return JsonUtility.FromJson<InventoryList>(json);
+            InventoryList inventory = JsonUtility.FromJson<InventoryList>(json);
+
+
+            Dictionary<MaterialType, int> materials = new();
+
+            foreach(var item in inventory.m_material)
+            {
+                materials[item.type] = item.amount;
+            }
+
+            return materials;
         }
         else
         {
-            return new InventoryList();
+            return new Dictionary<MaterialType,int>();
         }
     }
 
@@ -171,7 +189,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            return new EnhanceList();
+            return null;
         }
     }
 
