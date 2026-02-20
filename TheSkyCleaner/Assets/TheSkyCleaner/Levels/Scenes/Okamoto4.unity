@@ -25279,11 +25279,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   m_sequence: {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
+  m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
+  m_inventorySO: {fileID: 0}
+  m_saveManager: {fileID: 0}
   m_EM: {fileID: 1259995856}
   m_TM: {fileID: 1295027950}
   m_LTM: {fileID: 251186272}
   m_boss: {fileID: 0}
-  m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
 --- !u!4 &630495670
 Transform:
   m_ObjectHideFlags: 0
@@ -25409,7 +25411,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -25612,7 +25614,7 @@ GameObject:
   - component: {fileID: 762919366}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

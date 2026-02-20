@@ -21,8 +21,8 @@ public class GameMenuManager : MonoBehaviour
     void Update()
     {
         //ESCƒL[‚ª‰Ÿ‚³‚ê‚½
-       // if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        if (m_Pause.WasPressedThisFrame())
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        //if (m_Pause.WasPressedThisFrame())
         {
             ESCpussyu();
         }
