@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -29,18 +28,18 @@ public class AudioDataList
     public AudioData data = new AudioData();
 }
 
-[System.Serializable]
-public class Inventory
-{
-    public MaterialType type;
-    public int amount;
-}
+//[System.Serializable]
+//public class Inventory
+//{
+//    public MaterialType type;
+//    public int amount;
+//}
 
-[System.Serializable]
-public class InventoryList
-{
-    public List<Inventory> m_material = new List<Inventory>();
-}
+//[System.Serializable]
+//public class InventoryList
+//{
+//    public List<Inventory> m_material = new List<Inventory>();
+//}
 
 [System.Serializable]
 public class EnhanceList
@@ -56,8 +55,8 @@ public class SaveManager : MonoBehaviour
     private string audioFileName = "audioSettings.json";
     private string audioFullPath;
 
-    private string m_inventoryFileName = "inventorydata.json";
-    private string m_inventoryFullPath;
+    //private string m_inventoryFileName = "inventorydata.json";
+    //private string m_inventoryFullPath;
 
     private string m_enhanceFileName = "enhancedata.json";
     private string m_enhanceFullPath;
@@ -75,7 +74,7 @@ public class SaveManager : MonoBehaviour
         //}
         fullPath = Path.Combine(Application.persistentDataPath, fileName);
         audioFullPath = Path.Combine(Application.persistentDataPath, audioFileName);
-        m_inventoryFullPath = Path.Combine(Application.persistentDataPath, m_inventoryFileName);
+        //m_inventoryFullPath = Path.Combine(Application.persistentDataPath, m_inventoryFileName);
         m_enhanceFullPath = Path.Combine(Application.persistentDataPath, m_enhanceFileName);
     }
 
@@ -108,19 +107,19 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(audioFullPath, json);
     }
 
-    public void InventorySave(Dictionary<MaterialType,int> materials)
-    {
-        InventoryList inventory = new InventoryList();
+    //public void InventorySave(Dictionary<MaterialType,int> materials)
+    //{
+    //    InventoryList inventory = new InventoryList();
 
-        foreach(var item in materials)
-        {
-            inventory.m_material.Add(new Inventory
-            { type = item.Key,amount = item.Value });
-        }
+    //    foreach(var item in materials)
+    //    {
+    //        inventory.m_material.Add(new Inventory
+    //        { type = item.Key,amount = item.Value });
+    //    }
 
-        string json = JsonUtility.ToJson(inventory, true);
-        File.WriteAllText(m_inventoryFullPath, json);
-    }
+    //    string json = JsonUtility.ToJson(inventory, true);
+    //    File.WriteAllText(m_inventoryFullPath, json);
+    //}
 
     public void EnhanceSave(List<int> unlockSkills)
     {
@@ -157,28 +156,28 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public Dictionary<MaterialType,int> InventoryLoad()
-    {
-        if(File.Exists(m_inventoryFullPath))
-        {
-            string json = File.ReadAllText(m_inventoryFullPath);
-            InventoryList inventory = JsonUtility.FromJson<InventoryList>(json);
+    //public Dictionary<MaterialType,int> InventoryLoad()
+    //{
+    //    if(File.Exists(m_inventoryFullPath))
+    //    {
+    //        string json = File.ReadAllText(m_inventoryFullPath);
+    //        InventoryList inventory = JsonUtility.FromJson<InventoryList>(json);
 
 
-            Dictionary<MaterialType, int> materials = new();
+    //        Dictionary<MaterialType, int> materials = new();
 
-            foreach(var item in inventory.m_material)
-            {
-                materials[item.type] = item.amount;
-            }
+    //        foreach(var item in inventory.m_material)
+    //        {
+    //            materials[item.type] = item.amount;
+    //        }
 
-            return materials;
-        }
-        else
-        {
-            return new Dictionary<MaterialType,int>();
-        }
-    }
+    //        return materials;
+    //    }
+    //    else
+    //    {
+    //        return new Dictionary<MaterialType,int>();
+    //    }
+    //}
 
     public EnhanceList EnhanceLoad()
     {
