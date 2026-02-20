@@ -3,36 +3,33 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class fuel : MonoBehaviour
+public class Fuel : MonoBehaviour
 {
-    [Header("燃料確認用")]
+    [Header("Debug Fuel Amount")]
     [SerializeField] private float m_kakuninnyouFuel;
 
     [Header("SO")]
-    [SerializeField] private FloatContainer m_fuelContainer;//今の燃料てかいろいろ全部
+    [SerializeField] private FloatContainer m_fuelContainer;
 
-    [Header("燃料設定")]
-    [SerializeField] private float m_consumptionRate = 1f;//継続消費
-    [SerializeField] private float m_boostFuelCost = 10f;//ブーストとかの奴(一回)
+    [Header("Fuel Settings")]
+    [SerializeField] private float m_consumptionRate = 1f;
+    [SerializeField] private float m_boostFuelCost = 10f;
 
-    [Header("移動設定")]
-    [SerializeField] private float m_moveSpeed = 5f;//通常速度
-    [SerializeField] private float m_boostMultiplier = 2f;//ブースト倍率
-    [SerializeField] private float m_boostTimer = 1f;//終わり
+    [Header("Move Settings")]
+    [SerializeField] private float m_moveSpeed = 5f;
+    [SerializeField] private float m_boostMultiplier = 2f;
+    [SerializeField] private float m_boostTimer = 1f;
 
-    [Header("UI設定")]
+    [Header("UI Settings")]
     [SerializeField] private Slider m_fuelSliber;
 
     private bool m_Boosting = false;
     private float m_CurrentFuel => m_fuelContainer.Value;
     void Start()
     {
-        //soからもってきたぞぉ
-        m_fuelContainer.SetValue(m_fuelContainer.InitialValue);
-
         if (m_fuelSliber != null)
         {
-            //スライダーももってきたぞぉ
+            // Set ui elements
             m_fuelSliber.maxValue = m_fuelContainer.InitialValue;
             m_fuelSliber.value = m_CurrentFuel;
         }
@@ -54,21 +51,21 @@ public class fuel : MonoBehaviour
             //ブースト
             if (Keyboard.current.spaceKey.wasPressedThisFrame && m_CurrentFuel >= m_boostFuelCost && !m_Boosting)
             {
-                StartCoroutine(ActivateBoost());
+                OnActivateBoost();
             }
 
         }
         else //if (m_CurrentFuel <=0)
         {
+            m_Boosting = false;
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentFuel-10) + "%です　　ほらもうブーストに回せる燃料無いんや");
+                OnNoBoost();
             }
-            m_Boosting = false;
             StopAllCoroutines();//止まっちゃうよー
         }
         //移動
-        Move();
+        //Move();
 
         //UI更新
         if (m_fuelSliber != null)
@@ -95,6 +92,16 @@ public class fuel : MonoBehaviour
         {
             m_Boosting = false;
         }
+    }
+
+    public void OnNoBoost()
+    {
+        Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentFuel - 10) + "%です　　ほらもうブーストに回せる燃料無いんや");
+    }
+
+    public void OnActivateBoost()
+    {
+        StartCoroutine(ActivateBoost());
     }
 
     IEnumerator ActivateBoost()

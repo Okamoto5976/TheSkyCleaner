@@ -8,6 +8,7 @@ public class StringContainer : RuntimeScriptableObject
     [SerializeField] private string m_value;
 
     public string Value => m_value;
+    public string InitialValue => m_initialValue;
 
     public void SetValue(string value)
     {
