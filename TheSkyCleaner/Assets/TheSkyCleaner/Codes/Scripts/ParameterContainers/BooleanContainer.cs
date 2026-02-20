@@ -10,7 +10,6 @@ public class BooleanContainer : RuntimeScriptableObject
     public event UnityAction<bool> OnValueChanged = delegate { };
 
     public bool Value => m_value;
-    public bool InitialValue => m_initialValue;
 
     public void SetValue(bool value)
     {
