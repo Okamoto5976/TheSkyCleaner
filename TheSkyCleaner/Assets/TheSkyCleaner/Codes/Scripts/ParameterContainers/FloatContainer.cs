@@ -9,6 +9,6 @@ public class FloatContainer : RuntimeScriptableObject
 
     public virtual float Value => m_value;
     public float InitialValue => m_initialValue;
-    public void SetValue(float value) => m_value = value;
+    public virtual void SetValue(float value) => m_value = value;
     protected override void OnReset() => m_value = m_initialValue;
 }

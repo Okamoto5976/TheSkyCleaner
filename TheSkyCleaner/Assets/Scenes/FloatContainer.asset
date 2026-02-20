@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FloatContainer
   m_EditorClassIdentifier: Assembly-CSharp::FloatContainer
   m_initialValue: 100
-  m_value: 98.84257
+  m_value: 15.884874
