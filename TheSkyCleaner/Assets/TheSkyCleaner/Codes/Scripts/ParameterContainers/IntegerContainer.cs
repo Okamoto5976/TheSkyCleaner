@@ -7,7 +7,7 @@ public class IntegerContainer : RuntimeScriptableObject
     [SerializeField] protected int m_initialValue;
     [SerializeField] protected int m_value;
 
-    public int Value => m_value;
+    public virtual int Value => m_value;
     public int InitialValue => m_initialValue;
 
     public virtual void SetValue(int value)

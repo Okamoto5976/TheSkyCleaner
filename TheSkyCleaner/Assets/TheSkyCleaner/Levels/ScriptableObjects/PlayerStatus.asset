@@ -16,7 +16,7 @@ MonoBehaviour:
   m_rotation: {fileID: 11400000, guid: b38c23602747f1d4e8ead9d4b32af865, type: 2}
   m_health: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
   m_speed: {fileID: 11400000, guid: 0d6c0431a09e1744098feedfbae55f25, type: 2}
-  m_isAlive: {fileID: 11400000, guid: 993a37d895dfd2e49a01111e581d92f8, type: 2}
+  m_isAlive: {fileID: 11400000, guid: f3475d8279adde24aadb7c6480a37b9f, type: 2}
   m_isInvulnerable: {fileID: 11400000, guid: 5114e198b84035f40a8c74206f0b9f3e, type: 2}
   m_movementAxis: {fileID: 11400000, guid: 4d4841c33efb6144eb88d684ec265f07, type: 2}
   m_rotationAxis: {fileID: 11400000, guid: 164ad1aee9a74e340999a43e65a8f00c, type: 2}
