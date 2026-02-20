@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PhaseSequence m_sequence;
     [SerializeField] private FloatContainer m_fuel;
-    [SerializeField] private InventorySO m_inventorySO;
+    //[SerializeField] private InventorySO m_inventorySO;
 
     private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
 
     [SerializeField] private SaveManager m_saveManager;
+    [SerializeField] private SkillAdapt m_skilladapt;
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //フェーズ処理
         foreach(var phase in m_sequence.m_phase)
         {
             var instance = Instantiate(phase);
@@ -29,6 +33,9 @@ public class GameManager : MonoBehaviour
         }
 
         NextPhase();
+
+        //強化スキルLoad or 適応
+        m_skilladapt.LoadSkillType();
     }
 
     private void Update()
@@ -42,6 +49,12 @@ public class GameManager : MonoBehaviour
         }
 
         GameOver();
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            SceneManager.LoadScene(1);
+        }
+            
     }
 
     private void NextPhase()
@@ -70,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         if (m_fuel.Value > 0) return;
         //inventory save;
-        m_saveManager.InventorySave(m_inventorySO.Material);
+        //m_saveManager.InventorySave(m_inventorySO.Material);
 
         //gameSceen = powerSceen;
     }

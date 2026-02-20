@@ -45,7 +45,7 @@ public class InventoryList
 [System.Serializable]
 public class EnhanceList
 {
-    public List<SkillType> m_unlockSkills = new List<SkillType>();
+    public List<int> m_unlockSkills = new List<int>();
 }
 
 public class SaveManager : MonoBehaviour
@@ -122,7 +122,7 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(m_inventoryFullPath, json);
     }
 
-    public void EnhanceSave(List<SkillType> unlockSkills)
+    public void EnhanceSave(List<int> unlockSkills)
     {
         EnhanceList enhance = new EnhanceList();
         enhance.m_unlockSkills = unlockSkills;
@@ -182,7 +182,7 @@ public class SaveManager : MonoBehaviour
 
     public EnhanceList EnhanceLoad()
     {
-        if(!File.Exists(m_enhanceFullPath))
+        if(File.Exists(m_enhanceFullPath))
         {
             string json = File.ReadAllText(m_enhanceFullPath);
             return JsonUtility.FromJson<EnhanceList>(json);
@@ -197,5 +197,11 @@ public class SaveManager : MonoBehaviour
     {
         if (File.Exists(fullPath))
             File.Delete(fullPath);
+    }
+
+    public void ResetEnhance()
+    {
+        if (File.Exists(m_enhanceFullPath))
+            File.Delete(m_enhanceFullPath);
     }
 }

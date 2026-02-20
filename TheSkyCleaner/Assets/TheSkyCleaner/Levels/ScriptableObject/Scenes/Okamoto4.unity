@@ -25246,6 +25246,8 @@ GameObject:
   - component: {fileID: 630495670}
   - component: {fileID: 630495669}
   - component: {fileID: 630495668}
+  - component: {fileID: 630495671}
+  - component: {fileID: 630495672}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -25279,11 +25281,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   m_sequence: {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
+  m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
+  m_saveManager: {fileID: 630495671}
+  m_skilladapt: {fileID: 630495672}
   m_EM: {fileID: 1259995856}
   m_TM: {fileID: 1295027950}
   m_LTM: {fileID: 251186272}
   m_boss: {fileID: 0}
-  m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
 --- !u!4 &630495670
 Transform:
   m_ObjectHideFlags: 0
@@ -25299,6 +25303,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630495671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630495667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061fddc0d9ff3af45a6f257a528052ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+--- !u!114 &630495672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630495667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f15f7ab9c1ecac439ce1e7d5c18bd3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAdapt
+  m_allSkill:
+  - {fileID: 4295520397004823568, guid: c00e4b91401cbf847a9352638c7b2250, type: 2}
+  - {fileID: 4937409227621946373, guid: c00e4b91401cbf847a9352638c7b2250, type: 2}
+  - {fileID: -2414418492808004609, guid: c00e4b91401cbf847a9352638c7b2250, type: 2}
+  - {fileID: 2481242304235695874, guid: c00e4b91401cbf847a9352638c7b2250, type: 2}
+  - {fileID: 6144614974659436517, guid: c00e4b91401cbf847a9352638c7b2250, type: 2}
+  m_unlockSkills: []
+  m_saveManager: {fileID: 630495671}
 --- !u!224 &675199751 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1837476305805550378, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
@@ -37062,6 +37098,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5865bda30e3a7e44911d0859200013a, type: 3}
+--- !u!1 &1587241950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587241952}
+  - component: {fileID: 1587241951}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1587241951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587241950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5122888482cde141960578b3c5a6919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test_Okamoto_001
+  skilldata: {fileID: 0}
+  onPlaySE:
+    m_PersistentCalls:
+      m_Calls: []
+  SE: {fileID: 0}
+  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
+--- !u!4 &1587241952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587241950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55345, y: -0.85533, z: 4.06441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600554337
 GameObject:
   m_ObjectHideFlags: 0
@@ -38433,3 +38519,4 @@ SceneRoots:
   - {fileID: 405626127}
   - {fileID: 1097558778}
   - {fileID: 630495670}
+  - {fileID: 1587241952}

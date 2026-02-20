@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class Skillget : MonoBehaviour
 {
-    [SerializeField] private List<SkillSO> unlockSkills;//取得したスキルの管理
+    [SerializeField] private List<SkillSO> m_allSkill;
+    [SerializeField] private List<SkillSO> m_unlockSkills;//取得したスキルの管理
     [SerializeField] private TextMeshProUGUI m_cost;
+    [SerializeField] private SaveManager m_saveManager;
 
-    private int m_arm_powerup;
-    private int m_speedup;
+    //private int m_arm_powerup;
+    //private int m_speedup;
 
     [SerializeField] private InventorySO m_inventorySO;
 
-    private int m_mycost = 20;//何らかの形で取得 仮置き
+    //private int m_mycost = 20;//何らかの形で取得 仮置き
 
     private void Start()//初期化
     {
@@ -40,7 +42,7 @@ public class Skillget : MonoBehaviour
 
     private bool CanUnlock(SkillSO skillData)
     {
-        if (unlockSkills.Contains(skillData))
+        if (m_unlockSkills.Contains(skillData))
         {
             Debug.Log("取得済み");
             return false;
@@ -48,7 +50,7 @@ public class Skillget : MonoBehaviour
 
         foreach(var need in skillData.NeedSkill)//必要なスキルを取得済みかどうか
         {
-            if (!unlockSkills.Contains(need))
+            if (!m_unlockSkills.Contains(need))
             {
                 Debug.Log("解放されていません。");
                 return false;
@@ -92,31 +94,62 @@ public class Skillget : MonoBehaviour
     {
         if(CanUnlock(skillData))
         {
-            unlockSkills.Add(skillData);
+            m_unlockSkills.Add(skillData);
         }
 
-        Adapt();//とりあえず
+        //Adapt();//とりあえず
     }
 
-    private void Adapt()//適応したい際に呼ぶ
+    public void SaveSkillType()
     {
-        foreach(var skill in unlockSkills)
+        m_saveManager.ResetEnhance();
+
+        List<int> types = new List<int>();
+
+        foreach (var skill in m_unlockSkills)
         {
-            switch (skill.SkillType)
-            {
-                case SkillType.Arm_PowerUP:
-                    m_arm_powerup = (int)skill.UpdataValue;
-                    Debug.Log("powerup" + m_arm_powerup);
-                    break;
-                case SkillType.SpeedUP:
-                    m_speedup = (int)skill.UpdataValue;
-                    Debug.Log("speedup" + m_speedup);
-                    break;
-                case SkillType.NetUP:
-                    break;
-            }
+            types.Add(skill.ID);
+        }
+
+        m_saveManager.EnhanceSave(types);
+    }
+
+    public void LoadSkillType()
+    {
+        EnhanceList data = m_saveManager.EnhanceLoad();
+        if (data == null) return;
+
+        m_unlockSkills.Clear();
+
+        foreach (var id in data.m_unlockSkills)
+        {
+            SkillSO found = m_allSkill
+                .Find(s => s.ID == id);
+
+            if (found != null)
+                m_unlockSkills.Add(found);
         }
     }
+
+    //private void Adapt()//適応したい際に呼ぶ
+    //{
+    //    foreach(var skill in unlockSkills)
+    //    {
+    //        switch (skill.SkillType)
+    //        {
+    //            case SkillType.Arm_PowerUP:
+    //                m_arm_powerup = (int)skill.UpdataValue;
+    //                Debug.Log("powerup" + m_arm_powerup);
+    //                break;
+    //            case SkillType.SpeedUP:
+    //                m_speedup = (int)skill.UpdataValue;
+    //                Debug.Log("speedup" + m_speedup);
+    //                break;
+    //            case SkillType.NetUP:
+    //                break;
+    //        }
+    //    }
+    //}
 
     //考え
     //取得したさい色を変えたい
@@ -130,4 +163,50 @@ public class Skillget : MonoBehaviour
     //Player内
     //int m_PlayerPower = base + Skillget.PlayerPower;
     //int m_PlayerSpeed = base + Skillget.PlaeyrSpeed;
+
+    //後の考え
+    //SkillTypeのみ保存で取得し、MainシーンでSkillSOの配列からSkillTypeの値を取得の感じ
 }
+//[SerializeField] private List<SkillSO> allSkills;   // 全スキル
+//[SerializeField] private List<SkillSO> unlockSkills; // 取得済み
+
+//[SerializeField] private SaveManager saveManager;
+
+//// セーブ
+//public void Save()
+//{
+//    List<SkillType> types = new List<SkillType>();
+
+//    foreach (var skill in unlockSkills)
+//    {
+//        types.Add(skill.SkillType);
+//    }
+
+//    saveManager.SaveEnhance(types);
+//}
+
+//// ロード
+//public void Load()
+//{
+//    EnhanceSaveData data = saveManager.LoadEnhance();
+//    if (data == null) return;
+
+//    unlockSkills.Clear();
+
+//    foreach (var type in data.unlockedTypes)
+//    {
+//        SkillSO found = allSkills
+//            .Find(s => s.SkillType == type);
+
+//        if (found != null)
+//            unlockSkills.Add(found);
+//    }
+
+//    Adapt();
+//}
+
+//private void Adapt()
+//{
+//    // 能力反映処理
+//}
+//}

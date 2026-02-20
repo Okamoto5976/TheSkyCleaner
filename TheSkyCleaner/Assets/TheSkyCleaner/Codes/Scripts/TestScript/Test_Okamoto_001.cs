@@ -16,10 +16,10 @@ public class Test_Okamoto_001 : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            onPlaySE.Invoke(SE);
-        }
+        //if (Keyboard.current.tKey.wasPressedThisFrame)
+        //{
+        //    onPlaySE.Invoke(SE);
+        //}
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {

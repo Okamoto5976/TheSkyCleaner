@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class EnhanceManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private SaveManager m_savemanager;
+    [SerializeField] private Skillget m_skillget;
+
+    private void Start()
     {
-        
+        m_skillget.LoadSkillType();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            m_skillget.SaveSkillType();
+            SceneManager.LoadScene(0);
+        }
     }
 }
