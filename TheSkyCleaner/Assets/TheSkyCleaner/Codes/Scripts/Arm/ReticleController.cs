@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditorInternal.ReorderableList;
 
 public class ReticleController : MonoBehaviour
 {
@@ -106,7 +105,11 @@ public class ReticleController : MonoBehaviour
 
         RemoveSaveEnemies();
 
+        UpdateLockOnMarkers(m_SaveTargets);
+        UpdateShotReticle();
+
         m_targetAxis.SetValue(m_rect.position);
+
     }
 
     public void MoveReticle(Vector2 delta)
@@ -117,8 +120,6 @@ public class ReticleController : MonoBehaviour
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
-        UpdateLockOnMarkers(m_SaveTargets);
-        UpdateShotReticle();
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -238,7 +239,9 @@ public class ReticleController : MonoBehaviour
 
             Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
 
-            if (pos.z < reticleDistance)
+            if (pos.z < reticleDistance 
+                || !enemy.GameObject.activeSelf 
+                || enemy == null)
             {
                 m_SaveTargets.RemoveAt(i);
             }

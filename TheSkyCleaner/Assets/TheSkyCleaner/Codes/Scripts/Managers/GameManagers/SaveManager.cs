@@ -16,6 +16,12 @@ public class GameDataList
 }
 
 [System.Serializable]
+public class GamePhaseData
+{
+    public int SequenceIndex;
+}
+
+[System.Serializable]
 public class AudioData
 {
     public float BGMVolume = 1f;
@@ -52,6 +58,9 @@ public class SaveManager : MonoBehaviour
     private string fileName = "gamedata.json";
     private string fullPath;
 
+    private string m_phaseFileName = "gamephase.json";
+    private string m_phaseFullPath;
+
     private string audioFileName = "audioSettings.json";
     private string audioFullPath;
 
@@ -63,16 +72,8 @@ public class SaveManager : MonoBehaviour
 
     void Awake()
     {
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject); // 重複を消す
-        //}
         fullPath = Path.Combine(Application.persistentDataPath, fileName);
+        m_phaseFullPath = Path.Combine(Application.persistentDataPath, m_phaseFileName);
         audioFullPath = Path.Combine(Application.persistentDataPath, audioFileName);
         //m_inventoryFullPath = Path.Combine(Application.persistentDataPath, m_inventoryFileName);
         m_enhanceFullPath = Path.Combine(Application.persistentDataPath, m_enhanceFileName);
@@ -95,6 +96,16 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(fullPath, json);
         Debug.Log("Saved to: " + fullPath + " | ClearTime: " + newdata.ClearTime);
+    }
+
+    public void PhaseSave(int index)
+    {
+        GamePhaseData phasedata = new GamePhaseData();
+
+        phasedata.SequenceIndex = index;
+
+        string json = JsonUtility.ToJson(phasedata, true);
+        File.WriteAllText(fullPath, json);
     }
 
     public void AudioSave(float newBGMVolume, float newSEVolume)
@@ -140,6 +151,19 @@ public class SaveManager : MonoBehaviour
         else
         {
             return new GameDataList(); // デフォルト値
+        }
+    }
+
+    public GamePhaseData PhaseLoad()
+    {
+        if(File.Exists(fullPath))
+        {
+            string json = File.ReadAllText(fullPath);
+            return JsonUtility.FromJson<GamePhaseData>(json);
+        }
+        else
+        {
+            return new GamePhaseData();
         }
     }
 

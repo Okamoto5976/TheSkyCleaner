@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 /// <summary>
@@ -22,6 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Enemy Types (Sequences)")]
     [SerializeField] private EnemySequence[] m_enemyTypes;
+    [SerializeField] private ObjectPoolManager[] m_visualPools;
 
     [Header("Default Movement")]
     [SerializeField] private bool m_loopSequence = false;
@@ -70,6 +70,10 @@ public class EnemyManager : MonoBehaviour
         // “G1/2/3 ‚ðƒ‰ƒ“ƒ_ƒ€‘I‘ð
         int idx = Random.Range(0, m_enemyTypes.Length);
         var seq = m_enemyTypes[idx];
+
+        var pool = m_visualPools[(int)seq.VisualType];
+        obj.SetVisual(pool);
+
         List<EnemyStateMachine.StateMachineInstance> seqInstance = new();
         foreach (var s in seq.States)
         {

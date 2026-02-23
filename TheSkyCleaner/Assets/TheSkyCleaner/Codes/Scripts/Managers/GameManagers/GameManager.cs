@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PhaseSequence m_sequence;
+    [SerializeField] private List<PhaseSequence> m_sequence;
     [SerializeField] private FloatContainer m_fuel;
     //[SerializeField] private InventorySO m_inventorySO;
 
     private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
+    private int m_sequenceIndex;
 
     [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private SkillAdapt m_skilladapt;
@@ -24,8 +25,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Load SequenseIndex
+        var data = m_saveManager.PhaseLoad();
+        if(data != null )
+        {
+            m_sequenceIndex = data.SequenceIndex;
+        }
+
+        Debug.Log(m_sequenceIndex);
+
         //フェーズ処理
-        foreach(var phase in m_sequence.m_phase)
+        foreach (var phase in m_sequence[m_sequenceIndex].m_phase)
         {
             var instance = Instantiate(phase);
             instance.Inject(this);
@@ -52,9 +62,26 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
+            if(m_sequenceIndex < m_sequence.Count - 1)
+            {
+                m_sequenceIndex++;
+            }
+            m_saveManager.PhaseSave(m_sequenceIndex);
+
             SceneManager.LoadScene(1);
         }
-            
+
+        //デバッグのため
+        if (Keyboard.current.yKey.wasPressedThisFrame)
+        {
+            m_sequenceIndex = 0;
+            m_saveManager.PhaseSave(m_sequenceIndex);
+            Debug.Log(m_sequenceIndex);
+        }
+
+        //bossのhp < 0　のとき　リザルト表示etc...
+        PhaseClear();
+
     }
 
     private void NextPhase()
@@ -69,15 +96,11 @@ public class GameManager : MonoBehaviour
         m_currentPhase.OnEnter();
     }
 
-    public void StartEnemyPool() { m_EM.StartSpawn(); }
-    public void StartTrashPool() { m_TM.StartSpawn(); }
-    public void StartLargeTrashPool() { m_LTM.StartSpawn(); }
-    public void StopEnemyPool() { m_EM.StopSpawn(); }
-    public void StopTrashPool() { m_TM.StopSpawn(); }
-    public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
+    private void PhaseClear()
+    {
+        //SequenseIndex save
+    }
 
-    //bossのhp < 0　のとき　リザルト表示etc...
-    //
 
     private void GameOver()
     {
@@ -87,4 +110,13 @@ public class GameManager : MonoBehaviour
 
         //gameSceen = powerSceen;
     }
+
+    public void StartEnemyPool() { m_EM.StartSpawn(); }
+    public void StartTrashPool() { m_TM.StartSpawn(); }
+    public void StartLargeTrashPool() { m_LTM.StartSpawn(); }
+    public void StopEnemyPool() { m_EM.StopSpawn(); }
+    public void StopTrashPool() { m_TM.StopSpawn(); }
+    public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
+
+  
 }
