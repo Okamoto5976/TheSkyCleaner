@@ -16,7 +16,7 @@ public class meteorite : MonoBehaviour
     {
      transform.Translate(m_SlideDiretion*m_speed*Time.deltaTime);   
 
-        if(Mathf.Abs(transform.position.x)>150f)
+        if(transform.position.magnitude>150f)
         {
             Destroy(gameObject);
         }

@@ -2367,10 +2367,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spawner
   m_meteoritePrefab: {fileID: 1932610862344823085, guid: 6641a97008ebeeb419c87e1678451b89, type: 3}
   m_playerTransflom: {fileID: 1168562888}
-  m_meteoProbability: 1.65
-  m_gambling: 10
-  m_meteoritespeed: 15
-  m_distance: 20
+  m_mode: 1
+  m_meteoProbability: 100
+  m_gambling: 1
+  m_meteoritespeed: 10
+  m_BesideDistance: 15
+  m_BackDistance: 60
 --- !u!1 &2128639058
 GameObject:
   m_ObjectHideFlags: 0
