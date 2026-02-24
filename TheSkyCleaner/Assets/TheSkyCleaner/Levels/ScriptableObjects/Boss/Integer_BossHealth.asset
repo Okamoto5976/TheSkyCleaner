@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e704b386dbc740e489fb63db566cfc6a, type: 3}
-  m_Name: PlayerMaxHealth
+  m_Name: Integer_BossHealth
   m_EditorClassIdentifier: Assembly-CSharp::IntegerContainer
-  m_initialValue: 100
-  m_value: 100
+  m_initialValue: 0
+  m_value: 0
