@@ -3,8 +3,7 @@ using UnityEngine;
 public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 {
     [SerializeField] private EnemyStateMachine m_enemyStateMachine;
-    [SerializeField] private EnemySO m_enemySO;
-    [SerializeField] private DropSO m_dropSO;
+    private EnemySO m_enemySO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
@@ -20,7 +19,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public int HP => m_hp;
     public Transform Transform => transform;
     public GameObject GameObject => gameObject;
-    public DropSO GetDropData() => m_dropSO;
+    public DropSO GetDropData() => m_enemySO.Drop;
 
     //visual‚ÉŠÖ‚í‚é‚à‚Ì
     [SerializeField] private Transform m_root;
@@ -34,8 +33,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 
     private void OnEnable()
     {
-        m_attack = m_enemySO.Attack;
-        m_hp = m_enemySO.HP;
+
     }
 
     private void Update()
@@ -58,7 +56,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public void Damage(int damage)
     {
         m_hp -= damage;
-        if(m_hp < 0)
+        if(m_hp <= 0)
         {
             m_enemyStateMachine.ReturnToPool();
         }
@@ -84,5 +82,12 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         visual.SetActive(true);
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+    }
+
+    public void SetStatsData(EnemySO enemySO)
+    {
+        m_enemySO = enemySO;
+        m_attack = m_enemySO.Attack;
+        m_hp = m_enemySO.HP;
     }
 }

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(SphereCollider))]
 public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 {
-    [SerializeField] private CollectSO m_collectSO;
-    [SerializeField] private DropSO m_dropSO;
+    private CollectSO m_collectSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
@@ -13,7 +12,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
-    private TrashPoolManager m_poolTrash;
+    private TrashManager m_trashManager;
 
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
@@ -35,7 +34,12 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     private TrashController m_trash; //小さいゴミ本体
     public Transform Transform => m_transform;
     public GameObject GameObject => gameObject;
-    public DropSO GetDropData() => m_dropSO;
+    public DropSO GetDropData() => m_collectSO.Drop;
+
+    //visualに関わるもの
+    [SerializeField] private Transform m_root;
+
+    private ReturnObjectToPool m_visualreturn;
 
     private void Awake()
     {
@@ -45,8 +49,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     private void OnEnable()
     {
-        m_attack = m_collectSO.Attack;
-        m_hp = m_collectSO.HP;
+
     }
 
     public void SetMoveSpeed(float moveSpeed)
@@ -82,7 +85,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         }
     }
 
-    public void SetPoolObj(TrashPoolManager t) => m_poolTrash = t;
+    public void SetPoolObj(TrashManager t) => m_trashManager = t;
 
 
     public void Damage(int damage)
@@ -91,22 +94,50 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         
         if(m_hp <= 0)
         {
-            m_trash = m_poolTrash.GetComponentFromPool();//位置指定してない
-                                                            //生成位置 
-            m_trash.transform.position = this.transform.position;
-            m_trash.gameObject.SetActive(true);
-            m_trash.SetMoving(true);
-            m_trash.SetMoveSpeed(m_trashSpeed);
-            Vector3 dir = new Vector3(0, 0, -1);
-            m_trash.SetMoveDirection(dir);
+            var obj = m_trashManager.SetThrow();
 
-            //for (int i = 0; i < m_trashSpawn; i++)
-            //{
-                
+            obj.transform.position = this.transform.position;
+            obj.gameObject.SetActive(true);
 
-            //}
+            //m_trash = m_poolTrash.GetComponentFromPool();//位置指定してない
+            //                                                //生成位置 
+            //m_trash.transform.position = this.transform.position;
+            //m_trash.gameObject.SetActive(true);
+            //m_trash.SetMoving(true);
+            //m_trash.SetMoveSpeed(m_trashSpeed);
+            //Vector3 dir = new Vector3(0, 0, -1);
+            //m_trash.SetMoveDirection(dir);
 
             m_returnObjectToPool.ReturnToPool(); 
         }
+    }
+
+    public void SetVisual(ObjectPoolManager pool)
+    {
+        //return処理
+        if (m_visualreturn != null)
+        {
+            m_visualreturn.ReturnToPool();
+            m_visualreturn = null;
+        }
+
+        //visual適応
+        GameObject visual = pool.GetObjectFromPool();
+
+        visual.transform.SetParent(m_root);
+        visual.transform.localPosition = Vector3.zero;
+        visual.transform.localRotation = Quaternion.identity;
+        visual.transform.localScale = Vector3.one;
+
+        visual.SetActive(true);
+
+        m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+    }
+
+    public void SetStatsData(CollectSO collectSO)
+    {
+        m_collectSO = collectSO;
+        m_attack = m_collectSO.Attack;
+        m_hp = m_collectSO.HP;
     }
 }

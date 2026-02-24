@@ -2,10 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 
-public class TrashController : MonoBehaviour, ILockOnTarget
+public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
 {
-    [SerializeField] private CollectSO m_collectSO;
-    [SerializeField] private DropSO m_dropSO;
+    private CollectSO m_collectSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
@@ -26,11 +25,17 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private Transform m_transform;
     private int m_attack;
+    private int m_hp;
     public Transform Transform => m_transform;
 
     public GameObject GameObject => gameObject;
 
-    public DropSO GetDropData()=> m_dropSO;
+    public DropSO GetDropData()=> m_collectSO.Drop;
+
+    //visual‚ÉŠÖ‚í‚é‚à‚Ì
+    [SerializeField] private Transform m_root;
+
+    private ReturnObjectToPool m_visualreturn;
 
     private void Awake()
     {
@@ -40,7 +45,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private void OnEnable()
     {
-        m_attack = m_collectSO.Attack;
+
     }
 
     public void SetMoveSpeed(float moveSpeed)
@@ -74,6 +79,46 @@ public class TrashController : MonoBehaviour, ILockOnTarget
             m_returnObjectToPool.ReturnToPool();
             m_movementHandler.MoveAll(m_initDir);
         }
+    }
+
+    public void Damage(int damage)
+    {
+        m_hp -= damage;
+
+        if (m_hp <= 0)
+        {
+
+            m_returnObjectToPool.ReturnToPool();
+        }
+    }
+
+    public void SetVisual(ObjectPoolManager pool)
+    {
+        //returnˆ—
+        if (m_visualreturn != null)
+        {
+            m_visualreturn.ReturnToPool();
+            m_visualreturn = null;
+        }
+
+        //visual“K‰ž
+        GameObject visual = pool.GetObjectFromPool();
+
+        visual.transform.SetParent(m_root);
+        visual.transform.localPosition = Vector3.zero;
+        visual.transform.localRotation = Quaternion.identity;
+        visual.transform.localScale = Vector3.one;
+
+        visual.SetActive(true);
+
+        m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+    }
+
+    public void SetStatsData(CollectSO collectSO)
+    {
+        m_collectSO = collectSO;
+        m_attack = m_collectSO.Attack;
+        m_hp = m_collectSO.HP;
     }
 }
 

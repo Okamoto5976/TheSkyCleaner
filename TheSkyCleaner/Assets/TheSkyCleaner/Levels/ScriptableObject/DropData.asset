@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
-  m_Name: enemy_a
+  m_Name: EnemyMoving
   m_EditorClassIdentifier: Assembly-CSharp::DropSO
   m_dropdata: {fileID: 11400000}
-  m_dropname: enemy_a
+  m_dropname: EnemyMoving
   m_materials:
   - type: 0
     amount: 2
@@ -21,6 +21,22 @@ MonoBehaviour:
     amount: 2
   - type: 2
     amount: 3
+  m_fuel: 0
+--- !u!114 &-4333324295571426767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
+  m_Name: EnemyTargetting
+  m_EditorClassIdentifier: Assembly-CSharp::DropSO
+  m_dropdata: {fileID: 11400000}
+  m_dropname: EnemyTargetting
+  m_materials: []
   m_fuel: 0
 --- !u!114 &-3647694940158141256
 MonoBehaviour:
@@ -32,14 +48,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
-  m_Name: collect_a
+  m_Name: TrashMetal
   m_EditorClassIdentifier: Assembly-CSharp::DropSO
   m_dropdata: {fileID: 11400000}
-  m_dropname: collect_a
+  m_dropname: TrashMetal
   m_materials:
   - type: 0
-    amount: 5
-  m_fuel: 10
+    amount: 3
+  m_fuel: 0
+--- !u!114 &-1742822907939894068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
+  m_Name: TrashTank
+  m_EditorClassIdentifier: Assembly-CSharp::DropSO
+  m_dropdata: {fileID: 11400000}
+  m_dropname: TrashTank
+  m_materials: []
+  m_fuel: 30
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,3 +87,58 @@ MonoBehaviour:
   m_dropSO:
   - {fileID: -8817795706234740082}
   - {fileID: -3647694940158141256}
+  - {fileID: 4249889084963621162}
+  - {fileID: -4333324295571426767}
+  - {fileID: 3756387025759845285}
+  - {fileID: -1742822907939894068}
+  - {fileID: 1726786354636161165}
+--- !u!114 &1726786354636161165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
+  m_Name: TrashCloth
+  m_EditorClassIdentifier: Assembly-CSharp::DropSO
+  m_dropdata: {fileID: 11400000}
+  m_dropname: TrashCloth
+  m_materials:
+  - type: 1
+    amount: 3
+  m_fuel: 0
+--- !u!114 &3756387025759845285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
+  m_Name: LargeTrash
+  m_EditorClassIdentifier: Assembly-CSharp::DropSO
+  m_dropdata: {fileID: 11400000}
+  m_dropname: LargeTrash
+  m_materials: []
+  m_fuel: 0
+--- !u!114 &4249889084963621162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50cfaa922590e848b12f960aebb95ac, type: 3}
+  m_Name: EnemyThrowing
+  m_EditorClassIdentifier: Assembly-CSharp::DropSO
+  m_dropdata: {fileID: 11400000}
+  m_dropname: EnemyThrowing
+  m_materials: []
+  m_fuel: 0

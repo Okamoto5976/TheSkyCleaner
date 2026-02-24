@@ -14,6 +14,18 @@ public class TrashManager : MonoBehaviour
 
     private WaitForSeconds m_sleepTime;
 
+    [System.Serializable]
+    public struct CollectType
+    {
+        [SerializeField] private ObjectPoolManager m_visualPool;
+        [SerializeField] private CollectSO m_collectData;
+        public ObjectPoolManager VisualPool => m_visualPool;
+        public CollectSO CollectData => m_collectData;
+    };
+
+    [Header("Collect Types (Sequences)")]
+    [SerializeField] private CollectType[] m_collectTypes;
+
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 10f;
     [SerializeField] private Vector3 m_direction;
@@ -48,14 +60,41 @@ public class TrashManager : MonoBehaviour
         Obj.SetMoveDirection(m_direction);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
-        //Debug.Log($"{m_moveSpeed}");
-        //Debug.Log($"{m_direction}");
+
+        int idx = Random.Range(0, m_collectTypes.Length);
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
         //ÉSÉ~ÇÃê›íË
         SetTrashInfo(obj);
 
         //Debug.Log(obj);
 
         return;
+    }
+
+    public GameObject SetThrow()//LargeTrashÇÃÇŸÇ§Ç≈åƒÇ‘
+    {
+        GameObject obj = m_pool.GetObjectFromPool(); //åƒÇ—èoÇµ
+        var Obj = obj.GetComponent<TrashController>();
+        Obj.SetMoveDirection(m_direction);
+        Obj.SetMoveSpeed(m_moveSpeed);
+        Obj.Initialized(m_direction);
+
+        int idx = Random.Range(0, m_collectTypes.Length);
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
+
+        return obj;
     }
 
     public void SetTrashInfo(GameObject obj)

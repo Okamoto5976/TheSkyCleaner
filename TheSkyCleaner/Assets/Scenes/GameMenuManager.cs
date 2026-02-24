@@ -21,11 +21,12 @@ public class GameMenuManager : MonoBehaviour
     void Update()
     {
         //ESCキーが押された時
-       // if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        if (m_Pause.WasPressedThisFrame())
-        {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
             ESCpussyu();
-        }
+        // if (m_Pause.WasPressedThisFrame())
+        // {
+
+        // }
         if (m_poseUI.activeSelf)
         {
             //マウスが動いたら選択枠消す

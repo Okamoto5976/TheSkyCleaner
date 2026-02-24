@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Logger m_logger;
     [SerializeField] private EnemyPoolManager m_poolEnemy;
     [SerializeField] private TrashPoolManager m_poolTrash;
+    [SerializeField] private TrashManager m_trashManager;
 
     [SerializeField] public AxisVector3Container m_target;
 
@@ -19,9 +20,19 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Vector2 m_spawnMax;      // X,Y max
     [SerializeField] private float m_spawnInterval = 0.3f;
 
+    [System.Serializable]
+    public struct EnemyTypes
+    {
+        [SerializeField] private EnemySequence m_enemyType;
+        [SerializeField] private ObjectPoolManager m_visualPool;
+        [SerializeField] private EnemySO m_enemyData;
+        public EnemySequence EnemyType => m_enemyType;
+        public ObjectPoolManager VisualPool => m_visualPool;
+        public EnemySO EnemyData => m_enemyData;
+    };
     [Header("Enemy Types (Sequences)")]
-    [SerializeField] private EnemySequence[] m_enemyTypes;
-    [SerializeField] private ObjectPoolManager[] m_visualPools;
+    [SerializeField] private EnemyTypes[] m_enemyTypes;
+    
 
     [Header("Default Movement")]
     [SerializeField] private bool m_loopSequence = false;
@@ -71,11 +82,14 @@ public class EnemyManager : MonoBehaviour
         int idx = Random.Range(0, m_enemyTypes.Length);
         var seq = m_enemyTypes[idx];
 
-        var pool = m_visualPools[(int)seq.VisualType];
+        var pool = seq.VisualPool;
         obj.SetVisual(pool);
 
+        var data = seq.EnemyData;
+        obj.SetStatsData(data);
+
         List<EnemyStateMachine.StateMachineInstance> seqInstance = new();
-        foreach (var s in seq.States)
+        foreach (var s in seq.EnemyType.States)
         {
             EnemyStateMachine.StateMachineInstance newState = new()
             {
@@ -95,6 +109,7 @@ public class EnemyManager : MonoBehaviour
         machine.SetTarget(m_target);
         machine.SetPool(m_poolEnemy);
         machine.SetPoolObj(m_poolTrash);
+        machine.SetTrashManager(m_trashManager);
         machine.SetLogger(m_logger);
        
 
