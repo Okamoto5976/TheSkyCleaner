@@ -16,6 +16,7 @@ public class InputHandler : MonoBehaviour
 
         [HideInInspector] public float time;
         [HideInInspector] public bool isHoldSuccessful;
+        [HideInInspector] public bool isPressed;
     }
 
     [Header("Logger")]
@@ -65,8 +66,9 @@ public class InputHandler : MonoBehaviour
         if (IsActionNotFound(buttonAction)) return;
         if (buttonAction.Action.IsPressed())
         {
-            if (buttonAction.time == 0)
+            if (!buttonAction.isPressed)
             {
+                buttonAction.isPressed = true;
                 if (!IsContainerNotFound(buttonAction.Container.OnPress, "OnPress"))
                 {
                     buttonAction.Container.OnPress.Trigger();
@@ -113,6 +115,7 @@ public class InputHandler : MonoBehaviour
                 }
             }
             buttonAction.time = 0;
+            buttonAction.isPressed = false;
         }
     }
 

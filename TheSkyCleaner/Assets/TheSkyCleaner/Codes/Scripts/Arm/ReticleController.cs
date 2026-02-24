@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditorInternal.ReorderableList;
 
 public class ReticleController : MonoBehaviour
 {
@@ -169,7 +168,6 @@ public class ReticleController : MonoBehaviour
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
                 m_LockOnCandidates.Add(target);
         }
-
     }
     private void UpdateLockEnemies()//ŒŸ’m‚³‚ê‚½’†‚Å‹ß‚¢‚à‚Ì‚ð“ü‚ê‚é
     {

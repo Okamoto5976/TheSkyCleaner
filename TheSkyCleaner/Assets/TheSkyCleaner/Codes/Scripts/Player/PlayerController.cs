@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private TiltHandler m_playerTiltHandler;
-    [SerializeField] private ReticleController m_reticleController;
+    [SerializeField] private TiltHandler m_offsetTiltHandler;
     [SerializeField] private AnimatorVariableDriver m_animatorVariableDriver;
 
     [SerializeField] private StringContainer m_dodgeAnimationToggleBoolName;
     [SerializeField] private StringContainer m_dodgeAnimationHorizontalFloatName;
+
+    [Header("External Components")]
+    [SerializeField] private ReticleController m_reticleController;
 
     [Header("Global Variable Containers")]
     [SerializeField] private PlayerStatus m_playerStatus;
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 m_reticleAxis;
 
     private Transform m_transform;
+
+    private IDamage ShotTarget => m_reticleController.GetPrimaryTarget();
 
     private void Awake()
     {
@@ -53,8 +58,14 @@ public class PlayerController : MonoBehaviour
         m_playerStatus.UpdateMovementInput(m_inputContainer.MovementAxis);
         PassReticle();
         MovePlayer(ref m_movementAxis);
+        Quaternion offset = Quaternion.identity;
+        if (ShotTarget != null)
+        {
+            offset = Quaternion.LookRotation(ShotTarget.Transform.position - m_transform.position);
+        }
         m_playerTiltHandler.TiltOnYaw(m_movementAxis);
         m_playerTiltHandler.TiltYaw(m_movementAxis.x);
+        m_offsetTiltHandler.TiltAll(offset);
     }
 
     private void FixedUpdate()
