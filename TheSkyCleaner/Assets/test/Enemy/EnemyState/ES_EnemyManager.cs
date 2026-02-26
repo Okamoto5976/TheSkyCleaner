@@ -39,6 +39,8 @@ public class EnemyManager : MonoBehaviour
 
     private WaitForSeconds m_wait;
 
+    [Header("Boss Container")]
+    [SerializeField] private GameObject m_boss;
 
     private void Awake()
     {
@@ -75,7 +77,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SetEnemyInfo(T_Enemy obj)
     {
-        SetRandomPosition(obj.gameObject);
+        SetSpawn(obj.gameObject);
         var machine = obj.EnemyStateMachine;
 
         // “G1/2/3 ‚ðƒ‰ƒ“ƒ_ƒ€‘I‘ð
@@ -118,6 +120,11 @@ public class EnemyManager : MonoBehaviour
         machine.SetSequence(seqInstance, m_loopSequence);
 
         machine.Initialize();
+    }
+
+    private void SetSpawn(GameObject obj)
+    {
+        obj.transform.position = m_boss.transform.position;
     }
 
     private void SetRandomPosition(GameObject obj)

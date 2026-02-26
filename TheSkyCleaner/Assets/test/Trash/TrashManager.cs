@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 
@@ -13,6 +14,8 @@ public class TrashManager : MonoBehaviour
     [SerializeField] private float m_spawnTrashInterval = 0.3f;
 
     private WaitForSeconds m_sleepTime;
+
+    [SerializeField] private GameObject m_boss;//のちにコンテナの座標をとる
 
     [System.Serializable]
     public struct CollectType
@@ -57,7 +60,11 @@ public class TrashManager : MonoBehaviour
 
         GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<TrashController>();
-        Obj.SetMoveDirection(m_direction);
+
+        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
 
@@ -81,7 +88,11 @@ public class TrashManager : MonoBehaviour
     {
         GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<TrashController>();
-        Obj.SetMoveDirection(m_direction);
+
+        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
 
@@ -99,9 +110,16 @@ public class TrashManager : MonoBehaviour
 
     public void SetTrashInfo(GameObject obj)
     {
-        SetRandomPosition(obj);
+        //SetRandomPosition(obj);
+        SetSpawn(obj);
     }
  
+    private void SetSpawn(GameObject obj)
+    {
+        obj.transform.position = m_boss.transform.position;
+        obj.SetActive(true);
+    }
+
     private void SetRandomPosition(GameObject obj)
     {
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
