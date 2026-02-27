@@ -8,14 +8,27 @@ public class BossController : MonoBehaviour, IDamage
     [SerializeField] private Logger m_logger;
 
     [System.Serializable]
+    private struct STATE
+    {
+        [SerializeField] private BossStateBase state;
+        [SerializeField] private bool isOneTimeOnly;
+
+        public readonly BossStateBase State => state;
+        public readonly bool IsOneTimeOnly => isOneTimeOnly;
+    }
+
+    [System.Serializable]
     private struct Phase
     {
-        [SerializeField] private List<BossStateBase> states;
+        [SerializeField] private BossStateBase entryState;
+        [SerializeField] private List<STATE> states;
         [SerializeField] private bool isLooping;
+        [SerializeField] private BossStateBase exitState;
 
-
-        public readonly List<BossStateBase> States => states;
+        public readonly BossStateBase EntryState => entryState;
+        public readonly List<STATE> States => states;
         public readonly bool IsLooping => isLooping;
+        public readonly BossStateBase ExitState => exitState;
     }
 
     [SerializeField] private TriggerContainer m_activeStateTrigger;
@@ -35,7 +48,7 @@ public class BossController : MonoBehaviour, IDamage
         set { m_currentBossStateIndex.SetValue(value); }
     }
     private Phase CurrentPhase => m_phases[CurrentPhaseIndex];
-    private BossStateBase CurrentState => CurrentPhase.States[CurrentStateIndex];
+    private BossStateBase CurrentState => m_isEntryState ? CurrentPhase.EntryState : CurrentPhase.States[CurrentStateIndex].State;
     [SerializeField] private List<Phase> m_phases;
 
     [Header("Components")]
@@ -55,6 +68,8 @@ public class BossController : MonoBehaviour, IDamage
 
     private float m_stateTime = 0;
     public float StateTime => m_stateTime;
+
+    private bool m_isEntryState = true;
 
     private void Awake()
     {
@@ -112,7 +127,11 @@ public class BossController : MonoBehaviour, IDamage
 
         if (CurrentState.IsStateEnd)
         {
-            if (CurrentPhase.IsLooping)
+            if (m_isEntryState)
+            {
+                m_isEntryState = false;
+            }
+            else if (CurrentPhase.IsLooping)
             {
                 CurrentStateIndex = (CurrentStateIndex + 1) % CurrentPhase.States.Count;
             }
@@ -137,11 +156,12 @@ public class BossController : MonoBehaviour, IDamage
 
     public void PlayAnimation(string animationName)
     {
-        m_animator.Play(animationName);
+        m_animator.SetTrigger(animationName);
     }
 
     private void Activate()
     {
+        m_isEntryState = true;
         m_isBossActive.SetValue(true);
         CurrentStateIndex = 0;
         m_stateTime = CurrentState.EnterAction(this);

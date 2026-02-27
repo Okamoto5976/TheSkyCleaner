@@ -8,6 +8,8 @@ public class BossMoveState : BossStateBase
     [SerializeField] private float m_moveTime;
     [SerializeField] private float m_endTime;
 
+    private Vector3 m_previousPosition;
+
     public override bool DoAction(BossController bossController)
     {
         switch (m_actionIndex)
@@ -22,14 +24,16 @@ public class BossMoveState : BossStateBase
 
     private void DoMove(BossController bossController)
     {
-        Vector3 pos = Vector3.Lerp(m_position, bossController.Transform.position, bossController.StateTime / m_moveTime);
+        Debug.Log($"{bossController.StateTime}, {m_moveTime}, {bossController.StateTime / m_moveTime}");
+        Vector3 pos = Vector3.Lerp(m_position, m_previousPosition, bossController.StateTime / m_moveTime);
         bossController.MovementHandler.SetPosition(pos);
     }
 
-    public override float EnterAction(BossController controller)
+    public override float EnterAction(BossController bossController)
     {
         m_actionIndex = 0;
         m_isStateEnd = false;
+        m_previousPosition = bossController.Transform.position;
         return m_rampTime;
     }
 

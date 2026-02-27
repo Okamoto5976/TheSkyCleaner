@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,6 +6,10 @@ using UnityEngine.Events;
 public class HealthContainer : ScriptableObject
 {
     [SerializeField] private BooleanContainer m_isInvulnerable;
+    [SerializeField] private BooleanContainer m_isDamageInvulnerable;
+    public BooleanContainer IsDamageInvulnerable => m_isDamageInvulnerable;
+    [SerializeField] private FloatContainer m_invulnerabilityTime;
+    public float InvulnerabilityTime => m_invulnerabilityTime.Value;
     [SerializeField] private FloatContainer m_fuel;
     [SerializeField] private IntegerContainer m_maxHealth;
     public int Value => (int)Mathf.Ceil(m_fuel.Value);

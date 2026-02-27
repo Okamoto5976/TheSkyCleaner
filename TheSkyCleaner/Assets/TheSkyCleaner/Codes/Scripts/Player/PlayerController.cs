@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Global Variable Containers")]
     [SerializeField] private PlayerStatus m_playerStatus;
+    [SerializeField] private TriggerContainer m_playerDodgeSuccessful;
+    [SerializeField] private BooleanContainer m_isDodgeInvulnerable;
+    [SerializeField] private FloatContainer m_playerDodgeInvulnerabilityTime;
 
     [Header("Events")]
 
@@ -35,22 +39,27 @@ public class PlayerController : MonoBehaviour
 
     private IDamage ShotTarget => m_reticleController.GetPrimaryTarget();
 
+    private WaitForSeconds m_dodgeTime;
+
     private void Awake()
     {
         m_transform = transform;
         m_movementHandler = GetComponent<MovementHandler>();
         m_playerAttackController = GetComponent<PlayerAttackController>();
         m_movementAxis = Vector2.zero;
+        m_dodgeTime = new(m_playerDodgeInvulnerabilityTime.Value);
     }
 
     private void OnEnable()
     {
         m_inputContainer.StrongAction.Tap.OnTrigger += OnPlayerDodge;
+        m_playerDodgeSuccessful.OnTrigger += OnDodgeSuccess;
     }
 
     private void OnDisable()
     {
         m_inputContainer.StrongAction.Tap.OnTrigger -= OnPlayerDodge;
+        m_playerDodgeSuccessful.OnTrigger -= OnDodgeSuccess;
     }
 
     private void Update()
@@ -83,6 +92,18 @@ public class PlayerController : MonoBehaviour
     public void OnPlayerDodge()
     {
         m_animatorVariableDriver.TriggerBool(m_dodgeAnimationToggleBoolName.Value);
+    }
+
+    private void OnDodgeSuccess()
+    {
+        StartCoroutine(DoDodgeInvulnerability());
+    }
+
+    private IEnumerator DoDodgeInvulnerability()
+    {
+        m_isDodgeInvulnerable.SetValue(true);
+        yield return m_dodgeTime;
+        m_isDodgeInvulnerable.SetValue(false);
     }
 
     public void MovePlayer(ref Vector2 axis)

@@ -61,7 +61,10 @@ public class BossDirectAttackState : BossStateBase
     {
         foreach (var attackArea in m_attackAreas)
         {
-            if (attackArea.Contains(bossController.PlayerPosition))
+            Rect adjustedRect = attackArea;
+            adjustedRect.center = new Vector3(adjustedRect.x, adjustedRect.y, 0);
+            Debug.Log($"{adjustedRect}, {bossController.PlayerPosition}");
+            if (adjustedRect.Contains(bossController.PlayerPosition))
             {
                 bossController.PlayerHealth.Damage(m_attackStrength);
             }
