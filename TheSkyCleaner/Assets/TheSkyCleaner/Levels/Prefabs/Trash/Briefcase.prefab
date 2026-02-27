@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996395773154806472}
   - component: {fileID: 8470429850756938204}
+  - component: {fileID: 5542344682314081595}
   m_Layer: 0
   m_Name: Briefcase
   m_TagString: Untagged
@@ -45,6 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1949203fa3d88d747beed78ed63870dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReturnObjectToPool
+--- !u!95 &5542344682314081595
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178401720077234917}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 69142dfd70fcc5c459460136078f36f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2752294972591378945
 PrefabInstance:
   m_ObjectHideFlags: 0
