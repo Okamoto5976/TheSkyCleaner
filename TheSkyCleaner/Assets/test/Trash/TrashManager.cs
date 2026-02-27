@@ -20,9 +20,9 @@ public class TrashManager : MonoBehaviour
     [System.Serializable]
     public struct CollectType
     {
-        [SerializeField] private ObjectPoolManager m_visualPool;
+        [SerializeField] private ObjectPoolManager[] m_visualPools;
         [SerializeField] private CollectSO m_collectData;
-        public ObjectPoolManager VisualPool => m_visualPool;
+        public ObjectPoolManager[] VisualPool => m_visualPools;
         public CollectSO CollectData => m_collectData;
     };
 
@@ -70,8 +70,9 @@ public class TrashManager : MonoBehaviour
 
         int idx = Random.Range(0, m_collectTypes.Length);
         var seq = m_collectTypes[idx];
+        int visu_idx = Random.Range(0, seq.VisualPool.Length);
 
-        var pool = seq.VisualPool;
+        var pool = seq.VisualPool[visu_idx];
         Obj.SetVisual(pool);
 
         var data = seq.CollectData;
@@ -98,8 +99,9 @@ public class TrashManager : MonoBehaviour
 
         int idx = Random.Range(0, m_collectTypes.Length);
         var seq = m_collectTypes[idx];
+        int visu_idx = Random.Range(0, seq.VisualPool.Length);
 
-        var pool = seq.VisualPool;
+        var pool = seq.VisualPool[visu_idx];
         Obj.SetVisual(pool);
 
         var data = seq.CollectData;

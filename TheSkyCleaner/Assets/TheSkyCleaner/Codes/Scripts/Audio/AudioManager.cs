@@ -86,7 +86,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySE(AudioSO SE)
     {
-        m_attachSESource.PlayOneShot(SE.Clip);
+        m_attachSESource.PlayOneShot(SE.Clip,SE.Volum);
     }
 
     //=================================================================================

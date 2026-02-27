@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioSO
   m_audiodata: {fileID: 11400000}
   m_audioname: BGMSource
-  AudioList:
-  - audiosource: 
-    clip: {fileID: 0}
-    volum: 0
-    loop: 0
+  audiosource: 
+  clip: {fileID: 0}
+  volum: 0
+  loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,3 +32,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioDataSO
   m_audioSO:
   - {fileID: -4623369157699470011}
+  - {fileID: 6000782726842415583}
+--- !u!114 &6000782726842415583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce6b4755b492fa45891b27b5767a9b3, type: 3}
+  m_Name: New Skill Type
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSO
+  m_audiodata: {fileID: 11400000}
+  m_audioname: 
+  audiosource: 
+  clip: {fileID: 0}
+  volum: 0
+  loop: 0

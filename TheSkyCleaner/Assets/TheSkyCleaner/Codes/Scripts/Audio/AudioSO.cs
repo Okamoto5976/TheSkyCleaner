@@ -10,7 +10,7 @@ public class AudioSO : ScriptableObject
     [SerializeField] private string m_audioname;
     [SerializeField] string audiosource;
     [SerializeField] AudioClip clip;
-    [SerializeField] float volum;
+    [SerializeField, Range(0, 1)] float volum;
     [SerializeField] bool loop;
 
     public string Audiosource { get => audiosource; }
