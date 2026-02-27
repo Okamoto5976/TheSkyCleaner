@@ -1,23 +1,65 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MovementHandler))]
 public class BossController : MonoBehaviour, IDamage
 {
+    [Header("Logger")]
+    [SerializeField] private Logger m_logger;
+
+    [System.Serializable]
+    private struct Phase
+    {
+        [SerializeField] private List<BossStateBase> states;
+        [SerializeField] private bool isLooping;
+
+
+        public readonly List<BossStateBase> States => states;
+        public readonly bool IsLooping => isLooping;
+    }
+
     [SerializeField] private TriggerContainer m_activeStateTrigger;
     [SerializeField] private HealthContainer m_bossHealth;
 
     [SerializeField] private BooleanContainer m_isBossActive;
-    [SerializeField] private IntegerContainer m_currentBossPhase;
-    [SerializeField] private IntegerContainer m_currentBossState;
+    [SerializeField] private IntegerContainer m_currentBossPhaseIndex;
+    [SerializeField] private IntegerContainer m_currentBossStateIndex;
+    private int CurrentPhaseIndex
+    {
+        get { return m_currentBossPhaseIndex.Value; }
+        set { m_currentBossPhaseIndex.SetValue(value); }
+    }
+    private int CurrentStateIndex
+    {
+        get { return m_currentBossStateIndex.Value; }
+        set { m_currentBossStateIndex.SetValue(value); }
+    }
+    private Phase CurrentPhase => m_phases[CurrentPhaseIndex];
+    private BossStateBase CurrentState => CurrentPhase.States[CurrentStateIndex];
+    [SerializeField] private List<Phase> m_phases;
+
+    [Header("Components")]
+    [SerializeField] private Animator m_animator;
+    private MovementHandler m_movementHandler;
+    public MovementHandler MovementHandler => m_movementHandler;
+
+    [Header("Player")]
+    [SerializeField] private AxisVector3Container m_playerPosition;
+    [SerializeField] private HealthContainer m_playerHealth;
+    public Vector3 PlayerPosition => m_playerPosition.Value;
+    public HealthContainer PlayerHealth => m_playerHealth;
 
     private Transform m_transform;
-
-
     public Transform Transform => m_transform;
     public GameObject GameObject => gameObject;
+
+    private float m_stateTime = 0;
+    public float StateTime => m_stateTime;
 
     private void Awake()
     {
         m_transform = transform;
+        m_movementHandler = GetComponent<MovementHandler>();
     }
     public DropSO Collect()
     {
@@ -61,18 +103,49 @@ public class BossController : MonoBehaviour, IDamage
 
     private void OnInactive()
     {
-
+        // nop
     }
 
     private void OnActive()
     {
-        
+        m_stateTime -= Time.deltaTime;
+
+        if (CurrentState.IsStateEnd)
+        {
+            if (CurrentPhase.IsLooping)
+            {
+                CurrentStateIndex = (CurrentStateIndex + 1) % CurrentPhase.States.Count;
+            }
+            else
+            {
+                CurrentStateIndex = Mathf.Min(CurrentStateIndex + 1, CurrentPhase.States.Count - 1);
+            }
+
+            m_stateTime = CurrentState.EnterAction(this);
+            m_logger.Log($"Next State, Next Action for {m_stateTime}", this);
+        }
+
+        if (m_stateTime <= 0)
+        {
+            CurrentState.AdvanceAction(this);
+            m_stateTime = CurrentState.GetActionTime();
+            m_logger.Log($"Next Action for {m_stateTime}", this);
+        }
+
+        CurrentState.DoAction(this);
+    }
+
+    public void PlayAnimation(string animationName)
+    {
+        m_animator.Play(animationName);
     }
 
     private void Activate()
     {
         m_isBossActive.SetValue(true);
-        m_currentBossState.SetValue(0);
+        CurrentStateIndex = 0;
+        m_stateTime = CurrentState.EnterAction(this);
+        m_logger.Log($"{m_stateTime}", this);
     }
 
 

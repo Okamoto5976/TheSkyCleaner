@@ -19,6 +19,11 @@ public class MovementHandler : MonoBehaviour
         m_transform.Translate(vector, space);
         return m_success;
     }
+
+    public virtual void SetPosition(Vector3 position)
+    {
+        m_transform.position = position;
+    }
     /// <summary>
     /// Move horizontally in <b><i>local space</i></b>
     /// </summary>

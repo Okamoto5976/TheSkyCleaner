@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviour
         Quaternion offset = Quaternion.identity;
         if (ShotTarget != null)
         {
-            offset = Quaternion.LookRotation(ShotTarget.Transform.position - m_transform.position);
+            Vector3 pos = ShotTarget.Transform.position - m_transform.position;
+            pos.z /= 10;
+            offset = Quaternion.LookRotation(pos);
         }
         m_playerTiltHandler.TiltOnYaw(m_movementAxis);
         m_playerTiltHandler.TiltYaw(m_movementAxis.x);

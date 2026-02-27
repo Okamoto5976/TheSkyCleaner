@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2b73799b1d6577c4799a40f14a7ca7fa, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -298,11 +298,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41182759}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 69b3321d53ab5594e915902085140a31, type: 3}
+  m_Resource: {fileID: 8300000, guid: c2803dc644e15a145b1c77c799027fea, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -19940,6 +19940,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &313160088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/DebugAction1
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
+  m_ActionId: f67b1313-0bf8-4dc0-8588-067911cea6ab
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -26365,10 +26379,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DebugInputHandler
   m_logger: {fileID: 933229035}
   m_debugAction_1:
-    inputActionReference: {fileID: 989675477}
+    inputActionReference: {fileID: 313160088}
     onTap:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+          m_TargetAssemblyTypeName: TriggerContainer, Assembly-CSharp
+          m_MethodName: Trigger
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     whileHoldTime:
       m_PersistentCalls:
         m_Calls: []
@@ -26668,7 +26694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e70a2ab4875ff4aa209597343d31eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Logger
-  m_isEnabled: 1
+  m_isEnabled: 0
   m_prefix: Utilities
   m_color: {r: 0.72616816, g: 0.7028302, b: 1, a: 1}
 --- !u!1 &947612414
@@ -26859,20 +26885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
   m_ActionId: 8c6a8fa1-a3b3-4c42-abb7-8b883d84818e
---- !u!114 &989675477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/DebugAction1
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
-  m_Asset: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
-  m_ActionId: f67b1313-0bf8-4dc0-8588-067911cea6ab
 --- !u!4 &1013052341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8639197b7f32b41dea43112473c86ae5, type: 3}
@@ -27394,6 +27406,11 @@ MonoBehaviour:
   m_spawnTrashInterval: 0.3
   m_moveSpeed: 4
   m_direction: {x: 0, y: 0, z: -1}
+--- !u!95 &1314229727 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2111555718370931413, guid: 204d014f511bbd64ca8764979730e766, type: 3}
+  m_PrefabInstance: {fileID: 4185377124134515470}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1367804594
 GameObject:
   m_ObjectHideFlags: 0
@@ -38375,6 +38392,52 @@ Transform:
   - {fileID: 760484165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1824079848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1428105908747057617, guid: 204d014f511bbd64ca8764979730e766, type: 3}
+  m_PrefabInstance: {fileID: 4185377124134515470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1824079849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824079848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f20cfe288a311c448e9750bd6698ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossController
+  m_logger: {fileID: 760484166}
+  m_activeStateTrigger: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_bossHealth: {fileID: 11400000, guid: fcff5902f423d57478d15ff982c1350d, type: 2}
+  m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
+  m_currentBossPhaseIndex: {fileID: 11400000, guid: dc3134785cee4e34f8f85fa28750dabc, type: 2}
+  m_currentBossStateIndex: {fileID: 11400000, guid: f1cbf47b2c1832f4c9553b57bbb502b0, type: 2}
+  m_phases:
+  - states:
+    - {fileID: 11400000, guid: a6760076b75eb6d4db4056ac22194d53, type: 2}
+    - {fileID: 11400000, guid: 4421909cb6f90c64abc45fe7a6ce67f4, type: 2}
+    - {fileID: 11400000, guid: ae007fe7ee8a5a044be388279fd8ccb2, type: 2}
+    isLooping: 1
+  m_animator: {fileID: 1314229727}
+  m_playerPosition: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
+  m_playerHealth: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+--- !u!114 &1824079851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824079848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302d25096980e4aac8c9328168b9311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementHandler
+  m_speeds: {x: 0, y: 0, z: 0}
+  m_speedMod: 1
 --- !u!1 &1838661362
 GameObject:
   m_ObjectHideFlags: 0
@@ -39110,7 +39173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996159961576163397, guid: 204d014f511bbd64ca8764979730e766, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6996159961576163397, guid: 204d014f511bbd64ca8764979730e766, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39143,7 +39206,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1428105908747057617, guid: 204d014f511bbd64ca8764979730e766, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1824079849}
+    - targetCorrespondingSourceObject: {fileID: 1428105908747057617, guid: 204d014f511bbd64ca8764979730e766, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1824079851}
   m_SourcePrefab: {fileID: 100100000, guid: 204d014f511bbd64ca8764979730e766, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
