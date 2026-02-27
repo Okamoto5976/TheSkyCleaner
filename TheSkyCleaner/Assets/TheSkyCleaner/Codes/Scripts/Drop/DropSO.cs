@@ -7,7 +7,8 @@ public enum MaterialType
 {
     Thread,
     Cloth,
-    Wood
+    Wood,
+    GasolineCan,
 }
 
 [Serializable]
