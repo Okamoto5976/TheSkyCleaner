@@ -5,8 +5,9 @@ using UnityEngine;
 
 public enum MaterialType
 {
+    Grass,
     Metal,
-    Cloth,
+    Wood,
     Tank,
     Human
 }

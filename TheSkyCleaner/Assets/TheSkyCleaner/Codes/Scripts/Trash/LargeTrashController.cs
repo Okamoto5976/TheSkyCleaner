@@ -30,6 +30,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [Header("Trash")]
     //[SerializeField] private int m_trashSpawn;
     [SerializeField] private int m_trashSpeed;
+    private int m_index; //Trash‚ÌŽí—ÞiWood ‚â Metal)
 
     private TrashController m_trash; //¬‚³‚¢ƒSƒ~–{‘Ì
     public Transform Transform => m_transform;
@@ -94,7 +95,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         
         if(m_hp <= 0)
         {
-            var obj = m_trashManager.SetThrow();
+            var obj = m_trashManager.SetThrow(m_index);
 
             obj.transform.position = this.transform.position;
             obj.gameObject.SetActive(true);
@@ -112,7 +113,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         }
     }
 
-    public void SetVisual(ObjectPoolManager pool)
+    public void SetVisual(ObjectPoolManager pool,int index)
     {
         //returnˆ—
         if (m_visualreturn != null)
@@ -130,6 +131,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         visual.transform.localScale = Vector3.one;
 
         visual.SetActive(true);
+        m_index = index;
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
     }

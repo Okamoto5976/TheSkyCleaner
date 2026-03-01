@@ -66,7 +66,7 @@ public class LargeTrashManager : MonoBehaviour
         var seq = m_collectTypes[idx];
 
         var pool = seq.VisualPool;
-        Obj.SetVisual(pool);
+        Obj.SetVisual(pool,idx);
 
         var data = seq.CollectData;
         Obj.SetStatsData(data);

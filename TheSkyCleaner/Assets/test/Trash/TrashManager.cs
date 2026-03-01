@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.Serialization;
 using UnityEngine;
 
 
@@ -20,9 +19,9 @@ public class TrashManager : MonoBehaviour
     [System.Serializable]
     public struct CollectType
     {
-        [SerializeField] private ObjectPoolManager[] m_visualPools;
+        [SerializeField] private ObjectPoolManager m_visualPool;
         [SerializeField] private CollectSO m_collectData;
-        public ObjectPoolManager[] VisualPool => m_visualPools;
+        public ObjectPoolManager VisualPool => m_visualPool;
         public CollectSO CollectData => m_collectData;
     };
 
@@ -70,9 +69,8 @@ public class TrashManager : MonoBehaviour
 
         int idx = Random.Range(0, m_collectTypes.Length);
         var seq = m_collectTypes[idx];
-        int visu_idx = Random.Range(0, seq.VisualPool.Length);
 
-        var pool = seq.VisualPool[visu_idx];
+        var pool = seq.VisualPool;
         Obj.SetVisual(pool);
 
         var data = seq.CollectData;
@@ -85,7 +83,7 @@ public class TrashManager : MonoBehaviour
         return;
     }
 
-    public GameObject SetThrow()//LargeTrashのほうで呼ぶ
+    public GameObject SetEnemyThrow()//EnemyがTrash取得につかう
     {
         GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<TrashController>();
@@ -99,9 +97,32 @@ public class TrashManager : MonoBehaviour
 
         int idx = Random.Range(0, m_collectTypes.Length);
         var seq = m_collectTypes[idx];
-        int visu_idx = Random.Range(0, seq.VisualPool.Length);
 
-        var pool = seq.VisualPool[visu_idx];
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
+
+        return obj;
+    }
+
+    public GameObject SetThrow(int index)//LargeTrashのほうで呼ぶ
+    {
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
+        var Obj = obj.GetComponent<TrashController>();
+
+        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
+        Obj.SetMoveSpeed(m_moveSpeed);
+        Obj.Initialized(m_direction);
+
+        int idx = Random.Range(index, m_collectTypes.Length);
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
         Obj.SetVisual(pool);
 
         var data = seq.CollectData;

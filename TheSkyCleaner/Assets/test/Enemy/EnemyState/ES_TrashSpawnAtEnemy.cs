@@ -24,8 +24,10 @@ public class ES_TrashSpawnAtEnemy : EnemyState
         {
             m_isSpawnTrash = false;
 
+
+
             //éÊìæ
-            var obj = trashm.SetThrow();
+            var obj = trashm.SetEnemyThrow();
             m_trash = obj.GetComponent<TrashController>();
 
             //ê∂ê¨à íu 
