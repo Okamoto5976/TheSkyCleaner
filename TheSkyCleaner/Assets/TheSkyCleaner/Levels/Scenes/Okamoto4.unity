@@ -20664,8 +20664,10 @@ GameObject:
   - component: {fileID: 441833735}
   - component: {fileID: 441833737}
   - component: {fileID: 441833736}
+  - component: {fileID: 441833739}
+  - component: {fileID: 441833740}
   m_Layer: 5
-  m_Name: PoseMenu
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20729,6 +20731,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441833734}
   m_CullTransparentMesh: 1
+--- !u!95 &441833739
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441833734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e05fe9477df13d043b05f371185c20a9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &441833740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441833734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a9109ae13610c45899841cbacb9e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonFlashAnim
+  anim: {fileID: 441833739}
 --- !u!1 &452514028
 GameObject:
   m_ObjectHideFlags: 0
@@ -33400,7 +33437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278088340414258389, guid: 569f5886e848e1a47bf97c0f6de79403, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6232737567291616901, guid: 569f5886e848e1a47bf97c0f6de79403, type: 3}
       propertyPath: m_Name
@@ -33408,7 +33445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526197719665225425, guid: 569f5886e848e1a47bf97c0f6de79403, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33464,7 +33501,7 @@ GameObject:
   - component: {fileID: 1502458094}
   - component: {fileID: 1502458093}
   m_Layer: 5
-  m_Name: OptionButton
+  m_Name: GameStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38604,7 +38641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1548995614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39529,7 +39566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1814818437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39606,8 +39643,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 599281526}
-  - {fileID: 441833735}
   - {fileID: 1548995616}
+  - {fileID: 441833735}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
