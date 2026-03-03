@@ -1497,12 +1497,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
-  m_animationType: 1
+  m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 932194331}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 932194333}
 --- !u!1 &721373394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,12 +2342,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
   m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 0}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 1706815942}
 --- !u!1 &1275529116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,12 +2496,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
   m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 0}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 721373396}
 --- !u!1 &1367656651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,26 +2891,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeScreen
   m_skillButton: {fileID: 1098795807}
+  m_skillget: {fileID: 1957105929}
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_buttonElements:
   - gameObject: {fileID: 679845292}
     icon: {fileID: 932194331}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - gameObject: {fileID: 1098795805}
     icon: {fileID: 1706815940}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - gameObject: {fileID: 1293015695}
     icon: {fileID: 721373394}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - gameObject: {fileID: 1565135136}
     icon: {fileID: 120291726}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - gameObject: {fileID: 1845210444}
     icon: {fileID: 295666863}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - gameObject: {fileID: 2142771927}
     icon: {fileID: 1855167609}
+    unlockSprite: {fileID: 0}
+    canUnlockSprite: {fileID: 0}
+    lockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_cursorElement:
     gameObject: {fileID: 1275529116}
     moveSpeed: 4
   m_buttonPositions: []
   m_buttonSizes: []
+  m_buttonAnimations:
+  - {fileID: 679845294}
+  - {fileID: 1098795808}
+  - {fileID: 1293015698}
+  - {fileID: 1565135139}
+  - {fileID: 1845210447}
+  - {fileID: 2142771930}
+  m_skills: []
+  m_buttonImages: []
   m_cursorPos: {x: 0, y: 0}
-  transitionG: {fileID: 679845292}
 --- !u!4 &1491825292
 Transform:
   m_ObjectHideFlags: 0
@@ -2979,12 +3025,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
   m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 0}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 120291728}
 --- !u!1001 &1594358937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3807,12 +3859,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
   m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 0}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 295666865}
 --- !u!1 &1855167609
 GameObject:
   m_ObjectHideFlags: 0
@@ -4000,6 +4058,14 @@ MonoBehaviour:
   unlockSkills: []
   m_cost: {fileID: 1371691976}
   m_inventorySO: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
+  m_upgradeScreen: {fileID: 1491825291}
+  m_buttonAnimations:
+  - {fileID: 679845294}
+  - {fileID: 1098795808}
+  - {fileID: 1293015698}
+  - {fileID: 1565135139}
+  - {fileID: 1845210447}
+  - {fileID: 2142771930}
 --- !u!4 &1957105930
 Transform:
   m_ObjectHideFlags: 0
@@ -4268,12 +4334,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e3abd5c64fd784e988bc702046969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  canPress: 0
   isAnimation: 0
   m_animationType: 0
+  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
   m_animationTimer:
-    anim_push: 5
-    anim_pop: 5
-  m_icon: {fileID: 0}
+    anim_push: 10
+    anim_pop: 10
+    anim_finish: 5
+  m_changeSize:
+    size_push: 0.8
+    size_pop: 1.1
+  m_icon: {fileID: 1855167611}
 --- !u!1001 &3847382001613005800
 PrefabInstance:
   m_ObjectHideFlags: 0

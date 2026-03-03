@@ -1,29 +1,96 @@
+using System.Collections.Generic;
 using System.Security;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum ResultButtonType
+{
+    TransitionTitle,
+    TransitionIngame,
+}
+
 public class ResultScreen : MonoBehaviour
 {
+    [System.Serializable]
+    struct ButtonElement
+    {
+        [SerializeField] private GameObject gameObject;
+        [SerializeField] private GameObject icon;
+
+        public readonly GameObject GameObject => gameObject;
+        public readonly GameObject Icon => icon;
+    };
+
+    [System.Serializable]
+    struct CursorElement
+    {
+        [SerializeField] private GameObject gameObject;
+        [SerializeField] private float moveSpeed;
+
+        public readonly GameObject GameObject => gameObject;
+        public readonly float MoveSpeed => moveSpeed;
+    }
+
+    [System.Serializable]
+    struct TextElement
+    {
+        [SerializeField] private TextMeshProUGUI resultString;
+        [SerializeField] private string text;
+
+        public readonly TextMeshProUGUI ResultString => resultString;
+        public readonly string Text => text;
+    }
+
+    [System.Serializable]
+    struct AircraftElement
+    {
+        [SerializeField] private GameObject gameObject;
+        [SerializeField] private bool isRotate;
+        [SerializeField] private float rotateSpeed;
+
+        public readonly GameObject GameObject => gameObject;
+        public readonly bool IsRotate => isRotate;
+        public readonly float RotateSpeed => rotateSpeed;
+    }
+
+    [SerializeField] private ButtonConditionSO m_buttonCondition;
+
+    private int m_conditionsForDecision;
+
+    [SerializeField] private List<ButtonElement> m_buttonElements;
+    [SerializeField] private CursorElement m_cursorElement;
+    [SerializeField] private List<TextElement> m_textElements;
+    [SerializeField] private AircraftElement m_aircraftElement;
+
     private int timer;  // 仮
     private int score;  // 仮
     public int[] PartLevel = new int[3];    // 仮
 
-    [SerializeField] private GameObject[] m_button; // 画面遷移用ボタン
-    [SerializeField] private GameObject m_cursor;   // カーソルのオブジェクト
-    [SerializeField] private TextMeshProUGUI[] m_resultText;        // ゲームの結果の文字
-    [SerializeField] private TextMeshProUGUI[] m_resultCountText;   // ゲームの結果の数字
-    [SerializeField] private TextMeshProUGUI[] m_buttonText;        // ボタンに表示する文字
-    private Vector2[] m_buttonPos = new Vector2[2];
+    [SerializeField] private List<Vector2> m_buttonPositions;
+    [SerializeField] private List<Vector3> m_buttonSizes;
+    [SerializeField] private List<ButtonAnimation> m_buttonAnimations;
+
+    [SerializeField] private Vector3 m_axis = new Vector3(0.0f, 1.0f, 0.0f);
+    private Transform m_aircraftTransform;
+
     private int m_screenWidth;  // 取得した画面の横幅を格納する変数
     private int m_screenHeight; // 取得した画面の縦幅を格納する変数
-    private float m_cursorPosX; // カーソルのx座標
-    private float m_cursorPosY; // カーソルのy座標
-    private bool pressDecide;
+    [SerializeField] private Vector2 m_cursorPos; // カーソルの座標
+    [SerializeField] private List<TextMeshProUGUI> m_resultCountText;
+    private int m_pressButtonType;  // 押されたボタンの種類
+    private int m_pressDecide;      // ボタンが押されたか離れたか
+    private bool pressedButton;     // 以前にボタンが押されたか
+
+    private void Awake()
+    {
+        m_aircraftTransform = m_aircraftElement.GameObject.transform;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         timer = 99;
         score = 8765432;
@@ -31,15 +98,17 @@ public class ResultScreen : MonoBehaviour
         PartLevel[1] = 234;
         PartLevel[2] = 567;
 
-        m_screenWidth = Screen.width;   // 画面の横幅を取得する
-        m_screenHeight = Screen.height; // 画面の縦幅を取得する
-        m_cursorPosX = m_screenWidth / 2;   // カーソルのx座標
-        m_cursorPosY = m_screenHeight / 2;  // カーソルのy座標
-        m_resultText[0].text = "Score";
-        m_resultText[1].text = "time";
-        m_resultText[2].text = "Fuel";
-        m_resultText[3].text = "Armor";
-        m_resultText[4].text = "EneBul";
+        //m_screenWidth = Screen.width;   // 画面の横幅を取得する
+        //m_screenHeight = Screen.height; // 画面の縦幅を取得する
+        m_screenWidth = 845;    // UIを他のシーンより手前に表示しているから少し大きい
+        m_screenHeight = 475;
+        m_cursorPos = Vector2.zero;     // カーソルの座標
+        m_conditionsForDecision = (int)m_buttonCondition.ConditionsForDecision;
+
+        for (int i = 0; i < m_textElements.Count; i++)
+        {
+            m_textElements[i].ResultString.text = m_textElements[i].Text;
+        }
 
         m_resultCountText[0].text = score.ToString("N0") + " pt.";
         m_resultCountText[1].text = timer.ToString("N0");
@@ -47,18 +116,25 @@ public class ResultScreen : MonoBehaviour
         m_resultCountText[3].text = "Lv." + PartLevel[1].ToString("N0");
         m_resultCountText[4].text = "Lv." + PartLevel[2].ToString("N0");
 
-        m_buttonText[0].text = "InGame";
-        m_buttonText[1].text = "Upgrade";
-        m_buttonPos[0] = m_button[0].transform.position;    // ボタンの位置を取得
-        m_buttonPos[1] = m_button[1].transform.position;    // ボタンの位置を取得
+        for (int i = 0; i < m_buttonElements.Count; i++)
+        {
+            m_buttonPositions.Add(m_buttonElements[i].GameObject.transform.localPosition);          // ボタンの位置を取得
+            m_buttonSizes.Add(m_buttonElements[i].Icon.GetComponent<RectTransform>().rect.size);    // ボタンの大きさを取得
+            m_buttonSizes[i] /= 2;                                                                  // ボタンの取得した大きさを半分にする
+            m_buttonAnimations.Add(m_buttonElements[i].GameObject.GetComponent<ButtonAnimation>());
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (PressDecide() == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = true;
+            m_pressDecide = 1;
+        }
+        else if (PressDecide() == 2)    // 決定ボタンが離されたとき
+        {
+            m_pressDecide = 2;
         }
     }
 
@@ -66,19 +142,51 @@ public class ResultScreen : MonoBehaviour
     {
         CursorControl();    // カーソルの操作
 
-        if (pressDecide == true) // 決定ボタンが押されたとき
+        if (m_pressDecide == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = false;
+            m_pressDecide = 0;
 
-            if (PressButton(m_buttonPos[0], 75, 40) == true)
+            if (PressButton(m_buttonPositions[(int)ResultButtonType.TransitionTitle], m_buttonSizes[(int)ResultButtonType.TransitionTitle]) == true)
             {
-                Debug.Log("インゲームへ");
-                // ロードシーン（ingame）
+                // タイトル画面
+                pressedButton = true;
+                m_pressButtonType = (int)ResultButtonType.TransitionTitle;
+                m_buttonAnimations[(int)ResultButtonType.TransitionTitle].m_animationType = 1;
+                m_buttonAnimations[(int)ResultButtonType.TransitionTitle].isAnimation = true;
             }
-            if (PressButton(m_buttonPos[1], 75, 40) == true)
+            if (PressButton(m_buttonPositions[(int)ResultButtonType.TransitionIngame], m_buttonSizes[(int)ResultButtonType.TransitionIngame]) == true)
             {
-                Debug.Log("アップグレード画面へ");
+                // インゲーム
+                pressedButton = true;
+                m_pressButtonType = (int)ResultButtonType.TransitionIngame;
+                m_buttonAnimations[(int)ResultButtonType.TransitionIngame].m_animationType = 1;
+                m_buttonAnimations[(int)ResultButtonType.TransitionIngame].isAnimation = true;
             }
+
+            if (m_conditionsForDecision == 1)
+            {
+                pressedButton = false;
+                SceneLoader();
+            }
+        }
+        else if (m_pressDecide == 2 && pressedButton == true
+            && m_conditionsForDecision == (int)ConditionsForDecision.PopToDecide)    // 決定ボタンが離された & 決定条件が"PopToDecide"
+        {
+            m_pressDecide = 0;
+
+            m_buttonAnimations[m_pressButtonType].m_animationType = 2;
+            m_buttonAnimations[m_pressButtonType].isAnimation = true;
+            pressedButton = false;
+
+            if (PressButton(m_buttonPositions[m_pressButtonType], m_buttonSizes[m_pressButtonType]) == true)
+            {
+                SceneLoader();
+            }
+        }
+
+        if (m_aircraftElement.IsRotate == true)
+        {
+            AircraftRotator();
         }
     }
 
@@ -101,42 +209,43 @@ public class ResultScreen : MonoBehaviour
         // キーが押されているかどうか
         if (upArrowKey.isPressed)
         {
-            m_cursorPosY += 4f;
+            m_cursorPos.y += m_cursorElement.MoveSpeed;
         }
         if (downArrowKey.isPressed)
         {
-            m_cursorPosY -= 4f;
+            m_cursorPos.y -= m_cursorElement.MoveSpeed;
         }
         if (leftArrowKey.isPressed)
         {
-            m_cursorPosX -= 4f;
+            m_cursorPos.x -= m_cursorElement.MoveSpeed;
         }
         if (rightArrowKey.isPressed)
         {
-            m_cursorPosX += 4f;
+            m_cursorPos.x += m_cursorElement.MoveSpeed;
         }
         // カーソルを画面内に移動する
-        if (m_cursorPosX < 0)
+        if (m_cursorPos.x < -m_screenWidth / 2)
         {
-            m_cursorPosX = 0;
+            m_cursorPos.x = -m_screenWidth / 2;
         }
-        if (m_cursorPosX > m_screenWidth)
+        if (m_cursorPos.x > m_screenWidth / 2)
         {
-            m_cursorPosX = m_screenWidth;
+            m_cursorPos.x = m_screenWidth / 2;
         }
-        if (m_cursorPosY > m_screenHeight)
+        if (m_cursorPos.y > m_screenHeight / 2)
         {
-            m_cursorPosY = m_screenHeight;
+            m_cursorPos.y = m_screenHeight / 2;
         }
-        if (m_cursorPosY < 0)
+        if (m_cursorPos.y < -m_screenHeight / 2)
         {
-            m_cursorPosY = 0;
+            m_cursorPos.y = -m_screenHeight / 2;
         }
         // カーソルを移動させる
-        m_cursor.transform.position = new Vector2(m_cursorPosX, m_cursorPosY);
+        m_cursorElement.GameObject.transform.localPosition = m_cursorPos;
     }
 
     // 決定ボタンが押されたかの検知
+    // & 離されたかの検知
     private int PressDecide()
     {
         // 現在のキーボード情報
@@ -152,6 +261,10 @@ public class ResultScreen : MonoBehaviour
         {
             return 1;
         }
+        else if (enterKey.wasReleasedThisFrame)
+        {
+            return 2;
+        }
         else
         {
             return 0;
@@ -159,14 +272,40 @@ public class ResultScreen : MonoBehaviour
     }
 
     // ボタンが押されたかの検知
-    private bool PressButton(Vector2 pos, float rx, float ry)
+    private bool PressButton(Vector2 pos, Vector2 hSize)
     {
-        Debug.Log("press");
-        if (m_cursorPosX > pos.x - rx && m_cursorPosX < pos.x + rx &&
-            m_cursorPosY > pos.y - ry && m_cursorPosY < pos.y + ry)
+        if (m_cursorPos.x > pos.x - hSize.x && m_cursorPos.x < pos.x + hSize.x &&
+            m_cursorPos.y > pos.y - hSize.y && m_cursorPos.y < pos.y + hSize.y)
         {
             return true;
         }
         return false;
+    }
+
+    // 機体の回転処理
+    private void AircraftRotator()
+    {
+        // １フレームで回転する角度を角速度から計算
+        var angle = m_aircraftElement.RotateSpeed * Time.deltaTime;
+
+        // 既存のrotationに軸回転のクォータニオンを掛ける
+        m_aircraftTransform.rotation = Quaternion.AngleAxis(angle, m_axis) * m_aircraftTransform.rotation;
+    }
+
+    // シーンをロード
+    private void SceneLoader()
+    {
+        switch (m_pressButtonType)
+        {
+            case (int)ResultButtonType.TransitionTitle:
+                Debug.Log("タイトル画面へ");
+                // ロードシーン（title）
+                break;
+
+            case (int)ResultButtonType.TransitionIngame:
+                Debug.Log("インゲームへ");
+                // ロードシーン（ingame）
+                break;
+        }
     }
 }

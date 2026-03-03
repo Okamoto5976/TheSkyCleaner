@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillButton : MonoBehaviour
 {
-    [SerializeField] private SkillSO m_skill;
+    public SkillSO m_skill; // Åö
     [SerializeField] private Skillget m_skillget;
     [SerializeField] private TextMeshProUGUI m_info;
     [SerializeField] private TextMeshProUGUI m_name;

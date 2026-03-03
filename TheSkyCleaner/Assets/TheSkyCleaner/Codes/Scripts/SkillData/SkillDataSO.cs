@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Data/SkillDataSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
     [SerializeField] private List<SkillSO> m_skillSO = new List<SkillSO>();

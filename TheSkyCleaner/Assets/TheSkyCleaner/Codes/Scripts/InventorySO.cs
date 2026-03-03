@@ -1,35 +1,44 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum MaterialType
+{
+    Thread,
+    Cloth,
+    Wood
+}
+
+[Serializable]
+public class DropMaterial
+{
+    public MaterialType type;
+    public int amount;
+}
 
 [CreateAssetMenu(menuName = "Scriptable Objects/InventorySO")]
 public class InventorySO : ScriptableObject
 {
-    public Dictionary<MaterialType, int> m_materials
+    private Dictionary<MaterialType, int> m_materials
         = new Dictionary<MaterialType, int>();
-
-    public Dictionary<MaterialType,int> Material { get => m_materials; }
-
-    [SerializeField] private int m_maxAmount = 50;
 
     public void Add(MaterialType type, int amount)
     {
         if (m_materials.ContainsKey(type))
         {
-            m_materials[type] = Mathf.Min(
-                m_materials[type] + amount, m_maxAmount);
+            m_materials[type] += amount;
         }
         else
         {
-            m_materials[type] = Mathf.Min(amount, m_maxAmount);
+            m_materials.Add(type, amount);
         }
     }
 
 Å@Å@public void Remove(MaterialType type,int amount)
     {
         if (!m_materials.ContainsKey(type)) return;
-
-        m_materials[type] = Mathf.Max(
-            m_materials[type] - amount, 0);
+        
+        m_materials[type] -= amount;
         
 
         //if (m_materials[type] <= 0)
