@@ -9,13 +9,14 @@ public enum SkillType//強化を作用する際、種類特定のため
     NetUP
 }
 
-[CreateAssetMenu(menuName = "Scriptable Objects/SkillSO")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Data/SkillSO")]
 public class SkillSO : ScriptableObject
 {
     [SerializeField] private SkillDataSO m_skilldata;
     [SerializeField] private SkillType m_skilltype;
     [SerializeField] private string m_skillname;
     [SerializeField] private float m_updataValue;
+    [SerializeField] private int m_id;
 
     [SerializeField] private Sprite m_icon;
     [SerializeField] private int m_cost;
@@ -28,6 +29,7 @@ public class SkillSO : ScriptableObject
     public string Skillname { get => m_skillname; }
     public float UpdataValue { get => m_updataValue; }//変更値
     //取得例float value = skillDataSO.SkillSO[0].UpdataValue;
+    public int ID { get => m_id; }
 
     public Sprite Icon { get => m_icon; }
 
