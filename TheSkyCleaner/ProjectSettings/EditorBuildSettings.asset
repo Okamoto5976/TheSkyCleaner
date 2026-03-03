@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TheSkyCleaner/Levels/ScriptableObject/Scenes/Okamoto4.unity
+    path: Assets/TheSkyCleaner/Levels/Scenes/Okamoto4.unity
     guid: f2288af471f05f849afecf65013c1458
   - enabled: 1
-    path: Assets/TheSkyCleaner/Levels/ScriptableObject/Scenes/EnhanceScene.unity
+    path: Assets/TheSkyCleaner/Levels/Scenes/EnhanceScene.unity
     guid: 1984b8db45cc9fe4db82e8d2ee082647
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e6a11fb334bf8422b90c4ed9cb5999b1, type: 3}
