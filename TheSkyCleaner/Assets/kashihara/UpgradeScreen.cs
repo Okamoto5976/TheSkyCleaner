@@ -4,15 +4,17 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public enum ButtonType
+public enum UpgradeButtonType
 {
     TransitionIngame,
     ArmPowerUp1,
     ArmPowerUp2,
     SpeedUp1,
     SpeedUp2,
-    NetUp1
+    NetUp1,
+    ButtonAmount
 }
 
 public class UpgradeScreen : MonoBehaviour
@@ -22,9 +24,15 @@ public class UpgradeScreen : MonoBehaviour
     {
         [SerializeField] private GameObject gameObject;
         [SerializeField] private GameObject icon;
+        [SerializeField] private Sprite unlockSprite;       // スキルを取得した時のスプライト
+        [SerializeField] private Sprite canUnlockSprite;    // スキルを取得可能の時のスプライト
+        [SerializeField] private Color lockColor;           // スキルが取得不可能の時の色
 
         public readonly GameObject GameObject => gameObject;
         public readonly GameObject Icon => icon;
+        public readonly Sprite UnlockSprite => unlockSprite;
+        public readonly Sprite CanUnlockSprite => canUnlockSprite;
+        public readonly Color LockColor => lockColor;
     };
 
     [System.Serializable]
@@ -38,18 +46,26 @@ public class UpgradeScreen : MonoBehaviour
     }
 
     [SerializeField] private SkillButton m_skillButton;
+    [SerializeField] private Skillget m_skillget;
+    [SerializeField] private ButtonConditionSO m_buttonCondition;
+
+    private int m_conditionsForDecision;
 
     [SerializeField] private List<ButtonElement> m_buttonElements;
     [SerializeField] private CursorElement m_cursorElement;
 
     [SerializeField] private List<Vector2> m_buttonPositions;
     [SerializeField] private List<Vector2> m_buttonSizes;
-    private List<ButtonAnimation> m_buttonAnimations;
+    [SerializeField] private List<ButtonAnimation> m_buttonAnimations;
+    public List<SkillSO> m_skills;
+    [SerializeField] private List<Image> m_buttonImages;
 
     private int m_screenWidth;  // 取得した画面の横幅を格納する変数
     private int m_screenHeight; // 取得した画面の縦幅を格納する変数
     [SerializeField] private Vector2 m_cursorPos; // カーソルの座標
-    private bool pressDecide;
+    private int m_pressButtonType;  // 押されたボタンの種類
+    private int m_pressDecide;      // ボタンが押されたか離れたか
+    private bool pressedButton;     // 以前にボタンが押されたか
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,15 +75,19 @@ public class UpgradeScreen : MonoBehaviour
         m_screenWidth = 800;
         m_screenHeight = 450;
         m_cursorPos = Vector2.zero;   // カーソルの座標
-
+        m_conditionsForDecision = (int)m_buttonCondition.ConditionsForDecision;
         for (int i = 0; i < m_buttonElements.Count; i++)
         {
-            Debug.Log(i);
-            Debug.Log($"buttonElements{i}.GO : {m_buttonElements[i].GameObject}");
             m_buttonPositions.Add(m_buttonElements[i].GameObject.transform.localPosition);          // ボタンの位置を取得
             m_buttonSizes.Add(m_buttonElements[i].Icon.GetComponent<RectTransform>().rect.size);    // ボタンの大きさを取得
             m_buttonSizes[i] /= 2;                                                                  // ボタンの取得した大きさを半分にする
-            m_buttonAnimations.Add(m_buttonElements[i].GameObject.GetComponent<ButtonAnimation>());
+            m_buttonImages.Add(m_buttonElements[i].Icon.GetComponent<Image>());
+            if (i > 0)
+            {
+                m_skills.Add(m_buttonElements[i].GameObject.GetComponent<SkillButton>().m_skill);
+                CheckUnlock(i, m_skills[i - 1]);
+            }
+            m_buttonAnimations[i].ButtonStateUpdate();
         }
     }
 
@@ -76,7 +96,11 @@ public class UpgradeScreen : MonoBehaviour
     {
         if (PressDecide() == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = true;
+            m_pressDecide = 1;
+        }
+        else if (PressDecide() == 2)    // 決定ボタンが離されたとき
+        {
+            m_pressDecide = 2;
         }
     }
 
@@ -84,53 +108,78 @@ public class UpgradeScreen : MonoBehaviour
     {
         CursorControl();    // カーソルの操作
 
-        if (pressDecide == true) // 決定ボタンが押されたとき
+        if (m_pressDecide == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = false;
+            m_pressDecide = 0;
 
-            if (PressButton(m_buttonPositions[(int)ButtonType.TransitionIngame], m_buttonSizes[(int)ButtonType.TransitionIngame]) == true)
-            {
-                Debug.Log("インゲームへ");
-                m_buttonAnimations[(int)ButtonType.TransitionIngame].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.TransitionIngame].isAnimation = true;
-                // ロードシーン（ingame）
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.TransitionIngame], m_buttonSizes[(int)UpgradeButtonType.TransitionIngame]) == true)
+            {   
+                // インゲーム
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.TransitionIngame;
+                m_buttonAnimations[(int)UpgradeButtonType.TransitionIngame].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.TransitionIngame].isAnimation = true;
             }
-            if (PressButton(m_buttonPositions[(int)ButtonType.ArmPowerUp1], m_buttonSizes[(int)ButtonType.ArmPowerUp1]) == true)
-            {
-                Debug.Log("アームパワーアップ1");
-                m_buttonAnimations[(int)ButtonType.ArmPowerUp1].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.ArmPowerUp1].isAnimation = true;
-                m_skillButton.OnClick();
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.ArmPowerUp1], m_buttonSizes[(int)UpgradeButtonType.ArmPowerUp1]) == true)
+            {   
+                // アームパワーアップ１
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.ArmPowerUp1;
+                m_buttonAnimations[(int)UpgradeButtonType.ArmPowerUp1].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.ArmPowerUp1].isAnimation = true;
             }
-            if (PressButton(m_buttonPositions[(int)ButtonType.ArmPowerUp2], m_buttonSizes[(int)ButtonType.ArmPowerUp2]) == true)
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.ArmPowerUp2], m_buttonSizes[(int)UpgradeButtonType.ArmPowerUp2]) == true)
             {
-                Debug.Log("アームパワーアップ2");
-                m_buttonAnimations[(int)ButtonType.ArmPowerUp2].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.ArmPowerUp2].isAnimation = true;
-                m_skillButton.OnClick();
+                // アームパワーアップ２
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.ArmPowerUp2;
+                m_buttonAnimations[(int)UpgradeButtonType.ArmPowerUp2].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.ArmPowerUp2].isAnimation = true;
             }
-            if (PressButton(m_buttonPositions[(int)ButtonType.SpeedUp1], m_buttonSizes[(int)ButtonType.SpeedUp1]) == true)
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.SpeedUp1], m_buttonSizes[(int)UpgradeButtonType.SpeedUp1]) == true)
             {
-                Debug.Log("スピードアップ1");
-                m_buttonAnimations[(int)ButtonType.SpeedUp1].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.SpeedUp1].isAnimation = true;
-                m_skillButton.OnClick();
+                // スピードアップ１
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.SpeedUp1;
+                m_buttonAnimations[(int)UpgradeButtonType.SpeedUp1].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.SpeedUp1].isAnimation = true;
             }
-            if (PressButton(m_buttonPositions[(int)ButtonType.SpeedUp2], m_buttonSizes[(int)ButtonType.SpeedUp2]) == true)
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.SpeedUp2], m_buttonSizes[(int)UpgradeButtonType.SpeedUp2]) == true)
             {
-                Debug.Log("スピードアップ2");
-                m_buttonAnimations[(int)ButtonType.SpeedUp2].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.SpeedUp2].isAnimation = true;
-                m_skillButton.OnClick();
+                // スピードアップ２
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.SpeedUp2;
+                m_buttonAnimations[(int)UpgradeButtonType.SpeedUp2].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.SpeedUp2].isAnimation = true;
             }
-            if (PressButton(m_buttonPositions[(int)ButtonType.NetUp1], m_buttonSizes[(int)ButtonType.NetUp1]) == true)
+            if (PressButton(m_buttonPositions[(int)UpgradeButtonType.NetUp1], m_buttonSizes[(int)UpgradeButtonType.NetUp1]) == true)
             {
-                Debug.Log("ネットアップ1");
-                m_buttonAnimations[(int)ButtonType.NetUp1].m_animationType = 1;
-                m_buttonAnimations[(int)ButtonType.NetUp1].isAnimation = true;
-                m_skillButton.OnClick();
+                // ネットアップ１
+                pressedButton = true;
+                m_pressButtonType = (int)UpgradeButtonType.NetUp1;
+                m_buttonAnimations[(int)UpgradeButtonType.NetUp1].m_animationType = 1;
+                m_buttonAnimations[(int)UpgradeButtonType.NetUp1].isAnimation = true;
             }
-            Debug.Log("check");
+
+            if (m_conditionsForDecision == 1)
+            {
+                pressedButton = false;
+                SceneLoader();
+            }
+        }
+        else if (m_pressDecide == 2 && pressedButton == true
+            &&m_conditionsForDecision == (int)ConditionsForDecision.PopToDecide)    // 決定ボタンが離された & 決定条件が"PopToDecide"
+        {
+            m_pressDecide = 0;
+
+            m_buttonAnimations[m_pressButtonType].m_animationType = 2;
+            m_buttonAnimations[m_pressButtonType].isAnimation = true;
+            pressedButton = false;
+
+            if (PressButton(m_buttonPositions[m_pressButtonType], m_buttonSizes[m_pressButtonType]) == true)
+            {
+                SceneLoader();
+            }
         }
     }
 
@@ -189,6 +238,7 @@ public class UpgradeScreen : MonoBehaviour
     }
 
     // 決定ボタンが押されたかの検知
+    // & 離されたかの検知
     private int PressDecide()
     {
         // 現在のキーボード情報
@@ -204,6 +254,10 @@ public class UpgradeScreen : MonoBehaviour
         {
             return 1;
         }
+        else if (enterKey.wasReleasedThisFrame)
+        {
+            return 2;
+        }
         else
         {
             return 0;
@@ -211,13 +265,81 @@ public class UpgradeScreen : MonoBehaviour
     }
 
     // ボタンが押されたかの検知
-    private bool PressButton(Vector2 pos, Vector2 rSize)
+    private bool PressButton(Vector2 pos, Vector2 hSize)
     {
-        if (m_cursorPos.x > pos.x - rSize.x && m_cursorPos.x < pos.x + rSize.x &&
-            m_cursorPos.y > pos.y - rSize.y && m_cursorPos.y < pos.y + rSize.y)
+        if (m_cursorPos.x > pos.x - hSize.x && m_cursorPos.x < pos.x + hSize.x &&
+            m_cursorPos.y > pos.y - hSize.y && m_cursorPos.y < pos.y + hSize.y)
         {
             return true;
         }
         return false;
+    }
+
+    public void CheckUnlock(int buttonNum, SkillSO skillData)
+    {
+        Debug.Log($"buttonNum: {buttonNum}");
+        if (m_skillget.unlockSkills.Contains(skillData))
+        {
+            Debug.Log("取得済み");
+            m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].UnlockSprite;
+            return;
+        }
+
+        foreach (var need in skillData.NeedSkill)//必要なスキルを取得済みかどうか
+        {
+            if (!m_skillget.unlockSkills.Contains(need))
+            {
+                Debug.Log("未解放");
+                m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
+                return;
+            }
+        }
+
+        if (!m_skillget.HasMaterials(skillData))
+        {
+            Debug.Log("ポイントが不足");
+            m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
+            return;
+        }
+
+        Debug.Log("取得可能");
+        m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].CanUnlockSprite;
+    }
+
+    // シーンをロード
+    private void SceneLoader()
+    {
+        switch (m_pressButtonType)
+        {
+            case (int)UpgradeButtonType.TransitionIngame:
+                Debug.Log("インゲームへ");
+                // ロードシーン（ingame）
+                break;
+
+            case (int)UpgradeButtonType.ArmPowerUp1:
+                Debug.Log("アームパワーアップ１");
+                m_skillButton.OnClick();
+                break;
+
+            case (int)UpgradeButtonType.ArmPowerUp2:
+                Debug.Log("アームパワーアップ２");
+                m_skillButton.OnClick();
+                break;
+
+            case (int)UpgradeButtonType.SpeedUp1:
+                Debug.Log("スピードアップ１");
+                m_skillButton.OnClick();
+                break;
+
+            case (int)UpgradeButtonType.SpeedUp2:
+                Debug.Log("スピードアップ2");
+                m_skillButton.OnClick();
+                break;
+
+            case (int)UpgradeButtonType.NetUp1:
+                Debug.Log("ネットアップ１");
+                m_skillButton.OnClick();
+                break;
+        }
     }
 }

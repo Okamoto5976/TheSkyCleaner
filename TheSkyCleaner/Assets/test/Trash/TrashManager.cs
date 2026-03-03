@@ -119,7 +119,7 @@ public class TrashManager : MonoBehaviour
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
 
-        int idx = Random.Range(index, m_collectTypes.Length);
+        int idx = index;
         var seq = m_collectTypes[idx];
 
         var pool = seq.VisualPool;

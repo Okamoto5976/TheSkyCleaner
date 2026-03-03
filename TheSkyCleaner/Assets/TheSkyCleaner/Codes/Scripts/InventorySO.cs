@@ -4,12 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/InventorySO")]
 public class InventorySO : ScriptableObject
 {
-    public Dictionary<MaterialType, int> m_materials
+    private Dictionary<MaterialType, int> m_materials
         = new Dictionary<MaterialType, int>();
-
-    public Dictionary<MaterialType,int> Material { get => m_materials; }
+    public Dictionary<MaterialType, int> Material { get => m_materials; }
 
     [SerializeField] private int m_maxAmount = 50;
+
 
     public void Add(MaterialType type, int amount)
     {
@@ -29,8 +29,8 @@ public class InventorySO : ScriptableObject
         if (!m_materials.ContainsKey(type)) return;
 
         m_materials[type] = Mathf.Max(
-            m_materials[type] - amount, 0);
-        
+          m_materials[type] - amount, 0);
+
 
         //if (m_materials[type] <= 0)
         //{

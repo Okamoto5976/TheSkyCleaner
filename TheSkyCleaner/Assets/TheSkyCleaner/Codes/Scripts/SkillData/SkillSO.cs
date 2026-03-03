@@ -27,10 +27,8 @@ public class SkillSO : ScriptableObject
 
     public SkillType SkillType { get => m_skilltype;}
     public string Skillname { get => m_skillname; }
-    public float UpdataValue { get => m_updataValue; }//•ÏX’l
-    //Žæ“¾—áfloat value = skillDataSO.SkillSO[0].UpdataValue;
+    public float UpdataValue { get => m_updataValue; }
     public int ID { get => m_id; }
-
     public Sprite Icon { get => m_icon; }
 
     public int Cost { get => m_cost; }

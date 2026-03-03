@@ -1,30 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework.Constraints;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum TitleButtonType
+{
+    TransitionIngame,
+    Quit
+}
+
 public class TitleScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject[] m_button; // 画面遷移用ボタン
-    [SerializeField] private GameObject m_cursor;   // カーソルのオブジェクト
-    [SerializeField] private TextMeshProUGUI[] m_buttonText;    // ボタンに表示する文字
-    private Vector2[] m_buttonPos = new Vector2[2];
+    [System.Serializable]
+    struct ButtonElement
+    {
+        [SerializeField] private GameObject gameObject;
+        [SerializeField] private GameObject icon;
+
+        public readonly GameObject GameObject => gameObject;
+        public readonly GameObject Icon => icon;
+    };
+
+    [System.Serializable]
+    struct CursorElement
+    {
+        [SerializeField] private GameObject gameObject;
+        [SerializeField] private float moveSpeed;
+
+        public readonly GameObject GameObject => gameObject;
+        public readonly float MoveSpeed => moveSpeed;
+    }
+
+    [SerializeField] private ButtonConditionSO m_buttonCondition;
+
+    private int m_conditionsForDecision;
+
+    [SerializeField] private List<ButtonElement> m_buttonElements;
+    [SerializeField] private CursorElement m_cursorElement;
+
+    [SerializeField] private List<Vector2> m_buttonPositions;
+    [SerializeField] private List<Vector3> m_buttonSizes;
+    [SerializeField] private List<ButtonAnimation> m_buttonAnimations;
+
     private int m_screenWidth;  // 取得した画面の横幅を格納する変数
     private int m_screenHeight; // 取得した画面の縦幅を格納する変数
-    private float m_cursorPosX; // カーソルのx座標
-    private float m_cursorPosY; // カーソルのy座標
-    private bool pressDecide;
+    [SerializeField] private Vector2 m_cursorPos;
+    private int m_pressButtonType;  // 押されたボタンの種類
+    private int m_pressDecide;      // ボタンが押されたか離れたか
+    private bool pressedButton;     // 以前にボタンが押されたか
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        m_screenWidth = Screen.width;   // 画面の横幅を取得する
-        m_screenHeight = Screen.height; // 画面の縦幅を取得する
-        m_cursorPosX = m_screenWidth / 2;   // カーソルのx座標
-        m_cursorPosY = m_screenHeight / 2;  // カーソルのy座標
-        m_buttonText[0].text = "InGame";
-        m_buttonText[1].text = "Quit";
-        m_buttonPos[0] = m_button[0].transform.position;    // ボタンの位置を取得
-        m_buttonPos[1] = m_button[1].transform.position;    // ボタンの位置を取得
+        //m_screenWidth = Screen.width;   // 画面の横幅を取得する
+        //m_screenHeight = Screen.height; // 画面の縦幅を取得する
+        m_screenWidth = 800;
+        m_screenHeight = 450;
+        m_cursorPos = Vector2.zero; // カーソルの座標
+        m_conditionsForDecision = (int)m_buttonCondition.ConditionsForDecision;
+
+        for (int i = 0; i < m_buttonElements.Count; i++)
+        {
+            m_buttonPositions.Add(m_buttonElements[i].GameObject.transform.localPosition);          // ボタンの位置を取得
+            m_buttonSizes.Add(m_buttonElements[i].Icon.GetComponent<RectTransform>().rect.size);    // ボタンの大きさを取得
+            m_buttonSizes[i] /= 2;                                                                  // ボタンの取得した大きさを半分にする
+            m_buttonAnimations.Add(m_buttonElements[i].GameObject.GetComponent<ButtonAnimation>());
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +76,11 @@ public class TitleScreen : MonoBehaviour
     {
         if (PressDecide() == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = true;
+            m_pressDecide = 1;
+        }
+        else if (PressDecide() == 2)    // 決定ボタンが離されたとき
+        {
+            m_pressDecide = 2;
         }
     }
 
@@ -40,18 +88,43 @@ public class TitleScreen : MonoBehaviour
     {
         CursorControl();    // カーソルの操作
 
-        if (pressDecide == true) // 決定ボタンが押されたとき
+        if (m_pressDecide == 1) // 決定ボタンが押されたとき
         {
-            pressDecide = false;
+            m_pressDecide = 0;
 
-            if (PressButton(m_buttonPos[0], 100, 40) == true)
+            if (PressButton(m_buttonPositions[(int)TitleButtonType.TransitionIngame], m_buttonSizes[(int)TitleButtonType.TransitionIngame]) == true)
             {
-                Debug.Log("インゲームへ");
-                // ロードシーン（ingame）
+                pressedButton = true;
+                m_pressButtonType = (int)TitleButtonType.TransitionIngame;
+                m_buttonAnimations[(int)TitleButtonType.TransitionIngame].m_animationType = 1;
+                m_buttonAnimations[(int)TitleButtonType.TransitionIngame].isAnimation = true;
             }
-            if (PressButton(m_buttonPos[1], 100, 40) == true)
+            if (PressButton(m_buttonPositions[(int)TitleButtonType.Quit], m_buttonSizes[(int)TitleButtonType.Quit]) == true)
             {
-                Debug.Log("終了");
+                pressedButton = true;
+                m_pressButtonType = (int)TitleButtonType.Quit;
+                m_buttonAnimations[(int)TitleButtonType.Quit].m_animationType = 1;
+                m_buttonAnimations[(int)TitleButtonType.Quit].isAnimation = true;
+            }
+
+            if (m_conditionsForDecision == 1)
+            {
+                pressedButton = false;
+                SceneLoader();
+            }
+        }
+        else if (m_pressDecide == 2 && pressedButton == true
+            && m_conditionsForDecision == (int)ConditionsForDecision.PopToDecide)    // 決定ボタンが離された & 決定条件が"PopToDecide"
+        {
+            m_pressDecide = 0;
+
+            m_buttonAnimations[m_pressButtonType].m_animationType = 2;
+            m_buttonAnimations[m_pressButtonType].isAnimation = true;
+            pressedButton = false;
+
+            if (PressButton(m_buttonPositions[m_pressButtonType], m_buttonSizes[m_pressButtonType]) == true)
+            {
+                SceneLoader();
             }
         }
     }
@@ -75,39 +148,39 @@ public class TitleScreen : MonoBehaviour
         // キーが押されているかどうか
         if (upArrowKey.isPressed)
         {
-            m_cursorPosY += 4f;
+            m_cursorPos.y += m_cursorElement.MoveSpeed;
         }
         if (downArrowKey.isPressed)
         {
-            m_cursorPosY -= 4f;
+            m_cursorPos.y -= m_cursorElement.MoveSpeed;
         }
         if (leftArrowKey.isPressed)
         {
-            m_cursorPosX -= 4f;
+            m_cursorPos.x -= m_cursorElement.MoveSpeed;
         }
         if (rightArrowKey.isPressed)
         {
-            m_cursorPosX += 4f;
+            m_cursorPos.x += m_cursorElement.MoveSpeed;
         }
         // カーソルを画面内に移動する
-        if (m_cursorPosX < 0)
+        if (m_cursorPos.x < -m_screenWidth / 2)
         {
-            m_cursorPosX = 0;
+            m_cursorPos.x = -m_screenWidth / 2;
         }
-        if (m_cursorPosX > m_screenWidth)
+        if (m_cursorPos.x > m_screenWidth / 2)
         {
-            m_cursorPosX = m_screenWidth;
+            m_cursorPos.x = m_screenWidth / 2;
         }
-        if (m_cursorPosY > m_screenHeight)
+        if (m_cursorPos.y > m_screenHeight / 2)
         {
-            m_cursorPosY = m_screenHeight;
+            m_cursorPos.y = m_screenHeight / 2;
         }
-        if (m_cursorPosY < 0)
+        if (m_cursorPos.y < -m_screenHeight / 2)
         {
-            m_cursorPosY = 0;
+            m_cursorPos.y = -m_screenHeight / 2;
         }
         // カーソルを移動させる
-        m_cursor.transform.position = new Vector2(m_cursorPosX, m_cursorPosY);
+        m_cursorElement.GameObject.transform.localPosition = m_cursorPos;
     }
 
     // 決定ボタンが押されたかの検知
@@ -126,6 +199,10 @@ public class TitleScreen : MonoBehaviour
         {
             return 1;
         }
+        else if (enterKey.wasReleasedThisFrame)
+        {
+            return 2;
+        }
         else
         {
             return 0;
@@ -133,14 +210,29 @@ public class TitleScreen : MonoBehaviour
     }
 
     // ボタンが押されたかの検知
-    private bool PressButton(Vector2 pos, float rx, float ry)
+    private bool PressButton(Vector2 pos, Vector2 hSize)
     {
-        Debug.Log("press");
-        if (m_cursorPosX > pos.x - rx && m_cursorPosX < pos.x + rx &&
-            m_cursorPosY > pos.y - ry && m_cursorPosY < pos.y + ry)
+        if (m_cursorPos.x > pos.x - hSize.x && m_cursorPos.x < pos.x + hSize.x &&
+            m_cursorPos.y > pos.y - hSize.y && m_cursorPos.y < pos.y + hSize.y)
         {
             return true;
         }
         return false;
+    }
+
+    // シーンをロード
+    private void SceneLoader()
+    {
+        switch (m_pressButtonType)
+        {
+            case (int)TitleButtonType.TransitionIngame:
+                Debug.Log("インゲームへ");
+                // ロードシーン（ingame）
+                break;
+
+            case (int)TitleButtonType.Quit:
+                Debug.Log("終了");
+                break;
+        }
     }
 }
