@@ -20,7 +20,6 @@ public class Arm : MonoBehaviour
     private GameObject m_targetEnemy;
     private Transform m_targetTransform;
     private Transform m_transform;
-    private Quaternion m_initialRotation;
     private Vector3 m_returnPosition;
 
     private int m_index;
@@ -33,7 +32,6 @@ public class Arm : MonoBehaviour
     {
         m_transform = transform;
         m_returnPosition = m_transform.localPosition;
-        m_initialRotation = gameObject.transform.rotation;//‰ñ“]•Û‘¶
     }
 
     private void FixedUpdate()
@@ -84,12 +82,7 @@ public class Arm : MonoBehaviour
 
             }
 
-            foreach(var mat in drop.Materials)
-            {
-                if(mat.amount <= 0) continue;
-
-                m_inventory.Add(mat.type,mat.amount);
-            }
+            m_inventory.AddMultiple(drop);
 
             return false;
         }
@@ -119,10 +112,6 @@ public class Arm : MonoBehaviour
 
     public void Move()
     {
-        Vector3 dir = m_targetEnemy.transform.position - m_transform.position;
-        Quaternion lookRot = Quaternion.LookRotation(dir);
-        transform.rotation = lookRot;//‰ñ“]‚³‚¹‚é
-
         if(m_targetEnemy == null)
         {
             Return();
@@ -146,7 +135,6 @@ public class Arm : MonoBehaviour
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {
             m_transform.SetParent(m_player.parent);
-            transform.rotation = m_initialRotation;//‰ñ“]‰Šú‰»
             m_state = State.Idle;
             m_controller.Return(m_id,m_index);
 

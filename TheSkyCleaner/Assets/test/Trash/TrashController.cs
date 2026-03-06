@@ -1,11 +1,11 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 
-public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
+public class TrashController : MonoBehaviour, ILockOnTarget
 {
-    private CollectSO m_collectSO;
+    [SerializeField] private CollectSO m_collectSO;
+    [SerializeField] private DropSO m_dropSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
@@ -26,20 +26,11 @@ public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
 
     private Transform m_transform;
     private int m_attack;
-    private int m_hp;
     public Transform Transform => m_transform;
 
     public GameObject GameObject => gameObject;
 
-    public DropSO GetDropData()=> m_collectSO.Drop;
-
-    //visualに関わるもの
-    [SerializeField] private Transform m_root;
-
-    private ReturnObjectToPool m_visualreturn;
-
-    //ランダムな方向に動く後、時間経過でz軸に動く
-    private float m_moveTime;
+    public DropSO GetDropData()=> m_dropSO;
 
     private void Awake()
     {
@@ -49,15 +40,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
 
     private void OnEnable()
     {
-        StartCoroutine(MoveTime());
-    }
-
-    private IEnumerator MoveTime()
-    {
-        yield return new WaitForSeconds(2f);
-
-        SetMoveDirection(m_initDir);
-        yield break;
+        m_attack = m_collectSO.Attack;
     }
 
     public void SetMoveSpeed(float moveSpeed)
@@ -82,56 +65,26 @@ public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
         if(dis < m_collider.radius)
         {
             m_playerHealth.Damage(m_attack);
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
+            ReturnToPool();
         }
 
         if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
-        }
-
-    }
-
-    public void Damage(int damage)
-    {
-        m_hp -= damage;
-
-        if (m_hp <= 0)
-        {
-
-            m_returnObjectToPool.ReturnToPool();
+            ReturnToPool();
         }
     }
 
-    public void SetVisual(ObjectPoolManager pool)
+    private void ReturnToPool()
     {
-        //return処理
-        if (m_visualreturn != null)
-        {
-            m_visualreturn.ReturnToPool();
-            m_visualreturn = null;
-        }
-
-        //visual適応
-        GameObject visual = pool.GetObjectFromPool();
-
-        visual.transform.SetParent(m_root);
-        visual.transform.localPosition = Vector3.zero;
-        visual.transform.localRotation = Quaternion.identity;
-        visual.transform.localScale = Vector3.one;
-
-        visual.SetActive(true);
-
-        m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+        m_returnObjectToPool.ReturnToPool();
+        m_movementHandler.MoveAll(m_initDir);
     }
 
-    public void SetStatsData(CollectSO collectSO)
+    public DropSO Collect()
     {
-        m_collectSO = collectSO;
-        m_attack = m_collectSO.Attack;
-        m_hp = m_collectSO.HP;
+        DropSO drop = GetDropData();
+        ReturnToPool();
+        return drop;
     }
 }
 
