@@ -5,9 +5,11 @@ using UnityEngine;
 
 public enum MaterialType
 {
-    Thread,
-    Cloth,
-    Wood
+    Grass,
+    Metal,
+    Wood,
+    Tank,
+    Human
 }
 
 [Serializable]

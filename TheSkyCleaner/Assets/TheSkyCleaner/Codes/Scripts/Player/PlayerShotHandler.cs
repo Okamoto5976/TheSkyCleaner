@@ -11,10 +11,6 @@ public class PlayerShotHandler : MonoBehaviour
     [SerializeField] private ReticleController m_reticleController;
     [SerializeField] private float m_shotDepthOffset;
 
-    [Header("Audio")]
-    [SerializeField] private AudioContainer m_shotSound;
-    [SerializeField] private AudioHandler m_audioSource;
-
     [SerializeField] private List<AxisVector3Container> m_shotPositions;
 
     private WaitForSeconds m_waitDelay;
@@ -47,7 +43,6 @@ public class PlayerShotHandler : MonoBehaviour
     private void OnShoot()
     {
         ShootBullet();
-        m_audioSource.PlayOneShot(m_shotSound);
     }
 
     public void ShootBullet()

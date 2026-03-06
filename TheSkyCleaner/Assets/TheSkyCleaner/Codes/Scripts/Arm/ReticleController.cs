@@ -105,7 +105,11 @@ public class ReticleController : MonoBehaviour
 
         RemoveSaveEnemies();
 
+        UpdateLockOnMarkers(m_SaveTargets);
+        UpdateShotReticle();
+
         m_targetAxis.SetValue(m_rect.position);
+
     }
 
     public void MoveReticle(Vector2 delta)
@@ -116,8 +120,6 @@ public class ReticleController : MonoBehaviour
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
-        UpdateLockOnMarkers(m_SaveTargets);
-        UpdateShotReticle();
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -168,6 +170,7 @@ public class ReticleController : MonoBehaviour
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
                 m_LockOnCandidates.Add(target);
         }
+
     }
     private void UpdateLockEnemies()//ŒŸ’m‚³‚ê‚½’†‚Å‹ß‚¢‚à‚Ì‚ð“ü‚ê‚é
     {
@@ -236,7 +239,9 @@ public class ReticleController : MonoBehaviour
 
             Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
 
-            if (pos.z < reticleDistance)
+            if (pos.z < reticleDistance 
+                || !enemy.GameObject.activeSelf 
+                || enemy == null)
             {
                 m_SaveTargets.RemoveAt(i);
             }

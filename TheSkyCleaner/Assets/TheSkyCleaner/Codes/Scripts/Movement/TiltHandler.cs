@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TiltHandler : MonoBehaviour
 {
@@ -39,12 +38,6 @@ public class TiltHandler : MonoBehaviour
         SetRotation(m_angle);
     }
 
-    public void TiltAll(Quaternion rot)
-    {
-        SetRotation(rot);
-    }
-
-
     public void TiltOnRoll(Vector2 dir)
     {
         TiltYaw(dir.x);
@@ -70,14 +63,5 @@ public class TiltHandler : MonoBehaviour
             Quaternion.Euler(angle),
             Time.deltaTime * m_tiltSpeed
             );
-    }
-
-    private void SetRotation(Quaternion rot)
-    {
-        m_transform.localRotation = Quaternion.Lerp(
-            m_transform.localRotation,
-            rot,
-            Time.deltaTime * m_tiltSpeed
-        );
     }
 }

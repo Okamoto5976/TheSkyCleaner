@@ -11,6 +11,7 @@ public class BoundMovementHandler : MovementHandler
     {
         base.Awake();
         m_bounds = new(m_center, m_boundSize.Value);
+        Debug.Log($"{m_bounds.min} - {m_bounds.max}");
     }
 
     protected override bool ApplyTranslate(Vector3 vector, Space space = Space.Self)

@@ -37,13 +37,4 @@ public class Logger : MonoBehaviour
             m_logCount++;
         }
     }
-
-    public void LogWarning(string message, Object context)
-    {
-        if (m_isEnabled)
-        {
-            Debug.LogWarning($"[{m_logCount}] <color={m_hexColor}>{m_prefix}</color>: {context.name} -> {message}", context);
-            m_logCount++;
-        }
-    }
 }
