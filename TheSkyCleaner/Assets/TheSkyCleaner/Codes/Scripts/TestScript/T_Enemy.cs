@@ -44,12 +44,12 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         if (dis < m_collider.radius)
         {
             m_playerHealth.Damage(m_attack);
-            m_enemyStateMachine.ReturnToPool();
+            ReturnToPool();
         }
 
         if(gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_enemyStateMachine.ReturnToPool();
+            ReturnToPool();
         }
     }
 
@@ -58,7 +58,7 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         m_hp -= damage;
         if(m_hp <= 0)
         {
-            m_enemyStateMachine.ReturnToPool();
+            ReturnToPool();
         }
     }
 
@@ -89,5 +89,22 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         m_enemySO = enemySO;
         m_attack = m_enemySO.Attack;
         m_hp = m_enemySO.HP;
+    }
+
+    private void ReturnToPool()
+    {
+        m_enemyStateMachine.ReturnToPool();
+    }
+
+    public DropSO Collect()
+    {
+        DropSO drop = GetDropData();
+        ReturnToPool();
+        return drop;
+    }
+
+    public bool TryCollect(int damage)
+    {
+        return m_hp - damage <= 0;
     }
 }

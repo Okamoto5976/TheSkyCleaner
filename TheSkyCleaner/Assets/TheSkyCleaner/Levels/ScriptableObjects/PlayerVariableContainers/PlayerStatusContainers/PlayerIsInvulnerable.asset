@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4db3a5c0aafca44a49630bbf04ce21, type: 3}
+  m_Script: {fileID: 11500000, guid: 683943e5051249142b1553472a552296, type: 3}
   m_Name: PlayerIsInvulnerable
-  m_EditorClassIdentifier: Assembly-CSharp::BooleanContainer
+  m_EditorClassIdentifier: Assembly-CSharp::MassBooleanContainer
   m_initialValue: 0
   m_value: 0
+  m_booleanContainers:
+  - {fileID: 11400000, guid: 5114e198b84035f40a8c74206f0b9f3e, type: 2}
+  - {fileID: 11400000, guid: 215aa356207708b4893e5f6dd644ac38, type: 2}
+  m_method: 0

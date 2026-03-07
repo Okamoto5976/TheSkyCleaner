@@ -47,4 +47,14 @@ public class InventorySO : ScriptableObject
     {
         return m_materials;
     }
+
+    public void AddMultiple(DropSO drops)
+    {
+        foreach (var mat in drops.Materials)
+        {
+            if (mat.amount <= 0) continue;
+
+            Add(mat.type, mat.amount);
+        }
+    }
 }

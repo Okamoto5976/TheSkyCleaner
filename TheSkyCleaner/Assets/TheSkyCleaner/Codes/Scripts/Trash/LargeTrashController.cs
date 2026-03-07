@@ -75,14 +75,12 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         if (dis < m_collider.radius) 
         {
             m_playerHealth.Damage(m_attack);
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
+            ReturnToPool();
         }
 
         if(gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
+            ReturnToPool();
         }
     }
 
@@ -109,7 +107,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
             //Vector3 dir = new Vector3(0, 0, -1);
             //m_trash.SetMoveDirection(dir);
 
-            m_returnObjectToPool.ReturnToPool(); 
+            ReturnToPool();
         }
     }
 
@@ -141,5 +139,23 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         m_collectSO = collectSO;
         m_attack = m_collectSO.Attack;
         m_hp = m_collectSO.HP;
+    }
+
+    private void ReturnToPool()
+    {
+        m_returnObjectToPool.ReturnToPool();
+        m_movementHandler.MoveAll(m_initDir);
+    }
+
+    public DropSO Collect()
+    {
+        DropSO drop = GetDropData();
+        ReturnToPool();
+        return drop;
+    }
+
+    public bool TryCollect(int damage)
+    {
+        return m_hp - damage <= 0;
     }
 }

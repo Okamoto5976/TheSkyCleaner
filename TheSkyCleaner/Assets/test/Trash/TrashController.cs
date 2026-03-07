@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 
-public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
+public class TrashController : MonoBehaviour, ILockOnTarget
 {
     private CollectSO m_collectSO;
 
@@ -82,27 +82,14 @@ public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
         if(dis < m_collider.radius)
         {
             m_playerHealth.Damage(m_attack);
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
+            ReturnToPool();
         }
 
         if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_returnObjectToPool.ReturnToPool();
-            m_movementHandler.MoveAll(m_initDir);
+            ReturnToPool();
         }
 
-    }
-
-    public void Damage(int damage)
-    {
-        m_hp -= damage;
-
-        if (m_hp <= 0)
-        {
-
-            m_returnObjectToPool.ReturnToPool();
-        }
     }
 
     public void SetVisual(ObjectPoolManager pool)
@@ -132,6 +119,19 @@ public class TrashController : MonoBehaviour, ILockOnTarget, IDamage
         m_collectSO = collectSO;
         m_attack = m_collectSO.Attack;
         m_hp = m_collectSO.HP;
+    }
+
+    private void ReturnToPool()
+    {
+        m_returnObjectToPool.ReturnToPool();
+        m_movementHandler.MoveAll(m_initDir);
+    }
+
+    public DropSO Collect()
+    {
+        DropSO drop = GetDropData();
+        ReturnToPool();
+        return drop;
     }
 }
 

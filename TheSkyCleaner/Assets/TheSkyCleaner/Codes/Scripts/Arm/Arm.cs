@@ -83,7 +83,7 @@ public class Arm : MonoBehaviour
             {
 
             }
-
+            //m_inventory.AddMultiple(drop);
             foreach(var mat in drop.Materials)
             {
                 if(mat.amount <= 0) continue;

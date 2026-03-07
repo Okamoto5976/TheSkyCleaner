@@ -5,7 +5,6 @@ public class LargeTrashManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_poollargetrash; // Inspector で割り当て
-    [SerializeField] private TrashPoolManager m_pooltrash;
     [SerializeField] private TrashManager m_trashManager;
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
@@ -72,7 +71,7 @@ public class LargeTrashManager : MonoBehaviour
         Obj.SetStatsData(data);
 
         //ゴミの設定
-        SetTrashInfo(obj,Obj);
+        SetTrashInfo(obj);
 
         //Debug.Log(obj);
 
@@ -81,7 +80,7 @@ public class LargeTrashManager : MonoBehaviour
         return;
     }
 
-    public void SetTrashInfo(GameObject obj,LargeTrashController Obj)
+    public void SetTrashInfo(GameObject obj)
     {
         SetRandomPosition(obj);
     }

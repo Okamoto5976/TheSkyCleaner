@@ -10126,19 +10126,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LargeTrashManager
   m_logger: {fileID: 0}
   m_poollargetrash: {fileID: 251186273}
-  m_pooltrash: {fileID: 1295027949}
-  m_trashManager: {fileID: 1295027950}
+  m_trashManager: {fileID: 0}
   m_spawnPos: {x: 0, y: 0, z: 50}
   m_spawnTrashMin: {x: -10, y: -10}
   m_spawnTrashMax: {x: 10, y: 10}
   m_spawnTrashInterval: 1.5
-  m_collectTypes:
-  - m_visualPool: {fileID: 152241355}
-    m_collectData: {fileID: 1450623342141515794, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 609814257}
-    m_collectData: {fileID: 2710472044534140442, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 344593440}
-    m_collectData: {fileID: 3521932260522705281, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  m_collectTypes: []
   m_moveSpeed: 4
   m_direction: {x: 0, y: 0, z: -1}
 --- !u!114 &251186273
@@ -25983,12 +25976,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5428b28ae24f2f4d945b7c8f13f67cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  m_sequence:
-  - {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
-  - {fileID: 11400000, guid: 4ed6a73a0fb019449b639a25f153438f, type: 2}
+  m_sequence: []
   m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
-  m_saveManager: {fileID: 630495671}
-  m_skilladapt: {fileID: 630495672}
+  m_saveManager: {fileID: 0}
+  m_skilladapt: {fileID: 0}
   m_EM: {fileID: 1259995856}
   m_TM: {fileID: 1295027950}
   m_LTM: {fileID: 251186272}
@@ -26721,11 +26712,6 @@ MonoBehaviour:
   m_isEnabled: 0
   m_prefix: Spawner
   m_color: {r: 1, g: 0.7078946, b: 0.25943398, a: 1}
---- !u!1 &769876749 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1428105908747057617, guid: 204d014f511bbd64ca8764979730e766, type: 3}
-  m_PrefabInstance: {fileID: 4185377124134515470}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &785040457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27768,24 +27754,24 @@ MonoBehaviour:
   m_logger: {fileID: 766334098}
   m_poolEnemy: {fileID: 1259995855}
   m_poolTrash: {fileID: 1295027949}
-  m_trashManager: {fileID: 1295027950}
+  m_trashManager: {fileID: 0}
   m_target: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
   m_spawnPos: {x: 0, y: 0, z: 50}
   m_spawnMin: {x: -10, y: -10}
   m_spawnMax: {x: 10, y: 10}
   m_spawnInterval: 2
   m_enemyTypes:
-  - m_enemyType: {fileID: 11400000, guid: 91f54ddbd576c264ead363a40259ba5f, type: 2}
-    m_visualPool: {fileID: 616705408}
-    m_enemyData: {fileID: 6845999691896175325, guid: 8259fdf528471ff4eb1171f56e3e52d1, type: 2}
-  - m_enemyType: {fileID: 11400000, guid: 2b775e964465dee45a912389cac516be, type: 2}
-    m_visualPool: {fileID: 1212209992}
-    m_enemyData: {fileID: -8101017529801193098, guid: 8259fdf528471ff4eb1171f56e3e52d1, type: 2}
-  - m_enemyType: {fileID: 11400000, guid: 4d334ad858959df499eeef97c427b3c6, type: 2}
-    m_visualPool: {fileID: 372212172}
-    m_enemyData: {fileID: 5963084370091449777, guid: 8259fdf528471ff4eb1171f56e3e52d1, type: 2}
+  - m_enemyType: {fileID: 0}
+    m_visualPool: {fileID: 0}
+    m_enemyData: {fileID: 0}
+  - m_enemyType: {fileID: 0}
+    m_visualPool: {fileID: 0}
+    m_enemyData: {fileID: 0}
+  - m_enemyType: {fileID: 0}
+    m_visualPool: {fileID: 0}
+    m_enemyData: {fileID: 0}
   m_loopSequence: 1
-  m_boss: {fileID: 769876749}
+  m_boss: {fileID: 0}
 --- !u!1001 &1262728928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28006,16 +27992,8 @@ MonoBehaviour:
   m_spawnTrashMin: {x: -10, y: -10}
   m_spawnTrashMax: {x: 10, y: 10}
   m_spawnTrashInterval: 1
-  m_boss: {fileID: 769876749}
-  m_collectTypes:
-  - m_visualPool: {fileID: 2082309323}
-    m_collectData: {fileID: 909973053413057256, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 1512061524}
-    m_collectData: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 1428426693}
-    m_collectData: {fileID: 7432707155424486683, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 1679857969}
-    m_collectData: {fileID: -2378439440498249642, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  m_boss: {fileID: 0}
+  m_collectTypes: []
   m_moveSpeed: 4
   m_direction: {x: 0, y: 0, z: -1}
 --- !u!1 &1367804594
