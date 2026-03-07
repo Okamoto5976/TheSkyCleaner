@@ -26422,11 +26422,15 @@ MonoBehaviour:
   m_logger: {fileID: 713725152}
   m_inputContainer: {fileID: 11400000, guid: 2c0dc22e02ccff74f979403330501e53, type: 2}
   m_playerTiltHandler: {fileID: 960096394}
-  m_reticleController: {fileID: 1373798139}
+  m_offsetTiltHandler: {fileID: 0}
   m_animatorVariableDriver: {fileID: 332467648}
   m_dodgeAnimationToggleBoolName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
   m_dodgeAnimationHorizontalFloatName: {fileID: 11400000, guid: e766f5fee90352243bea31488c5d196f, type: 2}
+  m_reticleController: {fileID: 1373798139}
   m_playerStatus: {fileID: 11400000, guid: 6ec6983e4916ac24ba70c34a78541c32, type: 2}
+  m_playerDodgeSuccessful: {fileID: 0}
+  m_isDodgeInvulnerable: {fileID: 0}
+  m_playerDodgeInvulnerabilityTime: {fileID: 0}
 --- !u!114 &762919360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26445,6 +26449,8 @@ MonoBehaviour:
   m_shotVelocity: {fileID: 11400000, guid: d6532fac03bcbe0419f38b56c8201260, type: 2}
   m_reticleController: {fileID: 1373798139}
   m_shotDepthOffset: 0
+  m_shotSound: {fileID: 0}
+  m_audioSource: {fileID: 0}
   m_shotPositions:
   - {fileID: 11400000, guid: 3fbe4d8c36a35214fb628e65507db38a, type: 2}
   - {fileID: 11400000, guid: 365fb7def28b5824e87c466d26a46395, type: 2}
@@ -26587,43 +26593,64 @@ MonoBehaviour:
     variableContainer:
       tap: {fileID: 11400000, guid: ce32a5309ca8dd9489c3cfc3344a5a75, type: 2}
       holdState: {fileID: 11400000, guid: 96fc396ccdad5da40a5ce6c48ad86ce9, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
   m_subAction:
     inputActionReference: {fileID: 758399574}
     variableContainer:
       tap: {fileID: 11400000, guid: 92b16ec4d055a8549a36b5bf0e2a2bea, type: 2}
       holdState: {fileID: 11400000, guid: aac26f11045a18a4b8c52764a17322cc, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
   m_strongAction:
     inputActionReference: {fileID: 1641099585}
     variableContainer:
       tap: {fileID: 11400000, guid: b68fd8042fea64d4989b46d3c3344b7f, type: 2}
       holdState: {fileID: 11400000, guid: 22428e85231e65340b2f68c07f093f62, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
   m_weakAction:
     inputActionReference: {fileID: 111724859}
     variableContainer:
       tap: {fileID: 11400000, guid: 835e7cdb3b19d5743ba160782ae019dd, type: 2}
       holdState: {fileID: 11400000, guid: d1ad50f7a56aec74e9698e6e4018755e, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
   m_shoulderLeft:
     inputActionReference: {fileID: 2018533307}
     variableContainer:
       tap: {fileID: 11400000, guid: 36467c92f916d104cada37109eaf343c, type: 2}
       holdState: {fileID: 11400000, guid: ac953edc7ae90074aa0eff10841a4e36, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
   m_shoulderRight:
     inputActionReference: {fileID: 431127808}
     variableContainer:
       tap: {fileID: 11400000, guid: e83d1ba37967a3a4cb61f0471f354277, type: 2}
       holdState: {fileID: 11400000, guid: 42f1f9740c7705a4783085adb483f282, type: 2}
+      onPress: {fileID: 0}
     time: 0
     isHoldSuccessful: 0
+    isPressed: 0
+  m_bombAction:
+    inputActionReference: {fileID: 0}
+    variableContainer:
+      tap: {fileID: 0}
+      holdState: {fileID: 0}
+      onPress: {fileID: 0}
+    time: 0
+    isHoldSuccessful: 0
+    isPressed: 0
 --- !u!4 &764252583
 Transform:
   m_ObjectHideFlags: 0
