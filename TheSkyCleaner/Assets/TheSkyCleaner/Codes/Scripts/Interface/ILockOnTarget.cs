@@ -9,4 +9,6 @@ public interface ILockOnTarget
     bool IsActive => GameObject.activeSelf;
 
     DropSO GetDropData();
+
+    DropSO Collect();
 }
