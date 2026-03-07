@@ -270,7 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5428b28ae24f2f4d945b7c8f13f67cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  m_sequence: []
+  m_sequence:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_fuel: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
   m_saveManager: {fileID: 0}
   m_skilladapt: {fileID: 0}
@@ -26192,7 +26195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::fuel
   m_kakuninnyouFuel: 0
-  m_health: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+  m_health: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
   m_consumptionRate: 1
   m_boostFuelCost: 10
   m_moveSpeed: 5
@@ -26227,7 +26230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0217259cde7653d4ab114838250c9600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthHandler
-  m_playerHealthContainer: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+  m_playerHealthContainer: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
   m_onDamageParticles:
   - {fileID: 1229436884}
 --- !u!82 &762919367
