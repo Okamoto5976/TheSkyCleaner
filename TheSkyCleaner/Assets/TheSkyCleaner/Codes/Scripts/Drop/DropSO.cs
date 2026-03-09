@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum MaterialType
 {
-    Grass,
+    Glass,
     Metal,
     Wood,
     Tank,

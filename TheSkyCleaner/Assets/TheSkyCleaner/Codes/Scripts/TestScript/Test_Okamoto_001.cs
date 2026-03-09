@@ -24,7 +24,7 @@ public class Test_Okamoto_001 : MonoBehaviour
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             m_inventory.Add(MaterialType.Wood, 10);
-            m_inventory.Add(MaterialType.Grass, 10);
+            m_inventory.Add(MaterialType.Glass, 10);
             m_inventory.Add(MaterialType.Metal, 10);
 
 
