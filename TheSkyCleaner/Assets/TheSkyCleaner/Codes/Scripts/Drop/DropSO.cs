@@ -29,11 +29,8 @@ public class DropSO : ScriptableObject
 
     [SerializeField] private List<DropMaterial> m_materials;
 
-    [SerializeField] private int m_fuel;
-
     public string Dropname { get => m_dropname; }
     public DropDataSO DropData { get => m_dropdata; }
-    public int Fuel { get => m_fuel; }
     public IReadOnlyList<DropMaterial> Materials => m_materials;
 
 #if UNITY_EDITOR

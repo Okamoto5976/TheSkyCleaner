@@ -86,7 +86,7 @@ public class ResultScreen : MonoBehaviour
 
     private void Awake()
     {
-        m_aircraftTransform = m_aircraftElement.GameObject.transform;
+        //m_aircraftTransform = m_aircraftElement.GameObject.transform;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -186,7 +186,7 @@ public class ResultScreen : MonoBehaviour
 
         if (m_aircraftElement.IsRotate == true)
         {
-            AircraftRotator();
+            //AircraftRotator();
         }
     }
 

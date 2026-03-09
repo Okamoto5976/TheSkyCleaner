@@ -18,4 +18,4 @@ MonoBehaviour:
   - state: {fileID: 11400000, guid: e32961f1ccf2dbf4fa92e1656273fc3c, type: 2}
     time: {x: 2, y: 10}
   - state: {fileID: 11400000, guid: cf3e44e3ac8c71d40a2aeb8023b8f576, type: 2}
-    time: {x: 10, y: 15}
+    time: {x: 10, y: 50}

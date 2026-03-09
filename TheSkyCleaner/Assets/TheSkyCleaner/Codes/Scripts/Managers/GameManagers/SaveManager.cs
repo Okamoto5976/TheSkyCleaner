@@ -156,9 +156,9 @@ public class SaveManager : MonoBehaviour
 
     public GamePhaseData PhaseLoad()
     {
-        if(File.Exists(fullPath))
+        if(File.Exists(m_phaseFullPath))
         {
-            string json = File.ReadAllText(fullPath);
+            string json = File.ReadAllText(m_phaseFullPath);
             return JsonUtility.FromJson<GamePhaseData>(json);
         }
         else
@@ -216,10 +216,22 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void ResetData()
+    public void StartResetData()
     {
         if (File.Exists(fullPath))
+        {
             File.Delete(fullPath);
+        }
+
+        if (File.Exists(m_phaseFullPath))
+        {
+            File.Delete(m_phaseFullPath);
+        }
+
+        if(File.Exists(m_enhanceFullPath))
+        {
+            File.Delete(m_enhanceFullPath);
+        }
     }
 
     public void ResetEnhance()

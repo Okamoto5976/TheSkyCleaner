@@ -5,9 +5,8 @@ public abstract class GamePhase : ScriptableObject
     public enum PhaseType
     {
         None,
-        StartPool,
-        StopPool,
-        Move
+        Start,
+        Stop
     }
 
 

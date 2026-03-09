@@ -15,7 +15,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: -1742822907939894068, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: TrashTank
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &11400000
 MonoBehaviour:
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: -3647694940158141256, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: TrashMetal
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &909973053413057256
 MonoBehaviour:
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: -2352289321438119971, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: TrashGrass
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &1450623342141515794
 MonoBehaviour:
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: 2012879054000454827, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: LargeGrass
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &2710472044534140442
 MonoBehaviour:
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: 3756387025759845285, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: LargeMetal
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &3521932260522705281
 MonoBehaviour:
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: -6717116318646257483, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: LargeWood
-  m_attack: 30
+  m_attack: 5
   m_hp: 2
 --- !u!114 &7432707155424486683
 MonoBehaviour:
@@ -137,5 +137,5 @@ MonoBehaviour:
   m_collectdata: {fileID: 11400000}
   m_dropSO: {fileID: 1726786354636161165, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: TrashWood
-  m_attack: 30
+  m_attack: 5
   m_hp: 2

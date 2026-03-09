@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SkillAdapt : MonoBehaviour
 {
-    [SerializeField] private List<SkillSO> m_allSkill; //スキル取得できるものすべて
+    [SerializeField] private SkillDataSO m_skilldata; //スキル取得できるものすべて
     [SerializeField] private List<SkillSO> m_unlockSkills;//取得したスキルの管理
     [SerializeField] private SaveManager m_saveManager;
 
@@ -42,7 +42,7 @@ public class SkillAdapt : MonoBehaviour
 
         foreach (var id in data.m_unlockSkills)
         {
-            SkillSO found = m_allSkill
+            SkillSO found = m_skilldata.SkillSO
                 .Find(s => s.ID == id);
 
             if (found != null)

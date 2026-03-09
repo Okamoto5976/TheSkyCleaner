@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c3b42a37e78ff46994bfd492059733, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: Assembly-CSharp::InventorySO
+  m_playerHealth: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
+  m_maxAmount: 50

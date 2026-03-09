@@ -12,11 +12,11 @@ public class TrashPhase : GamePhase
             case PhaseType.None:
                 break;
 
-            case PhaseType.StartPool:
+            case PhaseType.Start:
                 m_gm.StartTrashPool();
                 break;
 
-            case PhaseType.StopPool:
+            case PhaseType.Stop:
                 m_gm.StopTrashPool();
                 break;
         }

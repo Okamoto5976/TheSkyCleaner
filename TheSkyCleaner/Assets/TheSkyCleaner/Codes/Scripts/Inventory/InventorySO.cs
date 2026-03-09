@@ -8,6 +8,8 @@ public class InventorySO : ScriptableObject
         = new Dictionary<MaterialType, int>();
     public Dictionary<MaterialType, int> Material { get => m_materials; }
 
+    [SerializeField] private HealthContainer m_playerHealth;
+
     [SerializeField] private int m_maxAmount = 50;
 
 
@@ -52,9 +54,23 @@ public class InventorySO : ScriptableObject
     {
         foreach (var mat in drops.Materials)
         {
+            if(mat.type == MaterialType.Tank)
+            {
+                RecoverHealth(mat.amount);
+
+                continue;
+            }
+
             if (mat.amount <= 0) continue;
 
             Add(mat.type, mat.amount);
         }
+    }
+
+    private void RecoverHealth(int value)
+    {
+        value *= 10;
+
+        m_playerHealth.Heal(value);
     }
 }

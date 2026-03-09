@@ -21,7 +21,6 @@ MonoBehaviour:
     amount: 3
   - type: 2
     amount: 3
-  m_fuel: 0
 --- !u!114 &-6717116318646257483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,7 +38,6 @@ MonoBehaviour:
   m_materials:
   - type: 2
     amount: 1
-  m_fuel: 0
 --- !u!114 &-4333324295571426767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +59,6 @@ MonoBehaviour:
     amount: 3
   - type: 2
     amount: 3
-  m_fuel: 0
 --- !u!114 &-3647694940158141256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +76,6 @@ MonoBehaviour:
   m_materials:
   - type: 1
     amount: 2
-  m_fuel: 0
 --- !u!114 &-2352289321438119971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +93,6 @@ MonoBehaviour:
   m_materials:
   - type: 0
     amount: 2
-  m_fuel: 0
 --- !u!114 &-1742822907939894068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropSO
   m_dropdata: {fileID: 11400000}
   m_dropname: TrashTank
-  m_materials: []
-  m_fuel: 30
+  m_materials:
+  - type: 3
+    amount: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +150,6 @@ MonoBehaviour:
   m_materials:
   - type: 2
     amount: 2
-  m_fuel: 0
 --- !u!114 &2012879054000454827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +167,6 @@ MonoBehaviour:
   m_materials:
   - type: 0
     amount: 1
-  m_fuel: 0
 --- !u!114 &3756387025759845285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +184,6 @@ MonoBehaviour:
   m_materials:
   - type: 1
     amount: 1
-  m_fuel: 0
 --- !u!114 &4249889084963621162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,4 +205,3 @@ MonoBehaviour:
     amount: 3
   - type: 2
     amount: 3
-  m_fuel: 0

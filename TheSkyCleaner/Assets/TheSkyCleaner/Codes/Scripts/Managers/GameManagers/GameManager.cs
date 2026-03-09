@@ -5,14 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private List<PhaseSequence> m_sequence;
-    [SerializeField] private FloatContainer m_fuel;
-    //[SerializeField] private InventorySO m_inventorySO;
+    [SerializeField] private HealthContainer m_playerHealth;
+    [SerializeField] private HealthContainer m_bossHealth;
 
     private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
     private int m_sequenceIndex;
+
+    [System.Serializable]
+    public struct SequenceLoop
+    { 
+        [SerializeField] private PhaseSequence m_phase;
+        [SerializeField] private bool m_isLoopCheck;
+        public PhaseSequence Phase { get => m_phase; } 
+        public bool IsLoopCheck { get => m_isLoopCheck; }
+    }
+
+    [SerializeField] private List<SequenceLoop> m_sequences;
 
     [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private SkillAdapt m_skilladapt;
@@ -31,11 +41,15 @@ public class GameManager : MonoBehaviour
         {
             m_sequenceIndex = data.SequenceIndex;
         }
+        else
+        {
+            m_sequenceIndex = 0;
+        }
 
         Debug.Log(m_sequenceIndex);
 
         //フェーズ処理
-        foreach (var phase in m_sequence[m_sequenceIndex].m_phase)
+        foreach (var phase in m_sequences[m_sequenceIndex].Phase.m_phase)
         {
             var instance = Instantiate(phase);
             instance.Inject(this);
@@ -62,7 +76,7 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            if(m_sequenceIndex < m_sequence.Count - 1)
+            if(m_sequenceIndex < m_sequences.Count - 1)
             {
                 m_sequenceIndex++;
             }
@@ -88,7 +102,14 @@ public class GameManager : MonoBehaviour
     {
         if(m_currentIndex >= m_phases.Count)
         {
-            return;
+            if (m_sequences[m_sequenceIndex].IsLoopCheck)
+            {
+                m_currentIndex = 0;
+            }
+            else
+            {
+                return;
+            }
         }
 
         m_currentPhase = m_phases[m_currentIndex];
@@ -99,16 +120,23 @@ public class GameManager : MonoBehaviour
     private void PhaseClear()
     {
         //SequenseIndex save
+        if (m_bossHealth.Value > 0) return;
+
+        if (m_sequenceIndex < m_sequences.Count - 1)
+        {
+            m_sequenceIndex++;
+        }
+        m_saveManager.PhaseSave(m_sequenceIndex);
+
+        SceneManager.LoadScene(2);
     }
 
 
     private void GameOver()
     {
-        if (m_fuel.Value > 0) return;
-        //inventory save;
-        //m_saveManager.InventorySave(m_inventorySO.Material);
+        if (m_playerHealth.Value > 0) return;
 
-        //gameSceen = powerSceen;
+        //SceneManager.LoadScene(1);
     }
 
     public void StartEnemyPool() { m_EM.StartSpawn(); }

@@ -9,6 +9,12 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private GameObject m_optionUI;
     [SerializeField] private GameObject m_poseButtonFrame;
     [SerializeField] private GameObject m_optionButtonFrame;
+
+    [SerializeField] private Slider m_bgmSlider;
+    [SerializeField] private Slider m_seSlider;
+
+    [SerializeField] private SaveManager m_save;
+
     private InputAction m_Pause;
     private void Start()
     {
@@ -106,6 +112,7 @@ public class GameMenuManager : MonoBehaviour
         Debug.Log("オプション");
         m_poseUI.SetActive(false);//ポーズ画面消す
         m_optionUI.SetActive(true);//オプション出す
+        SetSliderVolume();
         EventSystem.current.SetSelectedGameObject(m_optionButtonFrame);
 
     }
@@ -120,5 +127,23 @@ public class GameMenuManager : MonoBehaviour
     public void botan1()
     {
         Debug.Log("スタート!");
+    }
+
+    private void SetSliderVolume()
+    {
+        Debug.Log("SetSlider");
+        var loadAudio = m_save.AudioLoad();
+        m_bgmSlider.value = loadAudio.data.BGMVolume;
+        m_seSlider.value = loadAudio.data.SEVolume;
+    }
+
+    public void Back()
+    {
+        ReturnGame();
+    }
+
+    public void Quit()
+    {
+        
     }
 }

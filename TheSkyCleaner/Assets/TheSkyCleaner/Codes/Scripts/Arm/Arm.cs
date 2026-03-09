@@ -16,7 +16,7 @@ public class Arm : MonoBehaviour
 
     private State m_state  = State.Idle;
 
-    private ILockOnTarget m_enemies;
+    private ILockOnTarget m_targets;
     private GameObject m_targetEnemy;
     private Transform m_targetTransform;
     private Transform m_transform;
@@ -70,25 +70,20 @@ public class Arm : MonoBehaviour
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
             //もしゴミなら素材回収。　敵ならダメージを　インターフェースで
-            if (m_enemies is IDamage iDamage)
+            if (m_targets is IDamage iDamage)
             {
-                iDamage.Damage(m_attack);
+                if (iDamage.TryCollect(m_attack))
+                {
+                    //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
+                    //配列で入れられるね！
+                    var drop = m_targets.Collect();
+                    m_inventory.AddMultiple(drop);
+                }
             }
-
-            //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
-            //配列で入れられるね！
-            var drop = m_enemies.GetDropData();
-
-            if(drop.Fuel > 0)
+            else//IDamageがない　Trashに向けて
             {
-
-            }
-            //m_inventory.AddMultiple(drop);
-            foreach(var mat in drop.Materials)
-            {
-                if(mat.amount <= 0) continue;
-
-                m_inventory.Add(mat.type,mat.amount);
+                var drop = m_targets.Collect();
+                m_inventory.AddMultiple(drop);
             }
 
             return false;
@@ -109,7 +104,7 @@ public class Arm : MonoBehaviour
         m_playerPos = player;
 
 
-        m_enemies = target;
+        m_targets = target;
         m_targetEnemy = target.GameObject;
         m_targetTransform = target.Transform;
         m_transform.SetParent(null);
