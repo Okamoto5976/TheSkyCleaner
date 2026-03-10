@@ -29,6 +29,8 @@ public class BossMoveState : BossStateBase
         bossController.MovementHandler.SetPosition(pos);
     }
 
+    
+
     public override float EnterAction(BossController bossController)
     {
         m_actionIndex = 0;

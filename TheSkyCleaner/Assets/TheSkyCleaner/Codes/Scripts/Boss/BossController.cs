@@ -31,12 +31,16 @@ public class BossController : MonoBehaviour, IDamage
         public readonly BossStateBase ExitState => exitState;
     }
 
-    [SerializeField] private TriggerContainer m_activeStateTrigger;
+    [SerializeField] private TriggerContainer m_activateStateTrigger;
+    [SerializeField] private TriggerContainer m_deactivateStateTrigger;
     [SerializeField] private HealthContainer m_bossHealth;
 
     [SerializeField] private BooleanContainer m_isBossActive;
     [SerializeField] private IntegerContainer m_currentBossPhaseIndex;
     [SerializeField] private IntegerContainer m_currentBossStateIndex;
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
     private int CurrentPhaseIndex
     {
         get { return m_currentBossPhaseIndex.Value; }
@@ -48,7 +52,11 @@ public class BossController : MonoBehaviour, IDamage
         set { m_currentBossStateIndex.SetValue(value); }
     }
     private Phase CurrentPhase => m_phases[CurrentPhaseIndex];
-    private BossStateBase CurrentState => m_isEntryState ? CurrentPhase.EntryState : CurrentPhase.States[CurrentStateIndex].State;
+    private BossStateBase CurrentState => 
+        m_isEntryState ? CurrentPhase.EntryState :
+        m_isExitState ? CurrentPhase.ExitState :
+        CurrentPhase.States[CurrentStateIndex].State;
+
     [SerializeField] private List<Phase> m_phases;
 
     [Header("Components")]
@@ -70,6 +78,7 @@ public class BossController : MonoBehaviour, IDamage
     public float StateTime => m_stateTime;
 
     private bool m_isEntryState = true;
+    private bool m_isExitState = false;
 
     private void Awake()
     {
@@ -94,12 +103,14 @@ public class BossController : MonoBehaviour, IDamage
 
     private void OnEnable()
     {
-        m_activeStateTrigger.OnTrigger += Activate;
+        m_activateStateTrigger.OnTrigger += Activate;
+        m_deactivateStateTrigger.OnTrigger += Deactivate;
     }
 
     private void OnDisable()
     {
-        m_activeStateTrigger.OnTrigger -= Activate;
+        m_activateStateTrigger.OnTrigger -= Activate;
+        m_deactivateStateTrigger.OnTrigger -= Deactivate;
     }
 
     private void Update()
@@ -118,11 +129,20 @@ public class BossController : MonoBehaviour, IDamage
 
     private void OnInactive()
     {
-        // nop
+        if (!m_isExitState) return;
+
+        m_stateTime -= Time.deltaTime;
+        if (CurrentState.IsStateEnd || m_stateTime <= 0)
+        {
+            m_isExitState = false;
+        }
+
+        CurrentState.DoAction(this);
     }
 
     private void OnActive()
     {
+        // Tick state time
         m_stateTime -= Time.deltaTime;
 
         if (CurrentState.IsStateEnd)
@@ -162,7 +182,18 @@ public class BossController : MonoBehaviour, IDamage
     private void Activate()
     {
         m_isEntryState = true;
+        m_isExitState = false;
         m_isBossActive.SetValue(true);
+        CurrentStateIndex = 0;
+        m_stateTime = CurrentState.EnterAction(this);
+        m_logger.Log($"{m_stateTime}", this);
+    }
+
+    private void Deactivate()
+    {
+        m_isEntryState = false;
+        m_isExitState = true;
+        m_isBossActive.SetValue(false);
         CurrentStateIndex = 0;
         m_stateTime = CurrentState.EnterAction(this);
         m_logger.Log($"{m_stateTime}", this);

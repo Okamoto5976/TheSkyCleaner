@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossMoveState
   m_rampTime: 0
   m_position: {x: 0, y: 0, z: 15}
-  m_moveTime: 1
+  m_moveTime: 4
   m_endTime: 0.3

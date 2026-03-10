@@ -10283,11 +10283,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   m_logger: {fileID: 760484166}
-  m_activeStateTrigger: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_activateStateTrigger: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_deactivateStateTrigger: {fileID: 0}
   m_bossHealth: {fileID: 11400000, guid: fcff5902f423d57478d15ff982c1350d, type: 2}
   m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
   m_currentBossPhaseIndex: {fileID: 11400000, guid: dc3134785cee4e34f8f85fa28750dabc, type: 2}
   m_currentBossStateIndex: {fileID: 11400000, guid: f1cbf47b2c1832f4c9553b57bbb502b0, type: 2}
+  m_reticleOffset: {x: 0, y: 2, z: 0}
   m_phases:
   - entryState: {fileID: 11400000, guid: a6760076b75eb6d4db4056ac22194d53, type: 2}
     states:
@@ -26733,6 +26735,8 @@ MonoBehaviour:
   m_enemyPoolManager: {fileID: 1259995855}
   m_trashPoolManager: {fileID: 1295027949}
   m_largeTrashPoolManager: {fileID: 476763695}
+  m_bossController: {fileID: 243624928}
+  m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
 --- !u!1 &933229033
 GameObject:
   m_ObjectHideFlags: 0
@@ -27726,6 +27730,8 @@ MonoBehaviour:
   m_rect: {fileID: 675199751}
   m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
   m_reticleSpeed: 0.2
+  m_bossController: {fileID: 243624928}
+  m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
   m_maxCount: 2
   m_playerAxis: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
 --- !u!1 &1380350747

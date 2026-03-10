@@ -22,6 +22,8 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private RectTransform m_rect;
     [SerializeField] private AxisVector3Container m_targetAxis;
     [SerializeField] private float m_reticleSpeed;
+    [SerializeField] private BossController m_bossController;
+    [SerializeField] private BooleanContainer m_isBossActive;
     private float m_reticleDistance;
 
     [SerializeField] private int m_maxCount;
@@ -184,6 +186,11 @@ public class ReticleController : MonoBehaviour
             m_LockTargets.Add(enemy);
         }
 
+        if (m_isBossActive.Value)
+        {
+            m_LockTargets.Add(m_bossController);
+        }
+
         for (int i = 0; i < m_LockTargets.Count; i++)
         {
             if (m_LockTargets[i] == null) continue;
@@ -221,7 +228,7 @@ public class ReticleController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            marker.transform.position = enemy.Transform.position;
+            marker.transform.position = enemy.Transform.position + enemy.ReticleOffset;
 
             marker.gameObject.SetActive(true);
         }
@@ -254,7 +261,7 @@ public class ReticleController : MonoBehaviour
         {
             if (!m_shotMarker.gameObject.activeSelf) m_shotMarker.gameObject.SetActive(true);
 
-            m_shotMarker.transform.position = enemy.Transform.position;
+            m_shotMarker.transform.position = enemy.Transform.position + enemy.ReticleOffset;
         }
     }
 

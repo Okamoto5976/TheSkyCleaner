@@ -29,6 +29,9 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     public Transform Transform => m_transform;
 
     public GameObject GameObject => gameObject;
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
 
     public DropSO GetDropData()=> m_dropSO;
 

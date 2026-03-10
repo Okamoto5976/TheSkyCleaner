@@ -36,6 +36,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     public Transform Transform => m_transform;
     public GameObject GameObject => gameObject;
     public DropSO GetDropData() => m_dropSO;
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
 
     private void Awake()
     {

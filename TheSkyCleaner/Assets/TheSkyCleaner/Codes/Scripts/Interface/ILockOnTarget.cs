@@ -6,6 +6,8 @@ public interface ILockOnTarget
 
     GameObject GameObject { get; }
 
+    Vector3 ReticleOffset { get; }
+
     bool IsActive => GameObject.activeSelf;
 
     DropSO GetDropData();

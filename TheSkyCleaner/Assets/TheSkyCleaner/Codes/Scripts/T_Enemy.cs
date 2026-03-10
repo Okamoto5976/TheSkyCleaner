@@ -21,6 +21,9 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public Transform Transform => transform;
     public GameObject GameObject => gameObject;
     public DropSO GetDropData() => m_dropSO;
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
 
     private void Awake()
     {
