@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Skillget : MonoBehaviour
 {
-    [SerializeField] private List<SkillSO> m_allSkill;
+    [SerializeField] private SkillDataSO m_skilldata; //スキル取得できるものすべて
     [SerializeField] private List<SkillSO> m_unlockSkills;
     public List<SkillSO> unlockSkills;//取得したスキルの管理 ★
     [SerializeField] private TextMeshProUGUI m_cost;
@@ -128,7 +128,7 @@ public class Skillget : MonoBehaviour
 
         foreach (var id in data.m_unlockSkills)
         {
-            SkillSO found = m_allSkill
+            SkillSO found = m_skilldata.SkillSO
                .Find(s => s.ID == id);
 
             if (found != null)

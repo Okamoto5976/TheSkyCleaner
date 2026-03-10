@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: bce99fcd5c75c47448235a4ff777648e
+guid: 74fb526ac8a09734186386702658c805
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: human.mat
+    second: {fileID: 2100000, guid: 6b7fd59341b523543a5cabec9678437d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

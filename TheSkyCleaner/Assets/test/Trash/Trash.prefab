@@ -94,9 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50a16dc0c17b9747b6ddd3fa3ec57f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashController
-  m_collectSO: {fileID: 0}
   m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_playerHealth: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+  m_playerHealth: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
   m_movementHandler: {fileID: 1042201519715464378}
   m_returnObjectToPool: {fileID: 8612771754068582680}
   m_root: {fileID: 575648857809301512}

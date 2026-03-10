@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Integer_BossHealth
   m_EditorClassIdentifier: Assembly-CSharp::IntegerContainer
   m_initialValue: 100
-  m_value: 100
+  m_value: 0

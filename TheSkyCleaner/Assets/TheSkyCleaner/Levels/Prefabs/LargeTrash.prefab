@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargeTrashController
   m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_playerHealth: {fileID: 11400000, guid: 5c0699556e3220e448d38e5bf71f1385, type: 2}
+  m_playerHealth: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
   m_movementHandler: {fileID: -9034896561115506292}
   m_returnObjectToPool: {fileID: -4996261014548498112}
   m_trashSpeed: 12

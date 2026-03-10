@@ -42,6 +42,7 @@ public class LargeTrashManager : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("largeTrashPool");
             yield return m_sleepTime;
             SpawnOne();
         }
@@ -94,5 +95,9 @@ public class LargeTrashManager : MonoBehaviour
     }
 
     public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
-    public void StopSpawn() { StopCoroutine(SpawnOnTimer()); }
+    public void StopSpawn() 
+    {
+        Debug.Log("StopLargeTrash");
+        StopCoroutine(SpawnOnTimer()); 
+    }
 }

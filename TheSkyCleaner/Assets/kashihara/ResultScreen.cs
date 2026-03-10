@@ -81,6 +81,15 @@ public class ResultScreen : MonoBehaviour
     private int m_pressDecide;      // ボタンが押されたか離れたか
     private bool pressedButton;     // 以前にボタンが押されたか
 
+
+
+
+    //InputSystemでマウスをカーソルが追従
+    //コントローラーでもカーソルがそう動くようにする
+    //決定キーでボタンを押せるようにする（unityでそうなっているなら必要ない)
+    //コメントアウトしておくだけにすること
+
+
     private void Awake()
     {
         //m_aircraftTransform = m_aircraftElement.GameObject.transform;
@@ -89,11 +98,11 @@ public class ResultScreen : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        timer = 99;
-        score = 8765432;
-        PartLevel[0] = 111;
-        PartLevel[1] = 234;
-        PartLevel[2] = 567;
+        //timer = 99;
+        //score = 8765432;
+        //PartLevel[0] = 111;
+        //PartLevel[1] = 234;
+        //PartLevel[2] = 567;
 
         //m_screenWidth = Screen.width;   // 画面の横幅を取得する
         //m_screenHeight = Screen.height; // 画面の縦幅を取得する

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdda8edf514ad0b4785d03d42b3ed5aa, type: 3}
-  m_Name: Boss_State_Attack1
+  m_Name: Boss_State_Attack3
   m_EditorClassIdentifier: Assembly-CSharp::BossDirectAttackState
-  m_animationName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
-  m_rampTime: 4.4
+  m_animationName: {fileID: 11400000, guid: 18fcbb4d56eb56e449e2a24985cefdc5, type: 2}
+  m_rampTime: 4.5
   m_attackTime: 0.5
   m_attackAreas:
   - serializedVersion: 2
@@ -21,5 +21,5 @@ MonoBehaviour:
     y: 1.31
     width: 16
     height: 4.5
-  m_attackStrength: 9999
-  m_endTime: 1.68
+  m_attackStrength: 20
+  m_endTime: 0.51
