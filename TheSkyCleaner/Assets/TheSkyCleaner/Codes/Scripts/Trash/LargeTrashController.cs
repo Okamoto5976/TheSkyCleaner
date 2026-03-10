@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
@@ -42,6 +42,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     private ReturnObjectToPool m_visualreturn;
 
+    //ƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚É“®‚­ŒãAŠÔŒo‰ß‚Åz²‚É“®‚­
+    private float m_moveTime = 2f;
+
     private void Awake()
     {
         m_collider = GetComponent<SphereCollider>();
@@ -50,7 +53,15 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     private void OnEnable()
     {
+        StartCoroutine(MoveTime());
+    }
 
+    private IEnumerator MoveTime()
+    {
+        yield return new WaitForSeconds(m_moveTime);
+
+        SetMoveDirection(m_initDir);
+        yield break;
     }
 
     public void SetMoveSpeed(float moveSpeed)

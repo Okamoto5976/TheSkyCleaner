@@ -39,7 +39,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     private ReturnObjectToPool m_visualreturn;
 
     //ƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚É“®‚­ŒãAŠÔŒo‰ß‚Åz²‚É“®‚­
-    private float m_moveTime;
+    private float m_moveTime = 2f;
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private IEnumerator MoveTime()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(m_moveTime);
 
         SetMoveDirection(m_initDir);
         yield break;

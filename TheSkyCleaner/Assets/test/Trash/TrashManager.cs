@@ -10,9 +10,10 @@ public class TrashManager : MonoBehaviour
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMin;       // 最小生成範囲　ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMax;       // 最大生成範囲  ゴミのみ
-    [SerializeField] private float m_spawnTrashInterval = 0.3f;
+    [SerializeField] private float m_spawnTrashInterval;
 
     private WaitForSeconds m_sleepTime;
+    private Coroutine m_coroutine;
 
     [SerializeField] private GameObject m_boss;//のちにコンテナの座標をとる
 
@@ -88,10 +89,7 @@ public class TrashManager : MonoBehaviour
         GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<TrashController>();
 
-        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
-        randomDir.Normalize();
-
-        Obj.SetMoveDirection(randomDir);
+        Obj.SetMoveDirection(m_direction);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
 
@@ -151,6 +149,16 @@ public class TrashManager : MonoBehaviour
         obj.SetActive(true);
     }
 
-    public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
-    public void StopSpawn() { StopCoroutine(SpawnOnTimer()); }
+    public void StartSpawn() 
+    { 
+        m_coroutine = StartCoroutine(SpawnOnTimer()); 
+    }
+    public void StopSpawn()
+    { 
+        if(m_coroutine != null)
+        {
+            StopCoroutine(m_coroutine);
+            m_coroutine = null;
+        }
+    }
 }

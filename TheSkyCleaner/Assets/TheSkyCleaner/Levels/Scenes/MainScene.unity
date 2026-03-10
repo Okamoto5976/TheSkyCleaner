@@ -10418,13 +10418,9 @@ MonoBehaviour:
     states:
     - state: {fileID: 11400000, guid: 563b47109ad31c54598dd1beacd0ef03, type: 2}
       isOneTimeOnly: 0
-    - state: {fileID: 11400000, guid: 4421909cb6f90c64abc45fe7a6ce67f4, type: 2}
-      isOneTimeOnly: 0
     - state: {fileID: 11400000, guid: 958466ee7e4e945469cefbaf2f48ed37, type: 2}
       isOneTimeOnly: 0
-    - state: {fileID: 11400000, guid: 3cdc2dcc2bcfae741b308a923cd0eb9b, type: 2}
-      isOneTimeOnly: 0
-    - state: {fileID: 11400000, guid: 563b47109ad31c54598dd1beacd0ef03, type: 2}
+    - state: {fileID: 11400000, guid: 4f967286f448178419f13eac9eaa8f57, type: 2}
       isOneTimeOnly: 0
     isLooping: 1
     exitState: {fileID: 11400000, guid: ae007fe7ee8a5a044be388279fd8ccb2, type: 2}
@@ -10454,7 +10450,7 @@ Transform:
   m_GameObject: {fileID: 243624927}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 13}
+  m_LocalPosition: {x: 0, y: -2, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

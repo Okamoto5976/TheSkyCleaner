@@ -13,6 +13,7 @@ public class LargeTrashManager : MonoBehaviour
     [SerializeField] private float m_spawnTrashInterval = 0.3f;
 
     private WaitForSeconds m_sleepTime;
+    private Coroutine m_coroutine;
 
     [System.Serializable]
     public struct CollectType
@@ -58,7 +59,11 @@ public class LargeTrashManager : MonoBehaviour
 
         GameObject obj = m_poollargetrash.GetObjectFromPool(); //åƒÇ—èoÇµ
         var Obj = obj.GetComponent<LargeTrashController>();
-        Obj.SetMoveDirection(m_direction);
+
+        Vector3 randomDir = Random.onUnitSphere;//ãÖëÃÇÃï\ñ è„Ç…ì_Çï‘Ç∑
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
 
@@ -94,10 +99,16 @@ public class LargeTrashManager : MonoBehaviour
         obj.SetActive(true);
     }
 
-    public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
-    public void StopSpawn() 
+    public void StartSpawn()
+    { 
+        m_coroutine = StartCoroutine(SpawnOnTimer()); 
+    }
+    public void StopSpawn()
     {
-        Debug.Log("StopLargeTrash");
-        StopCoroutine(SpawnOnTimer()); 
+        if (m_coroutine != null)
+        {
+            StopCoroutine(m_coroutine);
+            m_coroutine = null;
+        }
     }
 }

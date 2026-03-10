@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdda8edf514ad0b4785d03d42b3ed5aa, type: 3}
   m_Name: Boss_State_Attack1
   m_EditorClassIdentifier: Assembly-CSharp::BossDirectAttackState
-  m_animationName: {fileID: 11400000, guid: bb20ab8297b862f49a5a4d417306cbf9, type: 2}
+  m_animationName: {fileID: 11400000, guid: ed1c9b1efe4626a4785b0fd80f3c1209, type: 2}
   m_rampTime: 4.4
   m_attackTime: 0.5
   m_attackAreas:

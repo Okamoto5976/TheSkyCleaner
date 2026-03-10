@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Boss_Animation_Attack2
   m_EditorClassIdentifier: Assembly-CSharp::StringContainer
   m_initialValue: IsAttack2
-  m_value: IsAttack1
+  m_value: IsAttack2

@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Vector3 m_spawnPos;      // z ‚Ì‚ÝŽg—p‘z’è
     [SerializeField] private Vector2 m_spawnMin;      // X,Y min
     [SerializeField] private Vector2 m_spawnMax;      // X,Y max
-    [SerializeField] private float m_spawnInterval = 0.3f;
+    [SerializeField] private float m_spawnInterval;
 
     [System.Serializable]
     public struct EnemyTypes
@@ -38,13 +38,14 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool m_loopSequence = false;
 
     private WaitForSeconds m_wait;
+    private Coroutine m_coroutine;
 
     [Header("Boss Container")]
     [SerializeField] private GameObject m_boss;
 
     private void Awake()
     {
-        m_wait = new WaitForSeconds(m_spawnInterval);
+        m_wait = new(m_spawnInterval);
         //StartCoroutine(SpawnLoop());
     }
 
@@ -135,6 +136,16 @@ public class EnemyManager : MonoBehaviour
         obj.transform.position = new Vector3(randX, randY, m_spawnPos.z);
     }
 
-    public void StartSpawn() { StartCoroutine(SpawnLoop()); }
-    public void StopSpawn() { StopCoroutine(SpawnLoop()); }
+    public void StartSpawn() 
+    {
+        m_coroutine = StartCoroutine(SpawnLoop());
+    }
+    public void StopSpawn()
+    {
+        if(m_coroutine != null)
+        {
+            StopCoroutine(m_coroutine);
+            m_coroutine = null;
+        }
+    }
 }
