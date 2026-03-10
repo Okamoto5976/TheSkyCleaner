@@ -16,7 +16,7 @@ MonoBehaviour:
   m_dropSO: {fileID: -4333324295571426767, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_enemyname: Targetting
   m_attack: 10
-  m_hp: 4
+  m_hp: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_dropSO: {fileID: 4249889084963621162, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_enemyname: Throwing
   m_attack: 10
-  m_hp: 4
+  m_hp: 3
 --- !u!114 &6845999691896175325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,4 +66,4 @@ MonoBehaviour:
   m_dropSO: {fileID: -8817795706234740082, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_enemyname: Moving
   m_attack: 10
-  m_hp: 2
+  m_hp: 3

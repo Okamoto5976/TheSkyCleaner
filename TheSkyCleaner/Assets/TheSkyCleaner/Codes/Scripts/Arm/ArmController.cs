@@ -50,14 +50,14 @@ public class ArmController : MonoBehaviour
 
             m_enemiesId.Add(id);
 
-            if (targets is IDamage)
-            {
-                Debug.Log("Enemy!");
-            }
-            else
-            {
-                Debug.Log("Trash!");
-            }
+            //if (targets is IDamage)
+            //{
+            //    Debug.Log("Enemy!");
+            //}
+            //else
+            //{
+            //    Debug.Log("Trash!");
+            //}
 
 
             arm.MoveToEnemy(targets, m_playerPos,

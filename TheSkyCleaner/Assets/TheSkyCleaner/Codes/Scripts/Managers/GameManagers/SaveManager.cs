@@ -2,11 +2,19 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+
+
 [System.Serializable]
 public class GameData
 {
-    public float ClearTime = float.MaxValue;
+    public float m_clearTime;
     public int m_score;
+}
+
+[System.Serializable]
+public class CurrentGameData
+{
+    public GameData m_scoredata = new GameData();
 }
 
 [System.Serializable]
@@ -55,6 +63,9 @@ public class EnhanceList
 
 public class SaveManager : MonoBehaviour
 {
+    private string CurrentScoreFileName = "currentscoredata.json";
+    private string CurrentScoreFullPath;
+
     private string fileName = "gamedata.json";
     private string fullPath;
 
@@ -72,6 +83,7 @@ public class SaveManager : MonoBehaviour
 
     void Awake()
     {
+        CurrentScoreFullPath = Path.Combine(Application.persistentDataPath, CurrentScoreFileName);
         fullPath = Path.Combine(Application.persistentDataPath, fileName);
         m_phaseFullPath = Path.Combine(Application.persistentDataPath, m_phaseFileName);
         audioFullPath = Path.Combine(Application.persistentDataPath, audioFileName);
@@ -79,13 +91,22 @@ public class SaveManager : MonoBehaviour
         m_enhanceFullPath = Path.Combine(Application.persistentDataPath, m_enhanceFileName);
     }
 
-    public void Save(GameData newdata)
+    public void ScoreSave(GameData newdata)
+    {
+        CurrentGameData data = new CurrentGameData();
+        data.m_scoredata = newdata;
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(CurrentScoreFullPath, json);
+    }
+
+    public void ScoreListSave(GameData newdata)
     {
         GameDataList data = Load();
 
         data.Records.Add(newdata);
 
-        data.Records.Sort((a, b) => a.ClearTime.CompareTo(b.ClearTime));
+        data.Records.Sort((a, b) => a.m_clearTime.CompareTo(b.m_clearTime));
 
         if (data.Records.Count > 10)
         {
@@ -95,7 +116,7 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(fullPath, json);
-        Debug.Log("Saved to: " + fullPath + " | ClearTime: " + newdata.ClearTime);
+        Debug.Log("Saved to: " + fullPath + " | ClearTime: " + newdata.m_clearTime);
     }
 
     public void PhaseSave(int index)
@@ -139,6 +160,19 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(enhance, true);
         File.WriteAllText(m_enhanceFullPath, json);
+    }
+
+    public CurrentGameData CurrentDataLoad()
+    {
+        if(File.Exists(CurrentScoreFullPath))
+        {
+            string json = File.ReadAllText(CurrentScoreFullPath);
+            return JsonUtility.FromJson<CurrentGameData>(json);
+        }
+        else
+        {
+            return new CurrentGameData();
+        }
     }
 
     public GameDataList Load()

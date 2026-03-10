@@ -43,7 +43,6 @@ public class LargeTrashManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("largeTrashPool");
             yield return m_sleepTime;
             SpawnOne();
         }

@@ -7,16 +7,18 @@ public class Skillget : MonoBehaviour
 {
     [SerializeField] private SkillDataSO m_skilldata; //スキル取得できるものすべて
     [SerializeField] private List<SkillSO> m_unlockSkills;
-    public List<SkillSO> unlockSkills;//取得したスキルの管理 ★
+    //public List<SkillSO> unlockSkills;//取得したスキルの管理 ★
     [SerializeField] private TextMeshProUGUI m_cost;
     [SerializeField] private SaveManager m_saveManager;
+
+    public List<SkillSO> UnlockSkills { get => m_unlockSkills; }
 
     //private int m_arm_powerup;
     //private int m_speedup;
 
     [SerializeField] private InventorySO m_inventorySO;
-    [SerializeField] private UpgradeScreen m_upgradeScreen;//★
-    [SerializeField] private List<ButtonAnimation> m_buttonAnimations;//★
+    //[SerializeField] private UpgradeScreen m_upgradeScreen;//★
+    //[SerializeField] private List<ButtonAnimation> m_buttonAnimations;//★
 
     private void Start()//初期化
     {
@@ -65,12 +67,12 @@ public class Skillget : MonoBehaviour
         }
         RemoveInventory(skillData);
 
-        // 取得したらボタンの状態を変える
-        for (int i = 0; i < (int)UpgradeButtonType.ButtonAmount; i++)
-        {
-            m_upgradeScreen.CheckUnlock(i, m_upgradeScreen.m_skills[i - 1]);
-            m_buttonAnimations[i].ButtonStateUpdate();
-        }
+        //// 取得したらボタンの状態を変える
+        //for (int i = 0; i < (int)UpgradeButtonType.ButtonAmount; i++)
+        //{
+        //    m_upgradeScreen.CheckUnlock(i, m_upgradeScreen.m_skills[i - 1]);
+        //    m_buttonAnimations[i].ButtonStateUpdate();
+        //}
 
         Debug.Log("取得");
         return true;

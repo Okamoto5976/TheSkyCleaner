@@ -1,7 +1,4 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -85,7 +82,7 @@ public class UpgradeScreen : MonoBehaviour
             if (i > 0)
             {
                 m_skills.Add(m_buttonElements[i].GameObject.GetComponent<SkillButton>().m_skill);
-                CheckUnlock(i, m_skills[i - 1]);
+                //CheckUnlock(i, m_skills[i - 1]);
             }
             m_buttonAnimations[i].ButtonStateUpdate();
         }
@@ -164,7 +161,7 @@ public class UpgradeScreen : MonoBehaviour
             if (m_conditionsForDecision == 1)
             {
                 pressedButton = false;
-                SceneLoader();
+                //SceneLoader();
             }
         }
         else if (m_pressDecide == 2 && pressedButton == true
@@ -178,7 +175,7 @@ public class UpgradeScreen : MonoBehaviour
 
             if (PressButton(m_buttonPositions[m_pressButtonType], m_buttonSizes[m_pressButtonType]) == true)
             {
-                SceneLoader();
+                //SceneLoader();
             }
         }
     }
@@ -275,71 +272,71 @@ public class UpgradeScreen : MonoBehaviour
         return false;
     }
 
-    public void CheckUnlock(int buttonNum, SkillSO skillData)
-    {
-        Debug.Log($"buttonNum: {buttonNum}");
-        if (m_skillget.unlockSkills.Contains(skillData))
-        {
-            Debug.Log("取得済み");
-            m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].UnlockSprite;
-            return;
-        }
+    //public void CheckUnlock(int buttonNum, SkillSO skillData)
+    //{
+    //    Debug.Log($"buttonNum: {buttonNum}");
+    //    if (m_skillget.unlockSkills.Contains(skillData))
+    //    {
+    //        Debug.Log("取得済み");
+    //        m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].UnlockSprite;
+    //        return;
+    //    }
 
-        foreach (var need in skillData.NeedSkill)//必要なスキルを取得済みかどうか
-        {
-            if (!m_skillget.unlockSkills.Contains(need))
-            {
-                Debug.Log("未解放");
-                m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
-                return;
-            }
-        }
+    //    foreach (var need in skillData.NeedSkill)//必要なスキルを取得済みかどうか
+    //    {
+    //        if (!m_skillget.unlockSkills.Contains(need))
+    //        {
+    //            Debug.Log("未解放");
+    //            m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
+    //            return;
+    //        }
+    //    }
 
-        if (!m_skillget.HasMaterials(skillData))
-        {
-            Debug.Log("ポイントが不足");
-            m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
-            return;
-        }
+    //    if (!m_skillget.HasMaterials(skillData))
+    //    {
+    //        Debug.Log("ポイントが不足");
+    //        m_buttonImages[buttonNum].color = m_buttonElements[buttonNum].LockColor;
+    //        return;
+    //    }
 
-        Debug.Log("取得可能");
-        m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].CanUnlockSprite;
-    }
+    //    Debug.Log("取得可能");
+    //    m_buttonImages[buttonNum].sprite = m_buttonElements[buttonNum].CanUnlockSprite;
+    //}
 
     // シーンをロード
-    private void SceneLoader()
-    {
-        switch (m_pressButtonType)
-        {
-            case (int)UpgradeButtonType.TransitionIngame:
-                Debug.Log("インゲームへ");
-                // ロードシーン（ingame）
-                break;
+    //private void SceneLoader()
+    //{
+    //    switch (m_pressButtonType)
+    //    {
+    //        case (int)UpgradeButtonType.TransitionIngame:
+    //            Debug.Log("インゲームへ");
+    //            // ロードシーン（ingame）
+    //            break;
 
-            case (int)UpgradeButtonType.ArmPowerUp1:
-                Debug.Log("アームパワーアップ１");
-                m_skillButton.OnClick();
-                break;
+    //        case (int)UpgradeButtonType.ArmPowerUp1:
+    //            Debug.Log("アームパワーアップ１");
+    //            m_skillButton.OnClick();
+    //            break;
 
-            case (int)UpgradeButtonType.ArmPowerUp2:
-                Debug.Log("アームパワーアップ２");
-                m_skillButton.OnClick();
-                break;
+    //        case (int)UpgradeButtonType.ArmPowerUp2:
+    //            Debug.Log("アームパワーアップ２");
+    //            m_skillButton.OnClick();
+    //            break;
 
-            case (int)UpgradeButtonType.SpeedUp1:
-                Debug.Log("スピードアップ１");
-                m_skillButton.OnClick();
-                break;
+    //        case (int)UpgradeButtonType.SpeedUp1:
+    //            Debug.Log("スピードアップ１");
+    //            m_skillButton.OnClick();
+    //            break;
 
-            case (int)UpgradeButtonType.SpeedUp2:
-                Debug.Log("スピードアップ2");
-                m_skillButton.OnClick();
-                break;
+    //        case (int)UpgradeButtonType.SpeedUp2:
+    //            Debug.Log("スピードアップ2");
+    //            m_skillButton.OnClick();
+    //            break;
 
-            case (int)UpgradeButtonType.NetUp1:
-                Debug.Log("ネットアップ１");
-                m_skillButton.OnClick();
-                break;
-        }
-    }
+    //        case (int)UpgradeButtonType.NetUp1:
+    //            Debug.Log("ネットアップ１");
+    //            m_skillButton.OnClick();
+    //            break;
+    //    }
+    //}
 }

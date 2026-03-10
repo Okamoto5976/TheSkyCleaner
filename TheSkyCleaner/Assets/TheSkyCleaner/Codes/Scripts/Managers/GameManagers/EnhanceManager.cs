@@ -20,4 +20,10 @@ public class EnhanceManager : MonoBehaviour
             SceneManager.LoadScene(0);
         }
     }
+
+    public void OnClic()
+    {
+        //シーンロード
+
+    }
 }

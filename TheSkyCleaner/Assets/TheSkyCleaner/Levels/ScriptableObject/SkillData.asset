@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
-  m_Name: NetUP_1
+  m_Name: ShotUP
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
   m_skilltype: 2
-  m_skillname: NetUP_1
+  m_skillname: ShotUP
   m_updataValue: 5
-  m_icon: {fileID: 0}
-  m_cost: 30
-  m_info: Net PowerUP level 1
+  m_id: 4
   m_needskill: []
-  m_materials: []
+  m_materials:
+  - type: 1
+    amount: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,17 +44,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
-  m_Name: SpeedUP_1
+  m_Name: PlayerHealthUP
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
-  m_skilltype: 1
-  m_skillname: SpeedUP_1
+  m_skilltype: 3
+  m_skillname: PlayerHealthUP
   m_updataValue: 10
-  m_icon: {fileID: 0}
-  m_cost: 5
-  m_info: SpeedUP level 1
+  m_id: 3
   m_needskill: []
-  m_materials: []
+  m_materials:
+  - type: 0
+    amount: 10
 --- !u!114 &4295520397004823568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,11 +69,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
   m_skilltype: 0
-  m_skillname: Arm_PowerUP_1
+  m_skillname: Arm_PowerUP
   m_updataValue: 5
-  m_icon: {fileID: 0}
-  m_cost: 5
-  m_info: ArmPowerUp1
+  m_id: 0
   m_needskill: []
   m_materials:
   - type: 0
@@ -90,22 +88,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
-  m_Name: Arm_PowerUp_2
+  m_Name: NetUP
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
-  m_skilltype: 0
-  m_skillname: Arm_PowerUp_2
+  m_skilltype: 1
+  m_skillname: NetUP
   m_updataValue: 10
-  m_icon: {fileID: 0}
-  m_cost: 5
-  m_info: PowerUP level 2
-  m_needskill:
-  - {fileID: 4295520397004823568}
+  m_id: 2
+  m_needskill: []
   m_materials:
-  - type: 0
-    amount: 2
-  - type: 1
-    amount: 3
+  - type: 2
+    amount: 10
 --- !u!114 &6144614974659436517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,16 +109,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
-  m_Name: SpeedUP_2
+  m_Name: InventoryUP
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
-  m_skilltype: 1
-  m_skillname: SpeedUP_2
+  m_skilltype: 5
+  m_skillname: InventoryUP
   m_updataValue: 5
-  m_icon: {fileID: 0}
-  m_cost: 5
-  m_info: SpeedUP level 2
-  m_needskill:
-  - {fileID: 4937409227621946373}
-  - {fileID: 2481242304235695874}
-  m_materials: []
+  m_id: 1
+  m_needskill: []
+  m_materials:
+  - type: 0
+    amount: 2

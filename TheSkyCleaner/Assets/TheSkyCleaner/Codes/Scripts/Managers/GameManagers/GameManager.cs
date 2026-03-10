@@ -33,8 +33,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
+    [SerializeField] private GameObject m_resultScreen;
+    [SerializeField] private ResultScreen m_result;
 
     [SerializeField] private GameObject m_boss;
+
+    private int m_score;
+    private float m_clearTime;
+
+    public int Score { get => m_score; }
+    public float ClearTime { get => m_clearTime; }
    
 
     private void Start()
@@ -64,10 +72,24 @@ public class GameManager : MonoBehaviour
 
         //強化スキルLoad or 適応
         m_skilladapt.LoadSkillType();
+
+        var gamedata = m_saveManager.CurrentDataLoad();
+        if(gamedata != null )
+        {
+            m_score = gamedata.m_scoredata.m_score;
+            m_clearTime = gamedata.m_scoredata.m_clearTime;
+        }
+        else
+        {
+            m_score = 0;
+            m_clearTime = 0;
+        }
     }
 
     private void Update()
     {
+        m_clearTime += Time.deltaTime;
+
         if (m_currentPhase == null) return;
 
         if(m_currentPhase.OnUpdate(Time.deltaTime))//true で終了
@@ -145,6 +167,9 @@ public class GameManager : MonoBehaviour
     private void GameClear()
     {
         if (m_bossHealth.Value > 0) return;
+
+        m_resultScreen.SetActive(true);
+        m_result.Result();
     }
 
 

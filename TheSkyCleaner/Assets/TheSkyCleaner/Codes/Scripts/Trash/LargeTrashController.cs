@@ -167,6 +167,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     public bool TryCollect(int damage)
     {
+        m_hp -= damage;
         return m_hp - damage <= 0;
     }
 }

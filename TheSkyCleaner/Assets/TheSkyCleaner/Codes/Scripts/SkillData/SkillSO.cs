@@ -5,8 +5,13 @@ using UnityEngine;
 public enum SkillType//ã≠âªÇçÏópÇ∑ÇÈç€ÅAéÌóﬁì¡íËÇÃÇΩÇﬂ
 {
     Arm_PowerUP,
-    SpeedUP,
-    NetUP
+    NetUP,
+    ShotUP,
+    PlayerHealthUP,
+    PlayerHealtDelect,
+    InventoryUP,
+
+    Count
 }
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Data/SkillSO")]
@@ -18,9 +23,6 @@ public class SkillSO : ScriptableObject
     [SerializeField] private float m_updataValue;
     [SerializeField] private int m_id;
 
-    [SerializeField] private Sprite m_icon;
-    [SerializeField] private int m_cost;
-    [SerializeField] private string m_info;
     [SerializeField] private SkillSO[] m_needskill;
 
     [SerializeField] private List<DropMaterial> m_materials;//DropSOÇÃíÜ
@@ -29,11 +31,6 @@ public class SkillSO : ScriptableObject
     public string Skillname { get => m_skillname; }
     public float UpdataValue { get => m_updataValue; }
     public int ID { get => m_id; }
-    public Sprite Icon { get => m_icon; }
-
-    public int Cost { get => m_cost; }
-
-    public string Info { get => m_info; }
 
     public SkillSO[] NeedSkill { get => m_needskill; }
 
