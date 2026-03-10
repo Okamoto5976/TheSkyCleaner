@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d5f615b1f44a74385e0146fd215fa2, type: 3}
   m_Name: StopBossPhase
   m_EditorClassIdentifier: Assembly-CSharp::BossPhase
-  m_phase: 0
-  m_bossActive: {fileID: 0}
-  m_bossDeactivate: {fileID: 0}
+  m_phase: 2
+  m_bossActive: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_bossDeactivate: {fileID: 11400000, guid: 80781ff1d6fc1074ebca737157f1b22e, type: 2}

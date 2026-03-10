@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour
     { 
         [SerializeField] private PhaseSequence m_phase;
         [SerializeField] private bool m_isLoopCheck;
+        [SerializeField] private int m_bossRunHealth;
+        [SerializeField] private bool m_isBossDownCheck;
         public PhaseSequence Phase { get => m_phase; } 
         public bool IsLoopCheck { get => m_isLoopCheck; }
+        public int BossRunHealth { get => m_bossRunHealth; }
+        public bool IsBossDownCheck { get => m_isBossDownCheck; }
     }
 
     [SerializeField] private List<SequenceLoop> m_sequences;
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
 
         GameOver();
 
+        //デバッグのため
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
             if(m_sequenceIndex < m_sequences.Count - 1)
@@ -93,9 +98,15 @@ public class GameManager : MonoBehaviour
             Debug.Log(m_sequenceIndex);
         }
 
-        //bossのhp < 0　のとき　リザルト表示etc...
-        PhaseClear();
-
+        if (!m_sequences[m_sequenceIndex].IsBossDownCheck)
+        {
+            PhaseClear();
+        }
+        else
+        {
+            //bossのhp < 0　のとき　リザルト表示etc...
+            GameClear();
+        }
     }
 
     private void NextPhase()
@@ -120,7 +131,7 @@ public class GameManager : MonoBehaviour
     private void PhaseClear()
     {
         //SequenseIndex save
-        if (m_bossHealth.Value > 0) return;
+        if (m_bossHealth.Value > m_sequences[m_sequenceIndex].BossRunHealth) return;
 
         if (m_sequenceIndex < m_sequences.Count - 1)
         {
@@ -129,6 +140,11 @@ public class GameManager : MonoBehaviour
         m_saveManager.PhaseSave(m_sequenceIndex);
 
         SceneManager.LoadScene(2);
+    }
+
+    private void GameClear()
+    {
+        if (m_bossHealth.Value > 0) return;
     }
 
 

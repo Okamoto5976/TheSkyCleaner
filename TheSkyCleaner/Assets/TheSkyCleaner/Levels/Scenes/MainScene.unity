@@ -372,8 +372,6 @@ MonoBehaviour:
   m_sequences:
   - m_phase: {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
     m_isLoopCheck: 0
-  - m_phase: {fileID: 11400000, guid: 4ed6a73a0fb019449b639a25f153438f, type: 2}
-    m_isLoopCheck: 0
   m_saveManager: {fileID: 41182764}
   m_skilladapt: {fileID: 41182763}
   m_EM: {fileID: 1259995856}
@@ -10407,7 +10405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   m_logger: {fileID: 760484166}
-  m_activeStateTrigger: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_activateStateTrigger: {fileID: 11400000, guid: 4de7eecdb681c3d4b96d671879a8483a, type: 2}
+  m_deactivateStateTrigger: {fileID: 11400000, guid: 80781ff1d6fc1074ebca737157f1b22e, type: 2}
   m_bossHealth: {fileID: 11400000, guid: fcff5902f423d57478d15ff982c1350d, type: 2}
   m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
   m_currentBossPhaseIndex: {fileID: 11400000, guid: dc3134785cee4e34f8f85fa28750dabc, type: 2}
@@ -26452,12 +26451,12 @@ MonoBehaviour:
   m_spawnTrashMax: {x: 10, y: 10}
   m_spawnTrashInterval: 2
   m_collectTypes:
-  - m_visualPool: {fileID: 1572969185}
-    m_collectData: {fileID: 1450623342141515794, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 1297772232}
-    m_collectData: {fileID: 2710472044534140442, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   - m_visualPool: {fileID: 903340808}
     m_collectData: {fileID: 3521932260522705281, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  - m_visualPool: {fileID: 1297772232}
+    m_collectData: {fileID: 2710472044534140442, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  - m_visualPool: {fileID: 1572969185}
+    m_collectData: {fileID: 1450623342141515794, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   m_moveSpeed: 3
   m_direction: {x: 0, y: 0, z: -1}
 --- !u!114 &476763695
@@ -27934,7 +27933,7 @@ MonoBehaviour:
   m_moveSpeed: 5
   m_boostMultiplier: 2
   m_boostTimer: 1
-  m_fuelSliber: {fileID: 1022226872}
+  m_fuelSliber: {fileID: 0}
 --- !u!114 &762919365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30038,7 +30037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1128636468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30051,30 +30050,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8cb3c941a61104e8872d011b9ae269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultScreen
-  m_buttonCondition: {fileID: 11400000, guid: d7b0b8033eab3f846856cdf621106428, type: 2}
-  m_buttonElements:
-  - gameObject: {fileID: 2016585003}
-    icon: {fileID: 732644908}
-  - gameObject: {fileID: 1770077106}
-    icon: {fileID: 1300115861}
+  m_buttonCondition: {fileID: 0}
+  m_buttonElements: []
   m_cursorElement:
-    gameObject: {fileID: 296242254}
-    moveSpeed: 4
-  m_textElements:
-  - resultString: {fileID: 1955190486}
-    text: Score
-  - resultString: {fileID: 2065636470}
-    text: Time
-  - resultString: {fileID: 428206420}
-    text: Fuel
-  - resultString: {fileID: 610580181}
-    text: Armor
-  - resultString: {fileID: 732772521}
-    text: EneBul
+    gameObject: {fileID: 0}
+    moveSpeed: 0
+  m_textElements: []
   m_aircraftElement:
     gameObject: {fileID: 0}
-    isRotate: 1
-    rotateSpeed: 45
+    isRotate: 0
+    rotateSpeed: 0
   PartLevel: 000000000000000000000000
   m_buttonPositions: []
   m_buttonSizes: []
@@ -30980,14 +30965,14 @@ MonoBehaviour:
   m_spawnTrashMin: {x: -10, y: -10}
   m_spawnTrashMax: {x: 10, y: 10}
   m_spawnTrashInterval: 2
-  m_boss: {fileID: 243624927}
+  m_boss: {fileID: 0}
   m_collectTypes:
-  - m_visualPool: {fileID: 1080167040}
-    m_collectData: {fileID: 909973053413057256, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
-  - m_visualPool: {fileID: 955840535}
-    m_collectData: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   - m_visualPool: {fileID: 1431123612}
     m_collectData: {fileID: 7432707155424486683, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  - m_visualPool: {fileID: 955840535}
+    m_collectData: {fileID: 501096879325753653, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
+  - m_visualPool: {fileID: 1080167040}
+    m_collectData: {fileID: 909973053413057256, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   - m_visualPool: {fileID: 1589237318}
     m_collectData: {fileID: -2378439440498249642, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   m_moveSpeed: 4
@@ -31697,7 +31682,7 @@ MonoBehaviour:
   m_enemypool: {fileID: 1259995855}
   m_trashpool: {fileID: 1295027949}
   m_largeTrashpool: {fileID: 476763695}
-  m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: 799a8c025983ba14aaa69a6a2b1ad733, type: 3}
+  m_lockOnMarkerPrefab: {fileID: 449600766203531695, guid: a0be7509b3f9aec479633dbf27b1f5e4, type: 3}
   m_shotMarkerPrefab: {fileID: 449600766203531695, guid: 8a6ed9fe47b84194dab6de32b2042eb0, type: 3}
   m_rect: {fileID: 675199751}
   m_targetAxis: {fileID: 11400000, guid: b607e33c5ab517743be03f8d3d1e8d96, type: 2}
@@ -43210,8 +43195,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -43640,8 +43625,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -43928,8 +43913,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -45338,8 +45323,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

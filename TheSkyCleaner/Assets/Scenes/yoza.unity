@@ -1397,6 +1397,7 @@ GameObject:
   - component: {fileID: 1168562886}
   - component: {fileID: 1168562885}
   - component: {fileID: 1168562889}
+  - component: {fileID: 1168562890}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1506,9 +1507,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168562884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00cee6d37471df44b96d643321e7f378, type: 3}
+  m_Script: {fileID: 11500000, guid: 7650e6c17f6d51a4796c9c6100cee86e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::fuel
+  m_EditorClassIdentifier: Assembly-CSharp::fuel1
   m_kakuninnyouFuel: 0
   m_fuelContainer: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
   m_consumptionRate: 1
@@ -1517,6 +1518,33 @@ MonoBehaviour:
   m_boostMultiplier: 2
   m_boostTimer: 1
   m_fuelSliber: {fileID: 1610773124}
+--- !u!54 &1168562890
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168562884}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1195663851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.1, y: 165}
+  m_AnchoredPosition: {x: 286.4, y: 194.9}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1610773124
@@ -2216,6 +2244,7 @@ GameObject:
   - component: {fileID: 1962910983}
   - component: {fileID: 1962910982}
   - component: {fileID: 1962910986}
+  - component: {fileID: 1962910987}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2324,6 +2353,26 @@ MonoBehaviour:
   m_optionUI: {fileID: 494842982}
   m_poseButtonFrame: {fileID: 859650553}
   m_optionButtonFrame: {fileID: 1866740697}
+--- !u!114 &1962910987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962910981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9be2bee3ef009d4da505cbeb6a7d62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::spawner
+  m_meteoritePrefab: {fileID: 1932610862344823085, guid: 6641a97008ebeeb419c87e1678451b89, type: 3}
+  m_playerTransflom: {fileID: 1168562888}
+  m_mode: 1
+  m_meteoProbability: 100
+  m_gambling: 1
+  m_meteoritespeed: 10
+  m_BesideDistance: 15
+  m_BackDistance: 60
 --- !u!1 &2128639058
 GameObject:
   m_ObjectHideFlags: 0
