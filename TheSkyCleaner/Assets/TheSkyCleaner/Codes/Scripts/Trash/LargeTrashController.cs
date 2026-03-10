@@ -14,6 +14,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
     private TrashPoolManager m_poolTrash;
+    private ObjectPoolManager m_poolDeathParticle;
 
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
@@ -84,6 +85,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     }
 
     public void SetPoolObj(TrashPoolManager t) => m_poolTrash = t;
+    public void SetPoolDeathEffect(ObjectPoolManager t) => m_poolDeathParticle = t;
 
 
     public void Damage(int damage)
@@ -106,6 +108,10 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
 
             //}
+
+            GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
+            deathParticle.transform.position = Transform.position;
+            deathParticle.SetActive(true);
 
             ReturnToPool();
         }

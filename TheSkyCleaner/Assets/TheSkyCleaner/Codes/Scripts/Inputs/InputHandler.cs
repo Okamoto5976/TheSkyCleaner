@@ -116,6 +116,10 @@ public class InputHandler : MonoBehaviour
             }
             buttonAction.time = 0;
             buttonAction.isPressed = false;
+            if (!IsContainerNotFound(buttonAction.Container.OnRelease, "OnRelease"))
+            {
+                buttonAction.Container.OnRelease.Trigger();
+            }
         }
     }
 
