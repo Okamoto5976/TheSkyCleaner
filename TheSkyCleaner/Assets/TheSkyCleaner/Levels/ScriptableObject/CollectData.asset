@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: Human
   m_EditorClassIdentifier: Assembly-CSharp::CollectSO
   m_collectdata: {fileID: 11400000}
-  m_dropSO: {fileID: 0}
+  m_dropSO: {fileID: -5504489695568812701, guid: 77c4e24526e875447b9384df3f4d40fc, type: 2}
   m_collectname: Human
   m_attack: 0
   m_hp: 0
