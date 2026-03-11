@@ -115,32 +115,30 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         
         if(m_hp <= 0)
         {
-            var obj = m_trashManager.SetThrow(m_index);
-            //m_trash = m_poolTrash.GetComponentFromPool();//位置指定してない
-            //                                                //生成位置 
-            //m_trash.transform.position = this.transform.position;
-            //m_trash.gameObject.SetActive(true);
-            //m_trash.SetMoving(true);
-            //m_trash.SetMoveSpeed(m_trashSpeed);
-            //Vector3 dir = new Vector3(0, 0, -1);
-            //m_trash.SetMoveDirection(dir);
 
-            obj.transform.position = this.transform.position;
-            obj.gameObject.SetActive(true);
-            //for (int i = 0; i < m_trashSpawn; i++)
-            //{
-
-
-            //}
+            TrashThrow();
 
             GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
             deathParticle.transform.position = Transform.position;
             deathParticle.SetActive(true);
 
-            m_audioSource.PlayOneShot(m_deathSound.AudioClip, m_deathSound.Volume);
+            DeathAudioPlay();
 
             ReturnToPool();
         }
+    }
+
+    private void TrashThrow()
+    {
+        var obj = m_trashManager.SetThrow(m_index);
+
+        obj.transform.position = this.transform.position;
+        obj.gameObject.SetActive(true);
+    }
+
+    private void DeathAudioPlay()
+    {
+        m_audioSource.PlayOneShot(m_deathSound.AudioClip, m_deathSound.Volume);
     }
 
     public void SetVisual(ObjectPoolManager pool, int index)
@@ -182,6 +180,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     public DropSO Collect()
     {
         DropSO drop = GetDropData();
+        TrashThrow();
         ReturnToPool();
         return drop;
     }
