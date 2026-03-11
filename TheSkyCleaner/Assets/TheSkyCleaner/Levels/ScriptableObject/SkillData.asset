@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2414418492808004609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: ShotUP
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 2
+  m_skillname: ShotUP
+  m_updataValue: 1
+  m_id: 4
+  m_needskill: []
+  m_materials:
+  - type: 1
+    amount: 20
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb40bc0c0286f3d40b3b23ae122b2deb, type: 3}
+  m_Name: SkillData
+  m_EditorClassIdentifier: Assembly-CSharp::SkillDataSO
+  m_skillSO: []
+--- !u!114 &2481242304235695874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: PlayerHealthUP
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 3
+  m_skillname: PlayerHealthUP
+  m_updataValue: 20
+  m_id: 3
+  m_needskill: []
+  m_materials:
+  - type: 0
+    amount: 10
+--- !u!114 &4295520397004823568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: Arm_Count
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 0
+  m_skillname: Arm_Count
+  m_updataValue: 1
+  m_id: 0
+  m_needskill: []
+  m_materials:
+  - type: 4
+    amount: 1
+--- !u!114 &4937409227621946373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: NetUP
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 1
+  m_skillname: NetUP
+  m_updataValue: 1
+  m_id: 2
+  m_needskill: []
+  m_materials:
+  - type: 2
+    amount: 20
+--- !u!114 &6144614974659436517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
+  m_Name: InventoryUP
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSO
+  m_skilldata: {fileID: 11400000}
+  m_skilltype: 5
+  m_skillname: InventoryUP
+  m_updataValue: 20
+  m_id: 1
+  m_needskill: []
+  m_materials:
+  - type: 0
+    amount: 20

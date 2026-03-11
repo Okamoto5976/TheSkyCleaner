@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179cd41473c7fec40877e31eb279bc82, type: 3}
+  m_Name: PlayerIsAlive
+  m_EditorClassIdentifier: Assembly-CSharp::FloatThresholdContainer
+  m_initialValue: 0
+  m_value: 0
+  m_container: {fileID: 11400000, guid: e25e0fcbb011fd045bbafcb4dc22c4ad, type: 2}
+  m_threshold: 0
+  m_operator: 4

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7650e6c17f6d51a4796c9c6100cee86e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_fuelContainer: {instanceID: 0}
+  - m_fuelSliber: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683943e5051249142b1553472a552296, type: 3}
+  m_Name: PlayerIsInvulnerable
+  m_EditorClassIdentifier: Assembly-CSharp::MassBooleanContainer
+  m_initialValue: 0
+  m_value: 0
+  m_booleanContainers:
+  - {fileID: 11400000, guid: 5114e198b84035f40a8c74206f0b9f3e, type: 2}
+  - {fileID: 11400000, guid: 215aa356207708b4893e5f6dd644ac38, type: 2}
+  m_method: 0

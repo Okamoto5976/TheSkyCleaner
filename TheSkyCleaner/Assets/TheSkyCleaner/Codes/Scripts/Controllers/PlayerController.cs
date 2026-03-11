@@ -1,47 +1,119 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(MovementHandler))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<float> m_onMoveHorizontal;
-    [SerializeField] private UnityEvent<float> m_onMoveVertical;
-    [SerializeField] private UnityEvent m_onMainActionTap;
-    [SerializeField] private UnityEvent m_onMainActionHoldStarted;
-    [SerializeField] private UnityEvent m_onMainActionHoldCancelled;
-    [SerializeField] private UnityEvent<float> m_onChangeSpeed;
+    [Header("Logger")]
+    [SerializeField] private Logger m_logger;
 
-    public void MoveHorizontal(float dir)
+    [Header("Input")]
+    [SerializeField] private InputContainer m_inputContainer;
+
+    [Header("Components")]
+    [SerializeField] private TiltHandler m_playerTiltHandler;
+    [SerializeField] private TiltHandler m_offsetTiltHandler;
+    [SerializeField] private AnimatorVariableDriver m_animatorVariableDriver;
+
+    [SerializeField] private StringContainer m_dodgeAnimationToggleBoolName;
+    [SerializeField] private StringContainer m_dodgeAnimationHorizontalFloatName;
+
+    [Header("External Components")]
+    [SerializeField] private ReticleController m_reticleController;
+
+    [Header("Global Variable Containers")]
+    [SerializeField] private PlayerStatus m_playerStatus;
+    [SerializeField] private TriggerContainer m_playerDodgeSuccessful;
+    [SerializeField] private BooleanContainer m_isDodgeInvulnerable;
+    [SerializeField] private FloatContainer m_playerDodgeInvulnerabilityTime;
+
+    [Header("Events")]
+
+    private MovementHandler m_movementHandler;
+    private PlayerAttackController m_playerAttackController;
+    private Vector2 m_movementAxis;
+    private Vector2 m_reticleAxis;
+
+    private Transform m_transform;
+
+    private IDamage ShotTarget => m_reticleController.GetPrimaryTarget();
+
+    private WaitForSeconds m_dodgeTime;
+
+    private void Awake()
     {
-        m_onMoveHorizontal.Invoke(dir);
+        m_transform = transform;
+        m_movementHandler = GetComponent<MovementHandler>();
+        m_playerAttackController = GetComponent<PlayerAttackController>();
+        m_movementAxis = Vector2.zero;
+        m_dodgeTime = new(m_playerDodgeInvulnerabilityTime.Value);
     }
 
-    public void MoveVertical(float dir)
+    private void OnEnable()
     {
-        m_onMoveVertical.Invoke(dir);
+        m_inputContainer.StrongAction.Tap.OnTrigger += OnPlayerDodge;
+        m_playerDodgeSuccessful.OnTrigger += OnDodgeSuccess;
     }
 
-    public void ChangeSpeed(float dir)
+    private void OnDisable()
     {
-        m_onChangeSpeed.Invoke(dir);
-        Debug.Log(dir);
+        m_inputContainer.StrongAction.Tap.OnTrigger -= OnPlayerDodge;
+        m_playerDodgeSuccessful.OnTrigger -= OnDodgeSuccess;
     }
 
-    public void MainActionTap()
+    private void Update()
     {
-        m_onMainActionTap.Invoke();
-    }
-
-    public void MainActionHoldSetState(bool state)
-    {
-        if (state)
+        m_playerStatus.UpdateMovementInput(m_inputContainer.MovementAxis);
+        PassReticle();
+        MovePlayer(ref m_movementAxis);
+        Quaternion offset = Quaternion.identity;
+        if (ShotTarget != null)
         {
-            Debug.Log("Hold Started");
-            m_onMainActionHoldStarted.Invoke();
+            Vector3 pos = ShotTarget.Transform.position - m_transform.position;
+            pos.z /= 10;
+            offset = Quaternion.LookRotation(pos);
         }
-        else
-        {
-            Debug.Log("Hold Cancelled");
-            m_onMainActionHoldCancelled.Invoke();
-        }
+        m_playerTiltHandler.TiltOnYaw(m_movementAxis);
+        m_playerTiltHandler.TiltYaw(m_movementAxis.x);
+        m_offsetTiltHandler.TiltAll(offset);
     }
+
+    private void FixedUpdate()
+    {
+    }
+
+    private void PassReticle()
+    {
+        m_reticleAxis = m_inputContainer.ReticleAxis;
+        m_reticleController.MoveReticle(m_reticleAxis);
+    }
+
+    public void OnPlayerDodge()
+    {
+        m_animatorVariableDriver.TriggerBool(m_dodgeAnimationToggleBoolName.Value);
+    }
+
+    private void OnDodgeSuccess()
+    {
+        StartCoroutine(DoDodgeInvulnerability());
+    }
+
+    private IEnumerator DoDodgeInvulnerability()
+    {
+        m_isDodgeInvulnerable.SetValue(true);
+        yield return m_dodgeTime;
+        m_isDodgeInvulnerable.SetValue(false);
+    }
+
+    public void MovePlayer(ref Vector2 axis)
+    {
+        axis = m_inputContainer.MovementAxis;
+        m_movementHandler.SetSpeed(m_playerStatus.Speed);
+        m_movementHandler.MoveOnZ(axis);
+        m_playerStatus.UpdateGlobalPosition(m_transform.position);
+        m_animatorVariableDriver.Drive(m_dodgeAnimationHorizontalFloatName.Value, axis.x);
+    }
+
+
 }
