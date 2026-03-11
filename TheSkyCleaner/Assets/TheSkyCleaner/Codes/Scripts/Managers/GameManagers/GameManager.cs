@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private List<SequenceLoop> m_sequences;
+    [SerializeField] private ParticleSystem m_deathbossParticle;
 
     [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private FadeManager m_fadeManager;
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject m_resultScreen;
     [SerializeField] private ResultScreen m_result;
+    [SerializeField] private TextMeshProUGUI m_phaseText;
 
     [SerializeField] private FloatContainer m_reticleControll;
     [SerializeField] private IntegerContainer m_bossPhase;
@@ -54,6 +57,10 @@ public class GameManager : MonoBehaviour
     private float m_clearTime;
 
     private bool m_ischeck = false;
+
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
     private void Start()
     {
         m_slider.value = m_reticleControll.Value;
@@ -70,6 +77,7 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex = 0;
         }
 
+        m_phaseText.text = (m_sequenceIndex + 1).ToString();
         Debug.Log(m_sequenceIndex);
         m_bossPhase.SetValue(m_sequenceIndex);
 
@@ -177,6 +185,8 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex++;
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
+        m_gameMenuManager.m_canCloseMenu = false;
+
         AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
         m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
@@ -187,12 +197,14 @@ public class GameManager : MonoBehaviour
         if (m_bossHealth.Value > 0) return;
 
         if (m_ischeck == true) return;
+        m_ischeck = true;
+        m_deathbossParticle.Play();
+
         m_resultScreen.SetActive(true);
 
         AddScore();
         m_gameMenuManager.m_canCloseMenu = false;
         m_result.Result(m_score,m_clearTime);
-        m_ischeck = true;
         Time.timeScale = 0f;//~‚ß‚é
     }
 
@@ -200,6 +212,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         if (m_playerHealth.Value > 0) return;
+        m_gameMenuManager.m_canCloseMenu = false;
 
         AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
@@ -211,6 +224,9 @@ public class GameManager : MonoBehaviour
     public void MoveToTitleScene()//‹°‚ç‚­ƒƒjƒ…[‚©‚ç@timeScale‚ğ–ß‚·
     {
         Time.timeScale = 1f;
+        m_gameMenuManager.m_canCloseMenu = false;
+
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
 
         m_fadeManager.ChangeScene(m_titleScene.Value, false);
     }

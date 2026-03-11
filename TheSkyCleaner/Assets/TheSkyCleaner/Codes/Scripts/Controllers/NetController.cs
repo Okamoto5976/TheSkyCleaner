@@ -18,7 +18,9 @@ public class NetController : MonoBehaviour
     [SerializeField] private TargetableManager m_targetableManager;
     [SerializeField] private RectTransform m_reticle;
     [SerializeField] private InventorySO m_inventory;
-    
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_netSound;
 
     private Transform m_transform;
     private Transform m_netObjectTransform;
@@ -55,6 +57,8 @@ public class NetController : MonoBehaviour
         SetNetControlPoints();
 
         DoNetAction();
+
+        m_audioSource.PlayOneShot(m_netSound.AudioClip, m_netSound.Volume);
 
         m_netObject.SetActive(true);
     }

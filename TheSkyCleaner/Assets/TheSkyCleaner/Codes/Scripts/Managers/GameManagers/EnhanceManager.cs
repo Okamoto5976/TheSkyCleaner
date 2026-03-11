@@ -8,6 +8,10 @@ public class EnhanceManager : MonoBehaviour
 
     [SerializeField] private StringContainer m_mainScene;
 
+    [SerializeField] private GameOption m_gameOption;
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
+
     private void Start()
     {
         m_skillget.LoadSkillType();
@@ -24,6 +28,10 @@ public class EnhanceManager : MonoBehaviour
 
     public void MoveToMainScene()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+        m_gameOption.m_canCloseMenu = false;
+
         m_skillget.SaveSkillType();
         m_fadeManager.ChangeScene(m_mainScene.Value, false);
 

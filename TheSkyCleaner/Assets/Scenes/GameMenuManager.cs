@@ -19,7 +19,11 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private SaveManager m_save;
     [SerializeField] private StringContainer m_titleScene;
 
-    public bool m_canCloseMenu = true;//チュートリアル中に閉じないよう一時的な処置
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
+
+    public bool m_canCloseMenu = true;//チュートリアル中に閉じないよう一時的な処置　またアニメーション中に押せないように
 
     private InputAction m_Pause;
     private void Start()
@@ -89,8 +93,10 @@ public class GameMenuManager : MonoBehaviour
     }
     private void ESCpussyu()
     {
+
+
         //オプションが開いてるならオプションだけ消してポーズに戻る
-        if(m_optionUI.activeSelf)
+        if (m_optionUI.activeSelf)
         {
             
             OptionsClose();
@@ -109,6 +115,9 @@ public class GameMenuManager : MonoBehaviour
 
     public void OpenPose()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         m_poseUI.SetActive(true);//ポーズ開く
 
         m_ReticleScreen.SetActive(false);
@@ -118,6 +127,9 @@ public class GameMenuManager : MonoBehaviour
     }
     public void ReturnGame()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("ゲームに戻る");
         m_poseUI.SetActive(false);//ポーズ消す
         m_optionUI.SetActive(false);//一応念のため
@@ -128,6 +140,9 @@ public class GameMenuManager : MonoBehaviour
     }
     public void OpenOptions()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("オプション");
         m_poseUI.SetActive(false);//ポーズ画面消す
         m_optionUI.SetActive(true);//オプション出す
@@ -137,6 +152,9 @@ public class GameMenuManager : MonoBehaviour
     }
     public void OptionsClose()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("戻る");
         m_optionUI.SetActive(false);//消す
         m_poseUI.SetActive(true);//ポーズに戻す

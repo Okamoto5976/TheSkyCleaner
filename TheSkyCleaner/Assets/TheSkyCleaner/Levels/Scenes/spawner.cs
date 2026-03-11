@@ -20,6 +20,8 @@ public class spawner : MonoBehaviour
     [SerializeField] private float m_BackDistance = 60f;//‰œ
 
 
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_meteoSound;
 
     void Start()
     {
@@ -32,6 +34,8 @@ public class spawner : MonoBehaviour
         if (roll <= m_meteoProbability)
         {
             Spawnmeteorit();
+            m_audioSource.PlayOneShot(m_meteoSound.AudioClip, m_meteoSound.Volume);
+
         }
         else
         {

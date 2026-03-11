@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e704b386dbc740e489fb63db566cfc6a, type: 3}
-  m_Name: Integer_BossHealth
-  m_EditorClassIdentifier: Assembly-CSharp::IntegerContainer
-  m_initialValue: 200
-  m_value: 200
+  m_Script: {fileID: 11500000, guid: ad64a1c0405f09b45af7143f91bd2d4d, type: 3}
+  m_Name: Button
+  m_EditorClassIdentifier: Assembly-CSharp::AudioContainer
+  m_audioClip:
+  - {fileID: 8300000, guid: b7b7ab2b92a103d418aa34912114caa1, type: 3}
+  m_volume: 1

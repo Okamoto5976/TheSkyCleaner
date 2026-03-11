@@ -15,6 +15,9 @@ public class TutorialManager : MonoBehaviour
 
     private bool m_canCloseHelp = false;
 
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
+
     void Start()
     {
         // 起動時はパネルを閉じておく
@@ -36,6 +39,9 @@ public class TutorialManager : MonoBehaviour
     // HELPボタンを押した時
     public void OpenTutorial()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         currentIndex = 0;
         UpdateUI();
 
@@ -49,6 +55,9 @@ public class TutorialManager : MonoBehaviour
     // 右矢印ボタン
     public void NextPage()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         if (currentIndex < pages.Length - 1)
         {
             currentIndex++;
@@ -59,6 +68,9 @@ public class TutorialManager : MonoBehaviour
     // 左矢印ボタン
     public void PrevPage()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         if (currentIndex > 0)
         {
             currentIndex--;
@@ -69,6 +81,9 @@ public class TutorialManager : MonoBehaviour
     // 戻る（閉じる）ボタン
     public void CloseTutorial()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         m_gameMenu.m_canCloseMenu = true;
         m_canCloseHelp = false;
 

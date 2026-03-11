@@ -10,7 +10,8 @@ public class SkillButton : MonoBehaviour
     [SerializeField] private Image m_lock;
     [SerializeField] private TextMeshProUGUI m_cost;
 
-
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
     private void Start()
     {
 
@@ -41,6 +42,9 @@ public class SkillButton : MonoBehaviour
 
     public void OnClick()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("ButtonPress");
         m_skillget.Unlock(m_skill);
     }

@@ -15,6 +15,11 @@ public class BossAnimation : MonoBehaviour
 
     [SerializeField] private StringContainer m_mainScene;
 
+    [SerializeField] private GameOption m_gameOption;
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
+
     private void Awake()
     {
         m_seni.SetBool(m_tranName, false);
@@ -24,6 +29,10 @@ public class BossAnimation : MonoBehaviour
 
     public void ChangeScene()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
+        m_gameOption.m_canCloseMenu = false;
         Debug.Log("Start");
 
         Invoke("change_button", m_seniInterval);
@@ -42,6 +51,9 @@ public class BossAnimation : MonoBehaviour
 
     public void QuitGame()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
