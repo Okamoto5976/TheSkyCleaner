@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovementHandler : MonoBehaviour
 {
-    [SerializeField] private Vector3 m_speeds;
+    [SerializeField] private Vector3 m_speeds = Vector3.one;
     [SerializeField] private float m_speedMod = 1;
 
     protected Transform m_transform;

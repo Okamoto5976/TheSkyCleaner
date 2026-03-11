@@ -11,6 +11,7 @@ public class PlayerParticleManager : MonoBehaviour
     {
         InputContainer.StrongAction.OnPress.OnTrigger += OnSpeedUp;
         InputContainer.StrongAction.OnRelease.OnTrigger += OnSpeedUpRelease;
+        OnSpeedUpRelease();
     }
 
     private void OnDisable()

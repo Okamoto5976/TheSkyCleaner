@@ -14,6 +14,7 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private EnemyPoolManager m_enemypool;
     [SerializeField] private TrashPoolManager m_trashpool;
     [SerializeField] private LargeTrashPoolManager m_largeTrashpool;
+    [SerializeField] private HumanPoolManager m_humanPool;
 
 
     [SerializeField] private Image m_lockOnMarkerPrefab;
@@ -157,10 +158,12 @@ public class ReticleController : MonoBehaviour
         var enemies = m_enemypool.GetActiveComponents();
         var trashes = m_trashpool.GetActiveComponents();
         var largeTrashes = m_largeTrashpool.GetActiveComponents();
+        var humans = m_humanPool.GetActiveComponents();
 
         LockOnTargets(enemies);
         LockOnTargets(trashes);
         LockOnTargets(largeTrashes);
+        LockOnTargets(humans);
 
         if (m_isBossActive.Value)
         {
