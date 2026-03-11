@@ -252,9 +252,9 @@ public class SaveManager : MonoBehaviour
 
     public void StartResetData()
     {
-        if (File.Exists(fullPath))
+        if (File.Exists(CurrentScoreFullPath))
         {
-            File.Delete(fullPath);
+            File.Delete(CurrentScoreFullPath);
         }
 
         if (File.Exists(m_phaseFullPath))

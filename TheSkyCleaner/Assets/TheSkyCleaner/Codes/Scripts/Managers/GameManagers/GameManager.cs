@@ -100,25 +100,25 @@ public class GameManager : MonoBehaviour
 
         GameOver();
 
-        //デバッグのため
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            if(m_sequenceIndex < m_sequences.Count - 1)
-            {
-                m_sequenceIndex++;
-            }
-            m_saveManager.PhaseSave(m_sequenceIndex);
+        ////デバッグのため
+        //if (Keyboard.current.tKey.wasPressedThisFrame)
+        //{
+        //    if(m_sequenceIndex < m_sequences.Count - 1)
+        //    {
+        //        m_sequenceIndex++;
+        //    }
+        //    m_saveManager.PhaseSave(m_sequenceIndex);
 
-            SceneManager.LoadScene(1);
-        }
+        //    SceneManager.LoadScene(1);
+        //}
 
-        //デバッグのため
-        if (Keyboard.current.yKey.wasPressedThisFrame)
-        {
-            m_sequenceIndex = 0;
-            m_saveManager.PhaseSave(m_sequenceIndex);
-            Debug.Log(m_sequenceIndex);
-        }
+        ////デバッグのため
+        //if (Keyboard.current.yKey.wasPressedThisFrame)
+        //{
+        //    m_sequenceIndex = 0;
+        //    m_saveManager.PhaseSave(m_sequenceIndex);
+        //    Debug.Log(m_sequenceIndex);
+        //}
 
         if (!m_sequences[m_sequenceIndex].IsBossDownCheck)
         {
