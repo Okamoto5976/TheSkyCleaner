@@ -1,18 +1,20 @@
 using System.Text;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class SkillButton : MonoBehaviour
 {
     public SkillSO m_skill; // Åö
     [SerializeField] private Skillget m_skillget;
     [SerializeField] private Image m_lock;
+    [SerializeField] private TextMeshProUGUI m_cost;
 
 
     private void Start()
     {
 
-        //m_cost.text = BuildText();
+        m_cost.text = BuildText();
         //m_cost.text = string.Format("Point:{0}", m_skill.Cost);
     }
 

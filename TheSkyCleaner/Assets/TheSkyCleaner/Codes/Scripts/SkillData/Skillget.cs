@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Skillget : MonoBehaviour
 {
-    [SerializeField] private SkillDataSO m_skilldata; //スキル取得できるものすべて
+    [SerializeField] private List<SkillSO> m_skilldata; //スキル取得できるものすべて
     [SerializeField] private List<SkillSO> m_unlockSkills;
     //public List<SkillSO> unlockSkills;//取得したスキルの管理 ★
-    [SerializeField] private TextMeshProUGUI m_cost;
+    //[SerializeField] private TextMeshProUGUI m_cost;
     [SerializeField] private SaveManager m_saveManager;
 
     public List<SkillSO> UnlockSkills { get => m_unlockSkills; }
@@ -33,7 +33,7 @@ public class Skillget : MonoBehaviour
 
     private void Update()
     {
-        m_cost.text = BuildText();
+        //m_cost.text = BuildText();
         //m_cost.text = string.Format("NowPoint:{0}", m_mycost);
     }
     private string BuildText()
@@ -177,14 +177,17 @@ public class Skillget : MonoBehaviour
         if (data == null) return;
 
         m_unlockSkills.Clear();
-
+        Debug.Log("load");
         foreach (var id in data.m_unlockSkills)
         {
-            SkillSO found = m_skilldata.SkillSO
+            SkillSO found = m_skilldata
                .Find(s => s.ID == id);
 
             if (found != null)
+            {
                 m_unlockSkills.Add(found);
+                Debug.Log("unlockSkill");
+            }
         }
     }
 

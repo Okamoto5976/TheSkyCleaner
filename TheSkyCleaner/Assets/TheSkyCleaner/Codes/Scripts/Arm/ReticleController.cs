@@ -45,6 +45,8 @@ public class ReticleController : MonoBehaviour
 
     private Image m_shotMarker;
 
+    [SerializeField] private FloatContainer m_reticleControll;
+
     /// <summary>
     /// All targets of ILockOnTarget
     /// </summary>
@@ -118,8 +120,8 @@ public class ReticleController : MonoBehaviour
     public void MoveReticle(Vector2 delta)
     {
         Vector3 pos = m_rect.position;
-        pos.x += delta.x / 50;
-        pos.y += delta.y / 50;
+        pos.x += delta.x / 100 * m_reticleControll.Value;
+        pos.y += delta.y / 100 * m_reticleControll.Value;
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();

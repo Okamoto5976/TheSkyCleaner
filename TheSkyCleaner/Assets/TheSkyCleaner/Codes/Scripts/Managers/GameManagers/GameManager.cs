@@ -38,14 +38,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LargeTrashManager m_LTM;
     [SerializeField] private GameObject m_resultScreen;
     [SerializeField] private ResultScreen m_result;
-
+    [SerializeField] private FloatContainer m_reticleControll;
     [SerializeField] private GameObject m_boss;
 
     private int m_score;
     private float m_clearTime;
-
-    public int Score { get => m_score; }
-    public float ClearTime { get => m_clearTime; }
    
 
     private void Start()
@@ -165,7 +162,7 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex++;
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
-
+        m_saveManager.ScoreSave(m_score, m_clearTime);
         SceneManager.LoadScene(m_enhanceScene.Value);
     }
 
@@ -174,13 +171,14 @@ public class GameManager : MonoBehaviour
         if (m_bossHealth.Value > 0) return;
 
         m_resultScreen.SetActive(true);
-        m_result.Result();
+        m_result.Result(m_score,m_clearTime);
     }
 
 
     private void GameOver()
     {
         if (m_playerHealth.Value > 0) return;
+        m_saveManager.ScoreSave(m_score, m_clearTime);
 
         SceneManager.LoadScene(m_enhanceScene.Value);
     }
@@ -197,5 +195,12 @@ public class GameManager : MonoBehaviour
     public void StopTrashPool() { m_TM.StopSpawn(); }
     public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
 
-  
+    /// <summary>
+    /// Š´“x
+    /// </summary>
+    public void SetReticleControll(float value)
+    {
+        m_reticleControll.SetValue(value);
+
+    }
 }
