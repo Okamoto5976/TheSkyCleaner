@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerNetCount
   m_EditorClassIdentifier: Assembly-CSharp::IntegerContainer
   m_initialValue: 3
-  m_value: 999
+  m_value: 3

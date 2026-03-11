@@ -1,10 +1,9 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class EnhanceManager : MonoBehaviour
 {
     [SerializeField] private SaveManager m_savemanager;
+    [SerializeField] private FadeManager m_fadeManager;
     [SerializeField] private Skillget m_skillget;
 
     [SerializeField] private StringContainer m_mainScene;
@@ -26,7 +25,7 @@ public class EnhanceManager : MonoBehaviour
     public void MoveToMainScene()
     {
         m_skillget.SaveSkillType();
-        SceneManager.LoadScene(m_mainScene.Value);
+        m_fadeManager.ChangeScene(m_mainScene.Value, false);
 
     }
 }

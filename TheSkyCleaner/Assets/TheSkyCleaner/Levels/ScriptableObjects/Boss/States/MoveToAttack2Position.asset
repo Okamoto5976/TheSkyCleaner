@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aca0f62d48fa1d54ab7c35786c5486eb, type: 3}
-  m_Name: ShotPosition1 1
-  m_EditorClassIdentifier: Assembly-CSharp::AxisVector3Container
-  m_initialValue: {x: 1, y: 0, z: 2}
-  m_value: {x: 1, y: 0, z: 2}
+  m_Script: {fileID: 11500000, guid: 3005d1e2fdaf7f04eab492da36c5814a, type: 3}
+  m_Name: MoveToAttack2Position
+  m_EditorClassIdentifier: Assembly-CSharp::BossMoveState
+  m_rampTime: 0
+  m_position: {x: 0, y: -2, z: 9}
+  m_moveTime: 1
+  m_endTime: 0.1

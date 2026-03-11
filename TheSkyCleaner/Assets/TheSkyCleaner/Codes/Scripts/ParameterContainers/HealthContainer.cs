@@ -13,6 +13,7 @@ public class HealthContainer : ScriptableObject
     [SerializeField] private FloatContainer m_fuel;
     [SerializeField] private IntegerContainer m_maxHealth;
     public int Value => (int)Mathf.Ceil(m_fuel.Value);
+    public float Fuel => m_fuel.Value;//HPŒ¸‚éƒoƒO‰ğÁ‚É’Ç‰Á
 
     public event UnityAction OnDamage = delegate { };
     public event UnityAction OnHeal = delegate { };

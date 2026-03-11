@@ -24,7 +24,7 @@ public class fuel : MonoBehaviour
     [SerializeField] private Image m_fuelSliber;
 
     private bool m_Boosting = false;
-    private float m_CurrentHealth => m_health.Value;
+    private float m_CurrentHealth => m_health.Fuel;
     void Start()
     {
         if (m_fuelSliber != null)
@@ -57,12 +57,12 @@ public class fuel : MonoBehaviour
         }
         else //if (m_CurrentHealth <=0)
         {
-            m_Boosting = false;
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                OnNoBoost();
-            }
-            StopAllCoroutines();//止まっちゃうよー
+            //m_Boosting = false;
+            //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            //{
+            //    OnNoBoost();
+            //}
+            //StopAllCoroutines();//止まっちゃうよー
         }
         //移動
         //Move();
@@ -96,7 +96,7 @@ public class fuel : MonoBehaviour
 
     public void OnNoBoost()
     {
-        Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentHealth - 10) + "%です　　ほらもうブーストに回せる燃料無いんや");
+        //Debug.Log("燃料無いぞ　残り燃料" + (m_CurrentHealth - 10) + "%です　　ほらもうブーストに回せる燃料無いんや");
     }
 
     public void OnActivateBoost()

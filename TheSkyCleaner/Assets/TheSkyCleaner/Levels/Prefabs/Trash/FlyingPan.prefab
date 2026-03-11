@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1012306100376386976}
   - component: {fileID: 7533128428682750523}
   - component: {fileID: 3031320561421404450}
+  - component: {fileID: 6815364692242513478}
   m_Layer: 0
   m_Name: FlyingPan
   m_TagString: Untagged
@@ -68,6 +69,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &6815364692242513478
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457257202973298505}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8263189237080401473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8107f67d57eaddd4bb21613bb09b5026, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8107f67d57eaddd4bb21613bb09b5026, type: 3}
       propertyPath: m_LocalRotation.w

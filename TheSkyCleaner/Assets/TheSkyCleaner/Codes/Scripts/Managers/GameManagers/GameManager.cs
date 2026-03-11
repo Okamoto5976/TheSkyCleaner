@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,14 +31,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<SequenceLoop> m_sequences;
 
     [SerializeField] private SaveManager m_saveManager;
+    [SerializeField] private FadeManager m_fadeManager;
     [SerializeField] private SkillAdapt m_skilladapt;
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
+
     [SerializeField] private GameObject m_resultScreen;
     [SerializeField] private ResultScreen m_result;
+
     [SerializeField] private FloatContainer m_reticleControll;
+    [SerializeField] private IntegerContainer m_bossPhase;
+    [SerializeField] private BooleanContainer m_isDamageInvulnerable;
+
     [SerializeField] private GameObject m_boss;
+
+    [SerializeField] private Slider m_slider;
 
     private int m_score;
     private float m_clearTime;
@@ -47,6 +54,9 @@ public class GameManager : MonoBehaviour
     private bool m_ischeck = false;
     private void Start()
     {
+        m_slider.value = m_reticleControll.Value;
+        m_isDamageInvulnerable.SetValue(false);
+
         //Load SequenseIndex
         var data = m_saveManager.PhaseLoad();
         if(data != null )
@@ -59,6 +69,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log(m_sequenceIndex);
+        m_bossPhase.SetValue(m_sequenceIndex);
 
         //フェーズ処理
         foreach (var phase in m_sequences[m_sequenceIndex].Phase.m_phase)
@@ -165,7 +176,7 @@ public class GameManager : MonoBehaviour
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
         m_saveManager.ScoreSave(m_score, m_clearTime);
-        SceneManager.LoadScene(m_enhanceScene.Value);
+        m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
     }
 
     private void GameClear()
@@ -185,12 +196,15 @@ public class GameManager : MonoBehaviour
         if (m_playerHealth.Value > 0) return;
         m_saveManager.ScoreSave(m_score, m_clearTime);
 
-        SceneManager.LoadScene(m_enhanceScene.Value);
+        m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
+
     }
 
-    public void MoveToTitleScene()
+    public void MoveToTitleScene()//恐らくメニューから　timeScaleを戻す
     {
-        SceneManager.LoadScene(m_titleScene.Value);
+        Time.timeScale = 1f;
+
+        m_fadeManager.ChangeScene(m_titleScene.Value, false);
     }
 
     public void StartEnemyPool() { m_EM.StartSpawn(); }

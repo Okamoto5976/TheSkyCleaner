@@ -56,7 +56,6 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     private void Awake()
     {
-        m_collider = GetComponent<SphereCollider>();
         m_transform = transform;
     }
 
@@ -92,14 +91,18 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         //当たり判定
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
-        if (dis < m_collider.radius) 
-        {
-            m_playerHealth.Damage(m_attack);
-            ReturnToPool();
-        }
+       
 
         if(gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
+            ReturnToPool();
+        }
+
+        if (m_collider == null) return;
+
+        if (dis < m_collider.radius)
+        {
+            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
     }
@@ -162,6 +165,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         m_index = index;
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+
+        m_collider = visual.GetComponent<SphereCollider>();
+
     }
 
     public void SetStatsData(CollectSO collectSO)

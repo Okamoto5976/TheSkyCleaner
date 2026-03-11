@@ -197,7 +197,7 @@ public class BossController : MonoBehaviour, IDamage
     {
         m_isEntryState = false;
         m_isExitState = true;
-        m_isBossActive.SetValue(false);
+        //m_isBossActive.SetValue(false);
         CurrentStateIndex = 0;
         m_stateTime = CurrentState.EnterAction(this);
         m_logger.Log($"{m_stateTime}", this);

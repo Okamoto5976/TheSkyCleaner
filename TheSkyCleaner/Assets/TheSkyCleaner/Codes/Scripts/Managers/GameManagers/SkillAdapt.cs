@@ -31,11 +31,11 @@ public class SkillAdapt : MonoBehaviour
 
                     break;
                 case SkillType.PlayerHealtDelect:
-                    m_result.m_enhanceLevel[4] += 1;
+                    //m_result.m_enhanceLevel[4] += 1;
 
                     break;
                 case SkillType.InventoryUP:
-                    m_result.m_enhanceLevel[5] += 1;
+                    m_result.m_enhanceLevel[4] += 1;
 
                     break;
             }

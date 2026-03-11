@@ -46,7 +46,6 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private void Awake()
     {
-        m_collider = gameObject.GetComponent<SphereCollider>();
         m_transform = transform;
     }
 
@@ -82,14 +81,17 @@ public class TrashController : MonoBehaviour, ILockOnTarget
         //“–‚½‚è”»’è
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
-        if(dis < m_collider.radius)
+        
+        if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
 
-        if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
+        if (m_collider == null) return;
+
+        if (dis < m_collider.radius)
         {
+            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
 
@@ -115,6 +117,8 @@ public class TrashController : MonoBehaviour, ILockOnTarget
         visual.SetActive(true);
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+
+        m_collider = visual.GetComponent<SphereCollider>();
     }
 
     public void SetStatsData(CollectSO collectSO)

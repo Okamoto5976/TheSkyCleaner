@@ -14,9 +14,10 @@ public class GameMenuManager : MonoBehaviour
 
     [SerializeField] private Slider m_bgmSlider;
     [SerializeField] private Slider m_seSlider;
+    [SerializeField] private GameObject m_ReticleScreen;
 
     [SerializeField] private SaveManager m_save;
-    [SerializeField] private StringContainer m_mainScene;
+    [SerializeField] private StringContainer m_titleScene;
 
     private InputAction m_Pause;
     private void Start()
@@ -100,6 +101,9 @@ public class GameMenuManager : MonoBehaviour
     public void OpenPose()
     {
         m_poseUI.SetActive(true);//ポーズ開く
+
+        m_ReticleScreen.SetActive(false);
+
         Time.timeScale = 0f;//止める
         EventSystem.current.SetSelectedGameObject(m_poseButtonFrame);
     }
@@ -108,6 +112,9 @@ public class GameMenuManager : MonoBehaviour
         Debug.Log("ゲームに戻る");
         m_poseUI.SetActive(false);//ポーズ消す
         m_optionUI.SetActive(false);//一応念のため
+
+        m_ReticleScreen.SetActive(true);
+
         Time.timeScale = 1f;//時は動き出す
     }
     public void OpenOptions()
@@ -143,10 +150,5 @@ public class GameMenuManager : MonoBehaviour
     public void Back()
     {
         ReturnGame();
-    }
-
-    public void Quit()
-    {
-        SceneManager.LoadScene(m_mainScene.Value);
     }
 }

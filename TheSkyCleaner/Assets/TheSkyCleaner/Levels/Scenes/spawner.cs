@@ -18,10 +18,14 @@ public class spawner : MonoBehaviour
     [SerializeField] private float m_meteoritespeed = 10f;
     [SerializeField] private float m_BesideDistance = 15f;//横
     [SerializeField] private float m_BackDistance = 60f;//奥
+
+
+
     void Start()
     {
         InvokeRepeating(nameof(RollOfTheDice), 2f, m_gambling);
     }
+
     void RollOfTheDice()
     {
         float roll = Random.Range(0f, 100f);
@@ -31,7 +35,7 @@ public class spawner : MonoBehaviour
         }
         else
         {
-            Debug.Log("出ないハズレか...");
+            //Debug.Log("出ないハズレか...");
         }
     }
     void Spawnmeteorit()
@@ -78,6 +82,6 @@ public class spawner : MonoBehaviour
          //if(m_mode) meteorObj.transform.localScale = Vector3.one*20f;
 
         meteorObj.GetComponent<meteorite>().Setup(m_meteoritespeed, moveDir);
-        Debug.Log("当たった確変や");
+        //Debug.Log("当たった確変や");
     }
 }

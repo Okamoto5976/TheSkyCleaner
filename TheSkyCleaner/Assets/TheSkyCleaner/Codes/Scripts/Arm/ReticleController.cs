@@ -123,8 +123,8 @@ public class ReticleController : MonoBehaviour
     public void MoveReticle(Vector2 delta)
     {
         Vector3 pos = m_rect.position;
-        pos.x += delta.x / 100 * m_reticleControll.Value;
-        pos.y += delta.y / 100 * m_reticleControll.Value;
+        pos.x += delta.x / 25 * m_reticleControll.Value;
+        pos.y += delta.y / 25 * m_reticleControll.Value;
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();

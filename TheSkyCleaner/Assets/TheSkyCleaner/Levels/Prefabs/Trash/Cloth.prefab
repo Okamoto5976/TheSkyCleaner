@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7610327443813390036}
   - component: {fileID: 6033162492839735595}
   - component: {fileID: -7994829911994745266}
+  - component: {fileID: 2877804552075536125}
   m_Layer: 0
   m_Name: Cloth
   m_TagString: Untagged
@@ -68,6 +69,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &2877804552075536125
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485306123615657552}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7116581973518825670
 PrefabInstance:
   m_ObjectHideFlags: 0

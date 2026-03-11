@@ -110,53 +110,50 @@ public class Skillget : MonoBehaviour
         if(CanUnlock(skillData))
         {
             m_unlockSkills.Add(skillData);
+            Adapt(skillData);//Ç∆ÇËÇ†Ç¶Ç∏
         }
-
-        Adapt();//Ç∆ÇËÇ†Ç¶Ç∏
     }
 
-    public void Adapt()//ìKâûÇµÇΩÇ¢ç€Ç…åƒÇ‘
+    public void Adapt(SkillSO skill)//ìKâûÇµÇΩÇ¢ç€Ç…åƒÇ‘
     {
-        foreach (var skill in m_unlockSkills)
+        switch (skill.SkillType)
         {
-            switch (skill.SkillType)
-            {
-                case SkillType.Arm_CountUP:
+            case SkillType.Arm_CountUP:
                 {
-                    int armCount = m_armCount.Value + (int)skill.UpdataValue; 
+                    int armCount = m_armCount.Value + (int)skill.UpdataValue;
                     m_armCount.SetValue(armCount);
                     break;
                 }
-                case SkillType.NetUP:
-                    {
-                        int netCount = m_netCount.Value + (int)skill.UpdataValue;
-                        m_netCount.SetValue(netCount);
-                        break;
-                    }
-                case SkillType.ShotUP:
-
+            case SkillType.NetUP:
+                {
+                    int netCount = m_netCount.Value + (int)skill.UpdataValue;
+                    m_netCount.SetValue(netCount);
                     break;
-                case SkillType.PlayerHealthUP:
-                    {
-                        int playerHealth = m_playerHealth.Value + (int)skill.UpdataValue;
-                        m_playerHealth.SetValue(playerHealth);
-                        break;
-                    }
-                case SkillType.PlayerHealtDelect:
-                    {
-                        int shotDamage = m_shopDamage.Value + (int)skill.UpdataValue;
-                        m_shopDamage.SetValue(shotDamage);
-                        break;
-                    }
-                case SkillType.InventoryUP:
-                    {
-                        int inventoryCount = m_inventoryCount.Value + (int)skill.UpdataValue;
-                        m_armCount.SetValue(inventoryCount);
-                        break;
-                    }
-                   
-            }
+                }
+            case SkillType.ShotUP:
+
+                break;
+            case SkillType.PlayerHealthUP:
+                {
+                    int playerHealth = m_playerHealth.Value + (int)skill.UpdataValue;
+                    m_playerHealth.SetValue(playerHealth);
+                    break;
+                }
+            case SkillType.PlayerHealtDelect:
+                {
+                    //int shotDamage = m_shopDamage.Value + (int)skill.UpdataValue;
+                    //m_shopDamage.SetValue(shotDamage);
+                    break;
+                }
+            case SkillType.InventoryUP:
+                {
+                    int inventoryCount = m_inventoryCount.Value + (int)skill.UpdataValue;
+                    m_inventoryCount.SetValue(inventoryCount);
+                    break;
+                }
+
         }
+
     }
 
     public void SaveSkillType()
