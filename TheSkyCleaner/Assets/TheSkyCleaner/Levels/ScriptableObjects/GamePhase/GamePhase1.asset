@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: GamePhase1
   m_EditorClassIdentifier: Assembly-CSharp::PhaseSequence
   m_phase:
+  - {fileID: 11400000, guid: 73d355f9c41cd504182af38da5eed8fe, type: 2}
+  - {fileID: 11400000, guid: f122d590b05c00045862f7d336ae2159, type: 2}
+  - {fileID: 11400000, guid: a6fc2b248ee43d048aa59d4c96fa35af, type: 2}
   - {fileID: 11400000, guid: 843f7d5fe5e53f24f917ed37b12c118a, type: 2}
+  - {fileID: 11400000, guid: 60df9005c1d937b4a9e078ee0719eb13, type: 2}
   - {fileID: 11400000, guid: bbba4a20440a4b64fbc01b7f4649e8bc, type: 2}
   - {fileID: 11400000, guid: 6f49e2e632da78d48af0b774589101d9, type: 2}
-  - {fileID: 11400000, guid: bbba4a20440a4b64fbc01b7f4649e8bc, type: 2}
+  - {fileID: 11400000, guid: 4e734df424b766742888a1a016567fcd, type: 2}
+  - {fileID: 11400000, guid: 1538f8c232672934fb4fe40e4efe38ef, type: 2}

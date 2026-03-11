@@ -9,6 +9,8 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     [SerializeField] private HealthContainer m_playerHealth;
     [SerializeField] private AudioContainer m_deathSound;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
+    [SerializeField] private int m_score;
 
     public int objectId;
     private SphereCollider m_collider;
@@ -67,6 +69,8 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         m_hp -= damage;
         if(m_hp <= 0)
         {
+            AddScore(m_score);
+
             GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
             deathParticle.transform.position = Transform.position;
             deathParticle.SetActive(true);
@@ -112,6 +116,8 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public DropSO Collect()
     {
         DropSO drop = GetDropData();
+        AddScore(m_score);
+
         ReturnToPool();
         return drop;
     }
@@ -120,5 +126,11 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     {
         m_hp -= damage;
         return m_hp - damage <= 0;
+    }
+
+    public void AddScore(int value)
+    {
+        int score = m_scoreContainer.Value + value;
+        m_scoreContainer.SetValue(score);
     }
 }

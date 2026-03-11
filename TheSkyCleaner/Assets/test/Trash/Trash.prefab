@@ -96,6 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashController
   m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
   m_playerHealth: {fileID: 11400000, guid: 2bf6be4a8ba20ad4dba7f3b6a1c9ccf6, type: 2}
+  m_scoreContainer: {fileID: 11400000, guid: 52a4b1b2f40856f4eb4734969395f6ef, type: 2}
+  m_score: 30
   m_movementHandler: {fileID: 1042201519715464378}
   m_returnObjectToPool: {fileID: 8612771754068582680}
   m_reticleOffset: {x: 0, y: 0, z: 0}

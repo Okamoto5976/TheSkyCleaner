@@ -131,12 +131,16 @@ public class Skillget : MonoBehaviour
                     break;
                 }
             case SkillType.ShotUP:
-
-                break;
+                {
+                    int shotDamage = m_shopDamage.Value + (int)skill.UpdataValue;
+                    m_shopDamage.SetValue(shotDamage);
+                    break;
+                }
             case SkillType.PlayerHealthUP:
                 {
                     int playerHealth = m_playerHealth.Value + (int)skill.UpdataValue;
                     m_playerHealth.SetValue(playerHealth);
+                    Debug.Log(m_playerHealth.Value);
                     break;
                 }
             case SkillType.PlayerHealtDelect:

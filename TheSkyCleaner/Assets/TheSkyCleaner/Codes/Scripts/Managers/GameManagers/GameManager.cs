@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private FadeManager m_fadeManager;
+    [SerializeField] private GameMenuManager m_gameMenuManager;//result中menu開かないように
     [SerializeField] private SkillAdapt m_skilladapt;
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Slider m_slider;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
     private int m_score;
     private float m_clearTime;
 
@@ -175,6 +177,7 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex++;
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
+        AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
         m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
     }
@@ -185,15 +188,20 @@ public class GameManager : MonoBehaviour
 
         if (m_ischeck == true) return;
         m_resultScreen.SetActive(true);
+
+        AddScore();
+        m_gameMenuManager.m_canCloseMenu = false;
         m_result.Result(m_score,m_clearTime);
         m_ischeck = true;
-
+        Time.timeScale = 0f;//止める
     }
 
 
     private void GameOver()
     {
         if (m_playerHealth.Value > 0) return;
+
+        AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
 
         m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
@@ -221,5 +229,13 @@ public class GameManager : MonoBehaviour
     {
         m_reticleControll.SetValue(value);
 
+    }
+
+    //--本来ゲームスコアscriptに分けるもの--
+    //--簡略なスコアを出すため--
+    //--saveでもSOでも保存しているため気持ちの悪いことになってます
+    public void AddScore()
+    { 
+        m_score = m_scoreContainer.Value;
     }
 }

@@ -10,6 +10,9 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
+    [SerializeField] private int m_score;
+
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
@@ -137,8 +140,15 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     public DropSO Collect()
     {
         DropSO drop = GetDropData();
+        AddScore(m_score);
         ReturnToPool();
         return drop;
+    }
+
+    public void AddScore(int value)
+    {
+        int score = m_scoreContainer.Value + value;
+        m_scoreContainer.SetValue(score);
     }
 }
 

@@ -23,6 +23,8 @@ public class fuel : MonoBehaviour
     [Header("UI Settings")]
     [SerializeField] private Image m_fuelSliber;
 
+    [SerializeField] private ParticleSystem m_damageParticle;
+
     private bool m_Boosting = false;
     private float m_CurrentHealth => m_health.Fuel;
     void Start()
@@ -66,6 +68,15 @@ public class fuel : MonoBehaviour
         }
         //ˆÚ“®
         //Move();
+
+        if(m_CurrentHealth < 30)
+        {
+            m_damageParticle.Play();
+        }
+        else
+        {
+            m_damageParticle.Stop();
+        }
 
         //UIXV
         if (m_fuelSliber != null)

@@ -10,6 +10,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
+    [SerializeField] private int m_score;
+
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
@@ -120,6 +123,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         {
 
             TrashThrow();
+            AddScore(m_score);
+
 
             GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
             deathParticle.transform.position = Transform.position;
@@ -187,6 +192,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     {
         DropSO drop = GetDropData();
         TrashThrow();
+        AddScore(m_score);
+
         ReturnToPool();
         return drop;
     }
@@ -195,5 +202,11 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     {
         m_hp -= damage;
         return m_hp - damage <= 0;
+    }
+
+    public void AddScore(int value)
+    {
+        int score = m_scoreContainer.Value + value;
+        m_scoreContainer.SetValue(score);
     }
 }

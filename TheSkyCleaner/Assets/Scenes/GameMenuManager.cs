@@ -19,6 +19,8 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private SaveManager m_save;
     [SerializeField] private StringContainer m_titleScene;
 
+    public bool m_canCloseMenu = true;//チュートリアル中に閉じないよう一時的な処置
+
     private InputAction m_Pause;
     private void Start()
     {
@@ -27,12 +29,19 @@ public class GameMenuManager : MonoBehaviour
         m_optionUI.SetActive(false);
         Time.timeScale = 1.0f;
         m_Pause = InputSystem.actions.FindAction("Pause");
+
+        m_canCloseMenu = true;
     }
     void Update()
     {
+        if(m_canCloseMenu == false) return;
+
         //ESCキーが押された時
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
             ESCpussyu();
+
+        }
         // if (m_Pause.WasPressedThisFrame())
         // {
 

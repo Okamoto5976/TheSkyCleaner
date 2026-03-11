@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40dd08c1076f4f8498c659029b108f0e, type: 3}
-  m_Name: 20WaitPhase
+  m_Name: 5WaitPhase
   m_EditorClassIdentifier: Assembly-CSharp::WaitPhase
-  duration: 10
+  duration: 5
