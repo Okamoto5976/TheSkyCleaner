@@ -91,10 +91,11 @@ public class SaveManager : MonoBehaviour
         m_enhanceFullPath = Path.Combine(Application.persistentDataPath, m_enhanceFileName);
     }
 
-    public void ScoreSave(GameData newdata)
+    public void ScoreSave(int score,float time)
     {
         CurrentGameData data = new CurrentGameData();
-        data.m_scoredata = newdata;
+        data.m_scoredata.m_score = score;
+        data.m_scoredata.m_clearTime = time;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(CurrentScoreFullPath, json);

@@ -136,10 +136,10 @@ public class ResultScreen : MonoBehaviour
         //}
     }
 
-    public void Result()
+    public void Result(int score,float time)
     {
-        m_score = m_gameManager.Score;
-        m_time = m_gameManager.ClearTime;
+        m_score = score;
+        m_time = time;
 
         m_text[0].text = m_score.ToString();
         m_text[1].text = m_time.ToString();

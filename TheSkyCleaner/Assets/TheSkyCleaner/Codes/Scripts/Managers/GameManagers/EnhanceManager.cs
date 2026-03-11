@@ -25,6 +25,7 @@ public class EnhanceManager : MonoBehaviour
 
     public void MoveToMainScene()
     {
+        m_skillget.SaveSkillType();
         SceneManager.LoadScene(m_mainScene.Value);
 
     }
