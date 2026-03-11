@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: EnemySequence2
   m_EditorClassIdentifier: Assembly-CSharp::EnemySequence
   m_states:
-  - state: {fileID: 11400000, guid: 5ef755ce9a12a1e46b1594a5621f6cc4, type: 2}
-    time: {x: 0, y: 2}
   - state: {fileID: 11400000, guid: e32961f1ccf2dbf4fa92e1656273fc3c, type: 2}
-    time: {x: 2, y: 10}
+    time: {x: 0, y: 10}
   - state: {fileID: 11400000, guid: cf3e44e3ac8c71d40a2aeb8023b8f576, type: 2}
-    time: {x: 10, y: 50}
+    time: {x: 10, y: 15}

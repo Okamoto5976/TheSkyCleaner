@@ -15,9 +15,4 @@ MonoBehaviour:
   m_phase:
   - {fileID: 11400000, guid: 60df9005c1d937b4a9e078ee0719eb13, type: 2}
   - {fileID: 11400000, guid: 00573ef453f435e42acf992444753b92, type: 2}
-  - {fileID: 11400000, guid: 843f7d5fe5e53f24f917ed37b12c118a, type: 2}
-  - {fileID: 11400000, guid: bbba4a20440a4b64fbc01b7f4649e8bc, type: 2}
-  - {fileID: 11400000, guid: 4e734df424b766742888a1a016567fcd, type: 2}
-  - {fileID: 11400000, guid: 817118623ddd1114f9713bc0ae006b06, type: 2}
-  - {fileID: 11400000, guid: 6f49e2e632da78d48af0b774589101d9, type: 2}
   - {fileID: 11400000, guid: f122d590b05c00045862f7d336ae2159, type: 2}

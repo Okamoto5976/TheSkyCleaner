@@ -12,11 +12,11 @@ public class EnemyPhase : GamePhase
             case PhaseType.None:
                 break;
 
-            case PhaseType.Start:
+            case PhaseType.StartPool:
                 m_gm.StartEnemyPool();
                 break;
 
-            case PhaseType.Stop:
+            case PhaseType.StopPool:
                 m_gm.StopEnemyPool();
                 break;
         }

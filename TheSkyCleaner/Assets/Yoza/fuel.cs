@@ -21,7 +21,7 @@ public class fuel : MonoBehaviour
     [SerializeField] private float m_boostTimer = 1f;
 
     [Header("UI Settings")]
-    [SerializeField] private Image m_fuelSliber;
+    [SerializeField] private Slider m_fuelSliber;
 
     private bool m_Boosting = false;
     private float m_CurrentHealth => m_health.Value;
@@ -30,8 +30,8 @@ public class fuel : MonoBehaviour
         if (m_fuelSliber != null)
         {
             // Set ui elements
-            //m_fuelSliber.maxValue = m_health.MaxHealth;
-            //m_fuelSliber.value = m_CurrentHealth;
+            m_fuelSliber.maxValue = m_health.MaxHealth;
+            m_fuelSliber.value = m_CurrentHealth;
         }
     }
 
@@ -70,7 +70,7 @@ public class fuel : MonoBehaviour
         //UIçXêV
         if (m_fuelSliber != null)
         {
-            m_fuelSliber.fillAmount = m_CurrentHealth / m_health.MaxHealth;
+            m_fuelSliber.value = m_CurrentHealth;
         }
         m_kakuninnyouFuel = m_CurrentHealth;
     }

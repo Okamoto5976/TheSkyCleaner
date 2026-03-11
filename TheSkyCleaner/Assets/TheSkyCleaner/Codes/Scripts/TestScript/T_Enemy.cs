@@ -3,7 +3,8 @@ using UnityEngine;
 public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 {
     [SerializeField] private EnemyStateMachine m_enemyStateMachine;
-    private EnemySO m_enemySO;
+    [SerializeField] private EnemySO m_enemySO;
+    [SerializeField] private DropSO m_dropSO;
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
@@ -12,19 +13,17 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     private SphereCollider m_collider;
     private int m_attack;
     private int m_hp;
-   
+
     public EnemyStateMachine EnemyStateMachine => m_enemyStateMachine;
     public int ObjectID => objectId;
     public int Attack => m_attack;
     public int HP => m_hp;
     public Transform Transform => transform;
     public GameObject GameObject => gameObject;
-    public DropSO GetDropData() => m_enemySO.Drop;
+    public DropSO GetDropData() => m_dropSO;
+    [SerializeField] private Vector3 m_reticleOffset;
 
-    //visual‚ÉŠÖ‚í‚é‚à‚Ì
-    [SerializeField] private Transform m_root;
-
-    private ReturnObjectToPool m_visualreturn;
+    public Vector3 ReticleOffset => m_reticleOffset;
 
     private void Awake()
     {
@@ -33,7 +32,8 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 
     private void OnEnable()
     {
-
+        m_attack = m_enemySO.Attack;
+        m_hp = m_enemySO.HP;
     }
 
     private void Update()
@@ -56,39 +56,10 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     public void Damage(int damage)
     {
         m_hp -= damage;
-        if(m_hp <= 0)
+        if(m_hp < 0)
         {
             ReturnToPool();
         }
-    }
-
-    public void SetVisual(ObjectPoolManager pool)
-    {
-        //returnˆ—
-        if(m_visualreturn != null)
-        {
-            m_visualreturn.ReturnToPool();
-            m_visualreturn = null;
-        }
-
-        //visual“K‰ž
-        GameObject visual = pool.GetObjectFromPool();
-
-        visual.transform.SetParent(m_root);
-        visual.transform.localPosition = Vector3.zero;
-        visual.transform.localRotation = Quaternion.identity;
-        visual.transform.localScale = Vector3.one;
-
-        visual.SetActive(true);
-
-        m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
-    }
-
-    public void SetStatsData(EnemySO enemySO)
-    {
-        m_enemySO = enemySO;
-        m_attack = m_enemySO.Attack;
-        m_hp = m_enemySO.HP;
     }
 
     private void ReturnToPool()
@@ -105,7 +76,6 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 
     public bool TryCollect(int damage)
     {
-        m_hp -= damage;
         return m_hp - damage <= 0;
     }
 }

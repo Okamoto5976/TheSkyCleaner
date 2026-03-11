@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,7 +21,6 @@ public class EnemyStateMachine : MonoBehaviour
     private AxisVector3Container m_target;
     private EnemyPoolManager m_poolEnemy;
     private TrashPoolManager m_poolTrash;
-    private TrashManager m_trashManager;
     private Logger m_logger;
     [SerializeField]private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
@@ -38,7 +38,6 @@ public class EnemyStateMachine : MonoBehaviour
     public AxisVector3Container Target => m_target;
     public EnemyPoolManager Pool => m_poolEnemy;
     public TrashPoolManager PoolTrash => m_poolTrash;
-    public TrashManager TrashManager => m_trashManager;
     public Logger Log => m_logger;
 
     public MovementHandler MovementHandler => m_movementHandler;
@@ -120,7 +119,6 @@ public class EnemyStateMachine : MonoBehaviour
     public void SetTarget(AxisVector3Container t) => m_target = t;
     public void SetPool(EnemyPoolManager p) => m_poolEnemy = p;
     public void SetPoolObj(TrashPoolManager t) => m_poolTrash = t;
-    public void SetTrashManager(TrashManager t) => m_trashManager = t;
     public void SetLogger(Logger logger) => m_logger = logger;
 
     public void SetSequence(List<StateMachineInstance> sequence, bool loop = false)

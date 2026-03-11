@@ -5,7 +5,8 @@ public class LargeTrashManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_poollargetrash; // Inspector で割り当て
-    [SerializeField] private TrashManager m_trashManager;
+    [SerializeField] private TrashPoolManager m_pooltrash;
+    [SerializeField] private ObjectPoolManager m_poolDeathParticles;
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMin;       // 最小生成範囲　ゴミのみ
@@ -13,19 +14,6 @@ public class LargeTrashManager : MonoBehaviour
     [SerializeField] private float m_spawnTrashInterval = 0.3f;
 
     private WaitForSeconds m_sleepTime;
-    private Coroutine m_coroutine;
-
-    [System.Serializable]
-    public struct CollectType
-    {
-        [SerializeField] private ObjectPoolManager m_visualPool;
-        [SerializeField] private CollectSO m_collectData;
-        public ObjectPoolManager VisualPool => m_visualPool;
-        public CollectSO CollectData => m_collectData;
-    };
-
-    [Header("Collect Types (Sequences)")]
-    [SerializeField] private CollectType[] m_collectTypes;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 10f;
@@ -58,29 +46,19 @@ public class LargeTrashManager : MonoBehaviour
 
         GameObject obj = m_poollargetrash.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<LargeTrashController>();
-
-        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
-        randomDir.Normalize();
-
-        Obj.SetMoveDirection(randomDir);
+        Obj.SetMoveDirection(m_direction);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
-
-        int idx = Random.Range(0, m_collectTypes.Length);
-        var seq = m_collectTypes[idx];
-
-        var pool = seq.VisualPool;
-        Obj.SetVisual(pool,idx);
-
-        var data = seq.CollectData;
-        Obj.SetStatsData(data);
-
+        //Debug.Log($"{m_moveSpeed}");
+        //Debug.Log($"{m_direction}");
         //ゴミの設定
         SetTrashInfo(obj);
 
         //Debug.Log(obj);
 
-        Obj.SetPoolObj(m_trashManager);//LargeTrashControllerにtrashを呼べるよう渡す
+        Obj.SetPoolObj(m_pooltrash);//LargeTrashControllerにtrashを呼べるよう渡す
+        Obj.SetPoolDeathEffect(m_poolDeathParticles);
+
 
         return;
     }
@@ -98,16 +76,6 @@ public class LargeTrashManager : MonoBehaviour
         obj.SetActive(true);
     }
 
-    public void StartSpawn()
-    { 
-        m_coroutine = StartCoroutine(SpawnOnTimer()); 
-    }
-    public void StopSpawn()
-    {
-        if (m_coroutine != null)
-        {
-            StopCoroutine(m_coroutine);
-            m_coroutine = null;
-        }
-    }
+    public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
+    public void StopSpawn() { StopCoroutine(SpawnOnTimer()); }
 }
