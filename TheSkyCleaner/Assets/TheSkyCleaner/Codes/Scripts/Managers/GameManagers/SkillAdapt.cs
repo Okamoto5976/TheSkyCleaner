@@ -8,27 +8,17 @@ public class SkillAdapt : MonoBehaviour
     [SerializeField] private SaveManager m_saveManager;
     [SerializeField] private ResultScreen m_result;
 
-    private int m_arm_powerup;
-    private int m_speedup;
-
-    public int Arm_PowerUP { get => m_arm_powerup; }
-    public int SpeedUP { get => m_speedup; }
-
     public void Adapt()//ìKâûÇµÇΩÇ¢ç€Ç…åƒÇ‘
     {
         foreach (var skill in m_unlockSkills)
         {
             switch (skill.SkillType)
             {
-                case SkillType.Arm_PowerUP:
-                    m_arm_powerup += (int)skill.UpdataValue;
-                    Debug.Log("powerup" + m_arm_powerup);
+                case SkillType.Arm_CountUP:
 
                     m_result.m_enhanceLevel[0] += 1;
                     break;
                 case SkillType.NetUP:
-                    m_speedup += (int)skill.UpdataValue;
-                    Debug.Log("speedup" + m_speedup);
 
                     m_result.m_enhanceLevel[1] += 1;
                     break;

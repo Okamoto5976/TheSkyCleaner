@@ -9,20 +9,18 @@ public class InventorySO : ScriptableObject
     public Dictionary<MaterialType, int> Material { get => m_materials; }
 
     [SerializeField] private HealthContainer m_playerHealth;
-
-    [SerializeField] private int m_maxAmount = 50;
-
+    [SerializeField] private IntegerContainer m_inventoryCount;
 
     public void Add(MaterialType type, int amount)
     {
         if (m_materials.ContainsKey(type))
         {
             m_materials[type] = Mathf.Min(
-                m_materials[type] + amount, m_maxAmount);
+                m_materials[type] + amount, m_inventoryCount.Value);
         }
         else
         {
-            m_materials[type] = Mathf.Min(amount, m_maxAmount);
+            m_materials[type] = Mathf.Min(amount, m_inventoryCount.Value);
         }
     }
 
@@ -72,5 +70,10 @@ public class InventorySO : ScriptableObject
         value *= 10;
 
         m_playerHealth.Heal(value);
+    }
+
+    public void Reset()
+    {
+        m_materials.Clear();
     }
 }

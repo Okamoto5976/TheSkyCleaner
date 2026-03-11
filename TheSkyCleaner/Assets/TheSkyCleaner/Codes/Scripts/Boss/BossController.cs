@@ -80,6 +80,10 @@ public class BossController : MonoBehaviour, IDamage
     private bool m_isEntryState = true;
     private bool m_isExitState = false;
 
+    //--’Ç‰Á
+    [SerializeField] private DropSO m_drop;
+    public DropSO GetDropData() => m_drop;
+     
     private void Awake()
     {
         m_transform = transform;
@@ -88,7 +92,8 @@ public class BossController : MonoBehaviour, IDamage
     }
     public DropSO Collect()
     {
-        throw new System.NotImplementedException();
+        DropSO drop = GetDropData();
+        return drop;
     }
 
     public void Damage(int damage)
@@ -96,10 +101,6 @@ public class BossController : MonoBehaviour, IDamage
         m_bossHealth.Damage(damage);
     }
 
-    public DropSO GetDropData()
-    {
-        throw new System.NotImplementedException();
-    }
 
 
     private void OnEnable()
@@ -112,6 +113,8 @@ public class BossController : MonoBehaviour, IDamage
     {
         m_activateStateTrigger.OnTrigger -= Activate;
         m_deactivateStateTrigger.OnTrigger -= Deactivate;
+        CurrentStateIndex = 0;
+        m_isBossActive.SetValue(false);
     }
 
     private void Update()
@@ -203,6 +206,6 @@ public class BossController : MonoBehaviour, IDamage
 
     public bool TryCollect(int damage)
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 }

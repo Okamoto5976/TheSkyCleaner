@@ -126,7 +126,7 @@ public class SaveManager : MonoBehaviour
         phasedata.SequenceIndex = index;
 
         string json = JsonUtility.ToJson(phasedata, true);
-        File.WriteAllText(fullPath, json);
+        File.WriteAllText(m_phaseFullPath, json);
     }
 
     public void AudioSave(float newBGMVolume, float newSEVolume)

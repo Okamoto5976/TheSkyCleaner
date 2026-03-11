@@ -15,12 +15,12 @@ MonoBehaviour:
   m_skilldata: {fileID: 11400000}
   m_skilltype: 2
   m_skillname: ShotUP
-  m_updataValue: 5
+  m_updataValue: 1
   m_id: 4
   m_needskill: []
   m_materials:
   - type: 1
-    amount: 10
+    amount: 20
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_skilldata: {fileID: 11400000}
   m_skilltype: 3
   m_skillname: PlayerHealthUP
-  m_updataValue: 10
+  m_updataValue: 20
   m_id: 3
   m_needskill: []
   m_materials:
@@ -65,19 +65,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541bb08f0259208428ad193203ce716f, type: 3}
-  m_Name: Arm_PowerUP_1
+  m_Name: Arm_Count
   m_EditorClassIdentifier: Assembly-CSharp::SkillSO
   m_skilldata: {fileID: 11400000}
   m_skilltype: 0
-  m_skillname: Arm_PowerUP
-  m_updataValue: 5
+  m_skillname: Arm_Count
+  m_updataValue: 1
   m_id: 0
   m_needskill: []
   m_materials:
-  - type: 0
-    amount: 2
-  - type: 1
-    amount: 3
+  - type: 4
+    amount: 1
 --- !u!114 &4937409227621946373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,12 +91,12 @@ MonoBehaviour:
   m_skilldata: {fileID: 11400000}
   m_skilltype: 1
   m_skillname: NetUP
-  m_updataValue: 10
+  m_updataValue: 1
   m_id: 2
   m_needskill: []
   m_materials:
   - type: 2
-    amount: 10
+    amount: 20
 --- !u!114 &6144614974659436517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +112,9 @@ MonoBehaviour:
   m_skilldata: {fileID: 11400000}
   m_skilltype: 5
   m_skillname: InventoryUP
-  m_updataValue: 5
+  m_updataValue: 20
   m_id: 1
   m_needskill: []
   m_materials:
   - type: 0
-    amount: 2
+    amount: 20

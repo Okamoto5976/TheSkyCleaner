@@ -20,6 +20,12 @@ public class Skillget : MonoBehaviour
     //[SerializeField] private UpgradeScreen m_upgradeScreen;//Åö
     //[SerializeField] private List<ButtonAnimation> m_buttonAnimations;//Åö
 
+    [SerializeField] private IntegerContainer m_armCount;
+    [SerializeField] private IntegerContainer m_netCount;
+    [SerializeField] private IntegerContainer m_shopDamage;
+    [SerializeField] private IntegerContainer m_playerHealth;
+    [SerializeField] private IntegerContainer m_inventoryCount;
+
     private void Start()//èâä˙âª
     {
 
@@ -106,7 +112,51 @@ public class Skillget : MonoBehaviour
             m_unlockSkills.Add(skillData);
         }
 
-        //Adapt();//Ç∆ÇËÇ†Ç¶Ç∏
+        Adapt();//Ç∆ÇËÇ†Ç¶Ç∏
+    }
+
+    public void Adapt()//ìKâûÇµÇΩÇ¢ç€Ç…åƒÇ‘
+    {
+        foreach (var skill in m_unlockSkills)
+        {
+            switch (skill.SkillType)
+            {
+                case SkillType.Arm_CountUP:
+                {
+                    int armCount = m_armCount.Value + (int)skill.UpdataValue; 
+                    m_armCount.SetValue(armCount);
+                    break;
+                }
+                case SkillType.NetUP:
+                    {
+                        int netCount = m_netCount.Value + (int)skill.UpdataValue;
+                        m_netCount.SetValue(netCount);
+                        break;
+                    }
+                case SkillType.ShotUP:
+
+                    break;
+                case SkillType.PlayerHealthUP:
+                    {
+                        int playerHealth = m_playerHealth.Value + (int)skill.UpdataValue;
+                        m_playerHealth.SetValue(playerHealth);
+                        break;
+                    }
+                case SkillType.PlayerHealtDelect:
+                    {
+                        int shotDamage = m_shopDamage.Value + (int)skill.UpdataValue;
+                        m_shopDamage.SetValue(shotDamage);
+                        break;
+                    }
+                case SkillType.InventoryUP:
+                    {
+                        int inventoryCount = m_inventoryCount.Value + (int)skill.UpdataValue;
+                        m_armCount.SetValue(inventoryCount);
+                        break;
+                    }
+                   
+            }
+        }
     }
 
     public void SaveSkillType()

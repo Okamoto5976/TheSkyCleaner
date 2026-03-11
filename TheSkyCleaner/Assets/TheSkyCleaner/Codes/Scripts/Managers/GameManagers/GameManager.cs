@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HealthContainer m_playerHealth;
     [SerializeField] private HealthContainer m_bossHealth;
 
+    [SerializeField] private StringContainer m_titleScene;
+    [SerializeField] private StringContainer m_enhanceScene;
+
     private List<GamePhase> m_phases = new();
     private int m_currentIndex;
     private GamePhase m_currentPhase;
@@ -155,13 +158,15 @@ public class GameManager : MonoBehaviour
         //SequenseIndex save
         if (m_bossHealth.Value > m_sequences[m_sequenceIndex].BossRunHealth) return;
 
+
+
         if (m_sequenceIndex < m_sequences.Count - 1)
         {
             m_sequenceIndex++;
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(m_enhanceScene.Value);
     }
 
     private void GameClear()
@@ -177,7 +182,12 @@ public class GameManager : MonoBehaviour
     {
         if (m_playerHealth.Value > 0) return;
 
-        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(m_enhanceScene.Value);
+    }
+
+    public void MoveToTitleScene()
+    {
+        SceneManager.LoadScene(m_titleScene.Value);
     }
 
     public void StartEnemyPool() { m_EM.StartSpawn(); }

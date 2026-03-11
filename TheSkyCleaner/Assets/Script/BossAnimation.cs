@@ -5,6 +5,7 @@ public class BossAnimation : MonoBehaviour
 {
     [SerializeField] private Animator m_seni;
     [SerializeField] private SaveManager m_save;
+    [SerializeField] private InventorySO m_inventory;
     //[SerializeField] private GameObject m_boss;
 
     [Header("ƒ{ƒ^ƒ“‰Ÿ‚µ‚Ä‰æ–Ê‘JˆÚ‚·‚éŽžŠÔ")]
@@ -16,6 +17,7 @@ public class BossAnimation : MonoBehaviour
     {
         m_seni.SetBool(m_tranName, false);
         m_save.StartResetData();
+        m_inventory.Reset();
     }
 
     public void ChangeScene()

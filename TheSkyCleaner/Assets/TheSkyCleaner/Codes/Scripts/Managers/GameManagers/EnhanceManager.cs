@@ -7,6 +7,8 @@ public class EnhanceManager : MonoBehaviour
     [SerializeField] private SaveManager m_savemanager;
     [SerializeField] private Skillget m_skillget;
 
+    [SerializeField] private StringContainer m_mainScene;
+
     private void Start()
     {
         m_skillget.LoadSkillType();
@@ -14,16 +16,16 @@ public class EnhanceManager : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            m_skillget.SaveSkillType();
-            SceneManager.LoadScene(0);
-        }
+        //if (Keyboard.current.tKey.wasPressedThisFrame)
+        //{
+        //    m_skillget.SaveSkillType();
+        //    SceneManager.LoadScene(0);
+        //}
     }
 
-    public void OnClic()
+    public void MoveToMainScene()
     {
-        //シーンロード
+        SceneManager.LoadScene(m_mainScene.Value);
 
     }
 }

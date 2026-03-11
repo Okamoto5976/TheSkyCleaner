@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40dd08c1076f4f8498c659029b108f0e, type: 3}
-  m_Name: 30WaitPhase
-  m_EditorClassIdentifier: Assembly-CSharp::WaitPhase
-  duration: 30
+  m_Script: {fileID: 11500000, guid: 77ae22f01df33f34688e4622fefed46a, type: 3}
+  m_Name: MainScene
+  m_EditorClassIdentifier: Assembly-CSharp::StringContainer
+  m_initialValue: MainScene
+  m_value: 

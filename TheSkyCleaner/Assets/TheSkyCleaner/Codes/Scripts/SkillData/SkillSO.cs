@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum SkillType//‹­‰»‚ğì—p‚·‚éÛAí—Ş“Á’è‚Ì‚½‚ß
 {
-    Arm_PowerUP,
+    Arm_CountUP,
     NetUP,
     ShotUP,
     PlayerHealthUP,

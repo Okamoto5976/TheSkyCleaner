@@ -1689,6 +1689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossAnimation
   m_seni: {fileID: 600926120}
   m_save: {fileID: 218378220}
+  m_inventory: {fileID: 11400000, guid: 0291eb426624f2a48953fba3785f9531, type: 2}
   m_seniInterval: 5
   m_tranName: IsPush
 --- !u!114 &1577413362

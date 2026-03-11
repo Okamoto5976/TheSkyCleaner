@@ -27,10 +27,10 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private BossController m_bossController;
     [SerializeField] private BooleanContainer m_isBossActive;
 
-    [SerializeField] private int m_maxCount;
+    [SerializeField] private IntegerContainer m_maxArmCount;
 
     public Vector3 RectPos { get => m_rect.position; }
-    public int MaxCount { get => m_maxCount; }
+    public int MaxCount { get => m_maxArmCount.Value; }
 
     [SerializeField] private AxisVector3Container m_playerAxis;
     private Vector3 m_playerPos;
@@ -67,7 +67,7 @@ public class ReticleController : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < m_maxCount; i++)
+        for (int i = 0; i < m_maxArmCount.Value; i++)
         {
             Image marker = Instantiate(m_lockOnMarkerPrefab, m_canvas.transform);
             marker.gameObject.SetActive(false);
@@ -195,7 +195,7 @@ public class ReticleController : MonoBehaviour
 
         var sort = m_LockOnCandidates
             .OrderBy(e => (e.ReticlePosition - selfPos).magnitude)
-            .Take(m_maxCount);
+            .Take(m_maxArmCount.Value);
 
         foreach (var enemy in sort)
         {
@@ -214,7 +214,7 @@ public class ReticleController : MonoBehaviour
                 continue;
             }
 
-            if (m_SaveTargets.Count < m_maxCount)
+            if (m_SaveTargets.Count < m_maxArmCount.Value)
             {
                 m_SaveTargets.Add(enemy);
             }

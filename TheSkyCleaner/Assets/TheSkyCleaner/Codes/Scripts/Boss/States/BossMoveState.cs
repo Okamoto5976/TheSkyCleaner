@@ -24,7 +24,7 @@ public class BossMoveState : BossStateBase
 
     private void DoMove(BossController bossController)
     {
-        Debug.Log($"{bossController.StateTime}, {m_moveTime}, {bossController.StateTime / m_moveTime}");
+        //Debug.Log($"{bossController.StateTime}, {m_moveTime}, {bossController.StateTime / m_moveTime}");
         Vector3 pos = Vector3.Lerp(m_position, m_previousPosition, bossController.StateTime / m_moveTime);
         bossController.MovementHandler.SetPosition(pos);
     }

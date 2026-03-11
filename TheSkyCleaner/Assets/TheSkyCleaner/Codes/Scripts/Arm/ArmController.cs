@@ -8,7 +8,6 @@ public class ArmController : MonoBehaviour
     [SerializeField] private List<Arm> m_arms;
     [SerializeField] private float m_speed;
     [SerializeField] private int m_attack;
-    [SerializeField] private int m_maxCount;
 
     private Vector3 m_playerPos;
 
