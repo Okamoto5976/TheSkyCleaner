@@ -37,6 +37,7 @@ MonoBehaviour:
   - {fileID: 1450623342141515794}
   - {fileID: 2710472044534140442}
   - {fileID: 909973053413057256}
+  - {fileID: 7341474914294682652}
 --- !u!114 &501096879325753653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +123,23 @@ MonoBehaviour:
   m_collectname: LargeWood
   m_attack: 5
   m_hp: 2
+--- !u!114 &7341474914294682652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d470577200f31634cb25a6ffd5dd8cb2, type: 3}
+  m_Name: Human
+  m_EditorClassIdentifier: Assembly-CSharp::CollectSO
+  m_collectdata: {fileID: 11400000}
+  m_dropSO: {fileID: 0}
+  m_collectname: Human
+  m_attack: 0
+  m_hp: 0
 --- !u!114 &7432707155424486683
 MonoBehaviour:
   m_ObjectHideFlags: 0
