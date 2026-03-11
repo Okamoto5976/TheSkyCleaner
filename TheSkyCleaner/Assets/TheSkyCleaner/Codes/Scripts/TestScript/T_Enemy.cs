@@ -7,6 +7,8 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
 
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
+    [SerializeField] private AudioContainer m_deathSound;
+
 
     public int objectId;
     private SphereCollider m_collider;
@@ -27,6 +29,11 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
     [SerializeField] private Transform m_root;
 
     private ReturnObjectToPool m_visualreturn;
+    private ObjectPoolManager m_poolDeathParticle;
+    private AudioSource m_audioSource;
+
+    public void SetPoolDeathEffect(ObjectPoolManager t) => m_poolDeathParticle = t;
+    public void SetAudioSource(AudioSource audioSource) => m_audioSource = audioSource;
 
     private void Awake()
     {
@@ -60,6 +67,10 @@ public class T_Enemy : MonoBehaviour, ILockOnTarget, IDamage
         m_hp -= damage;
         if(m_hp <= 0)
         {
+            GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
+            deathParticle.transform.position = Transform.position;
+            deathParticle.SetActive(true);
+            m_audioSource.PlayOneShot(m_deathSound.AudioClip, m_deathSound.Volume);
             ReturnToPool();
         }
     }

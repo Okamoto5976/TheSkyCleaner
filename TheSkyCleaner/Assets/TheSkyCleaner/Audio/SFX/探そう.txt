@@ -1,0 +1,36 @@
+acceleration1　ブースタージャンプ２（ラボ）
+acceleration2_1　ビーム砲３(ラボ)
+acceleration2_2  文字表示の衝撃音１(ラボ)
+acceleration3　　マジカル１０（魔王）だけど炎０６も（魔王）どっちも同じ屋根
+arm1　ロボットが腕を動かす１(ラボ)
+arm2　ロボットが腕を動かす２(ラボ)
+arm3(short use)　魔力の満ちた部屋（ラボ）
+arm4 　メニューを開く２(ラボ)
+arm5         重火器・ビームサーベル（音人）
+avoidance1   ジャンプ（ラボ）２個あるから間違えないでね俺間違えたから
+butan cancel1　キャンセル６　(ラボ)
+botan1　決定ボタンを押す１２(ラボ)
+botan2　決定ボタンを押す２２(ラボ)
+botan3　決定ボタンを押す２３(ラボ)
+botan4　決定ボタンを押す２６(ラボ)
+botan5　決定ボタンを押す４２(ラボ)
+chatrge1　ビーム砲チャージ(ラボ)
+damage1　ロボットを殴る２(ラボ)
+damage2　衝突・衝撃（鉄）04（音人）
+energy bullet1　ビーム法１(ラボ)
+energy bullet2　ショット(ラボ)
+energy bullet3　文字アニメーション１(ラボ)
+energy bullet4　銃０５（魔王）
+explosion1　爆発４(ラボ)
+explosion2　爆破・破砕音（音人）
+hit by attack1  回転０４（音人）
+Low fuel warning　警告音２(ラボ)
+meteo ミサイル・隕石・衝突爆発（音人）
+net1　重火器・大砲０５(音人)
+recovery 
+something1　ビーム砲２(ラボ)
+stamp1　背負い投げ１(ラボ)
+stamp2  文字表示の衝撃音３（ラボ）
+Sweep1　キックの素振り２(ラボ)
+The pose and the opening　ニュースタイトル表示４(ラボ)
+スピードアップそのまんま（ラボ）まあ使わん

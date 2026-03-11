@@ -21,6 +21,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [System.NonSerialized] public float m_moveSpeed;
     [System.NonSerialized] public Vector3 m_direction;
 
+    [SerializeField] private AudioContainer m_deathSound;
+
     private Vector3 m_initDir;
 
     private bool m_isMove = false;
@@ -49,6 +51,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     private float m_moveTime = 2f;
 
     public Vector3 ReticleOffset => m_reticleOffset;
+
+    private AudioSource m_audioSource;
 
     private void Awake()
     {
@@ -102,6 +106,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     public void SetPoolObj(TrashManager t) => m_trashManager = t;
     public void SetPoolDeathEffect(ObjectPoolManager t) => m_poolDeathParticle = t;
+    public void SetAudioSource(AudioSource audioSource) => m_audioSource = audioSource;
 
 
     public void Damage(int damage)
@@ -131,6 +136,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
             GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
             deathParticle.transform.position = Transform.position;
             deathParticle.SetActive(true);
+
+            m_audioSource.PlayOneShot(m_deathSound.AudioClip, m_deathSound.Volume);
 
             ReturnToPool();
         }

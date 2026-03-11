@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
 
     private WaitForSeconds m_dodgeTime;
 
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_dodgeSound;
+
     private void Awake()
     {
         m_transform = transform;
@@ -96,6 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDodgeSuccess()
     {
+        m_audioSource.PlayOneShot(m_dodgeSound.AudioClip, m_dodgeSound.Volume);
         StartCoroutine(DoDodgeInvulnerability());
     }
 
