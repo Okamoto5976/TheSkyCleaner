@@ -30,6 +30,8 @@ public class ReticleController : MonoBehaviour
 
     [SerializeField] private IntegerContainer m_maxArmCount;
 
+    [SerializeField] private float m_maxDistance = 30;
+
     public Vector3 RectPos { get => m_rect.position; }
     public int MaxCount { get => m_maxArmCount.Value; }
 
@@ -186,6 +188,7 @@ public class ReticleController : MonoBehaviour
             Vector3 sp = m_mainCamera.WorldToScreenPoint(target.ReticlePosition);
 
             if (sp.z < m_playerPos.z) continue;
+            if (sp.z > m_maxDistance) continue;
 
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
                 m_LockOnCandidates.Add(target);
