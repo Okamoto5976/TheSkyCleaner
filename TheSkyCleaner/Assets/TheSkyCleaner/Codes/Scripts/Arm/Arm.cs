@@ -13,6 +13,8 @@ public class Arm : MonoBehaviour
     [SerializeField] private ArmController m_controller;
     [SerializeField] private Camera m_camera;
     [SerializeField] private InventorySO m_inventory;
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_armShootSound;
 
     private State m_state  = State.Idle;
 
@@ -109,6 +111,7 @@ public class Arm : MonoBehaviour
         m_targetTransform = target.Transform;
         m_transform.SetParent(null);
         m_state = State.Moving;
+        m_audioSource.PlayOneShot(m_armShootSound.AudioClip, m_armShootSound.Volume);
     }
 
 

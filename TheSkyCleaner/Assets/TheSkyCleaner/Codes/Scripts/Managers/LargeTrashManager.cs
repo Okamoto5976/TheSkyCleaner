@@ -32,6 +32,7 @@ public class LargeTrashManager : MonoBehaviour
     [SerializeField] private float m_moveSpeed = 10f;
     [SerializeField] private Vector3 m_direction;
 
+    [SerializeField] private AudioSource m_audioSource;
 
     private void Awake()
     {
@@ -83,6 +84,7 @@ public class LargeTrashManager : MonoBehaviour
 
         Obj.SetPoolObj(m_trashManager);//LargeTrashController‚Étrash‚ðŒÄ‚×‚é‚æ‚¤“n‚·
         Obj.SetPoolDeathEffect(m_poolDeathParticles);
+        Obj.SetAudioSource(m_audioSource);
 
         return;
     }

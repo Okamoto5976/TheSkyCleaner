@@ -16,7 +16,7 @@ public class SetTrigger : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        m_container.Trigger();
+        //m_container.Trigger();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
