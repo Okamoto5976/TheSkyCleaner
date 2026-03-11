@@ -10,9 +10,24 @@ public class TrashManager : MonoBehaviour
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMin;       // 最小生成範囲　ゴミのみ
     [SerializeField] private Vector2 m_spawnTrashMax;       // 最大生成範囲  ゴミのみ
-    [SerializeField] private float m_spawnTrashInterval = 0.3f;
+    [SerializeField] private float m_spawnTrashInterval;
 
     private WaitForSeconds m_sleepTime;
+    private Coroutine m_coroutine;
+
+    [SerializeField] private GameObject m_boss;//のちにコンテナの座標をとる
+
+    [System.Serializable]
+    public struct CollectType
+    {
+        [SerializeField] private ObjectPoolManager m_visualPool;
+        [SerializeField] private CollectSO m_collectData;
+        public ObjectPoolManager VisualPool => m_visualPool;
+        public CollectSO CollectData => m_collectData;
+    };
+
+    [Header("Collect Types (Sequences)")]
+    [SerializeField] private CollectType[] m_collectTypes;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed = 10f;
@@ -45,11 +60,22 @@ public class TrashManager : MonoBehaviour
 
         GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
         var Obj = obj.GetComponent<TrashController>();
-        Obj.SetMoveDirection(m_direction);
+
+        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
         Obj.SetMoveSpeed(m_moveSpeed);
         Obj.Initialized(m_direction);
-        //Debug.Log($"{m_moveSpeed}");
-        //Debug.Log($"{m_direction}");
+
+        int idx = Random.Range(0, m_collectTypes.Length);
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
         //ゴミの設定
         SetTrashInfo(obj);
 
@@ -58,11 +84,63 @@ public class TrashManager : MonoBehaviour
         return;
     }
 
+    public GameObject SetEnemyThrow()//EnemyがTrash取得につかう
+    {
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
+        var Obj = obj.GetComponent<TrashController>();
+
+        Obj.SetMoveDirection(m_direction);
+        Obj.SetMoveSpeed(m_moveSpeed);
+        Obj.Initialized(m_direction);
+
+        int idx = Random.Range(0, m_collectTypes.Length);
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
+
+        return obj;
+    }
+
+    public GameObject SetThrow(int index)//LargeTrashのほうで呼ぶ
+    {
+        GameObject obj = m_pool.GetObjectFromPool(); //呼び出し
+        var Obj = obj.GetComponent<TrashController>();
+
+        Vector3 randomDir = Random.onUnitSphere;//球体の表面上に点を返す
+        randomDir.Normalize();
+
+        Obj.SetMoveDirection(randomDir);
+        Obj.SetMoveSpeed(m_moveSpeed);
+        Obj.Initialized(m_direction);
+
+        int idx = index;
+        var seq = m_collectTypes[idx];
+
+        var pool = seq.VisualPool;
+        Obj.SetVisual(pool);
+
+        var data = seq.CollectData;
+        Obj.SetStatsData(data);
+
+        return obj;
+    }
+
     public void SetTrashInfo(GameObject obj)
     {
-        SetRandomPosition(obj);
+        //SetRandomPosition(obj);
+        SetSpawn(obj);
     }
  
+    private void SetSpawn(GameObject obj)
+    {
+        obj.transform.position = m_boss.transform.position;
+        obj.SetActive(true);
+    }
+
     private void SetRandomPosition(GameObject obj)
     {
         float randX = UnityEngine.Random.Range(m_spawnTrashMin.x, m_spawnTrashMax.x);
@@ -71,6 +149,16 @@ public class TrashManager : MonoBehaviour
         obj.SetActive(true);
     }
 
-    public void StartSpawn() { StartCoroutine(SpawnOnTimer()); }
-    public void StopSpawn() { StopCoroutine(SpawnOnTimer()); }
+    public void StartSpawn() 
+    { 
+        m_coroutine = StartCoroutine(SpawnOnTimer()); 
+    }
+    public void StopSpawn()
+    { 
+        if(m_coroutine != null)
+        {
+            StopCoroutine(m_coroutine);
+            m_coroutine = null;
+        }
+    }
 }

@@ -17,22 +17,22 @@ public class ES_TrashSpawnAtEnemy : EnemyState
 
     public override void OnUpdate(float deltaTime)
     {
-        var pool = est.PoolTrash;
+        var trashm = est.TrashManager;
 
         // ˆê’èŠÔŠu‚Åæ“¾‚µ‚Ä‰Šú‰»
         if (m_isSpawnTrash)
         {
             m_isSpawnTrash = false;
 
-            //æ“¾
-            m_trash = pool.GetComponentFromPool();
 
+
+            //æ“¾
+            var obj = trashm.SetEnemyThrow();
+            m_trash = obj.GetComponent<TrashController>();
 
             //¶¬ˆÊ’u 
             m_trash.transform.position = _transform.position;
-
             m_trash.gameObject.SetActive(true);
-
         }
         if (m_trash == null) return;
 

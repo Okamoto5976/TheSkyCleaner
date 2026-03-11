@@ -7,8 +7,6 @@ public class TargetableManager : MonoBehaviour
     [SerializeField] private EnemyPoolManager m_enemyPoolManager;
     [SerializeField] private TrashPoolManager m_trashPoolManager;
     [SerializeField] private LargeTrashPoolManager m_largeTrashPoolManager;
-    [SerializeField] private BossController m_bossController;
-    [SerializeField] private BooleanContainer m_isBossActive;
 
     private Camera m_mainCamera;
 
@@ -24,9 +22,8 @@ public class TargetableManager : MonoBehaviour
     public IEnumerable<ILockOnTarget> GetTargetableList(RectTransform rectTransform, float distance = -1)
     {
         Rect rect = GetScreenRect(rectTransform);
-        var l = GetMergedList()
+        return GetMergedList()
             .Where(x => IsTargetable(x, rect) && IsInRange(x, distance));
-        return l;
     }
 
     private Rect GetScreenRect(RectTransform rectTransform)

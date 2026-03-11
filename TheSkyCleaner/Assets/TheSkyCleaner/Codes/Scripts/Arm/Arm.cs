@@ -16,10 +16,11 @@ public class Arm : MonoBehaviour
 
     private State m_state  = State.Idle;
 
-    private ILockOnTarget m_enemies;
+    private ILockOnTarget m_targets;
     private GameObject m_targetEnemy;
     private Transform m_targetTransform;
     private Transform m_transform;
+    private Quaternion m_initialRotation;
     private Vector3 m_returnPosition;
 
     private int m_index;
@@ -32,6 +33,7 @@ public class Arm : MonoBehaviour
     {
         m_transform = transform;
         m_returnPosition = m_transform.localPosition;
+        m_initialRotation = gameObject.transform.rotation;//回転保存
     }
 
     private void FixedUpdate()
@@ -68,21 +70,21 @@ public class Arm : MonoBehaviour
         if (Vector3.Distance(m_transform.position, m_targetTransform.position) < 0.5f)
         {
             //もしゴミなら素材回収。　敵ならダメージを　インターフェースで
-            if (m_enemies is IDamage iDamage)
+            if (m_targets is IDamage iDamage)
             {
-                iDamage.Damage(m_attack);
+                if (iDamage.TryCollect(m_attack))
+                {
+                    //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
+                    //配列で入れられるね！
+                    var drop = m_targets.Collect();
+                    m_inventory.AddMultiple(drop);
+                }
             }
-
-            //素材回収のさいSOの中身にMaterial1..2..3　となるので変数を1.2　と用意することで
-            //配列で入れられるね！
-            var drop = m_enemies.GetDropData();
-
-            if(drop.Fuel > 0)
+            else//IDamageがない　Trashに向けて
             {
-
+                var drop = m_targets.Collect();
+                m_inventory.AddMultiple(drop);
             }
-
-            m_inventory.AddMultiple(drop);
 
             return false;
         }
@@ -102,7 +104,7 @@ public class Arm : MonoBehaviour
         m_playerPos = player;
 
 
-        m_enemies = target;
+        m_targets = target;
         m_targetEnemy = target.GameObject;
         m_targetTransform = target.Transform;
         m_transform.SetParent(null);
@@ -112,6 +114,10 @@ public class Arm : MonoBehaviour
 
     public void Move()
     {
+        Vector3 dir = m_targetEnemy.transform.position - m_transform.position;
+        Quaternion lookRot = Quaternion.LookRotation(dir);
+        transform.rotation = lookRot;//回転させる
+
         if(m_targetEnemy == null)
         {
             Return();
@@ -135,6 +141,7 @@ public class Arm : MonoBehaviour
         if(Vector3.Distance(m_transform.position, m_player.position + m_returnPosition) < 0.05f)
         {
             m_transform.SetParent(m_player.parent);
+            transform.rotation = m_initialRotation;//回転初期化
             m_state = State.Idle;
             m_controller.Return(m_id,m_index);
 

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class ReticleController : MonoBehaviour
 {
@@ -23,8 +22,6 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private RectTransform m_rect;
     [SerializeField] private AxisVector3Container m_targetAxis;
     [SerializeField] private float m_reticleSpeed;
-    [SerializeField] private BossController m_bossController;
-    [SerializeField] private BooleanContainer m_isBossActive;
     private float m_reticleDistance;
 
     [SerializeField] private int m_maxCount;
@@ -108,7 +105,11 @@ public class ReticleController : MonoBehaviour
 
         RemoveSaveEnemies();
 
+        UpdateLockOnMarkers(m_SaveTargets);
+        UpdateShotReticle();
+
         m_targetAxis.SetValue(m_rect.position);
+
     }
 
     public void MoveReticle(Vector2 delta)
@@ -119,8 +120,6 @@ public class ReticleController : MonoBehaviour
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
-        UpdateLockOnMarkers(m_SaveTargets);
-        UpdateShotReticle();
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -154,15 +153,6 @@ public class ReticleController : MonoBehaviour
         LockOnTargets(enemies);
         LockOnTargets(trashes);
         LockOnTargets(largeTrashes);
-
-        if (m_isBossActive.Value)
-        {
-            ILockOnTarget ilot = m_bossController;
-            Vector3 sp = m_mainCamera.WorldToScreenPoint(ilot.ReticlePosition);
-
-            if (GetScreenRect(m_rect).Contains(new Vector2(sp.x, sp.y)))
-                m_LockOnCandidates.Add(m_bossController);
-        }
     }
 
     private void LockOnTargets(IEnumerable<ILockOnTarget> targets)
@@ -173,13 +163,14 @@ public class ReticleController : MonoBehaviour
         {
             if (!target.GameObject.activeSelf) continue;
 
-            Vector3 sp = m_mainCamera.WorldToScreenPoint(target.ReticlePosition);
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(target.Transform.position);
 
             if (sp.z < m_playerPos.z) continue;
 
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
                 m_LockOnCandidates.Add(target);
         }
+
     }
     private void UpdateLockEnemies()//ŒŸ’m‚³‚ê‚½’†‚Å‹ß‚¢‚à‚Ì‚ð“ü‚ê‚é
     {
@@ -188,7 +179,7 @@ public class ReticleController : MonoBehaviour
         Vector3 selfPos = transform.position;
 
         var sort = m_LockOnCandidates
-            .OrderBy(e => ((e.ReticlePosition) - selfPos).magnitude)
+            .OrderBy(e => (e.Transform.position - selfPos).magnitude)
             .Take(m_maxCount);
 
         foreach (var enemy in sort)
@@ -233,7 +224,7 @@ public class ReticleController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            marker.transform.position = enemy.ReticlePosition;
+            marker.transform.position = enemy.Transform.position;
 
             marker.gameObject.SetActive(true);
         }
@@ -246,9 +237,11 @@ public class ReticleController : MonoBehaviour
             var enemy = m_SaveTargets[i];
             float reticleDistance = Vector3.Distance(m_mainCamera.transform.position, m_rect.position);
 
-            Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.ReticlePosition);
+            Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
 
-            if (pos.z < reticleDistance)
+            if (pos.z < reticleDistance 
+                || !enemy.GameObject.activeSelf 
+                || enemy == null)
             {
                 m_SaveTargets.RemoveAt(i);
             }
@@ -266,7 +259,7 @@ public class ReticleController : MonoBehaviour
         {
             if (!m_shotMarker.gameObject.activeSelf) m_shotMarker.gameObject.SetActive(true);
 
-            m_shotMarker.transform.position = enemy.ReticlePosition;
+            m_shotMarker.transform.position = enemy.Transform.position;
         }
     }
 
