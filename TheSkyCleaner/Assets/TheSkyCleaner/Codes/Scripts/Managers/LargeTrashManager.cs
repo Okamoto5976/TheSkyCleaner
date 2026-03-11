@@ -5,6 +5,7 @@ public class LargeTrashManager : MonoBehaviour
 {
     [SerializeField] private Logger m_logger;
     [SerializeField] private ObjectPoolManager m_poollargetrash; // Inspector で割り当て
+    [SerializeField] private ObjectPoolManager m_poolDeathParticles;
     [SerializeField] private TrashManager m_trashManager;
 
     [SerializeField] private Vector3 m_spawnPos;            // 生成位置（Zのみ使用）ゴミのみ
@@ -81,6 +82,7 @@ public class LargeTrashManager : MonoBehaviour
         //Debug.Log(obj);
 
         Obj.SetPoolObj(m_trashManager);//LargeTrashControllerにtrashを呼べるよう渡す
+        Obj.SetPoolDeathEffect(m_poolDeathParticles);
 
         return;
     }

@@ -97,8 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::T_Enemy
   m_enemyStateMachine: {fileID: 6649456880405196421}
   m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_playerHealth: {fileID: 11400000, guid: da587cd6a27038549bb024557c48abd9, type: 2}
+  m_playerHealth: {fileID: 11400000, guid: 2bf6be4a8ba20ad4dba7f3b6a1c9ccf6, type: 2}
   objectId: 0
+  m_reticleOffset: {x: 0, y: 0, z: 0}
   m_root: {fileID: 5509967017714668642}
 --- !u!114 &6649456880405196421
 MonoBehaviour:

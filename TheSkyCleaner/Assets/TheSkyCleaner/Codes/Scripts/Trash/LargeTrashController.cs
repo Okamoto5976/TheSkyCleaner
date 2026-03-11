@@ -1,4 +1,5 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -13,6 +14,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
     private TrashManager m_trashManager;
+    private TrashPoolManager m_poolTrash;
+    private ObjectPoolManager m_poolDeathParticle;
 
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
@@ -30,20 +33,22 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [Header("Trash")]
     //[SerializeField] private int m_trashSpawn;
     [SerializeField] private int m_trashSpeed;
-    private int m_index; //TrashÇÃéÌóﬁÅiWood Ç‚ Metal)
 
-    private TrashController m_trash; //è¨Ç≥Ç¢ÉSÉ~ñ{ëÃ
+    private int m_index; 
+
+    private TrashController m_trash; //Â∞è„Åï„ÅÑ„Ç¥„ÉüÊú¨‰Ωì
     public Transform Transform => m_transform;
     public GameObject GameObject => gameObject;
     public DropSO GetDropData() => m_collectSO.Drop;
+    [SerializeField] private Vector3 m_reticleOffset;
 
-    //visualÇ…ä÷ÇÌÇÈÇ‡ÇÃ
     [SerializeField] private Transform m_root;
 
     private ReturnObjectToPool m_visualreturn;
 
-    //ÉâÉìÉ_ÉÄÇ»ï˚å¸Ç…ìÆÇ≠å„ÅAéûä‘åoâﬂÇ≈zé≤Ç…ìÆÇ≠
     private float m_moveTime = 2f;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
 
     private void Awake()
     {
@@ -80,7 +85,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     {
         m_movementHandler.MoveAll(m_direction);
 
-        //ìñÇΩÇËîªíË
+        //ÂΩì„Åü„ÇäÂà§ÂÆö
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
         if (dis < m_collider.radius) 
@@ -96,6 +101,7 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     }
 
     public void SetPoolObj(TrashManager t) => m_trashManager = t;
+    public void SetPoolDeathEffect(ObjectPoolManager t) => m_poolDeathParticle = t;
 
 
     public void Damage(int damage)
@@ -105,12 +111,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         if(m_hp <= 0)
         {
             var obj = m_trashManager.SetThrow(m_index);
-
-            obj.transform.position = this.transform.position;
-            obj.gameObject.SetActive(true);
-
-            //m_trash = m_poolTrash.GetComponentFromPool();//à íuéwíËÇµÇƒÇ»Ç¢
-            //                                                //ê∂ê¨à íu 
+            //m_trash = m_poolTrash.GetComponentFromPool();//‰ΩçÁΩÆÊåáÂÆö„Åó„Å¶„Å™„ÅÑ
+            //                                                //ÁîüÊàê‰ΩçÁΩÆ 
             //m_trash.transform.position = this.transform.position;
             //m_trash.gameObject.SetActive(true);
             //m_trash.SetMoving(true);
@@ -118,20 +120,32 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
             //Vector3 dir = new Vector3(0, 0, -1);
             //m_trash.SetMoveDirection(dir);
 
+            obj.transform.position = this.transform.position;
+            obj.gameObject.SetActive(true);
+            //for (int i = 0; i < m_trashSpawn; i++)
+            //{
+
+
+            //}
+
+            GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
+            deathParticle.transform.position = Transform.position;
+            deathParticle.SetActive(true);
+
             ReturnToPool();
         }
     }
 
-    public void SetVisual(ObjectPoolManager pool,int index)
+    public void SetVisual(ObjectPoolManager pool, int index)
     {
-        //returnèàóù
+        //returnÔøΩÔøΩÔøΩÔøΩ
         if (m_visualreturn != null)
         {
             m_visualreturn.ReturnToPool();
             m_visualreturn = null;
         }
 
-        //visualìKâû
+        //visualÔøΩKÔøΩÔøΩ
         GameObject visual = pool.GetObjectFromPool();
 
         visual.transform.SetParent(m_root);

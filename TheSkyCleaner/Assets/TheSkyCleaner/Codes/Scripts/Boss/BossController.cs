@@ -38,6 +38,9 @@ public class BossController : MonoBehaviour, IDamage
     [SerializeField] private BooleanContainer m_isBossActive;
     [SerializeField] private IntegerContainer m_currentBossPhaseIndex;
     [SerializeField] private IntegerContainer m_currentBossStateIndex;
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
     private int CurrentPhaseIndex
     {
         get { return m_currentBossPhaseIndex.Value; }
@@ -81,6 +84,7 @@ public class BossController : MonoBehaviour, IDamage
     {
         m_transform = transform;
         m_movementHandler = GetComponent<MovementHandler>();
+        m_bossHealth.ResetHealth();
     }
     public DropSO Collect()
     {
@@ -129,16 +133,9 @@ public class BossController : MonoBehaviour, IDamage
         if (!m_isExitState) return;
 
         m_stateTime -= Time.deltaTime;
-        if (CurrentState.IsStateEnd)
+        if (CurrentState.IsStateEnd || m_stateTime <= 0)
         {
             m_isExitState = false;
-        }
-
-        if (m_stateTime <= 0)
-        {
-            CurrentState.AdvanceAction(this);
-            m_stateTime = CurrentState.GetActionTime();
-            m_logger.Log($"Next Action for {m_stateTime}", this);
         }
 
         CurrentState.DoAction(this);
@@ -190,7 +187,7 @@ public class BossController : MonoBehaviour, IDamage
         m_isBossActive.SetValue(true);
         CurrentStateIndex = 0;
         m_stateTime = CurrentState.EnterAction(this);
-        m_logger.Log($"Boss Activate : {m_stateTime}", this);
+        m_logger.Log($"{m_stateTime}", this);
     }
 
     private void Deactivate()
@@ -200,7 +197,7 @@ public class BossController : MonoBehaviour, IDamage
         m_isBossActive.SetValue(false);
         CurrentStateIndex = 0;
         m_stateTime = CurrentState.EnterAction(this);
-        m_logger.Log($"Boss Deactivate : time = {m_stateTime}, Phase = {CurrentPhaseIndex}", this);
+        m_logger.Log($"{m_stateTime}", this);
     }
 
 

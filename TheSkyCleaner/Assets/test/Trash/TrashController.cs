@@ -33,6 +33,9 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     public DropSO GetDropData()=> m_collectSO.Drop;
 
+    [SerializeField] private Vector3 m_reticleOffset;
+
+    public Vector3 ReticleOffset => m_reticleOffset;
     //visual‚ÉŠÖ‚í‚é‚à‚Ì
     [SerializeField] private Transform m_root;
 

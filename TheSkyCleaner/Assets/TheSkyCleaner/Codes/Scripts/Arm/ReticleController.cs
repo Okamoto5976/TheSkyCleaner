@@ -24,6 +24,9 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private float m_reticleSpeed;
     private float m_reticleDistance;
 
+    [SerializeField] private BossController m_bossController;
+    [SerializeField] private BooleanContainer m_isBossActive;
+
     [SerializeField] private int m_maxCount;
 
     public Vector3 RectPos { get => m_rect.position; }
@@ -120,6 +123,9 @@ public class ReticleController : MonoBehaviour
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
+
+        UpdateLockOnMarkers(m_SaveTargets);
+        UpdateShotReticle();
     }
 
     public Rect GetScreenRect(RectTransform reticle)
@@ -153,6 +159,15 @@ public class ReticleController : MonoBehaviour
         LockOnTargets(enemies);
         LockOnTargets(trashes);
         LockOnTargets(largeTrashes);
+
+        if (m_isBossActive.Value)
+        {
+            ILockOnTarget ilot = m_bossController;
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(ilot.ReticlePosition);
+
+            if (GetScreenRect(m_rect).Contains(new Vector2(sp.x, sp.y)))
+                m_LockOnCandidates.Add(m_bossController);
+        }
     }
 
     private void LockOnTargets(IEnumerable<ILockOnTarget> targets)
@@ -163,7 +178,7 @@ public class ReticleController : MonoBehaviour
         {
             if (!target.GameObject.activeSelf) continue;
 
-            Vector3 sp = m_mainCamera.WorldToScreenPoint(target.Transform.position);
+            Vector3 sp = m_mainCamera.WorldToScreenPoint(target.ReticlePosition);
 
             if (sp.z < m_playerPos.z) continue;
 
@@ -179,7 +194,7 @@ public class ReticleController : MonoBehaviour
         Vector3 selfPos = transform.position;
 
         var sort = m_LockOnCandidates
-            .OrderBy(e => (e.Transform.position - selfPos).magnitude)
+            .OrderBy(e => (e.ReticlePosition - selfPos).magnitude)
             .Take(m_maxCount);
 
         foreach (var enemy in sort)
@@ -224,7 +239,7 @@ public class ReticleController : MonoBehaviour
             var enemy = saveEnemies[i];
             var marker = m_lockOnMarkers[i];
 
-            marker.transform.position = enemy.Transform.position;
+            marker.transform.position = enemy.ReticlePosition;
 
             marker.gameObject.SetActive(true);
         }
@@ -237,7 +252,7 @@ public class ReticleController : MonoBehaviour
             var enemy = m_SaveTargets[i];
             float reticleDistance = Vector3.Distance(m_mainCamera.transform.position, m_rect.position);
 
-            Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.Transform.position);
+            Vector3 pos = m_mainCamera.WorldToViewportPoint(enemy.ReticlePosition);
 
             if (pos.z < reticleDistance 
                 || !enemy.GameObject.activeSelf 
@@ -259,7 +274,7 @@ public class ReticleController : MonoBehaviour
         {
             if (!m_shotMarker.gameObject.activeSelf) m_shotMarker.gameObject.SetActive(true);
 
-            m_shotMarker.transform.position = enemy.Transform.position;
+            m_shotMarker.transform.position = enemy.ReticlePosition;
         }
     }
 
