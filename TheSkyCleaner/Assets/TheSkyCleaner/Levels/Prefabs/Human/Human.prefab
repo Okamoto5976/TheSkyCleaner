@@ -76,6 +76,7 @@ MonoBehaviour:
   m_collectSO: {fileID: 7341474914294682652, guid: 33db560b8dbed904aaa5a15654f199a2, type: 2}
   m_moveDirection: {x: 0, y: -1, z: 0}
   m_reticleOffset: {x: 0, y: 0, z: 0}
+  m_returnHeight: -20
 --- !u!1001 &8781169846717175747
 PrefabInstance:
   m_ObjectHideFlags: 0
