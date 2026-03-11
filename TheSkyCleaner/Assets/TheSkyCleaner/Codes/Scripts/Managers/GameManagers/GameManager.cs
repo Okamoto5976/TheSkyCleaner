@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
 
     private int m_score;
     private float m_clearTime;
-   
 
+    private bool m_ischeck = false;
     private void Start()
     {
         //Load SequenseIndex
@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
             m_score = 0;
             m_clearTime = 0;
         }
+
+        m_ischeck = false;
     }
 
     private void Update()
@@ -170,8 +172,11 @@ public class GameManager : MonoBehaviour
     {
         if (m_bossHealth.Value > 0) return;
 
+        if (m_ischeck == true) return;
         m_resultScreen.SetActive(true);
         m_result.Result(m_score,m_clearTime);
+        m_ischeck = true;
+
     }
 
 

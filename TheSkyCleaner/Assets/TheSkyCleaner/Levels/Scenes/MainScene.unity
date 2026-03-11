@@ -375,11 +375,11 @@ MonoBehaviour:
   m_sequences:
   - m_phase: {fileID: 11400000, guid: 3389c13166e39714faf673173f10e559, type: 2}
     m_isLoopCheck: 1
-    m_bossRunHealth: 30
+    m_bossRunHealth: 50
     m_isBossDownCheck: 0
   - m_phase: {fileID: 11400000, guid: 4ed6a73a0fb019449b639a25f153438f, type: 2}
     m_isLoopCheck: 1
-    m_bossRunHealth: 30
+    m_bossRunHealth: 25
     m_isBossDownCheck: 0
   - m_phase: {fileID: 11400000, guid: 410c32feb93c2054b8e6720e03433def, type: 2}
     m_isLoopCheck: 1
@@ -20719,11 +20719,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::spawner
   m_meteoritePrefab: {fileID: 1932610862344823085, guid: 6641a97008ebeeb419c87e1678451b89, type: 3}
   m_playerTransflom: {fileID: 762919352}
-  m_mode: 0
+  m_mode: 1
   m_meteoProbability: 20
   m_gambling: 10
-  m_meteoritespeed: 10
-  m_BesideDistance: 15
+  m_meteoritespeed: 20
+  m_BesideDistance: 35
   m_BackDistance: 60
 --- !u!4 &308419856
 Transform:
@@ -29493,7 +29493,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 762947256}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1814818441}
+        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
+        m_MethodName: Back
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &974305648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29796,14 +29808,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1501945709}
   - {fileID: 1394227392}
+  - {fileID: 1501945709}
   m_Father: {fileID: 1473834625}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 299, y: -312}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 480, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1063593719
 MonoBehaviour:
@@ -32331,6 +32343,7 @@ MonoBehaviour:
   m_bossController: {fileID: 243624928}
   m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
   m_maxArmCount: {fileID: 11400000, guid: 471ed3d8d2ed20c41b094f46514966f4, type: 2}
+  m_maxDistance: 30
   m_playerAxis: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
   m_reticleControll: {fileID: 11400000, guid: dae98eb23c83031479f38d6bc2890b3f, type: 2}
 --- !u!1 &1380350747
@@ -32421,7 +32434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1438173473, guid: e462bbb8b29a662419c2e9cc4953c217, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38071,8 +38084,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -38089,8 +38102,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -44555,6 +44568,7 @@ MonoBehaviour:
   m_bgmSlider: {fileID: 1315947254}
   m_seSlider: {fileID: 1930160255}
   m_save: {fileID: 41182764}
+  m_mainScene: {fileID: 0}
 --- !u!1 &1823312147
 GameObject:
   m_ObjectHideFlags: 0
@@ -46007,9 +46021,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 41182760}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: MoveToTitleScene
+      - m_Target: {fileID: 1814818441}
+        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

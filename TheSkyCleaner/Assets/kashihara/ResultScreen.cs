@@ -148,7 +148,6 @@ public class ResultScreen : MonoBehaviour
         m_text[4].text = m_enhanceLevel[2].ToString();
         m_text[5].text = m_enhanceLevel[3].ToString();
         m_text[6].text = m_enhanceLevel[4].ToString();
-        m_text[7].text = m_enhanceLevel[5].ToString();
     }
 
     // Update is called once per frame

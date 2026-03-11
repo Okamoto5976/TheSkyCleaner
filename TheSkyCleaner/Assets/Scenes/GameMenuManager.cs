@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameMenuManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private Slider m_seSlider;
 
     [SerializeField] private SaveManager m_save;
+    [SerializeField] private StringContainer m_mainScene;
 
     private InputAction m_Pause;
     private void Start()
@@ -144,6 +147,6 @@ public class GameMenuManager : MonoBehaviour
 
     public void Quit()
     {
-        
+        SceneManager.LoadScene(m_mainScene.Value);
     }
 }
