@@ -34,7 +34,7 @@ public class meteorite : MonoBehaviour
 
         //“–‚½‚è”»’è
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
-
+        Debug.Log(dis);
         if (dis < m_collider.radius)
         {
             m_playerHealth.Damage(m_attack);

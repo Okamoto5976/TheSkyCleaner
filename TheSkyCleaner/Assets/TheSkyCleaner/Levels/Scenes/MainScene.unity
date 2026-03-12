@@ -20797,13 +20797,13 @@ MonoBehaviour:
   m_meteoritePrefab: {fileID: 1932610862344823085, guid: 6641a97008ebeeb419c87e1678451b89, type: 3}
   m_playerTransflom: {fileID: 762919352}
   m_mode: 1
-  m_meteoProbability: 20
+  m_meteoProbability: 25
   m_gambling: 10
   m_meteoritespeed: 20
   m_BesideDistance: 35
   m_BackDistance: 60
   m_audioSource: {fileID: 1239266086}
-  m_meteoSound: {fileID: 0}
+  m_meteoSound: {fileID: 11400000, guid: 27f92efe4cef5bd439605087d6f58630, type: 2}
 --- !u!4 &308419856
 Transform:
   m_ObjectHideFlags: 0
@@ -27968,17 +27968,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Healing
       objectReference: {fileID: 0}
+    - target: {fileID: 4098186211002091686, guid: 99aa1c03ab683624aa79ac19e16e43f8, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8685486251701962555, guid: 99aa1c03ab683624aa79ac19e16e43f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.20006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8685486251701962555, guid: 99aa1c03ab683624aa79ac19e16e43f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.94
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8685486251701962555, guid: 99aa1c03ab683624aa79ac19e16e43f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.6399999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8685486251701962555, guid: 99aa1c03ab683624aa79ac19e16e43f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33029,7 +33033,7 @@ MonoBehaviour:
   m_bossController: {fileID: 243624928}
   m_isBossActive: {fileID: 11400000, guid: aa2912f2334ed3c42a60ed9d43eb5dd2, type: 2}
   m_maxArmCount: {fileID: 11400000, guid: 471ed3d8d2ed20c41b094f46514966f4, type: 2}
-  m_maxDistance: 30
+  m_maxDistance: 45
   m_playerAxis: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
   m_reticleControll: {fileID: 11400000, guid: dae98eb23c83031479f38d6bc2890b3f, type: 2}
 --- !u!1 &1380350747
@@ -48212,7 +48216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -46}
+  m_AnchoredPosition: {x: 0, y: -45.99997}
   m_SizeDelta: {x: 480, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4641996395182906287

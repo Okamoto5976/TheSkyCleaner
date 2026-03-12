@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Meteo
   m_EditorClassIdentifier: Assembly-CSharp::AudioContainer
   m_audioClip:
-  - {fileID: 8300000, guid: 11ea7febfd60f484b8b8134686c1726f, type: 3}
+  - {fileID: 8300000, guid: 15cfa8573d276e248b2f813b1b9426bc, type: 3}
   m_volume: 1

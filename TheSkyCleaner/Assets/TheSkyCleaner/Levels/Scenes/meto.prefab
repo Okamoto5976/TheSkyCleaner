@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1932610862344823085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: 2.09, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54,7 +54,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1452597900172989339
 MonoBehaviour:
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::meteorite
   m_playerHealth: {fileID: 11400000, guid: 2bf6be4a8ba20ad4dba7f3b6a1c9ccf6, type: 2}
   m_playerPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_attack: 50
+  m_attack: 9999
 --- !u!1001 &2745241168289308695
 PrefabInstance:
   m_ObjectHideFlags: 0
