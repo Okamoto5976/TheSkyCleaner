@@ -1,13 +1,16 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class EnhanceManager : MonoBehaviour
 {
     [SerializeField] private SaveManager m_savemanager;
+    [SerializeField] private FadeManager m_fadeManager;
     [SerializeField] private Skillget m_skillget;
 
     [SerializeField] private StringContainer m_mainScene;
+
+    [SerializeField] private GameOption m_gameOption;
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
 
     private void Start()
     {
@@ -25,8 +28,12 @@ public class EnhanceManager : MonoBehaviour
 
     public void MoveToMainScene()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+        m_gameOption.m_canCloseMenu = false;
+
         m_skillget.SaveSkillType();
-        SceneManager.LoadScene(m_mainScene.Value);
+        m_fadeManager.ChangeScene(m_mainScene.Value, false);
 
     }
 }

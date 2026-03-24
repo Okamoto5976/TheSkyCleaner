@@ -10,6 +10,9 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
+    [SerializeField] private int m_score;
+
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
@@ -46,7 +49,6 @@ public class TrashController : MonoBehaviour, ILockOnTarget
 
     private void Awake()
     {
-        m_collider = gameObject.GetComponent<SphereCollider>();
         m_transform = transform;
     }
 
@@ -82,14 +84,17 @@ public class TrashController : MonoBehaviour, ILockOnTarget
         //“–‚½‚è”»’è
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
-        if(dis < m_collider.radius)
+        
+        if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
-            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
 
-        if (gameObject.transform.position.z <= m_playerPos.Value.z - 5)
+        if (m_collider == null) return;
+
+        if (dis < m_collider.radius)
         {
+            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
 
@@ -115,6 +120,8 @@ public class TrashController : MonoBehaviour, ILockOnTarget
         visual.SetActive(true);
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+
+        m_collider = visual.GetComponent<SphereCollider>();
     }
 
     public void SetStatsData(CollectSO collectSO)
@@ -133,8 +140,15 @@ public class TrashController : MonoBehaviour, ILockOnTarget
     public DropSO Collect()
     {
         DropSO drop = GetDropData();
+        AddScore(m_score);
         ReturnToPool();
         return drop;
+    }
+
+    public void AddScore(int value)
+    {
+        int score = m_scoreContainer.Value + value;
+        m_scoreContainer.SetValue(score);
     }
 }
 

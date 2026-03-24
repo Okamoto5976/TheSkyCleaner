@@ -5,7 +5,7 @@ public class GameScore : MonoBehaviour
 {
     [SerializeField] private IntegerContainer m_score;
 
-    //public int Score { get; private set; }
+    public int Score { get; private set; }
 
     public event Action<int> OnScoreChange;//スコア表示などに使う
 

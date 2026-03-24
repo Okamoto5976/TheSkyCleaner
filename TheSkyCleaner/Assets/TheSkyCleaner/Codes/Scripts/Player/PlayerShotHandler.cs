@@ -13,7 +13,7 @@ public class PlayerShotHandler : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioContainer m_shotSound;
-    [SerializeField] private AudioHandler m_audioSource;
+    [SerializeField] private AudioSource m_audioSource;
 
     [SerializeField] private List<AxisVector3Container> m_shotPositions;
 
@@ -47,7 +47,7 @@ public class PlayerShotHandler : MonoBehaviour
     private void OnShoot()
     {
         ShootBullet();
-        m_audioSource.PlayOneShot(m_shotSound);
+        m_audioSource.PlayOneShot(m_shotSound.AudioClip, m_shotSound.Volume);
     }
 
     public void ShootBullet()

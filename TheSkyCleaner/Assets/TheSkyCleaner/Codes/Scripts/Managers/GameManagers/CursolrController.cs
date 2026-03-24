@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class CursolrController : MonoBehaviour
 {
     [SerializeField] RectTransform m_cursor;
-    [SerializeField] private float m_speed = 10f;
+    //[SerializeField] private float m_speed = 10f;
     [SerializeField] private bool m_isMainSceneCheck;
 
     private void Start()

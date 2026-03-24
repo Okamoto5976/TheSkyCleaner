@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40dd08c1076f4f8498c659029b108f0e, type: 3}
-  m_Name: 20WaitPhase
-  m_EditorClassIdentifier: Assembly-CSharp::WaitPhase
-  duration: 20
+  m_Script: {fileID: 11500000, guid: 0c4db3a5c0aafca44a49630bbf04ce21, type: 3}
+  m_Name: IsFadeSkip
+  m_EditorClassIdentifier: Assembly-CSharp::BooleanContainer
+  m_initialValue: 0
+  m_value: 0

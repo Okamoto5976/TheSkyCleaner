@@ -42,6 +42,8 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Boss Container")]
     [SerializeField] private GameObject m_boss;
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private ObjectPoolManager m_poolDeathParticles;
 
     private void Awake()
     {
@@ -90,6 +92,8 @@ public class EnemyManager : MonoBehaviour
 
         var data = seq.EnemyData;
         obj.SetStatsData(data);
+        obj.SetPoolDeathEffect(m_poolDeathParticles);
+        obj.SetAudioSource(m_audioSource);
 
         List<EnemyStateMachine.StateMachineInstance> seqInstance = new();
         foreach (var s in seq.EnemyType.States)
@@ -119,6 +123,7 @@ public class EnemyManager : MonoBehaviour
 
         // シーケンスを割り当てて開始
         machine.SetSequence(seqInstance, m_loopSequence);
+        
 
         machine.Initialize();
     }

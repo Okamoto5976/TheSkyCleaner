@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ES_SeekTarget
   m_EditorClassIdentifier: Assembly-CSharp::ES_SeekTarget
   m_direction: {x: 0, y: 0, z: 1}
-  m_moveSpeed: 8
+  m_moveSpeed: 4
   m_playerPosition: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}

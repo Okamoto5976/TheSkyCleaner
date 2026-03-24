@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,23 +30,42 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private List<SequenceLoop> m_sequences;
+    [SerializeField] private ParticleSystem m_deathbossParticle;
 
     [SerializeField] private SaveManager m_saveManager;
+    [SerializeField] private FadeManager m_fadeManager;
+    [SerializeField] private GameMenuManager m_gameMenuManager;//resultï¿½ï¿½menuï¿½Jï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½ï¿½
     [SerializeField] private SkillAdapt m_skilladapt;
     [SerializeField] private EnemyManager m_EM;
     [SerializeField] private TrashManager m_TM;
     [SerializeField] private LargeTrashManager m_LTM;
+
     [SerializeField] private GameObject m_resultScreen;
     [SerializeField] private ResultScreen m_result;
+    [SerializeField] private TextMeshProUGUI m_phaseText;
+
     [SerializeField] private FloatContainer m_reticleControll;
+    [SerializeField] private IntegerContainer m_bossPhase;
+    [SerializeField] private BooleanContainer m_isDamageInvulnerable;
+
     [SerializeField] private GameObject m_boss;
 
+    [SerializeField] private Slider m_slider;
+
+    [SerializeField] private IntegerContainer m_scoreContainer;
     private int m_score;
     private float m_clearTime;
-   
 
+    private bool m_ischeck = false;
+
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
     private void Start()
     {
+        m_slider.value = m_reticleControll.Value;
+        m_isDamageInvulnerable.SetValue(false);
+
         //Load SequenseIndex
         var data = m_saveManager.PhaseLoad();
         if(data != null )
@@ -58,9 +77,11 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex = 0;
         }
 
+        m_phaseText.text = (m_sequenceIndex + 1).ToString();
         Debug.Log(m_sequenceIndex);
+        m_bossPhase.SetValue(m_sequenceIndex);
 
-        //ƒtƒF[ƒYˆ—
+        //ï¿½tï¿½Fï¿½[ï¿½Yï¿½ï¿½ï¿½ï¿½
         foreach (var phase in m_sequences[m_sequenceIndex].Phase.m_phase)
         {
             var instance = Instantiate(phase);
@@ -70,7 +91,7 @@ public class GameManager : MonoBehaviour
 
         NextPhase();
 
-        //‹­‰»ƒXƒLƒ‹Load or “K‰
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Lï¿½ï¿½Load or ï¿½Kï¿½ï¿½
         m_skilladapt.LoadSkillType();
 
         var gamedata = m_saveManager.CurrentDataLoad();
@@ -84,6 +105,8 @@ public class GameManager : MonoBehaviour
             m_score = 0;
             m_clearTime = 0;
         }
+
+        m_ischeck = false;
     }
 
     private void Update()
@@ -92,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         if (m_currentPhase == null) return;
 
-        if(m_currentPhase.OnUpdate(Time.deltaTime))//true ‚ÅI—¹
+        if(m_currentPhase.OnUpdate(Time.deltaTime))//true ï¿½ÅIï¿½ï¿½
         {
             m_currentPhase.OnExit();
             NextPhase();
@@ -100,7 +123,7 @@ public class GameManager : MonoBehaviour
 
         GameOver();
 
-        ////ƒfƒoƒbƒO‚Ì‚½‚ß
+        ////ï¿½fï¿½oï¿½bï¿½Oï¿½Ì‚ï¿½ï¿½ï¿½
         //if (Keyboard.current.tKey.wasPressedThisFrame)
         //{
         //    if(m_sequenceIndex < m_sequences.Count - 1)
@@ -112,7 +135,7 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene(1);
         //}
 
-        ////ƒfƒoƒbƒO‚Ì‚½‚ß
+        ////ï¿½fï¿½oï¿½bï¿½Oï¿½Ì‚ï¿½ï¿½ï¿½
         //if (Keyboard.current.yKey.wasPressedThisFrame)
         //{
         //    m_sequenceIndex = 0;
@@ -126,7 +149,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //boss‚Ìhp < 0@‚Ì‚Æ‚«@ƒŠƒUƒ‹ƒg•\¦etc...
+            //bossï¿½ï¿½hp < 0ï¿½@ï¿½Ì‚Æ‚ï¿½ï¿½@ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½\ï¿½ï¿½etc...
             GameClear();
         }
     }
@@ -162,30 +185,50 @@ public class GameManager : MonoBehaviour
             m_sequenceIndex++;
         }
         m_saveManager.PhaseSave(m_sequenceIndex);
+        m_gameMenuManager.m_canCloseMenu = false;
+
+        AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
-        SceneManager.LoadScene(m_enhanceScene.Value);
+        m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
     }
 
     private void GameClear()
     {
         if (m_bossHealth.Value > 0) return;
 
+        if (m_ischeck == true) return;
+        m_ischeck = true;
+        m_deathbossParticle.Play();
+
         m_resultScreen.SetActive(true);
+
+        AddScore();
+        m_gameMenuManager.m_canCloseMenu = false;
         m_result.Result(m_score,m_clearTime);
+        Time.timeScale = 0f;//ï¿½~ï¿½ß‚ï¿½
     }
 
 
     private void GameOver()
     {
         if (m_playerHealth.Value > 0) return;
+        m_gameMenuManager.m_canCloseMenu = false;
+
+        AddScore();
         m_saveManager.ScoreSave(m_score, m_clearTime);
 
-        SceneManager.LoadScene(m_enhanceScene.Value);
+        m_fadeManager.ChangeScene(m_enhanceScene.Value, false);
+
     }
 
-    public void MoveToTitleScene()
+    public void MoveToTitleScene()//ï¿½ï¿½ï¿½ç‚­ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½@timeScaleï¿½ï¿½ß‚ï¿½
     {
-        SceneManager.LoadScene(m_titleScene.Value);
+        Time.timeScale = 1f;
+        m_gameMenuManager.m_canCloseMenu = false;
+
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+        m_fadeManager.ChangeScene(m_titleScene.Value, false);
     }
 
     public void StartEnemyPool() { m_EM.StartSpawn(); }
@@ -196,11 +239,19 @@ public class GameManager : MonoBehaviour
     public void StopLargeTrashPool() { m_LTM.StopSpawn(); }
 
     /// <summary>
-    /// Š´“x
+    /// ï¿½ï¿½ï¿½x
     /// </summary>
     public void SetReticleControll(float value)
     {
         m_reticleControll.SetValue(value);
 
+    }
+
+    //--ï¿½{ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½Xï¿½Rï¿½Ascriptï¿½É•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--
+    //--ï¿½È—ï¿½ï¿½ÈƒXï¿½Rï¿½Aï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--
+    //--saveï¿½Å‚ï¿½SOï¿½Å‚ï¿½ï¿½Û‘ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚½ï¿½ß‹Cï¿½ï¿½ï¿½ï¿½ï¿½Ìˆï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚É‚È‚ï¿½ï¿½Ä‚Ü‚ï¿½
+    public void AddScore()
+    { 
+        m_score = m_scoreContainer.Value;
     }
 }

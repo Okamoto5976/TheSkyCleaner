@@ -14,6 +14,7 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private EnemyPoolManager m_enemypool;
     [SerializeField] private TrashPoolManager m_trashpool;
     [SerializeField] private LargeTrashPoolManager m_largeTrashpool;
+    [SerializeField] private HumanPoolManager m_humanPool;
 
 
     [SerializeField] private Image m_lockOnMarkerPrefab;
@@ -28,6 +29,8 @@ public class ReticleController : MonoBehaviour
     [SerializeField] private BooleanContainer m_isBossActive;
 
     [SerializeField] private IntegerContainer m_maxArmCount;
+
+    [SerializeField] private float m_maxDistance = 30;
 
     public Vector3 RectPos { get => m_rect.position; }
     public int MaxCount { get => m_maxArmCount.Value; }
@@ -120,8 +123,8 @@ public class ReticleController : MonoBehaviour
     public void MoveReticle(Vector2 delta)
     {
         Vector3 pos = m_rect.position;
-        pos.x += delta.x / 100 * m_reticleControll.Value;
-        pos.y += delta.y / 100 * m_reticleControll.Value;
+        pos.x += delta.x / 25 * m_reticleControll.Value;
+        pos.y += delta.y / 25 * m_reticleControll.Value;
         m_rect.position = pos;
         UpdateLockOnCandidates();
         UpdateLockEnemies();
@@ -150,17 +153,19 @@ public class ReticleController : MonoBehaviour
             max.y);
     }
 
-    private void UpdateLockOnCandidates()//”ÍˆÍ“à‚Ì‚·‚×‚Ä‚Ìpool“à‚Ì“G‚ðŽæ“¾
+    private void UpdateLockOnCandidates()//ï¿½ÍˆÍ“ï¿½ï¿½Ì‚ï¿½ï¿½×‚Ä‚ï¿½poolï¿½ï¿½ï¿½Ì“Gï¿½ï¿½ï¿½æ“¾
     {
         m_LockOnCandidates.Clear();
 
         var enemies = m_enemypool.GetActiveComponents();
         var trashes = m_trashpool.GetActiveComponents();
         var largeTrashes = m_largeTrashpool.GetActiveComponents();
+        var humans = m_humanPool.GetActiveComponents();
 
         LockOnTargets(enemies);
         LockOnTargets(trashes);
         LockOnTargets(largeTrashes);
+        LockOnTargets(humans);
 
         if (m_isBossActive.Value)
         {
@@ -183,13 +188,14 @@ public class ReticleController : MonoBehaviour
             Vector3 sp = m_mainCamera.WorldToScreenPoint(target.ReticlePosition);
 
             if (sp.z < m_playerPos.z) continue;
+            if (sp.z > m_maxDistance) continue;
 
             if (lockOnRect.Contains(new Vector2(sp.x, sp.y)))
                 m_LockOnCandidates.Add(target);
         }
 
     }
-    private void UpdateLockEnemies()//ŒŸ’m‚³‚ê‚½’†‚Å‹ß‚¢‚à‚Ì‚ð“ü‚ê‚é
+    private void UpdateLockEnemies()//ï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Å‹ß‚ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         m_LockTargets.Clear();
 

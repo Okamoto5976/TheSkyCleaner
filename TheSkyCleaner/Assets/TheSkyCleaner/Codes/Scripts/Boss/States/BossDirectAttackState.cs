@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BossDirectAttackState", menuName = "Scriptable Objects/Boss/States/Direct Attack State")]
@@ -63,7 +62,7 @@ public class BossDirectAttackState : BossStateBase
         {
             Rect adjustedRect = attackArea;
             adjustedRect.center = new Vector3(adjustedRect.x, adjustedRect.y, 0);
-            Debug.Log($"{adjustedRect}, {bossController.PlayerPosition}");
+            //Debug.Log($"{adjustedRect}, {bossController.PlayerPosition}");
             if (adjustedRect.Contains(bossController.PlayerPosition))
             {
                 bossController.PlayerHealth.Damage(m_attackStrength);

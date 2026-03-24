@@ -19,7 +19,7 @@ MonoBehaviour:
   - serializedVersion: 2
     x: 0
     y: 0
-    width: 5
+    width: 12
     height: 10
   m_attackStrength: 20
   m_endTime: 1.17

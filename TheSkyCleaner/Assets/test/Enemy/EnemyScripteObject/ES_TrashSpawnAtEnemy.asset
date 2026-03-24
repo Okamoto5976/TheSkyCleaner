@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ES_TrashSpawnAtEnemy
   m_EditorClassIdentifier: Assembly-CSharp::ES_TrashSpawnAtEnemy
   m_targetPos: {fileID: 11400000, guid: 24057d4ca4b5c364c97678bb4cac21f2, type: 2}
-  m_trashSpeed: 8
+  m_trashSpeed: 10

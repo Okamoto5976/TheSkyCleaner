@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class AudioManager : MonoBehaviour
     //BGM用、SE用に分けてオーディオソースを持つ
     public AudioSource m_attachBGMSource, m_attachSESource;
 
+    [SerializeField] private Slider m_bgmSlider;
+    [SerializeField] private Slider m_seSlider;
+
     void Awake()
     {
 
@@ -28,6 +32,9 @@ public class AudioManager : MonoBehaviour
         var loadAudio = m_save.AudioLoad();
         m_attachBGMSource.volume = loadAudio.data.BGMVolume;
         m_attachSESource.volume = loadAudio.data.SEVolume;
+
+        m_bgmSlider.value = m_attachBGMSource.volume;
+        m_seSlider.value = m_attachSESource.volume;
     }
 
     //=================================================================================
@@ -117,7 +124,7 @@ public class AudioManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         m_attachBGMSource.volume = volume;
-        Debug.Log(volume);
+        //Debug.Log(volume);
         SaveVolume();
     }
     /// <summary>
@@ -132,7 +139,7 @@ public class AudioManager : MonoBehaviour
 
     public void SaveVolume()
     {
-        Debug.Log("SaveVolume");
+        //Debug.Log("SaveVolume");
         m_save.AudioSave(m_attachBGMSource.volume, m_attachSESource.volume);
     }
 }

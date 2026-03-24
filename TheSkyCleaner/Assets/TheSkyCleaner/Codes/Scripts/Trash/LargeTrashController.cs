@@ -10,6 +10,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [SerializeField] private AxisVector3Container m_playerPos;
     [SerializeField] private HealthContainer m_playerHealth;
 
+    [SerializeField] private IntegerContainer m_scoreContainer;
+    [SerializeField] private int m_score;
+
     [Header("Refalence")]
     [SerializeField] private MovementHandler m_movementHandler;
     [SerializeField] private ReturnObjectToPool m_returnObjectToPool;
@@ -20,6 +23,8 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     [Header("Movement")]
     [System.NonSerialized] public float m_moveSpeed;
     [System.NonSerialized] public Vector3 m_direction;
+
+    [SerializeField] private AudioContainer m_deathSound;
 
     private Vector3 m_initDir;
 
@@ -50,9 +55,10 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
 
     public Vector3 ReticleOffset => m_reticleOffset;
 
+    private AudioSource m_audioSource;
+
     private void Awake()
     {
-        m_collider = GetComponent<SphereCollider>();
         m_transform = transform;
     }
 
@@ -88,20 +94,25 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         //当たり判定
         float dis = Vector3.Distance(gameObject.transform.position, m_playerPos.Value);
 
-        if (dis < m_collider.radius) 
-        {
-            m_playerHealth.Damage(m_attack);
-            ReturnToPool();
-        }
+       
 
         if(gameObject.transform.position.z <= m_playerPos.Value.z - 5)
         {
+            ReturnToPool();
+        }
+
+        if (m_collider == null) return;
+
+        if (dis < m_collider.radius)
+        {
+            m_playerHealth.Damage(m_attack);
             ReturnToPool();
         }
     }
 
     public void SetPoolObj(TrashManager t) => m_trashManager = t;
     public void SetPoolDeathEffect(ObjectPoolManager t) => m_poolDeathParticle = t;
+    public void SetAudioSource(AudioSource audioSource) => m_audioSource = audioSource;
 
 
     public void Damage(int damage)
@@ -110,30 +121,32 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         
         if(m_hp <= 0)
         {
-            var obj = m_trashManager.SetThrow(m_index);
-            //m_trash = m_poolTrash.GetComponentFromPool();//位置指定してない
-            //                                                //生成位置 
-            //m_trash.transform.position = this.transform.position;
-            //m_trash.gameObject.SetActive(true);
-            //m_trash.SetMoving(true);
-            //m_trash.SetMoveSpeed(m_trashSpeed);
-            //Vector3 dir = new Vector3(0, 0, -1);
-            //m_trash.SetMoveDirection(dir);
 
-            obj.transform.position = this.transform.position;
-            obj.gameObject.SetActive(true);
-            //for (int i = 0; i < m_trashSpawn; i++)
-            //{
+            TrashThrow();
+            AddScore(m_score);
 
-
-            //}
 
             GameObject deathParticle = m_poolDeathParticle.GetObjectFromPool();
             deathParticle.transform.position = Transform.position;
             deathParticle.SetActive(true);
 
+            DeathAudioPlay();
+
             ReturnToPool();
         }
+    }
+
+    private void TrashThrow()
+    {
+        var obj = m_trashManager.SetThrow(m_index);
+
+        obj.transform.position = this.transform.position;
+        obj.gameObject.SetActive(true);
+    }
+
+    private void DeathAudioPlay()
+    {
+        m_audioSource.PlayOneShot(m_deathSound.AudioClip, m_deathSound.Volume);
     }
 
     public void SetVisual(ObjectPoolManager pool, int index)
@@ -157,6 +170,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
         m_index = index;
 
         m_visualreturn = visual.GetComponent<ReturnObjectToPool>();
+
+        m_collider = visual.GetComponent<SphereCollider>();
+
     }
 
     public void SetStatsData(CollectSO collectSO)
@@ -175,6 +191,9 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     public DropSO Collect()
     {
         DropSO drop = GetDropData();
+        TrashThrow();
+        AddScore(m_score);
+
         ReturnToPool();
         return drop;
     }
@@ -183,5 +202,11 @@ public class LargeTrashController : MonoBehaviour, ILockOnTarget,IDamage
     {
         m_hp -= damage;
         return m_hp - damage <= 0;
+    }
+
+    public void AddScore(int value)
+    {
+        int score = m_scoreContainer.Value + value;
+        m_scoreContainer.SetValue(score);
     }
 }

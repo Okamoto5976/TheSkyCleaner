@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameMenuManager : MonoBehaviour
 {
@@ -12,8 +14,16 @@ public class GameMenuManager : MonoBehaviour
 
     [SerializeField] private Slider m_bgmSlider;
     [SerializeField] private Slider m_seSlider;
+    [SerializeField] private GameObject m_ReticleScreen;
 
     [SerializeField] private SaveManager m_save;
+    [SerializeField] private StringContainer m_titleScene;
+
+
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioContainer m_buttonSound;
+
+    public bool m_canCloseMenu = true;//チュートリアル中に閉じないよう一時的な処置　またアニメーション中に押せないように
 
     private InputAction m_Pause;
     private void Start()
@@ -23,12 +33,19 @@ public class GameMenuManager : MonoBehaviour
         m_optionUI.SetActive(false);
         Time.timeScale = 1.0f;
         m_Pause = InputSystem.actions.FindAction("Pause");
+
+        m_canCloseMenu = true;
     }
     void Update()
     {
+        if(m_canCloseMenu == false) return;
+
         //ESCキーが押された時
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
             ESCpussyu();
+
+        }
         // if (m_Pause.WasPressedThisFrame())
         // {
 
@@ -76,8 +93,10 @@ public class GameMenuManager : MonoBehaviour
     }
     private void ESCpussyu()
     {
+
+
         //オプションが開いてるならオプションだけ消してポーズに戻る
-        if(m_optionUI.activeSelf)
+        if (m_optionUI.activeSelf)
         {
             
             OptionsClose();
@@ -96,19 +115,34 @@ public class GameMenuManager : MonoBehaviour
 
     public void OpenPose()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         m_poseUI.SetActive(true);//ポーズ開く
+
+        m_ReticleScreen.SetActive(false);
+
         Time.timeScale = 0f;//止める
         EventSystem.current.SetSelectedGameObject(m_poseButtonFrame);
     }
     public void ReturnGame()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("ゲームに戻る");
         m_poseUI.SetActive(false);//ポーズ消す
         m_optionUI.SetActive(false);//一応念のため
+
+        m_ReticleScreen.SetActive(true);
+
         Time.timeScale = 1f;//時は動き出す
     }
     public void OpenOptions()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("オプション");
         m_poseUI.SetActive(false);//ポーズ画面消す
         m_optionUI.SetActive(true);//オプション出す
@@ -118,6 +152,9 @@ public class GameMenuManager : MonoBehaviour
     }
     public void OptionsClose()
     {
+        m_audioSource.PlayOneShot(m_buttonSound.AudioClip, m_buttonSound.Volume);
+
+
         Debug.Log("戻る");
         m_optionUI.SetActive(false);//消す
         m_poseUI.SetActive(true);//ポーズに戻す
@@ -140,10 +177,5 @@ public class GameMenuManager : MonoBehaviour
     public void Back()
     {
         ReturnGame();
-    }
-
-    public void Quit()
-    {
-        
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a41aa4e0288b914ab5f02ffe249fc45, type: 3}
   m_Name: ReticleControll
   m_EditorClassIdentifier: Assembly-CSharp::FloatContainer
-  m_initialValue: 1
-  m_value: 0
+  m_initialValue: 0.6
+  m_value: 0.6
