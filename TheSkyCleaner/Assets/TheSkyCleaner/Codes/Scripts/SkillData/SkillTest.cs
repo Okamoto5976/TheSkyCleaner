@@ -21,6 +21,6 @@ public class SkillTest : MonoBehaviour
         //    {
         //        Debug.Log($"{obj.Key}��{obj.Value}����");
         //    }
-        //}
+        }
     }
 }
